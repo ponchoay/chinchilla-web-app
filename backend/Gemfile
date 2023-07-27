@@ -48,3 +48,7 @@ end
 
 # 環境変数を扱う
 gem 'dotenv-rails'
+
+# 認証機能用
+gem 'devise'
+gem 'devise_token_auth'
