@@ -61,3 +61,11 @@ Processing by Rails::WelcomeController#index as HTML
 Completed 200 OK in 25ms (Views: 6.0ms | ActiveRecord: 0.0ms | Allocations: 4752)
 
 
+Started GET "/" for ::1 at 2023-07-27 15:52:09 +0900
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /Users/cyrano/.rbenv/versions/3.1.1/lib/ruby/gems/3.1.0/gems/railties-7.0.6/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /Users/cyrano/.rbenv/versions/3.1.1/lib/ruby/gems/3.1.0/gems/railties-7.0.6/lib/rails/templates/rails/welcome/index.html.erb (Duration: 1.9ms | Allocations: 529)
+Completed 200 OK in 22ms (Views: 8.9ms | ActiveRecord: 0.0ms | Allocations: 4318)
+
+
