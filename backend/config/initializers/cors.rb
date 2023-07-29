@@ -11,6 +11,10 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
 
     resource "*",
       headers: :any,
-      methods: [:get, :post, :put, :patch, :delete, :options, :head]
+      # ヘッダー情報の公開
+      expose: ["access-token", "expiry", "token-type", "uid", "client"],
+      methods: [:get, :post, :put, :patch, :delete, :options, :head],
+      # Cookieを利用
+      credentials: true
   end
 end
