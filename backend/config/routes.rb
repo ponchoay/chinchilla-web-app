@@ -8,6 +8,15 @@ Rails.application.routes.draw do
       namespace :auth do
         resources :sessions, only: %i[index]
       end
+
+      # チンチラプロフィール一覧
+      get '/chinchillas', to: 'chinchillas#index'
+      # チンチラプロフィール作成
+      post '/chinchillas', to: 'chinchillas#create'
+      # チンチラプロフィール更新
+      put '/chinchillas/:id', to: 'chinchillas#update'
+      # チンチラプロフィール 削除
+      delete '/chinchillas/:id', to: 'chinchillas#destroy'
     end
   end
 end
