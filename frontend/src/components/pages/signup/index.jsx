@@ -16,6 +16,7 @@ export const SignUpPage = () => {
       const res = await signUp({ email, password })
       console.log(res)
 
+      // ステータス200 OK
       if (res.status === 200) {
         // ログインに成功した場合はCookieに各値を格納
         Cookies.set('_access_token', res.headers['access-token'])

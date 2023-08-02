@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import Cookies from 'js-cookie'
 import { signOut } from 'src/lib/api/auth'
@@ -29,7 +30,19 @@ export const MyPagePage = () => {
   return (
     <div>
       <h1>マイページ</h1>
-      <button onClick={handleSignOut}>ログアウト</button>
+      <div>
+        <Link href="/chinchilla-registration" passHref>
+          <button>チンチラの登録</button>
+        </Link>
+      </div>
+      <div>
+        <Link href="/mychinchilla" passHref>
+          <button>マイチンチラ</button>
+        </Link>
+      </div>
+      <div>
+        <button onClick={handleSignOut}>ログアウト</button>
+      </div>
     </div>
   )
 }
