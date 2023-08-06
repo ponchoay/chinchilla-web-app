@@ -16,9 +16,9 @@ export const getAllChinchillas = () => {
 }
 
 // チンチラプロフィール一覧(個別)
-export const getChinchilla = () => {
+export const getChinchilla = (chinchillaId) => {
   if (!Cookies.get('_access_token') || !Cookies.get('_client') || !Cookies.get('_uid')) return
-  return client.get(`/chinchillas/${params.chinchillaId}`, {
+  return client.get(`/chinchillas/${chinchillaId}`, {
     headers: {
       'access-token': Cookies.get('_access_token'),
       client: Cookies.get('_client'),

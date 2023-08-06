@@ -11,6 +11,8 @@ Rails.application.routes.draw do
 
       # チンチラプロフィール一覧
       get '/chinchillas', to: 'chinchillas#index'
+      # チンチラ個別プロフィール
+      get '/chinchillas/:id', to: 'chinchillas#show'
       # チンチラプロフィール作成
       post '/chinchillas', to: 'chinchillas#create'
       # チンチラプロフィール更新

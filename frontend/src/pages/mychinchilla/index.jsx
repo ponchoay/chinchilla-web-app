@@ -1,6 +1,6 @@
 import { MyChinchillaPage } from 'src/components/pages/mychinchilla'
 
-export default function MyPage() {
+export default function MyChinchilla() {
   return (
     <>
       <MyChinchillaPage />

@@ -9,6 +9,12 @@ class Api::V1::ChinchillasController < ApplicationController
     render json: chinchillas
   end
 
+  # チンチラ個別プロフィール
+  def show
+    chinchilla = Chinchilla.find(params[:id])
+    render json:chinchilla
+  end
+
   # チンチラプロフィール作成
   def create
     chinchilla = Chinchilla.new(chinchilla_params)
