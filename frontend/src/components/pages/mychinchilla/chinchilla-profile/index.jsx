@@ -1,16 +1,15 @@
 import { useEffect, useState, useContext } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { getChinchilla } from 'src/lib/api/chinchilla'
+import { getChinchilla, updateChinchilla, deleteChinchilla } from 'src/lib/api/chinchilla'
 import { SelectedChinchillaIdContext } from 'src/contexts/chinchilla'
-import { updateChinchilla } from 'src/lib/api/chinchilla'
 
 export const ChinchillaProfilePage = () => {
   const router = useRouter()
 
   //選択中のチンチラの状態管理（グローバル）
   const [selectedChinchilla, setSelectedChinchilla] = useState([])
-  const { chinchillaId } = useContext(SelectedChinchillaIdContext)
+  const { chinchillaId, setChinchillaId } = useContext(SelectedChinchillaIdContext)
 
   // 編集モードの状態管理
   const [isEditing, setIsEditing] = useState(false)
@@ -59,6 +58,20 @@ export const ChinchillaProfilePage = () => {
       } else {
         alert('チンチラプロフィール更新失敗')
       }
+    } catch (err) {
+      console.log(err)
+      alert('エラーです')
+    }
+  }
+
+  //チンチラのデータを削除
+  const handleDelete = async (e) => {
+    e.preventDefault()
+    try {
+      const res = await deleteChinchilla(chinchillaId)
+      console.log(res)
+      setChinchillaId(0)
+      router.replace('/mychinchilla')
     } catch (err) {
       console.log(err)
       alert('エラーです')
@@ -158,6 +171,7 @@ export const ChinchillaProfilePage = () => {
             >
               編集
             </button>
+            <button onClick={handleDelete}>削除</button>
           </div>
         </div>
       )}

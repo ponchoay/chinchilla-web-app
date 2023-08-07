@@ -52,9 +52,9 @@ export const updateChinchilla = ({ chinchillaId, params }) => {
 }
 
 // チンチラプロフィール削除
-export const deleteChinchilla = (params) => {
+export const deleteChinchilla = (chinchillaId) => {
   if (!Cookies.get('_access_token') || !Cookies.get('_client') || !Cookies.get('_uid')) return
-  return client.delete(`/chinchillas/${params.chinchillaId}`, params, {
+  return client.delete(`/chinchillas/${chinchillaId}`, {
     headers: {
       'access-token': Cookies.get('_access_token'),
       client: Cookies.get('_client'),
