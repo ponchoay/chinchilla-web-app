@@ -9,12 +9,19 @@ class Api::V1::ChinchillasController < ApplicationController
     render json: chinchillas
   end
 
+  # チンチラ個別プロフィール
+  def show
+    chinchilla = Chinchilla.find(params[:id])
+    render json:chinchilla
+  end
+
   # チンチラプロフィール作成
   def create
     chinchilla = Chinchilla.new(chinchilla_params)
     chinchilla.user_id = current_api_v1_user.id
 
     if chinchilla.save!
+      # 成功した場合、ステータス201を返す
       render json: chinchilla, status: :created
     else
       #エラー文を取得し、ステータス422を返す
@@ -25,7 +32,8 @@ class Api::V1::ChinchillasController < ApplicationController
   def update
     chinchilla = Chinchilla.find(params[:id])
     if chinchilla = chinchilla.update!(chinchilla_params)
-      render json: chinchilla
+      # 成功した場合、ステータス204を返す
+      render json: chinchilla,status: :no_content
     else
       #エラー文を取得し、ステータス422を返す
       render json: chinchilla.errors, status: :unprocessable_entity
