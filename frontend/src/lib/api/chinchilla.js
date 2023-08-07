@@ -40,9 +40,9 @@ export const createChinchilla = (params) => {
 }
 
 // チンチラプロフィール更新
-export const updateChinchilla = (params) => {
+export const updateChinchilla = ({ chinchillaId, params }) => {
   if (!Cookies.get('_access_token') || !Cookies.get('_client') || !Cookies.get('_uid')) return
-  return client.put(`/chinchillas/${params.chinchillaId}`, params, {
+  return client.put(`/chinchillas/${chinchillaId}`, params, {
     headers: {
       'access-token': Cookies.get('_access_token'),
       client: Cookies.get('_client'),
