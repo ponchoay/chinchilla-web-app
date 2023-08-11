@@ -35,30 +35,48 @@ export const SignUpPage = () => {
   }
 
   return (
-    <div>
-      <h1>新規登録</h1>
-      <Link href="/" passHref>
-        <button>TOPページ</button>
-      </Link>
-      <div>
-        <div>
-          <input
-            placeholder="your@email.com"
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-          />
-        </div>
-        <div>
-          <input
-            placeholder="パスワード"
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-          />
-        </div>
-        <button onClick={handleSubmit} disabled={!email || !password ? true : false}>
-          新規登録
-        </button>
+    <div className="mb-16 mt-40 grid place-content-center place-items-center">
+      <p className="text-center text-2xl font-bold tracking-widest text-dark-blue">新規登録</p>
+      <div className="form-control my-6 w-96">
+        <label className="label">
+          <span className="text-base text-dark-black">メールアドレス</span>
+        </label>
+        <input
+          type="text"
+          placeholder="your@email.com"
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
+          className="w-ful input input-bordered input-primary input-md border-dark-blue bg-ligth-white"
+        />
       </div>
+      <div className="form-control mb-6 w-96">
+        <label className="label">
+          <span className="text-base text-dark-black">パスワード</span>
+        </label>
+        <input
+          type="password"
+          placeholder="パスワード"
+          value={password}
+          onChange={(event) => setPassword(event.target.value)}
+          className="input input-bordered input-primary input-md border-dark-blue bg-ligth-white"
+        />
+        <label className="label">
+          <span className="text-sm text-dark-black">6文字以上の半角英数字</span>
+        </label>
+      </div>
+      <button
+        onClick={handleSubmit}
+        disabled={!email || !password ? true : false}
+        className="btn btn-primary h-16 w-40 rounded-[10px] text-base tracking-widest text-white"
+      >
+        新規登録
+      </button>
+      <p className="mb-6 mt-28 text-dark-black">アカウントをお持ちの方はこちら</p>
+      <Link href="/signin" passHref>
+        <button className="btn btn-secondary mb-40 h-16 w-40 rounded-[10px] text-base tracking-widest text-white">
+          ログイン
+        </button>
+      </Link>
     </div>
   )
 }
