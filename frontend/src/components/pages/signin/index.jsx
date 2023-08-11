@@ -4,6 +4,9 @@ import { useRouter } from 'next/router'
 import Cookies from 'js-cookie'
 import { signIn } from 'src/lib/api/auth'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
+
 export const SignInPage = () => {
   const router = useRouter()
   const [email, setEmail] = useState('')
@@ -34,6 +37,12 @@ export const SignInPage = () => {
     }
   }
 
+  // パスワード表示/非表示切り替え
+  const [isRevealPassword, setIsRevealPassword] = useState(false)
+  const togglePassword = () => {
+    setIsRevealPassword((prevState) => !prevState)
+  }
+
   return (
     <div className="mb-16 mt-40 grid place-content-center place-items-center">
       <p className="text-center text-2xl font-bold tracking-widest text-dark-blue">ログイン</p>
@@ -53,13 +62,24 @@ export const SignInPage = () => {
         <label className="label">
           <span className="text-base text-dark-black">パスワード</span>
         </label>
-        <input
-          type="password"
-          placeholder="パスワード"
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
-          className="input input-bordered input-secondary input-md border-dark-pink bg-ligth-white"
-        />
+        <div className="flex items-center">
+          <div className="relative">
+            <input
+              type={isRevealPassword ? 'text' : 'password'}
+              placeholder="password"
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+              className="input input-bordered input-secondary input-md w-96 border-dark-pink bg-ligth-white"
+            />
+            <span onClick={togglePassword} role="presentation" className="absolute right-3 top-3">
+              {isRevealPassword ? (
+                <FontAwesomeIcon icon={faEye} />
+              ) : (
+                <FontAwesomeIcon icon={faEyeSlash} />
+              )}
+            </span>
+          </div>
+        </div>
         <label className="label">
           <span className="text-sm text-dark-black">6文字以上の半角英数字</span>
         </label>
