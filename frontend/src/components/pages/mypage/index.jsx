@@ -1,10 +1,13 @@
+import { useContext } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import Cookies from 'js-cookie'
 import { signOut } from 'src/lib/api/auth'
+import { AuthContext } from 'src/contexts/auth'
 
 export const MyPagePage = () => {
   const router = useRouter()
+  const { isSignedIn, setIsSignedIn, currentUser } = useContext(AuthContext)
 
   // ログアウト機能
   const handleSignOut = async (e) => {
@@ -17,6 +20,8 @@ export const MyPagePage = () => {
         Cookies.remove('_client')
         Cookies.remove('_uid')
 
+        setIsSignedIn(false)
+
         router.push('/signin')
         console.log('ログアウトしました！')
       } else {
@@ -28,8 +33,15 @@ export const MyPagePage = () => {
     }
   }
   return (
-    <div>
-      <h1>マイページ</h1>
+    <div className="mb-16 mt-40 grid place-content-center place-items-center">
+      <p className="text-center text-2xl font-bold tracking-widest text-dark-blue">マイページ</p>
+      <div>
+        {isSignedIn && currentUser ? (
+          <p>メールアドレス：{currentUser?.email}</p>
+        ) : (
+          <p>Not signed in</p>
+        )}
+      </div>
       <div>
         <Link href="/chinchilla-registration" passHref>
           <button>チンチラの登録</button>
