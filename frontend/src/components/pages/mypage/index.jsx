@@ -48,11 +48,6 @@ export const MyPagePage = () => {
         </Link>
       </div>
       <div>
-        <Link href="/mychinchilla" passHref>
-          <button>マイチンチラ</button>
-        </Link>
-      </div>
-      <div>
         <button onClick={handleSignOut}>ログアウト</button>
       </div>
     </div>
