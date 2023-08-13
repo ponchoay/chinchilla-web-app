@@ -1,8 +1,9 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import Cookies from 'js-cookie'
 import { signUp } from 'src/lib/api/auth'
+import { AuthContext } from 'src/contexts/auth'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
@@ -11,6 +12,7 @@ export const SignUpPage = () => {
   const router = useRouter()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const { setIsSignedIn, setCurrentUser } = useContext(AuthContext)
 
   // 新規登録機能
   const handleSubmit = async (e) => {
@@ -25,6 +27,9 @@ export const SignUpPage = () => {
         Cookies.set('_access_token', res.headers['access-token'])
         Cookies.set('_client', res.headers['client'])
         Cookies.set('_uid', res.headers['uid'])
+
+        setIsSignedIn(true)
+        setCurrentUser(res.data.data)
 
         router.push('/mypage')
         console.log('新規登録成功！')
