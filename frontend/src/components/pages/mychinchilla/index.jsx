@@ -8,7 +8,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons'
 
 export const MyChinchillaPage = () => {
   const [allChinchillas, setAllChinchillas] = useState([])
-  const { chinchillaId, setChinchillaId } = useContext(SelectedChinchillaIdContext)
+  const { setChinchillaId } = useContext(SelectedChinchillaIdContext)
 
   const fetch = async () => {
     const res = await getAllChinchillas()
@@ -21,20 +21,17 @@ export const MyChinchillaPage = () => {
   }, [])
 
   return (
-    <div>
-      <h1>マイチンチラ</h1>
-      <Link href="/mypage" passHref>
-        <button>マイページ</button>
-      </Link>
-      <p>{chinchillaId}</p>
-      <div>
+    <div className="mb-16 mt-40 grid place-content-center place-items-center">
+      <p className="text-center text-2xl font-bold tracking-widest text-dark-blue">マイチンチラ</p>
+      <div className="mt-6 grid grid-cols-2 gap-20">
         {allChinchillas.map((chinchilla) => (
           <div key={chinchilla.id}>
             <Link
               href="/mychinchilla/chinchilla-profile"
               onClick={() => setChinchillaId(chinchilla.id)}
+              className="text-center"
             >
-              <p>名前：{chinchilla.chinchillaName}</p>
+              <p>{chinchilla.chinchillaName}</p>
             </Link>
           </div>
         ))}
