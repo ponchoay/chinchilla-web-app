@@ -1,8 +1,10 @@
 import { useEffect, useState, useContext } from 'react'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { getChinchilla, updateChinchilla, deleteChinchilla } from 'src/lib/api/chinchilla'
 import { SelectedChinchillaIdContext } from 'src/contexts/chinchilla'
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faAsterisk } from '@fortawesome/free-solid-svg-icons'
 
 export const ChinchillaProfilePage = () => {
   const router = useRouter()
@@ -79,68 +81,71 @@ export const ChinchillaProfilePage = () => {
   }
 
   return (
-    <div>
-      <h1>プロフィール</h1>
-      <Link href="/mychinchilla" passHref>
-        <button>マイチンチラ</button>
-      </Link>
+    <div className="mb-16 mt-40 grid place-content-center place-items-center">
+      <p className="text-center text-2xl font-bold tracking-widest text-dark-blue">プロフィール</p>
       {isEditing ? (
-        <div>
-          <div>
-            <p>
-              <label htmlFor="chinchillaName">
-                名前：
-                <input
-                  value={chinchillaName}
-                  onChange={(event) => setChinchillaName(event.target.value)}
-                />
-              </label>
-            </p>
+        <>
+          <div className="form-control mt-6 w-96">
+            <label className="label">
+              <span className="text-base text-dark-black">名前</span>
+              <div>
+                <FontAwesomeIcon icon={faAsterisk} className="mr-1 text-xs text-dark-pink" />
+                <span className="label-text-alt text-dark-black">必須入力</span>
+              </div>
+            </label>
+            <input
+              type="text"
+              value={chinchillaName}
+              onChange={(event) => setChinchillaName(event.target.value)}
+              className="w-ful input input-bordered input-primary input-md border-dark-blue bg-ligth-white"
+            />
           </div>
-          <div>
-            <p>
-              <label htmlFor="chinchillaSex">
-                性別：
-                <select
-                  value={chinchillaSex}
-                  onChange={(event) => setChinchillaSex(event.target.value)}
-                >
-                  性別
-                  <option value="オス">オス</option>
-                  <option value="メス">メス</option>
-                  <option value="不明">不明</option>
-                </select>
-              </label>
-            </p>
+          <div className="form-control mt-6 w-96">
+            <label className="label">
+              <span className="text-base text-dark-black">性別</span>
+              <div>
+                <FontAwesomeIcon icon={faAsterisk} className="mr-1 text-xs text-dark-pink" />
+                <span className="label-text-alt text-dark-black">必須入力</span>
+              </div>
+            </label>
+            <select
+              value={chinchillaSex}
+              onChange={(event) => setChinchillaSex(event.target.value)}
+              className="w-ful select select-bordered select-primary border-dark-blue bg-ligth-white text-sm font-light text-dark-black"
+            >
+              性別
+              <option value="オス">オス</option>
+              <option value="メス">メス</option>
+              <option value="不明">不明</option>
+            </select>
           </div>
-          <div>
-            <p>
-              <label htmlFor="chinchillaBirthday">
-                誕生日：
-                <input
-                  type="date"
-                  value={chinchillaBirthday}
-                  onChange={(event) => setChinchillaBirthday(event.target.value)}
-                />
-              </label>
-            </p>
+          <div className="form-control mt-6 w-96">
+            <label className="label">
+              <span className="text-base text-dark-black">誕生日</span>
+            </label>
+            <input
+              type="date"
+              value={chinchillaBirthday}
+              onChange={(event) => setChinchillaBirthday(event.target.value)}
+              className="w-ful input input-bordered input-primary input-md border-dark-blue bg-ligth-white"
+            />
           </div>
-          <div>
-            <p>
-              <label htmlFor="chinchillaMetDay">
-                お迎え日：
-                <input
-                  type="date"
-                  value={chinchillaMetDay}
-                  onChange={(event) => setChinchillaMetDay(event.target.value)}
-                />
-              </label>
-            </p>
+          <div className="form-control mb-12 mt-6 w-96">
+            <label className="label">
+              <span className="text-base text-dark-black">お迎え日</span>
+            </label>
+            <input
+              type="date"
+              value={chinchillaMetDay}
+              onChange={(event) => setChinchillaMetDay(event.target.value)}
+              className="w-ful input input-bordered input-primary input-md border-dark-blue bg-ligth-white"
+            />
           </div>
-          <div>
+          <div className="mb-40">
             <button
               onClick={handleSave}
               disabled={!chinchillaName || !chinchillaSex ? true : false}
+              className="btn btn-primary mr-24 h-16 w-40 rounded-[10px] text-base tracking-widest text-white"
             >
               保存
             </button>
@@ -148,18 +153,41 @@ export const ChinchillaProfilePage = () => {
               onClick={() => {
                 setIsEditing(false)
               }}
+              className="btn btn-secondary h-16 w-40 rounded-[10px] text-base tracking-widest text-white"
             >
-              編集中止
+              戻る
             </button>
           </div>
-        </div>
+        </>
       ) : (
-        <div>
-          <p>名前：{selectedChinchilla.chinchillaName}</p>
-          <p>性別：{selectedChinchilla.chinchillaSex}</p>
-          <p>誕生日：{selectedChinchilla.chinchillaBirthday}</p>
-          <p>お迎え日：{selectedChinchilla.chinchillaMetDay}</p>
-          <div>
+        <>
+          <div className="mt-6 h-[230px] w-[500px] rounded-xl bg-ligth-white">
+            <div className="mx-10 mt-6 flex border-b border-solid border-b-light-black">
+              <p className="w-24 text-center text-base text-dark-black">名前</p>
+              <p className="grow text-center text-base text-dark-black">
+                {selectedChinchilla.chinchillaName}
+              </p>
+            </div>
+            <div className="mx-10 mt-6 flex border-b border-solid border-b-light-black">
+              <p className="w-24 text-center text-base text-dark-black">性別</p>
+              <p className="grow text-center text-base text-dark-black">
+                {selectedChinchilla.chinchillaSex}
+              </p>
+            </div>
+            <div className="mx-10 mt-6 flex border-b border-solid border-b-light-black">
+              <p className="w-24 text-center text-base text-dark-black">誕生日</p>
+              <p className="grow text-center text-base text-dark-black">
+                {selectedChinchilla.chinchillaBirthday}
+              </p>
+            </div>
+            <div className="mx-10 mt-6 flex border-b border-solid border-b-light-black">
+              <p className="w-24 text-center text-base text-dark-black">お迎え日</p>
+              <p className="grow text-center text-base text-dark-black">
+                {selectedChinchilla.chinchillaMetDay}
+              </p>
+            </div>
+          </div>
+          <div className="mb-40 mt-12">
             <button
               onClick={() => {
                 setIsEditing(true)
@@ -168,12 +196,18 @@ export const ChinchillaProfilePage = () => {
                 setChinchillaBirthday(selectedChinchilla.chinchillaBirthday)
                 setChinchillaMetDay(selectedChinchilla.chinchillaMetDay)
               }}
+              className="btn btn-primary mr-24 h-16 w-40 rounded-[10px] text-base tracking-widest text-white"
             >
               編集
             </button>
-            <button onClick={handleDelete}>削除</button>
+            <button
+              onClick={handleDelete}
+              className="btn btn-secondary h-16 w-40 rounded-[10px] text-base tracking-widest text-white"
+            >
+              削除
+            </button>
           </div>
-        </div>
+        </>
       )}
     </div>
   )
