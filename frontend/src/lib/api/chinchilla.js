@@ -34,7 +34,8 @@ export const createChinchilla = (params) => {
     headers: {
       'access-token': Cookies.get('_access_token'),
       client: Cookies.get('_client'),
-      uid: Cookies.get('_uid')
+      uid: Cookies.get('_uid'),
+      'content-type': 'multipart/form-data'
     }
   })
 }
@@ -46,7 +47,8 @@ export const updateChinchilla = ({ chinchillaId, params }) => {
     headers: {
       'access-token': Cookies.get('_access_token'),
       client: Cookies.get('_client'),
-      uid: Cookies.get('_uid')
+      uid: Cookies.get('_uid'),
+      'content-type': 'multipart/form-data'
     }
   })
 }

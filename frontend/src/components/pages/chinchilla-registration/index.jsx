@@ -1,27 +1,63 @@
-import { useState } from 'react'
+import { useRef, useCallback, useState } from 'react'
 import { useRouter } from 'next/router'
 import { createChinchilla } from 'src/lib/api/chinchilla'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAsterisk } from '@fortawesome/free-solid-svg-icons'
+import { faAsterisk, faCirclePlus } from '@fortawesome/free-solid-svg-icons'
 
 export const ChinchillaRegistrationPage = () => {
   const router = useRouter()
+  const [chinchillaImage, setChinchillaImage] = useState('')
   const [chinchillaName, setChinchillaName] = useState('')
   const [chinchillaSex, setChinchillaSex] = useState('')
   const [chinchillaBirthday, setChinchillaBirthday] = useState('')
   const [chinchillaMetDay, setChinchillaMetDay] = useState('')
 
+  // プレビュー用
+  const [previewImage, setPreviewImage] = useState('')
+
+  // ページ上に表示されないinput用
+  const imageInputRef = useRef('')
+
+  // 隠れたinputをクリックイベントで画像を選択可能にする
+  const handleClickChangeImage = useCallback(() => {
+    if (!imageInputRef || !imageInputRef.current) return
+    imageInputRef.current.click()
+  }, [])
+
+  // 選択した画像を表示
+  const handleUpload = useCallback((e) => {
+    if (!e.target.files) return
+    const file = e.target.files[0]
+    console.log(file)
+
+    // プレビュー用（メモリ内のBLOBにアクセスするためのURL生成）
+    setPreviewImage(window.URL.createObjectURL(file))
+
+    // 画像選択後に選択キャンセルした場合のエラー回避
+    e.currentTarget.value = ''
+
+    // データ更新用
+    setChinchillaImage(file)
+  }, [])
+
+  // FormData形式でデータを作成
+  const createFormData = () => {
+    const formData = new FormData()
+    formData.append('chinchilla[chinchillaImage]', chinchillaImage)
+    formData.append('chinchilla[chinchillaName]', chinchillaName)
+    formData.append('chinchilla[chinchillaSex]', chinchillaSex)
+    formData.append('chinchilla[chinchillaBirthday]', chinchillaBirthday)
+    formData.append('chinchilla[chinchillaMetDay]', chinchillaMetDay)
+    return formData
+  }
+
   // チンチラプロフィール作成機能
   const handleSubmit = async (e) => {
     e.preventDefault()
+    const params = createFormData()
     try {
-      const res = await createChinchilla({
-        chinchillaName,
-        chinchillaSex,
-        chinchillaBirthday,
-        chinchillaMetDay
-      })
+      const res = await createChinchilla(params)
       console.log(res)
 
       // ステータス201 Created
@@ -41,6 +77,26 @@ export const ChinchillaRegistrationPage = () => {
       <p className="text-center text-2xl font-bold tracking-widest text-dark-blue">
         チンチラの登録
       </p>
+      <div className="relative">
+        <button onClick={handleClickChangeImage} className=" mt-6">
+          <img
+            src={previewImage ? previewImage : '/images/default.svg'}
+            alt="プロフィール画像"
+            className="h-[200px] w-[200px] rounded-3xl border border-solid border-dark-blue bg-ligth-white"
+          />
+          <FontAwesomeIcon
+            icon={faCirclePlus}
+            className="absolute bottom-[0px] right-[0px] z-10 text-4xl text-dark-blue"
+          />
+        </button>
+      </div>
+      <input
+        type="file"
+        accept="image/jpg,image/jpeg,image/gif,image/png"
+        onChange={handleUpload}
+        ref={imageInputRef}
+        className="file-input file-input-bordered file-input-primary hidden w-full max-w-xs"
+      />
       <div className="form-control mt-6 w-96">
         <label className="label">
           <span className="text-base text-dark-black">名前</span>
