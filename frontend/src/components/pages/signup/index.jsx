@@ -60,7 +60,7 @@ export const SignUpPage = () => {
           placeholder="your@email.com"
           value={email}
           onChange={(event) => setEmail(event.target.value)}
-          className="w-ful input input-bordered input-primary input-md border-dark-blue bg-ligth-white"
+          className="w-ful input input-bordered input-primary input-md border-dark-blue bg-ligth-white text-base text-dark-black"
         />
       </div>
       <div className="form-control mb-6 w-96">
@@ -74,7 +74,7 @@ export const SignUpPage = () => {
               placeholder="password"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
-              className="input input-bordered input-primary input-md w-96 border-dark-blue bg-ligth-white"
+              className="input input-bordered input-primary input-md w-96 border-dark-blue bg-ligth-white text-base text-dark-black"
             />
             <span onClick={togglePassword} role="presentation" className="absolute right-3 top-3">
               {isRevealPassword ? (
@@ -96,7 +96,7 @@ export const SignUpPage = () => {
       >
         新規登録
       </button>
-      <p className="mb-6 mt-28 text-dark-black">アカウントをお持ちの方はこちら</p>
+      <p className="mb-6 mt-28 text-dark-black text-base">アカウントをお持ちの方はこちら</p>
       <Link href="/signin" passHref>
         <button className="btn btn-secondary mb-40 h-16 w-40 rounded-[10px] text-base tracking-widest text-white">
           ログイン
