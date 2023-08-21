@@ -3,7 +3,7 @@ import Image from 'next/image'
 
 export const IndexPage = () => {
   return (
-    <div className="bg-bg">
+    <div>
       <div className="mb-16 mt-40 flex justify-center">
         <div className="carousel h-[400px] w-[599px] rounded-md">
           <div id="slide1" className="carousel-item relative h-[400px] w-[599px]">
