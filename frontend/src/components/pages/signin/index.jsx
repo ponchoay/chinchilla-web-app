@@ -49,7 +49,7 @@ export const SignInPage = () => {
   }
 
   return (
-    <div className="mb-16 mt-40 grid place-content-center place-items-center">
+    <div className="my-40 grid place-content-center place-items-center">
       <p className="text-center text-2xl font-bold tracking-widest text-dark-blue">ログイン</p>
       <div className="form-control my-6 w-96">
         <label className="label">
@@ -60,7 +60,7 @@ export const SignInPage = () => {
           placeholder="your@email.com"
           value={email}
           onChange={(event) => setEmail(event.target.value)}
-          className="w-ful input input-bordered input-secondary input-md border-dark-pink bg-ligth-white"
+          className="w-ful input input-bordered input-secondary input-md border-dark-pink bg-ligth-white text-base text-dark-black"
         />
       </div>
       <div className="form-control mb-6 w-96">
@@ -74,7 +74,7 @@ export const SignInPage = () => {
               placeholder="password"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
-              className="input input-bordered input-secondary input-md w-96 border-dark-pink bg-ligth-white"
+              className="input input-bordered input-secondary input-md w-96 border-dark-pink bg-ligth-white text-base text-dark-black"
             />
             <span onClick={togglePassword} role="presentation" className="absolute right-3 top-3">
               {isRevealPassword ? (
@@ -96,7 +96,7 @@ export const SignInPage = () => {
       >
         ログイン
       </button>
-      <p className="mb-6 mt-28 text-dark-black">新規登録はこちら</p>
+      <p className="mb-6 mt-28 text-base text-dark-black">新規登録はこちら</p>
       <Link href="/signup" passHref>
         <button className="btn btn-primary mb-40 h-16 w-40 rounded-[10px] text-base tracking-widest text-white">
           新規登録

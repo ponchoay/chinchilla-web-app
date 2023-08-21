@@ -62,7 +62,7 @@ export const ChinchillaRegistrationPage = () => {
 
       // ステータス201 Created
       if (res.status === 201) {
-        router.push('/mypage')
+        router.push('/mychinchilla')
         console.log('チンチラプロフィール作成成功！')
       } else {
         alert('チンチラプロフィール作成失敗')
@@ -73,7 +73,7 @@ export const ChinchillaRegistrationPage = () => {
     }
   }
   return (
-    <div className="mb-16 mt-40 grid place-content-center place-items-center">
+    <div className="my-40 grid place-content-center place-items-center">
       <p className="text-center text-2xl font-bold tracking-widest text-dark-blue">
         チンチラの登録
       </p>
@@ -86,7 +86,7 @@ export const ChinchillaRegistrationPage = () => {
           />
           <FontAwesomeIcon
             icon={faCirclePlus}
-            className="absolute bottom-[0px] right-[0px] z-10 text-4xl text-dark-blue"
+            className="absolute bottom-[0px] right-[0px] z-10 rounded-[50%] bg-ligth-white text-4xl text-dark-blue"
           />
         </button>
       </div>
@@ -110,7 +110,7 @@ export const ChinchillaRegistrationPage = () => {
           placeholder="チンチラの名前"
           value={chinchillaName}
           onChange={(event) => setChinchillaName(event.target.value)}
-          className="w-ful input input-bordered input-primary input-md border-dark-blue bg-ligth-white"
+          className="w-ful input input-bordered input-primary input-md border-dark-blue bg-ligth-white text-base text-dark-black"
         />
       </div>
       <div className="form-control mt-6 w-96">
@@ -124,7 +124,7 @@ export const ChinchillaRegistrationPage = () => {
         <select
           value={chinchillaSex}
           onChange={(event) => setChinchillaSex(event.target.value)}
-          className="w-ful select select-bordered select-primary border-dark-blue bg-ligth-white text-sm font-light text-dark-black"
+          className="w-ful select select-bordered select-primary border-dark-blue bg-ligth-white text-base font-light text-dark-black"
         >
           <option hidden value="">
             選択してください
@@ -142,7 +142,7 @@ export const ChinchillaRegistrationPage = () => {
           type="date"
           value={chinchillaBirthday}
           onChange={(event) => setChinchillaBirthday(event.target.value)}
-          className="w-ful input input-bordered input-primary input-md border-dark-blue bg-ligth-white"
+          className="w-ful input input-bordered input-primary input-md border-dark-blue bg-ligth-white text-base text-dark-black"
         />
       </div>
       <div className="form-control mb-12 mt-6 w-96">
@@ -153,7 +153,7 @@ export const ChinchillaRegistrationPage = () => {
           type="date"
           value={chinchillaMetDay}
           onChange={(event) => setChinchillaMetDay(event.target.value)}
-          className="w-ful input input-bordered input-primary input-md border-dark-blue bg-ligth-white"
+          className="w-ful input input-bordered input-primary input-md border-dark-blue bg-ligth-white text-base text-dark-black"
         />
       </div>
       <button
