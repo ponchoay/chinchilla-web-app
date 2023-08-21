@@ -134,7 +134,7 @@ export const ChinchillaProfilePage = () => {
   }
 
   return (
-    <div className="mb-16 mt-40 grid place-content-center place-items-center">
+    <div className="my-40 grid place-content-center place-items-center">
       <p className="text-center text-2xl font-bold tracking-widest text-dark-blue">プロフィール</p>
       {isEditing ? (
         <>
@@ -225,7 +225,7 @@ export const ChinchillaProfilePage = () => {
               className="w-ful textarea textarea-primary h-96 border-dark-blue bg-ligth-white text-base text-dark-black"
             ></textarea>
           </div>
-          <div className="mb-40">
+          <div>
             <button
               onClick={handleSave}
               disabled={!chinchillaName || !chinchillaSex ? true : false}
@@ -283,7 +283,7 @@ export const ChinchillaProfilePage = () => {
               </p>
             </div>
           </div>
-          <div className="mt-12">
+          <div className="my-12">
             <div className="mx-1 my-2 flex">
               <FontAwesomeIcon icon={faFilePen} className="mx-1 pt-[3px] text-lg text-dark-black" />
               <p className=" text-left text-base text-dark-black">メモ</p>
@@ -294,7 +294,7 @@ export const ChinchillaProfilePage = () => {
               </p>
             </div>
           </div>
-          <div className="mb-40 mt-12">
+          <div>
             <button
               onClick={() => {
                 setIsEditing(true)

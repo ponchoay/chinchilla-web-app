@@ -3,8 +3,8 @@ import Image from 'next/image'
 
 export const IndexPage = () => {
   return (
-    <div>
-      <div className="mb-16 mt-40 flex justify-center">
+    <div className="my-40">
+      <div className="mb-16 flex justify-center">
         <div className="carousel h-[400px] w-[599px] rounded-md">
           <div id="slide1" className="carousel-item relative h-[400px] w-[599px]">
             <Image src="/images/top1.jpg" height={400} width={599} alt="image" />
@@ -52,7 +52,7 @@ export const IndexPage = () => {
           </div>
         </div>
       </div>
-      <p className="my-16 text-center text-dark-black">
+      <p className="mb-16 text-center text-dark-black">
         チンチラ専用の飼育記録アプリです。
         <br />
         <br />
@@ -63,7 +63,7 @@ export const IndexPage = () => {
         <br />
         家族を招待することで、記録を共有することもできます。
       </p>
-      <div className="mb-40 flex justify-center">
+      <div className="flex justify-center">
         <Link href="/signup" passHref>
           <button className="btn btn-primary mr-24 h-16 w-40 rounded-[10px] text-base tracking-widest text-white">
             新規登録
