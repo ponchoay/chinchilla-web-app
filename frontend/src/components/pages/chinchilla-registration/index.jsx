@@ -62,7 +62,7 @@ export const ChinchillaRegistrationPage = () => {
 
       // ステータス201 Created
       if (res.status === 201) {
-        router.push('/mypage')
+        router.push('/mychinchilla')
         console.log('チンチラプロフィール作成成功！')
       } else {
         alert('チンチラプロフィール作成失敗')
