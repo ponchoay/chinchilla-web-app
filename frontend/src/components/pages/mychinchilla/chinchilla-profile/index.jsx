@@ -70,6 +70,17 @@ export const ChinchillaProfilePage = () => {
     setChinchillaImage(file)
   }, [])
 
+  // 編集モードの時に表示する画像
+  const resultImage = () => {
+    if (previewImage) {
+      return previewImage
+    }
+    if (selectedChinchilla.chinchillaImage?.url) {
+      return selectedChinchilla.chinchillaImage.url
+    }
+    return '/images/default.svg'
+  }
+
   // FormData形式でデータを作成
   const createFormData = () => {
     const formData = new FormData()
@@ -128,7 +139,7 @@ export const ChinchillaProfilePage = () => {
           <div className="relative">
             <button onClick={handleClickChangeImage} className=" mt-6">
               <img
-                src={previewImage ? previewImage : '/images/default.svg'}
+                src={resultImage()}
                 alt="プロフィール画像"
                 className="h-[200px] w-[200px] rounded-3xl border border-solid border-dark-blue bg-ligth-white"
               />
@@ -212,6 +223,7 @@ export const ChinchillaProfilePage = () => {
             <button
               onClick={() => {
                 setIsEditing(false)
+                setPreviewImage('')
               }}
               className="btn btn-secondary h-16 w-40 rounded-[10px] text-base tracking-widest text-white"
             >
@@ -221,6 +233,17 @@ export const ChinchillaProfilePage = () => {
         </>
       ) : (
         <>
+          <div className="mt-6">
+            <img
+              src={
+                selectedChinchilla.chinchillaImage?.url
+                  ? selectedChinchilla.chinchillaImage.url
+                  : '/images/default.svg'
+              }
+              alt="プロフィール画像"
+              className="h-[200px] w-[200px] rounded-3xl border border-solid border-ligth-white bg-ligth-white"
+            />
+          </div>
           <div className="mt-6 h-[230px] w-[500px] rounded-xl bg-ligth-white">
             <div className="mx-10 mt-6 flex border-b border-solid border-b-light-black">
               <p className="w-24 text-center text-base text-dark-black">名前</p>

@@ -21,9 +21,9 @@ export const MyChinchillaPage = () => {
   }, [])
 
   return (
-    <div className="mb-16 mt-40 grid place-content-center place-items-center">
+    <div className="my-40 grid place-content-center place-items-center">
       <p className="text-center text-2xl font-bold tracking-widest text-dark-blue">マイチンチラ</p>
-      <div className="mt-6 grid grid-cols-2 gap-20">
+      <div className="mt-6 grid grid-cols-2 gap-x-20 gap-y-14">
         {allChinchillas.map((chinchilla) => (
           <div key={chinchilla.id}>
             <Link
@@ -31,7 +31,18 @@ export const MyChinchillaPage = () => {
               onClick={() => setChinchillaId(chinchilla.id)}
               className="text-center"
             >
-              <p>{chinchilla.chinchillaName}</p>
+              <div>
+                <img
+                  src={
+                    chinchilla.chinchillaImage?.url
+                      ? chinchilla.chinchillaImage.url
+                      : '/images/default.svg'
+                  }
+                  alt="プロフィール画像"
+                  className="mb-3 h-[200px] w-[200px] rounded-3xl border border-solid border-ligth-white bg-ligth-white"
+                />
+                <p className="text-center w-[200px]">{chinchilla.chinchillaName}</p>
+              </div>
             </Link>
           </div>
         ))}
