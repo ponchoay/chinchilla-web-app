@@ -52,9 +52,6 @@ export const IndexPage = () => {
           </div>
         </div>
       </div>
-      {/* <div className="my-16 flex justify-center">
-        <Image src="/images/top1.jpg" alt="Image" width={531} height={400} />
-      </div> */}
       <p className="my-16 text-center text-dark-black">
         チンチラ専用の飼育記録アプリです。
         <br />
