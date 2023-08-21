@@ -147,7 +147,7 @@ export const ChinchillaProfilePage = () => {
               />
               <FontAwesomeIcon
                 icon={faCirclePlus}
-                className="absolute bottom-[0px] right-[0px] z-10 text-4xl text-dark-blue"
+                className="absolute bottom-[0px] right-[0px] z-10 rounded-[50%] bg-ligth-white text-4xl text-dark-blue"
               />
             </button>
           </div>
