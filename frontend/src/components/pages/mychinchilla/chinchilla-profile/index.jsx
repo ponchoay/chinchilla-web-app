@@ -4,7 +4,7 @@ import { getChinchilla, updateChinchilla, deleteChinchilla } from 'src/lib/api/c
 import { SelectedChinchillaIdContext } from 'src/contexts/chinchilla'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAsterisk, faCirclePlus } from '@fortawesome/free-solid-svg-icons'
+import { faAsterisk, faCirclePlus, faFilePen } from '@fortawesome/free-solid-svg-icons'
 
 export const ChinchillaProfilePage = () => {
   const router = useRouter()
@@ -24,6 +24,7 @@ export const ChinchillaProfilePage = () => {
     selectedChinchilla.chinchillaBirthday
   )
   const [chinchillaMetDay, setChinchillaMetDay] = useState(selectedChinchilla.chinchillaMetDay)
+  const [chinchillaMemo, setChinchillaMemo] = useState(selectedChinchilla.chinchillaMemo)
 
   // 選択中のチンチラのデータを取得
   const fetch = async () => {
@@ -89,6 +90,7 @@ export const ChinchillaProfilePage = () => {
     formData.append('chinchilla[chinchillaSex]', chinchillaSex)
     formData.append('chinchilla[chinchillaBirthday]', chinchillaBirthday)
     formData.append('chinchilla[chinchillaMetDay]', chinchillaMetDay)
+    formData.append('chinchilla[chinchillaMemo]', chinchillaMemo)
     return formData
   }
 
@@ -168,7 +170,7 @@ export const ChinchillaProfilePage = () => {
               type="text"
               value={chinchillaName}
               onChange={(event) => setChinchillaName(event.target.value)}
-              className="w-ful input input-bordered input-primary input-md border-dark-blue bg-ligth-white"
+              className="w-ful input input-bordered input-primary input-md border-dark-blue bg-ligth-white text-base text-dark-black"
             />
           </div>
           <div className="form-control mt-6 w-96">
@@ -182,7 +184,7 @@ export const ChinchillaProfilePage = () => {
             <select
               value={chinchillaSex}
               onChange={(event) => setChinchillaSex(event.target.value)}
-              className="w-ful select select-bordered select-primary border-dark-blue bg-ligth-white text-sm font-light text-dark-black"
+              className="w-ful select select-bordered select-primary border-dark-blue bg-ligth-white text-base font-light text-dark-black"
             >
               性別
               <option value="オス">オス</option>
@@ -198,10 +200,10 @@ export const ChinchillaProfilePage = () => {
               type="date"
               value={chinchillaBirthday}
               onChange={(event) => setChinchillaBirthday(event.target.value)}
-              className="w-ful input input-bordered input-primary input-md border-dark-blue bg-ligth-white"
+              className="w-ful input input-bordered input-primary input-md border-dark-blue bg-ligth-white text-base text-dark-black"
             />
           </div>
-          <div className="form-control mb-12 mt-6 w-96">
+          <div className="form-control mt-6 w-96">
             <label className="label">
               <span className="text-base text-dark-black">お迎え日</span>
             </label>
@@ -209,8 +211,19 @@ export const ChinchillaProfilePage = () => {
               type="date"
               value={chinchillaMetDay}
               onChange={(event) => setChinchillaMetDay(event.target.value)}
-              className="w-ful input input-bordered input-primary input-md border-dark-blue bg-ligth-white"
+              className="w-ful input input-bordered input-primary input-md border-dark-blue bg-ligth-white text-base text-dark-black"
             />
+          </div>
+          <div className="form-control mb-12 mt-12 w-[500px]">
+            <label className="label">
+              <span className="label-text text-base text-dark-black">メモ</span>
+            </label>
+            <textarea
+              placeholder="メモを記入してください。"
+              value={chinchillaMemo}
+              onChange={(event) => setChinchillaMemo(event.target.value)}
+              className="w-ful textarea textarea-primary h-96 border-dark-blue bg-ligth-white text-base text-dark-black"
+            ></textarea>
           </div>
           <div className="mb-40">
             <button
@@ -244,7 +257,7 @@ export const ChinchillaProfilePage = () => {
               className="h-[200px] w-[200px] rounded-3xl border border-solid border-ligth-white bg-ligth-white"
             />
           </div>
-          <div className="mt-6 h-[230px] w-[500px] rounded-xl bg-ligth-white">
+          <div className="mt-8 h-[230px] w-[500px] rounded-xl bg-ligth-white">
             <div className="mx-10 mt-6 flex border-b border-solid border-b-light-black">
               <p className="w-24 text-center text-base text-dark-black">名前</p>
               <p className="grow text-center text-base text-dark-black">
@@ -270,6 +283,17 @@ export const ChinchillaProfilePage = () => {
               </p>
             </div>
           </div>
+          <div className="mt-12">
+            <div className="mx-1 my-2 flex">
+              <FontAwesomeIcon icon={faFilePen} className="mx-1 pt-[3px] text-lg text-dark-black" />
+              <p className=" text-left text-base text-dark-black">メモ</p>
+            </div>
+            <div className=" h-96 w-[500px] rounded-xl bg-ligth-white p-5">
+              <p className="whitespace-pre-wrap text-left text-base text-dark-black">
+                {selectedChinchilla.chinchillaMemo ? selectedChinchilla.chinchillaMemo : <></>}
+              </p>
+            </div>
+          </div>
           <div className="mb-40 mt-12">
             <button
               onClick={() => {
@@ -278,6 +302,7 @@ export const ChinchillaProfilePage = () => {
                 setChinchillaSex(selectedChinchilla.chinchillaSex)
                 setChinchillaBirthday(selectedChinchilla.chinchillaBirthday)
                 setChinchillaMetDay(selectedChinchilla.chinchillaMetDay)
+                setChinchillaMemo(selectedChinchilla.chinchillaMemo)
               }}
               className="btn btn-primary mr-24 h-16 w-40 rounded-[10px] text-base tracking-widest text-white"
             >
