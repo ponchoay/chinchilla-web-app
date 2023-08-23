@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import { getChinchilla, updateChinchilla, deleteChinchilla } from 'src/lib/api/chinchilla'
 import { SelectedChinchillaIdContext } from 'src/contexts/chinchilla'
 
+import { Button } from 'src/components/shared/Button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAsterisk, faCirclePlus, faFilePen } from '@fortawesome/free-solid-svg-icons'
 
@@ -230,23 +231,23 @@ export const ChinchillaProfilePage = () => {
             ></textarea>
           </div>
           <div>
-            <button
-              onClick={handleSave}
+            <Button
+              click={handleSave}
               disabled={!chinchillaName || !chinchillaSex ? true : false}
-              className="btn btn-primary mr-24 h-16 w-40 rounded-[10px] text-base tracking-widest text-white"
+              addStyle="btn-primary mr-24 h-16 w-40"
             >
               保存
-            </button>
-            <button
-              onClick={() => {
+            </Button>
+            <Button
+              click={() => {
                 setIsEditing(false)
                 setPreviewImage('')
                 setChinchillaImage('')
               }}
-              className="btn btn-secondary h-16 w-40 rounded-[10px] text-base tracking-widest text-white"
+              addStyle="btn-secondary h-16 w-40"
             >
               戻る
-            </button>
+            </Button>
           </div>
         </>
       ) : (

@@ -5,6 +5,7 @@ import Cookies from 'js-cookie'
 import { signIn } from 'src/lib/api/auth'
 import { AuthContext } from 'src/contexts/auth'
 
+import { Button } from 'src/components/shared/Button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 
@@ -89,18 +90,16 @@ export const SignInPage = () => {
           <span className="text-sm text-dark-black">6文字以上の半角英数字</span>
         </label>
       </div>
-      <button
-        onClick={handleSubmit}
+      <Button
+        click={handleSubmit}
         disabled={!email || !password ? true : false}
-        className="btn btn-secondary h-16 w-40 rounded-[10px] text-base tracking-widest text-white"
+        addStyle="btn-secondary h-16 w-40"
       >
         ログイン
-      </button>
+      </Button>
       <p className="mb-6 mt-28 text-base text-dark-black">新規登録はこちら</p>
       <Link href="/signup" passHref>
-        <button className="btn btn-primary mb-40 h-16 w-40 rounded-[10px] text-base tracking-widest text-white">
-          新規登録
-        </button>
+        <Button addStyle="btn-primary h-16 w-40">新規登録</Button>
       </Link>
     </div>
   )
