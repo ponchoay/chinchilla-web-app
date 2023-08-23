@@ -1,6 +1,8 @@
 import Link from 'next/link'
 import Image from 'next/image'
 
+import { Button } from 'src/components/shared/Button'
+
 export const IndexPage = () => {
   return (
     <div className="my-40">
@@ -65,14 +67,10 @@ export const IndexPage = () => {
       </p>
       <div className="flex justify-center">
         <Link href="/signup" passHref>
-          <button className="btn btn-primary mr-24 h-16 w-40 rounded-[10px] text-base tracking-widest text-white">
-            新規登録
-          </button>
+          <Button addStyle="btn-primary mr-24 h-16 w-40">新規登録</Button>
         </Link>
         <Link href="/signin" passHref>
-          <button className="btn btn-secondary h-16 w-40 rounded-[10px] text-base tracking-widest text-white">
-            ログイン
-          </button>
+          <Button addStyle="btn-secondary h-16 w-40">ログイン</Button>
         </Link>
       </div>
     </div>

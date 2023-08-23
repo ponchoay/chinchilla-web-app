@@ -2,6 +2,7 @@ import { useRef, useCallback, useState } from 'react'
 import { useRouter } from 'next/router'
 import { createChinchilla } from 'src/lib/api/chinchilla'
 
+import { Button } from 'src/components/shared/Button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAsterisk, faCirclePlus } from '@fortawesome/free-solid-svg-icons'
 
@@ -158,13 +159,13 @@ export const ChinchillaRegistrationPage = () => {
           className="w-ful input input-bordered input-primary input-md border-dark-blue bg-ligth-white text-base text-dark-black"
         />
       </div>
-      <button
-        onClick={handleSubmit}
+      <Button
+        click={handleSubmit}
         disabled={!chinchillaName || !chinchillaSex ? true : false}
-        className="btn btn-primary mb-40 h-16 w-40 rounded-[10px] text-base tracking-widest text-white"
+        addStyle="btn-primary h-16 w-40"
       >
         登録
-      </button>
+      </Button>
     </div>
   )
 }

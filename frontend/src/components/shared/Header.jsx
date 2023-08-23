@@ -4,6 +4,8 @@ import { faPaw, faCircleUser } from '@fortawesome/free-solid-svg-icons'
 import Link from 'next/link'
 import { AuthContext } from 'src/contexts/auth'
 
+import { Button } from 'src/components/shared/Button'
+
 export const Header = () => {
   const { isSignedIn, currentUser } = useContext(AuthContext)
 
@@ -21,14 +23,10 @@ export const Header = () => {
         ) : (
           <div className="mr-12 flex">
             <Link href="/signup" passHref>
-              <button className="btn btn-primary mr-6 w-28 rounded-[10px] text-base text-white">
-                新規登録
-              </button>
+              <Button addStyle="btn-primary mr-6 h-4 w-28">新規登録</Button>
             </Link>
             <Link href="/signin" passHref>
-              <button className="btn btn-secondary w-28 rounded-[10px] text-base text-white">
-                ログイン
-              </button>
+              <Button addStyle="btn-secondary h-4 w-28">ログイン</Button>
             </Link>
           </div>
         )}
