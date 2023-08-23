@@ -85,7 +85,9 @@ export const ChinchillaProfilePage = () => {
   // FormData形式でデータを作成
   const createFormData = () => {
     const formData = new FormData()
-    formData.append('chinchilla[chinchillaImage]', chinchillaImage)
+    if (chinchillaImage) {
+      formData.append('chinchilla[chinchillaImage]', chinchillaImage)
+    }
     formData.append('chinchilla[chinchillaName]', chinchillaName)
     formData.append('chinchilla[chinchillaSex]', chinchillaSex)
     formData.append('chinchilla[chinchillaBirthday]', chinchillaBirthday)
@@ -107,8 +109,10 @@ export const ChinchillaProfilePage = () => {
 
       // ステータス204 no_content
       if (res.status === 204) {
-        setIsEditing(false)
         fetch()
+        setIsEditing(false)
+        setPreviewImage('')
+        setChinchillaImage('')
         console.log('チンチラプロフィール更新成功！')
       } else {
         alert('チンチラプロフィール更新失敗')
@@ -237,6 +241,7 @@ export const ChinchillaProfilePage = () => {
               onClick={() => {
                 setIsEditing(false)
                 setPreviewImage('')
+                setChinchillaImage('')
               }}
               className="btn btn-secondary h-16 w-40 rounded-[10px] text-base tracking-widest text-white"
             >
