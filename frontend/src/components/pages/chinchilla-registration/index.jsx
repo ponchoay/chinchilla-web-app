@@ -12,6 +12,7 @@ export const ChinchillaRegistrationPage = () => {
   const [chinchillaSex, setChinchillaSex] = useState('')
   const [chinchillaBirthday, setChinchillaBirthday] = useState('')
   const [chinchillaMetDay, setChinchillaMetDay] = useState('')
+  const chinchillaMemo = ''
 
   // プレビュー用
   const [previewImage, setPreviewImage] = useState('')
@@ -49,6 +50,7 @@ export const ChinchillaRegistrationPage = () => {
     formData.append('chinchilla[chinchillaSex]', chinchillaSex)
     formData.append('chinchilla[chinchillaBirthday]', chinchillaBirthday)
     formData.append('chinchilla[chinchillaMetDay]', chinchillaMetDay)
+    formData.append('chinchilla[chinchillaMemo]', chinchillaMemo)
     return formData
   }
 
