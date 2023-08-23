@@ -85,7 +85,9 @@ export const ChinchillaProfilePage = () => {
   // FormData形式でデータを作成
   const createFormData = () => {
     const formData = new FormData()
-    formData.append('chinchilla[chinchillaImage]', chinchillaImage)
+    if (chinchillaImage) {
+      formData.append('chinchilla[chinchillaImage]', chinchillaImage)
+    }
     formData.append('chinchilla[chinchillaName]', chinchillaName)
     formData.append('chinchilla[chinchillaSex]', chinchillaSex)
     formData.append('chinchilla[chinchillaBirthday]', chinchillaBirthday)
