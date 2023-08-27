@@ -10,7 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_29_151948) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_26_151647) do
+  create_table "cares", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.date "care_day", null: false
+    t.string "care_food"
+    t.string "care_toilet"
+    t.string "care_bath"
+    t.string "care_play"
+    t.integer "care_weight"
+    t.float "care_temperature"
+    t.integer "care_humidity"
+    t.text "care_memo", size: :tiny
+    t.string "care_image1"
+    t.string "care_image2"
+    t.string "care_image3"
+    t.bigint "chinchilla_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["chinchilla_id"], name: "index_cares_on_chinchilla_id"
+  end
+
   create_table "chinchillas", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "chinchilla_name", limit: 15, null: false
     t.string "chinchilla_sex", null: false
@@ -49,5 +68,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_29_151948) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
+  add_foreign_key "cares", "chinchillas"
   add_foreign_key "chinchillas", "users"
 end

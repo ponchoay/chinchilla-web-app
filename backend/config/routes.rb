@@ -19,6 +19,10 @@ Rails.application.routes.draw do
       put '/chinchillas/:id', to: 'chinchillas#update'
       # チンチラプロフィール 削除
       delete '/chinchillas/:id', to: 'chinchillas#destroy'
+
+      # お世話記録 作成
+      post '/cares', to: 'cares#create'
+
     end
   end
 end
