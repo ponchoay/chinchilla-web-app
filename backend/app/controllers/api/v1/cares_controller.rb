@@ -2,6 +2,11 @@ class Api::V1::CaresController < ApplicationController
   # ログイン状態の確認
   before_action :authenticate_api_v1_user!
 
+  # お世話記録 一覧
+  def index
+    cares = Care.where(chinchilla_id: params[:chinchilla_id])
+    render json: cares
+  end
   # お世話記録 作成
   def create
     care = Care.new(care_params)
