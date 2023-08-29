@@ -4,4 +4,8 @@ class Chinchilla < ApplicationRecord
 
   #アップローダーとchinchilla_imageカラムを紐づけ
   mount_uploader :chinchilla_image, ChinchillaImageUploader
+
+  # Careモデルと関連付け
+  has_one :care
+
 end
