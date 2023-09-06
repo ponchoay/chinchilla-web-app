@@ -1,9 +1,7 @@
-import { useState, useContext, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { getAllChinchillas } from 'src/lib/api/chinchilla'
 import { getAllCares } from 'src/lib/api/care'
-import { SelectedChinchillaIdContext } from 'src/contexts/chinchilla'
 
-import { Button } from 'src/components/shared/Button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faAsterisk,
@@ -15,8 +13,8 @@ import {
 
 export const CareRecordCalendarPage = () => {
   const [allChinchillas, setAllChinchillas] = useState([])
-  const { chinchillaId, setChinchillaId } = useContext(SelectedChinchillaIdContext)
   const [allCares, setAllCares] = useState([])
+  const chinchillaIdRef = useRef(0)
   const careIdRef = useRef(0)
 
   // 入力内容の状態管理
@@ -37,12 +35,21 @@ export const CareRecordCalendarPage = () => {
     fetch()
   }, [])
 
-  // お世話記録一覧取得機能
-  const handleFetch = async () => {
+  // 選択したチンチラのお世話記録の一覧を取得
+  const handleGetChinchilla = async () => {
+    const chinchillaId = chinchillaIdRef.current.value
     try {
       const res = await getAllCares(chinchillaId)
       console.log(res.data)
       setAllCares(res.data)
+
+      // 別のチンチラを選択する際に、画面の表示をリセットする
+      setCareFood('')
+      setCareToilet('')
+      setCareBath('')
+      setCarePlay('')
+      setCareMemo('')
+
     } catch (err) {
       console.log(err)
     }
@@ -75,8 +82,8 @@ export const CareRecordCalendarPage = () => {
           </div>
         </label>
         <select
-          value={chinchillaId}
-          onChange={(event) => setChinchillaId(event.target.value)}
+          ref={chinchillaIdRef}
+          onChange={handleGetChinchilla}
           className="w-ful select select-bordered select-primary border-dark-blue bg-ligth-white text-base font-light text-dark-black"
         >
           <option hidden value="">
@@ -89,10 +96,6 @@ export const CareRecordCalendarPage = () => {
           ))}
         </select>
       </div>
-      <p className="my-3">選択中のID：{chinchillaId}</p>
-      <Button btnType="submit" click={handleFetch} addStyle="btn-primary h-16 w-40">
-        お世話記録取得
-      </Button>
       <div className="form-control mt-6 w-96">
         <label className="label">
           <span className="text-base text-dark-black">お世話の日付を選択</span>
@@ -116,7 +119,7 @@ export const CareRecordCalendarPage = () => {
           ))}
         </select>
       </div>
-      <div className="my-8 h-[300px] w-[500px] rounded-xl  bg-ligth-white">
+      <div className="mt-12 mb-8 h-[300px] w-[500px] rounded-xl  bg-ligth-white">
         <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
           <p className="w-24 text-center text-base text-dark-black">食事</p>
           <div className="flex grow justify-evenly text-center text-base text-dark-black">
