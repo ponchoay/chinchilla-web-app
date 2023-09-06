@@ -1,18 +1,28 @@
-import { useState, useContext, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { getAllChinchillas } from 'src/lib/api/chinchilla'
 import { getAllCares } from 'src/lib/api/care'
-import { SelectedChinchillaIdContext } from 'src/contexts/chinchilla'
 
-import { Button } from 'src/components/shared/Button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-  faAsterisk
+  faAsterisk,
+  faFaceSmileBeam,
+  faFaceDizzy,
+  faFaceMeh,
+  faFilePen
 } from '@fortawesome/free-solid-svg-icons'
 
 export const CareRecordCalendarPage = () => {
   const [allChinchillas, setAllChinchillas] = useState([])
-  const { chinchillaId, setChinchillaId } = useContext(SelectedChinchillaIdContext)
   const [allCares, setAllCares] = useState([])
+  const chinchillaIdRef = useRef(0)
+  const careIdRef = useRef(0)
+
+  // 入力内容の状態管理
+  const [careFood, setCareFood] = useState('')
+  const [careToilet, setCareToilet] = useState('')
+  const [careBath, setCareBath] = useState('')
+  const [carePlay, setCarePlay] = useState('')
+  const [careMemo, setCareMemo] = useState('')
 
   // 全てのチンチラのデータを取得
   const fetch = async () => {
@@ -25,15 +35,39 @@ export const CareRecordCalendarPage = () => {
     fetch()
   }, [])
 
-  // お世話記録一覧取得機能
-  const handleFetch = async () => {
+  // 選択したチンチラのお世話記録の一覧を取得
+  const handleGetChinchilla = async () => {
+    const chinchillaId = chinchillaIdRef.current.value
     try {
       const res = await getAllCares(chinchillaId)
       console.log(res.data)
       setAllCares(res.data)
+
+      // 別のチンチラを選択する際に、画面の表示をリセットする
+      setCareFood('')
+      setCareToilet('')
+      setCareBath('')
+      setCarePlay('')
+      setCareMemo('')
+
     } catch (err) {
       console.log(err)
     }
+  }
+
+  // 選択した日付のお世話記録を表示
+  const handleSelectedCare = () => {
+    const careId = careIdRef.current.value
+    console.log('id:', careId)
+
+    // careIdは文字列なので、==で条件比較
+    const selectedCare = allCares.filter((care) => care.id == careId)
+    console.log('お世話記録表示', selectedCare)
+    setCareFood(selectedCare[0].careFood)
+    setCareToilet(selectedCare[0].careToilet)
+    setCareBath(selectedCare[0].careBath)
+    setCarePlay(selectedCare[0].carePlay)
+    setCareMemo(selectedCare[0].careMemo)
   }
 
   return (
@@ -48,8 +82,8 @@ export const CareRecordCalendarPage = () => {
           </div>
         </label>
         <select
-          value={chinchillaId}
-          onChange={(event) => setChinchillaId(event.target.value)}
+          ref={chinchillaIdRef}
+          onChange={handleGetChinchilla}
           className="w-ful select select-bordered select-primary border-dark-blue bg-ligth-white text-base font-light text-dark-black"
         >
           <option hidden value="">
@@ -62,10 +96,6 @@ export const CareRecordCalendarPage = () => {
           ))}
         </select>
       </div>
-      <p className="my-3">選択中のID：{chinchillaId}</p>
-      <Button btnType="submit" click={handleFetch} addStyle="btn-primary h-16 w-40">
-        お世話記録取得
-      </Button>
       <div className="form-control mt-6 w-96">
         <label className="label">
           <span className="text-base text-dark-black">お世話の日付を選択</span>
@@ -75,15 +105,110 @@ export const CareRecordCalendarPage = () => {
           </div>
         </label>
         <select
+          ref={careIdRef}
+          onChange={handleSelectedCare}
           className="w-ful select select-bordered select-primary border-dark-blue bg-ligth-white text-base font-light text-dark-black"
         >
           <option hidden value="">
             選択してください
           </option>
           {allCares.map((care) => (
-            <option key={care.id}>{care.careDay}</option>
+            <option key={care.id} value={care.id}>
+              {care.careDay}
+            </option>
           ))}
         </select>
+      </div>
+      <div className="mt-12 mb-8 h-[300px] w-[500px] rounded-xl  bg-ligth-white">
+        <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
+          <p className="w-24 text-center text-base text-dark-black">食事</p>
+          <div className="flex grow justify-evenly text-center text-base text-dark-black">
+            {careFood === 'good' ? (
+              <FontAwesomeIcon icon={faFaceSmileBeam} className="label text-2xl text-dark-blue" />
+            ) : (
+              <FontAwesomeIcon icon={faFaceSmileBeam} className="label text-2xl text-light-black" />
+            )}
+            {careFood === 'usually' ? (
+              <FontAwesomeIcon icon={faFaceMeh} className="label text-2xl text-dark-black" />
+            ) : (
+              <FontAwesomeIcon icon={faFaceMeh} className="label text-2xl text-light-black" />
+            )}
+            {careFood === 'bad' ? (
+              <FontAwesomeIcon icon={faFaceDizzy} className="label text-2xl text-dark-pink" />
+            ) : (
+              <FontAwesomeIcon icon={faFaceDizzy} className="label text-2xl text-light-black" />
+            )}
+          </div>
+        </div>
+        <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
+          <p className="w-24 text-center text-base text-dark-black">トイレ</p>
+          <div className="flex grow justify-evenly text-center text-base text-dark-black">
+            {careToilet === 'good' ? (
+              <FontAwesomeIcon icon={faFaceSmileBeam} className="label text-2xl text-dark-blue" />
+            ) : (
+              <FontAwesomeIcon icon={faFaceSmileBeam} className="label text-2xl text-light-black" />
+            )}
+            {careToilet === 'usually' ? (
+              <FontAwesomeIcon icon={faFaceMeh} className="label text-2xl text-dark-black" />
+            ) : (
+              <FontAwesomeIcon icon={faFaceMeh} className="label text-2xl text-light-black" />
+            )}
+            {careToilet === 'bad' ? (
+              <FontAwesomeIcon icon={faFaceDizzy} className="label text-2xl text-dark-pink" />
+            ) : (
+              <FontAwesomeIcon icon={faFaceDizzy} className="label text-2xl text-light-black" />
+            )}
+          </div>
+        </div>
+        <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
+          <p className="w-24 text-center text-base text-dark-black">砂浴び</p>
+          <div className="flex grow justify-evenly text-center text-base text-dark-black">
+            {careBath === 'good' ? (
+              <FontAwesomeIcon icon={faFaceSmileBeam} className="label text-2xl text-dark-blue" />
+            ) : (
+              <FontAwesomeIcon icon={faFaceSmileBeam} className="label text-2xl text-light-black" />
+            )}
+            {careBath === 'usually' ? (
+              <FontAwesomeIcon icon={faFaceMeh} className="label text-2xl text-dark-black" />
+            ) : (
+              <FontAwesomeIcon icon={faFaceMeh} className="label text-2xl text-light-black" />
+            )}
+            {careBath === 'bad' ? (
+              <FontAwesomeIcon icon={faFaceDizzy} className="label text-2xl text-dark-pink" />
+            ) : (
+              <FontAwesomeIcon icon={faFaceDizzy} className="label text-2xl text-light-black" />
+            )}
+          </div>
+        </div>
+        <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
+          <p className="w-24 text-center text-base text-dark-black">部屋んぽ</p>
+          <div className="flex grow justify-evenly text-center text-base text-dark-black">
+            {carePlay === 'good' ? (
+              <FontAwesomeIcon icon={faFaceSmileBeam} className="label text-2xl text-dark-blue" />
+            ) : (
+              <FontAwesomeIcon icon={faFaceSmileBeam} className="label text-2xl text-light-black" />
+            )}
+            {carePlay === 'usually' ? (
+              <FontAwesomeIcon icon={faFaceMeh} className="label text-2xl text-dark-black" />
+            ) : (
+              <FontAwesomeIcon icon={faFaceMeh} className="label text-2xl text-light-black" />
+            )}
+            {carePlay === 'bad' ? (
+              <FontAwesomeIcon icon={faFaceDizzy} className="label text-2xl text-dark-pink" />
+            ) : (
+              <FontAwesomeIcon icon={faFaceDizzy} className="label text-2xl text-light-black" />
+            )}
+          </div>
+        </div>
+      </div>
+      <div className="my-12">
+        <div className="mx-1 my-2 flex">
+          <FontAwesomeIcon icon={faFilePen} className="mx-1 pt-[3px] text-lg text-dark-black" />
+          <p className=" text-left text-base text-dark-black">メモ</p>
+        </div>
+        <div className=" h-96 w-[500px] rounded-xl bg-ligth-white p-5">
+          <p className="whitespace-pre-wrap text-left text-base text-dark-black">{careMemo}</p>
+        </div>
       </div>
     </div>
   )
