@@ -79,6 +79,10 @@ export const CareRecordCalendarPage = () => {
 
   // お世話記録を削除
   const handleDelete = async (e) => {
+    if (!careId) {
+      alert('お世話を選択してください')
+      return
+    }
     e.preventDefault()
     try {
       const res = await deleteCare(careId)
