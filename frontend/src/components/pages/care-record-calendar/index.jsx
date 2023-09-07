@@ -1,7 +1,9 @@
 import { useState, useEffect, useContext } from 'react'
 import { getAllChinchillas } from 'src/lib/api/chinchilla'
+import { getAllCares, deleteCare } from 'src/lib/api/care'
 import { SelectedChinchillaIdContext } from 'src/contexts/chinchilla'
 
+import { Button } from 'src/components/shared/Button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faAsterisk,
@@ -72,6 +74,26 @@ export const CareRecordCalendarPage = () => {
     setCareBath(selectedCare[0].careBath)
     setCarePlay(selectedCare[0].carePlay)
     setCareMemo(selectedCare[0].careMemo)
+  }
+
+  // お世話記録を削除
+  const handleDelete = async (e) => {
+    e.preventDefault()
+    try {
+      const res = await deleteCare(careId)
+      console.log(res)
+
+      // 削除後、選択中のチンチラ以外の画面の表示をリセットする
+      setCareId(0)
+      setCareFood('')
+      setCareToilet('')
+      setCareBath('')
+      setCarePlay('')
+      setCareMemo('')
+    } catch (err) {
+      console.log(err)
+      alert('エラーです')
+    }
   }
 
   return (
@@ -218,6 +240,9 @@ export const CareRecordCalendarPage = () => {
           <p className="whitespace-pre-wrap text-left text-base text-dark-black">{careMemo}</p>
         </div>
       </div>
+      <Button btnType="submit" click={handleDelete} addStyle="btn-secondary h-16 w-40">
+        削除
+      </Button>
     </div>
   )
 }

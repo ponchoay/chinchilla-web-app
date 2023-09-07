@@ -27,3 +27,15 @@ export const createCare = (params) => {
     }
   })
 }
+
+// お世話記録 削除
+export const deleteCare = (careId) => {
+  if (!Cookies.get('_access_token') || !Cookies.get('_client') || !Cookies.get('_uid')) return
+  return client.delete(`/cares/${careId}`, {
+    headers: {
+      'access-token': Cookies.get('_access_token'),
+      client: Cookies.get('_client'),
+      uid: Cookies.get('_uid')
+    }
+  })
+}
