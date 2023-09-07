@@ -4,9 +4,9 @@ import { client } from 'src/lib/api/client'
 // 機能&リクエストURL
 
 // お世話記録 一覧(全部)
-export const getAllCares = (chinchillaId) => {
+export const getAllCares = (selectedChinchillaId) => {
   if (!Cookies.get('_access_token') || !Cookies.get('_client') || !Cookies.get('_uid')) return
-  return client.get(`/cares?chinchilla_id=${chinchillaId}`, {
+  return client.get(`/cares?chinchilla_id=${selectedChinchillaId}`, {
     headers: {
       'access-token': Cookies.get('_access_token'),
       client: Cookies.get('_client'),
@@ -14,6 +14,7 @@ export const getAllCares = (chinchillaId) => {
     }
   })
 }
+
 // お世話記録 作成
 export const createCare = (params) => {
   if (!Cookies.get('_access_token') || !Cookies.get('_client') || !Cookies.get('_uid')) return
