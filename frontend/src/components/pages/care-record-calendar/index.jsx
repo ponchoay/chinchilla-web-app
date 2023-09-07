@@ -48,6 +48,7 @@ export const CareRecordCalendarPage = () => {
       setAllCares(res.data)
 
       // 別のチンチラを選択する際に、画面の表示をリセットする
+      setCareId(0)
       setCareFood('')
       setCareToilet('')
       setCareBath('')
