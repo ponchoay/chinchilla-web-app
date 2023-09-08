@@ -41,6 +41,6 @@ class Api::V1::CaresController < ApplicationController
 
   private
   def care_params
-    params.require(:care).permit(:care_day, :care_food, :care_toilet, :care_bath, :care_play, :care_weight, :care_temperature, :care_humidity, :care_memo, :care_image1, :care_image2, :care_image3, :chinchilla_id)
+    params.require(:care).permit(:care_day, :care_food, :care_toilet, :care_bath, :care_play, :care_weight, :care_temperature, :care_humidity, :care_memo, :care_image1, :care_image2, :care_image3)
   end
 end
