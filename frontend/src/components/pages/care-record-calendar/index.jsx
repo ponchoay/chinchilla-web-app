@@ -88,7 +88,9 @@ export const CareRecordCalendarPage = () => {
       const res = await deleteCare(careId)
       console.log(res)
 
-      // 削除後、選択中のチンチラ以外の画面の表示をリセットする
+      // 削除後、画面の表示をリセットする
+      setChinchillaId(0)
+      setAllCares([])
       setCareId(0)
       setCareFood('')
       setCareToilet('')
