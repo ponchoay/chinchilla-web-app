@@ -24,6 +24,8 @@ Rails.application.routes.draw do
       get '/cares', to: 'cares#index'
       # お世話記録 作成
       post '/cares', to: 'cares#create'
+      # お世話記録 削除
+      delete '/cares/:id', to: 'cares#destroy'
 
     end
   end

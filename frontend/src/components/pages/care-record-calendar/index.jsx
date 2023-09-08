@@ -1,7 +1,9 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { getAllChinchillas } from 'src/lib/api/chinchilla'
-import { getAllCares } from 'src/lib/api/care'
+import { getAllCares, deleteCare } from 'src/lib/api/care'
+import { SelectedChinchillaIdContext } from 'src/contexts/chinchilla'
 
+import { Button } from 'src/components/shared/Button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faAsterisk,
@@ -13,9 +15,9 @@ import {
 
 export const CareRecordCalendarPage = () => {
   const [allChinchillas, setAllChinchillas] = useState([])
+  const { chinchillaId, setChinchillaId } = useContext(SelectedChinchillaIdContext)
   const [allCares, setAllCares] = useState([])
-  const chinchillaIdRef = useRef(0)
-  const careIdRef = useRef(0)
+  const [careId, setCareId] = useState(0)
 
   // 入力内容の状態管理
   const [careFood, setCareFood] = useState('')
@@ -36,38 +38,69 @@ export const CareRecordCalendarPage = () => {
   }, [])
 
   // 選択したチンチラのお世話記録の一覧を取得
-  const handleGetChinchilla = async () => {
-    const chinchillaId = chinchillaIdRef.current.value
+  const handleGetChinchilla = async (event) => {
+    // selectedChinchillaIdはこの関数の中だけで使うchinchillaId
+    const selectedChinchillaId = event.target.value
+    setChinchillaId(selectedChinchillaId)
     try {
-      const res = await getAllCares(chinchillaId)
+      const res = await getAllCares(selectedChinchillaId)
       console.log(res.data)
       setAllCares(res.data)
 
       // 別のチンチラを選択する際に、画面の表示をリセットする
+      setCareId(0)
       setCareFood('')
       setCareToilet('')
       setCareBath('')
       setCarePlay('')
       setCareMemo('')
-
     } catch (err) {
       console.log(err)
+      alert('エラーです')
     }
   }
 
   // 選択した日付のお世話記録を表示
-  const handleSelectedCare = () => {
-    const careId = careIdRef.current.value
-    console.log('id:', careId)
+  const handleSelectedCare = (event) => {
+    // selectedCareIDはこの関数の中だけで使うCareId
+    const selectedCareId = event.target.value
+    setCareId(selectedCareId)
 
     // careIdは文字列なので、==で条件比較
-    const selectedCare = allCares.filter((care) => care.id == careId)
-    console.log('お世話記録表示', selectedCare)
+    const selectedCare = allCares.filter((care) => care.id == selectedCareId)
+
+    console.log(selectedCare)
     setCareFood(selectedCare[0].careFood)
     setCareToilet(selectedCare[0].careToilet)
     setCareBath(selectedCare[0].careBath)
     setCarePlay(selectedCare[0].carePlay)
     setCareMemo(selectedCare[0].careMemo)
+  }
+
+  // お世話記録を削除
+  const handleDelete = async (e) => {
+    if (!careId) {
+      alert('お世話を選択してください')
+      return
+    }
+    e.preventDefault()
+    try {
+      const res = await deleteCare(careId)
+      console.log(res)
+
+      // 削除後、画面の表示をリセットする
+      setChinchillaId(0)
+      setAllCares([])
+      setCareId(0)
+      setCareFood('')
+      setCareToilet('')
+      setCareBath('')
+      setCarePlay('')
+      setCareMemo('')
+    } catch (err) {
+      console.log(err)
+      alert('エラーです')
+    }
   }
 
   return (
@@ -82,8 +115,10 @@ export const CareRecordCalendarPage = () => {
           </div>
         </label>
         <select
-          ref={chinchillaIdRef}
-          onChange={handleGetChinchilla}
+          value={chinchillaId}
+          onChange={(e) => {
+            handleGetChinchilla(e)
+          }}
           className="w-ful select select-bordered select-primary border-dark-blue bg-ligth-white text-base font-light text-dark-black"
         >
           <option hidden value="">
@@ -105,8 +140,10 @@ export const CareRecordCalendarPage = () => {
           </div>
         </label>
         <select
-          ref={careIdRef}
-          onChange={handleSelectedCare}
+          value={careId}
+          onChange={(e) => {
+            handleSelectedCare(e)
+          }}
           className="w-ful select select-bordered select-primary border-dark-blue bg-ligth-white text-base font-light text-dark-black"
         >
           <option hidden value="">
@@ -119,7 +156,7 @@ export const CareRecordCalendarPage = () => {
           ))}
         </select>
       </div>
-      <div className="mt-12 mb-8 h-[300px] w-[500px] rounded-xl  bg-ligth-white">
+      <div className="mb-8 mt-12 h-[300px] w-[500px] rounded-xl  bg-ligth-white">
         <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
           <p className="w-24 text-center text-base text-dark-black">食事</p>
           <div className="flex grow justify-evenly text-center text-base text-dark-black">
@@ -210,6 +247,9 @@ export const CareRecordCalendarPage = () => {
           <p className="whitespace-pre-wrap text-left text-base text-dark-black">{careMemo}</p>
         </div>
       </div>
+      <Button btnType="submit" click={handleDelete} addStyle="btn-secondary h-16 w-40">
+        削除
+      </Button>
     </div>
   )
 }
