@@ -69,7 +69,7 @@ export const CareRecordCalendarPage = () => {
     // careIdは文字列なので、==で条件比較
     const selectedCare = allCares.filter((care) => care.id == selectedCareId)
 
-    console.log('お世話記録表示', selectedCare)
+    console.log(selectedCare)
     setCareFood(selectedCare[0].careFood)
     setCareToilet(selectedCare[0].careToilet)
     setCareBath(selectedCare[0].careBath)
