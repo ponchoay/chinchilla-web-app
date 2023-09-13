@@ -2,7 +2,7 @@ class Api::V1::ChinchillasController < ApplicationController
   # ログイン状態の確認
   before_action :authenticate_api_v1_user!
 
-  # チンチラプロフィール一覧
+  # チンチラプロフィール 一覧
   def index
     user_id = current_api_v1_user.id
     chinchillas = Chinchilla.where(user_id: user_id)
@@ -15,7 +15,7 @@ class Api::V1::ChinchillasController < ApplicationController
     render json:chinchilla
   end
 
-  # チンチラプロフィール作成
+  # チンチラプロフィール 作成
   def create
     chinchilla = Chinchilla.new(chinchilla_params)
     chinchilla.user_id = current_api_v1_user.id
@@ -29,6 +29,7 @@ class Api::V1::ChinchillasController < ApplicationController
     end
   end
 
+  # チンチラプロフィール 更新
   def update
     chinchilla = Chinchilla.find(params[:id])
     if chinchilla = chinchilla.update!(chinchilla_params)
@@ -40,6 +41,7 @@ class Api::V1::ChinchillasController < ApplicationController
     end
   end
 
+  # チンチラプロフィール 削除
   def destroy
     chinchilla = Chinchilla.find(params[:id])
     chinchilla.destroy
