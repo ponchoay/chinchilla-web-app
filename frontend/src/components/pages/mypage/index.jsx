@@ -5,6 +5,8 @@ import Cookies from 'js-cookie'
 import { signOut } from 'src/lib/api/auth'
 import { AuthContext } from 'src/contexts/auth'
 
+import { Button } from 'src/components/shared/Button'
+
 export const MyPagePage = () => {
   const router = useRouter()
   const { isSignedIn, setIsSignedIn, currentUser } = useContext(AuthContext)
@@ -42,7 +44,9 @@ export const MyPagePage = () => {
         )}
       </div>
       <div>
-        <button onClick={handleSignOut}>ログアウト</button>
+        <Button btnType="submit" click={handleSignOut} addStyle="btn-secondary h-16 w-40 my-12">
+          ログアウト
+        </Button>
       </div>
     </div>
   )

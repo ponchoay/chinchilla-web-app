@@ -144,7 +144,7 @@ export const ChinchillaProfilePage = () => {
       {isEditing ? (
         <>
           <div className="relative">
-            <button onClick={handleClickChangeImage} className=" mt-6">
+            <button type="button" onClick={handleClickChangeImage} className=" mt-6">
               <img
                 src={resultImage()}
                 alt="プロフィール画像"
@@ -232,6 +232,7 @@ export const ChinchillaProfilePage = () => {
           </div>
           <div>
             <Button
+              type="submit"
               click={handleSave}
               disabled={!chinchillaName || !chinchillaSex ? true : false}
               addStyle="btn-primary mr-24 h-16 w-40"
@@ -239,6 +240,7 @@ export const ChinchillaProfilePage = () => {
               保存
             </Button>
             <Button
+              type="button"
               click={() => {
                 setIsEditing(false)
                 setPreviewImage('')
@@ -301,8 +303,9 @@ export const ChinchillaProfilePage = () => {
             </div>
           </div>
           <div>
-            <button
-              onClick={() => {
+            <Button
+              type="button"
+              click={() => {
                 setIsEditing(true)
                 setChinchillaName(selectedChinchilla.chinchillaName)
                 setChinchillaSex(selectedChinchilla.chinchillaSex)
@@ -310,16 +313,13 @@ export const ChinchillaProfilePage = () => {
                 setChinchillaMetDay(selectedChinchilla.chinchillaMetDay)
                 setChinchillaMemo(selectedChinchilla.chinchillaMemo)
               }}
-              className="btn btn-primary mr-24 h-16 w-40 rounded-[10px] text-base tracking-widest text-white"
+              addStyle="btn-primary mr-24 h-16 w-40"
             >
               編集
-            </button>
-            <button
-              onClick={handleDelete}
-              className="btn btn-secondary h-16 w-40 rounded-[10px] text-base tracking-widest text-white"
-            >
+            </Button>
+            <Button type="submit" click={handleDelete} addStyle="btn-secondary h-16 w-40">
               削除
-            </button>
+            </Button>
           </div>
         </>
       )}

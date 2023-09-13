@@ -41,14 +41,17 @@ export const MyChinchillaPage = () => {
                   alt="プロフィール画像"
                   className="mb-3 h-[200px] w-[200px] rounded-3xl border border-solid border-ligth-white bg-ligth-white"
                 />
-                <p className="text-center w-[200px]">{chinchilla.chinchillaName}</p>
+                <p className="w-[200px] text-center">{chinchilla.chinchillaName}</p>
               </div>
             </Link>
           </div>
         ))}
       </div>
       <Link href="/chinchilla-registration" passHref>
-        <button className="btn btn-secondary fixed bottom-32 right-40 z-10 grid h-[80px] w-[80px] place-content-center place-items-center rounded-[50%] bg-light-pink">
+        <button
+          type="button"
+          className="btn btn-secondary fixed bottom-32 right-40 z-10 grid h-[80px] w-[80px] place-content-center place-items-center rounded-[50%] bg-light-pink"
+        >
           <FontAwesomeIcon icon={faPlus} className="absolute top-3 text-4xl text-white" />
           <p className="absolute bottom-3 text-sm text-white">登録</p>
         </button>

@@ -81,7 +81,7 @@ export const ChinchillaRegistrationPage = () => {
         チンチラの登録
       </p>
       <div className="relative">
-        <button onClick={handleClickChangeImage} className=" mt-6">
+        <button type="button" onClick={handleClickChangeImage} className=" mt-6">
           <img
             src={previewImage ? previewImage : '/images/default.svg'}
             alt="プロフィール画像"
@@ -160,6 +160,7 @@ export const ChinchillaRegistrationPage = () => {
         />
       </div>
       <Button
+        type="submit"
         click={handleSubmit}
         disabled={!chinchillaName || !chinchillaSex ? true : false}
         addStyle="btn-primary h-16 w-40"
