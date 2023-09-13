@@ -11,7 +11,7 @@ import { userSchema } from 'src/validation/validation'
 
 import { Button } from 'src/components/shared/Button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
+import { faAsterisk, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 
 export const SignUpPage = () => {
   const router = useRouter()
@@ -84,7 +84,10 @@ export const SignUpPage = () => {
         <div className="form-control mb-12 h-32 w-96">
           <label htmlFor="password" className="label">
             <span className="text-base text-dark-black">パスワード</span>
-            <span className="label-text-alt text-sm text-dark-black">6文字以上の半角英数字</span>
+            <div>
+              <FontAwesomeIcon icon={faAsterisk} className="mr-1 text-xs text-dark-pink" />
+              <span className="label-text-alt text-sm text-dark-black">6文字以上の半角英数字</span>
+            </div>
           </label>
           <div className="flex items-center">
             <div className="relative">
