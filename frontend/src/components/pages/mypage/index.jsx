@@ -20,9 +20,8 @@ export const MyPagePage = () => {
         Cookies.remove('_client')
         Cookies.remove('_uid')
 
-        setIsSignedIn(false)
-
         router.push('/signin')
+        setIsSignedIn(false)
         console.log('ログアウトしました！')
       } else {
         alert('ログアウト失敗')
