@@ -28,6 +28,19 @@ export const createCare = (params) => {
   })
 }
 
+// お世話記録更新
+export const updateCare = ({ careId, params }) => {
+  if (!Cookies.get('_access_token') || !Cookies.get('_client') || !Cookies.get('_uid')) return
+  return client.put(`/cares/${careId}`, params, {
+    headers: {
+      'access-token': Cookies.get('_access_token'),
+      client: Cookies.get('_client'),
+      uid: Cookies.get('_uid'),
+      'content-type': 'multipart/form-data'
+    }
+  })
+}
+
 // お世話記録 削除
 export const deleteCare = (careId) => {
   if (!Cookies.get('_access_token') || !Cookies.get('_client') || !Cookies.get('_uid')) return
