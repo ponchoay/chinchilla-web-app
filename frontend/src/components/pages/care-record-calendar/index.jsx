@@ -165,7 +165,7 @@ export const CareRecordCalendarPage = () => {
       {isEditing ? (
         <>
           <div className="form-control mt-6 w-96">
-            <label className="label">
+            <label htmlFor="chinchillaName" className="label">
               <span className="text-base text-dark-black">選択中のチンチラ</span>
               <div>
                 <FontAwesomeIcon icon={faAsterisk} className="mr-1 text-xs text-dark-pink" />
@@ -173,6 +173,7 @@ export const CareRecordCalendarPage = () => {
               </div>
             </label>
             <select
+              id="chinchillaName"
               value={chinchillaId}
               className="w-ful select select-bordered select-primary border-dark-blue bg-ligth-white text-base font-light text-dark-black"
               disabled
@@ -188,7 +189,7 @@ export const CareRecordCalendarPage = () => {
             </select>
           </div>
           <div className="form-control mt-6 w-96">
-            <label className="label">
+            <label htmlFor="careDay" className="label">
               <span className="text-base text-dark-black">お世話の日付を選択</span>
               <div>
                 <FontAwesomeIcon icon={faAsterisk} className="mr-1 text-xs text-dark-pink" />
@@ -196,6 +197,7 @@ export const CareRecordCalendarPage = () => {
               </div>
             </label>
             <select
+              id="careDay"
               value={careId}
               className="w-ful select select-bordered select-primary border-dark-blue bg-ligth-white text-base font-light text-dark-black"
               disabled
@@ -413,11 +415,12 @@ export const CareRecordCalendarPage = () => {
             </div>
           </div>
           <div className="form-control mb-12 mt-12 w-[500px]">
-            <label className="mx-1 my-2 flex">
+            <label htmlFor="careMemo" className="mx-1 my-2 flex">
               <FontAwesomeIcon icon={faFilePen} className="mx-1 pt-[3px] text-lg text-dark-black" />
               <span className="label-text text-base text-dark-black">メモ</span>
             </label>
             <textarea
+              id="careMemo"
               placeholder="メモを記入してください。"
               value={careMemo}
               onChange={(event) => setCareMemo(event.target.value)}
@@ -443,7 +446,7 @@ export const CareRecordCalendarPage = () => {
       ) : (
         <>
           <div className="form-control mt-6 w-96">
-            <label className="label">
+            <label htmlFor="chinchillaName" className="label">
               <span className="text-base text-dark-black">チンチラを選択</span>
               <div>
                 <FontAwesomeIcon icon={faAsterisk} className="mr-1 text-xs text-dark-pink" />
@@ -451,6 +454,7 @@ export const CareRecordCalendarPage = () => {
               </div>
             </label>
             <select
+              id="chinchillaName"
               value={chinchillaId}
               onChange={(e) => {
                 handleGetChinchilla(e)
@@ -468,7 +472,7 @@ export const CareRecordCalendarPage = () => {
             </select>
           </div>
           <div className="form-control mt-6 w-96">
-            <label className="label">
+            <label htmlFor="careDay" className="label">
               <span className="text-base text-dark-black">お世話の日付を選択</span>
               <div>
                 <FontAwesomeIcon icon={faAsterisk} className="mr-1 text-xs text-dark-pink" />
@@ -476,6 +480,7 @@ export const CareRecordCalendarPage = () => {
               </div>
             </label>
             <select
+              id="careDay"
               value={careId}
               onChange={(e) => {
                 handleSelectedCare(e)
