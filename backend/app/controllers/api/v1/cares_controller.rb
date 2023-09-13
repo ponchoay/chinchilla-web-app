@@ -21,6 +21,18 @@ class Api::V1::CaresController < ApplicationController
     end
   end
 
+  # お世話記録 更新
+  def update
+    care = Care.find(params[:id])
+    if care = care.update!(care_params)
+      # 成功した場合、ステータス204を返す
+      render json: care,status: :no_content
+    else
+      #エラー文を取得し、ステータス422を返す
+      render json: care.errors, status: :unprocessable_entity
+    end
+  end
+
   # お世話記録 削除
   def destroy
     care = Care.find(params[:id])
@@ -29,6 +41,6 @@ class Api::V1::CaresController < ApplicationController
 
   private
   def care_params
-    params.require(:care).permit(:care_day, :care_food, :care_toilet, :care_bath, :care_play, :care_weight, :care_temperature, :care_humidity, :care_memo, :care_image1, :care_image2, :care_image3, :chinchilla_id)
+    params.require(:care).permit(:care_day, :care_food, :care_toilet, :care_bath, :care_play, :care_weight, :care_temperature, :care_humidity, :care_memo, :care_image1, :care_image2, :care_image3)
   end
 end
