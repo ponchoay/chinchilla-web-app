@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext } from 'react'
+import Link from 'next/link'
 import { getAllChinchillas } from 'src/lib/api/chinchilla'
 import { getAllCares, deleteCare, updateCare } from 'src/lib/api/care'
 import { SelectedChinchillaIdContext } from 'src/contexts/chinchilla'
@@ -10,7 +11,8 @@ import {
   faFaceSmileBeam,
   faFaceDizzy,
   faFaceMeh,
-  faFilePen
+  faFilePen,
+  faPlus
 } from '@fortawesome/free-solid-svg-icons'
 
 export const CareRecordCalendarPage = () => {
@@ -627,6 +629,15 @@ export const CareRecordCalendarPage = () => {
               削除
             </Button>
           </div>
+          <Link href="/care-record-registration" passHref>
+            <button
+              type="button"
+              className="btn btn-secondary fixed bottom-32 right-40 z-10 grid h-[80px] w-[80px] place-content-center place-items-center rounded-[50%] bg-light-pink"
+            >
+              <FontAwesomeIcon icon={faPlus} className="absolute top-3 text-4xl text-white" />
+              <p className="absolute bottom-3 text-sm text-white">登録</p>
+            </button>
+          </Link>
         </>
       )}
     </div>
