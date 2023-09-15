@@ -1,9 +1,10 @@
 import { useContext } from 'react'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 import Cookies from 'js-cookie'
 import { signOut } from 'src/lib/api/auth'
 import { AuthContext } from 'src/contexts/auth'
+
+import { Button } from 'src/components/shared/Button'
 
 export const MyPagePage = () => {
   const router = useRouter()
@@ -20,9 +21,8 @@ export const MyPagePage = () => {
         Cookies.remove('_client')
         Cookies.remove('_uid')
 
-        setIsSignedIn(false)
-
         router.push('/signin')
+        setIsSignedIn(false)
         console.log('ログアウトしました！')
       } else {
         alert('ログアウト失敗')
@@ -43,7 +43,9 @@ export const MyPagePage = () => {
         )}
       </div>
       <div>
-        <button onClick={handleSignOut}>ログアウト</button>
+        <Button btnType="submit" click={handleSignOut} addStyle="btn-secondary h-16 w-40 my-12">
+          ログアウト
+        </Button>
       </div>
     </div>
   )

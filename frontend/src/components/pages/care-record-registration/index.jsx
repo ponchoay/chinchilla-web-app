@@ -75,7 +75,7 @@ export const CareRecordRegistrationPage = () => {
     <div className="my-40 grid place-content-center place-items-center">
       <p className="text-center text-2xl font-bold tracking-widest text-dark-blue">お世話の記録</p>
       <div className="form-control mt-6 w-96">
-        <label className="label">
+        <label htmlFor="chinchillaName" className="label">
           <span className="text-base text-dark-black">チンチラを選択</span>
           <div>
             <FontAwesomeIcon icon={faAsterisk} className="mr-1 text-xs text-dark-pink" />
@@ -83,6 +83,7 @@ export const CareRecordRegistrationPage = () => {
           </div>
         </label>
         <select
+          id="chinchillaName"
           value={chinchillaId}
           onChange={(event) => setChinchillaId(event.target.value)}
           className="w-ful select select-bordered select-primary border-dark-blue bg-ligth-white text-base font-light text-dark-black"
@@ -99,7 +100,7 @@ export const CareRecordRegistrationPage = () => {
       </div>
       <p className="my-3">選択中のID：{chinchillaId}</p>
       <div className="form-control mt-6 w-96">
-        <label className="label">
+        <label htmlFor="careDay" className="label">
           <span className="text-base text-dark-black">日付</span>
           <div>
             <FontAwesomeIcon icon={faAsterisk} className="mr-1 text-xs text-dark-pink" />
@@ -107,6 +108,7 @@ export const CareRecordRegistrationPage = () => {
           </div>
         </label>
         <input
+          id="careDay"
           type="date"
           value={careDay}
           onChange={(event) => setCareDay(event.target.value)}
@@ -316,11 +318,12 @@ export const CareRecordRegistrationPage = () => {
         </div>
       </div>
       <div className="form-control mb-12 mt-12 w-[500px]">
-        <label className="mx-1 my-2 flex">
+        <label htmlFor="careMemo" className="mx-1 my-2 flex">
           <FontAwesomeIcon icon={faFilePen} className="mx-1 pt-[3px] text-lg text-dark-black" />
           <span className="label-text text-base text-dark-black">メモ</span>
         </label>
         <textarea
+          id="careMemo"
           placeholder="メモを記入してください。"
           value={careMemo}
           onChange={(event) => setCareMemo(event.target.value)}

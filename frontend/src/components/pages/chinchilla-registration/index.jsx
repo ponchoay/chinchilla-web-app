@@ -81,7 +81,7 @@ export const ChinchillaRegistrationPage = () => {
         チンチラの登録
       </p>
       <div className="relative">
-        <button onClick={handleClickChangeImage} className=" mt-6">
+        <button type="button" onClick={handleClickChangeImage} className=" mt-6">
           <img
             src={previewImage ? previewImage : '/images/default.svg'}
             alt="プロフィール画像"
@@ -101,7 +101,7 @@ export const ChinchillaRegistrationPage = () => {
         className="file-input file-input-bordered file-input-primary hidden w-full max-w-xs"
       />
       <div className="form-control mt-6 w-96">
-        <label className="label">
+        <label htmlFor="chinchillaName" className="label">
           <span className="text-base text-dark-black">名前</span>
           <div>
             <FontAwesomeIcon icon={faAsterisk} className="mr-1 text-xs text-dark-pink" />
@@ -109,6 +109,7 @@ export const ChinchillaRegistrationPage = () => {
           </div>
         </label>
         <input
+          id="chinchillaName"
           type="text"
           placeholder="チンチラの名前"
           value={chinchillaName}
@@ -117,7 +118,7 @@ export const ChinchillaRegistrationPage = () => {
         />
       </div>
       <div className="form-control mt-6 w-96">
-        <label className="label">
+        <label htmlFor="chinchillaSex" className="label">
           <span className="text-base text-dark-black">性別</span>
           <div>
             <FontAwesomeIcon icon={faAsterisk} className="mr-1 text-xs text-dark-pink" />
@@ -125,6 +126,7 @@ export const ChinchillaRegistrationPage = () => {
           </div>
         </label>
         <select
+          id="chinchillaSex"
           value={chinchillaSex}
           onChange={(event) => setChinchillaSex(event.target.value)}
           className="w-ful select select-bordered select-primary border-dark-blue bg-ligth-white text-base font-light text-dark-black"
@@ -138,10 +140,11 @@ export const ChinchillaRegistrationPage = () => {
         </select>
       </div>
       <div className="form-control mt-6 w-96">
-        <label className="label">
+        <label htmlFor="chinchillaBirthday" className="label">
           <span className="text-base text-dark-black">誕生日</span>
         </label>
         <input
+          id="chinchillaBirthday"
           type="date"
           value={chinchillaBirthday}
           onChange={(event) => setChinchillaBirthday(event.target.value)}
@@ -149,10 +152,11 @@ export const ChinchillaRegistrationPage = () => {
         />
       </div>
       <div className="form-control mb-12 mt-6 w-96">
-        <label className="label">
+        <label htmlFor="chinchillaMetDay" className="label">
           <span className="text-base text-dark-black">お迎え日</span>
         </label>
         <input
+          id="chinchillaMetDay"
           type="date"
           value={chinchillaMetDay}
           onChange={(event) => setChinchillaMetDay(event.target.value)}
@@ -160,6 +164,7 @@ export const ChinchillaRegistrationPage = () => {
         />
       </div>
       <Button
+        type="submit"
         click={handleSubmit}
         disabled={!chinchillaName || !chinchillaSex ? true : false}
         addStyle="btn-primary h-16 w-40"
