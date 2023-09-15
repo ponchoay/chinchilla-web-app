@@ -98,7 +98,6 @@ export const CareRecordRegistrationPage = () => {
           ))}
         </select>
       </div>
-      <p className="my-3">選択中のID：{chinchillaId}</p>
       <div className="form-control mt-6 w-96">
         <label htmlFor="careDay" className="label">
           <span className="text-base text-dark-black">日付</span>
@@ -115,7 +114,7 @@ export const CareRecordRegistrationPage = () => {
           className="w-ful input input-bordered input-primary input-md border-dark-blue bg-ligth-white text-base text-dark-black"
         />
       </div>
-      <div className="my-8 h-[300px] w-[500px] rounded-xl border border-solid border-dark-blue bg-ligth-white">
+      <div className="mb-8 mt-12 h-[300px] w-[500px] rounded-xl border border-solid border-dark-blue bg-ligth-white">
         <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
           <p className="w-24 text-center text-base text-dark-black">食事</p>
           <div className="flex grow justify-evenly text-center text-base text-dark-black">
