@@ -1,5 +1,4 @@
 import { useContext } from 'react'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 import Cookies from 'js-cookie'
 import { signOut } from 'src/lib/api/auth'
