@@ -5,8 +5,8 @@ class Chinchilla < ApplicationRecord
   #アップローダーとchinchilla_imageカラムを紐づけ
   mount_uploader :chinchilla_image, ChinchillaImageUploader
 
-  # Careモデルと関連付け
-  has_one :care
+  # Careモデルと関連付け（1対多の関係）
+  has_many :cares
 
   # chinchilla_nameのバリデーション（空でないこと,字数制限）
   validates :chinchilla_name, presence: true, length: { minimum:1, maximum:15 }

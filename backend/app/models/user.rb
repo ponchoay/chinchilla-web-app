@@ -6,6 +6,6 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
           :recoverable, :rememberable, :validatable
   include DeviseTokenAuth::Concerns::User
-  # Chinchillaモデルと関連付け
-  has_one :chinchilla
+  # Chinchillaモデルと関連付け（1対多の関係）
+  has_many :chinchilla
 end
