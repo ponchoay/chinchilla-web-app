@@ -83,6 +83,22 @@ export const ChinchillaProfilePage = () => {
     return '/images/default.svg'
   }
 
+  // chinchillaBirthdayの値が空の場合は、DBにnullを登録
+  const handleChinchillaBirthdayChange = (event) => {
+    const newChinchillaBirthday = event.target.value
+    newChinchillaBirthday === ''
+      ? setChinchillaBirthday(null)
+      : setChinchillaBirthday(newChinchillaBirthday)
+  }
+
+  // chinchillaMetDayの値が空の場合は、DBにnullを登録
+  const handleChinchillaMetDayChange = (event) => {
+    const newChinchillaMetDay = event.target.value
+    newChinchillaMetDay === ''
+      ? setChinchillaMetDay(null)
+      : setChinchillaMetDay(newChinchillaMetDay)
+  }
+
   // FormData形式でデータを作成
   const createFormData = () => {
     const formData = new FormData()
@@ -206,8 +222,8 @@ export const ChinchillaProfilePage = () => {
             <input
               id="chinchillaBirthday"
               type="date"
-              value={chinchillaBirthday}
-              onChange={(event) => setChinchillaBirthday(event.target.value)}
+              value={chinchillaBirthday ? chinchillaBirthday : ''} // nullの場合は空を表示
+              onChange={handleChinchillaBirthdayChange}
               className="w-ful input input-bordered input-primary input-md border-dark-blue bg-ligth-white text-base text-dark-black"
             />
           </div>
@@ -218,8 +234,8 @@ export const ChinchillaProfilePage = () => {
             <input
               id="chinchillaMetDay"
               type="date"
-              value={chinchillaMetDay}
-              onChange={(event) => setChinchillaMetDay(event.target.value)}
+              value={chinchillaMetDay ? chinchillaMetDay : ''} // nullの場合は空を表示
+              onChange={handleChinchillaMetDayChange}
               className="w-ful input input-bordered input-primary input-md border-dark-blue bg-ligth-white text-base text-dark-black"
             />
           </div>
