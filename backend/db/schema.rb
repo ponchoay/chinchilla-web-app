@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_26_151647) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_16_072945) do
   create_table "cares", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.date "care_day", null: false
     t.string "care_food"
@@ -20,7 +20,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_26_151647) do
     t.integer "care_weight"
     t.float "care_temperature"
     t.integer "care_humidity"
-    t.text "care_memo", size: :tiny
+    t.string "care_memo", limit: 200
     t.string "care_image1"
     t.string "care_image2"
     t.string "care_image3"
@@ -35,7 +35,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_26_151647) do
     t.string "chinchilla_sex", null: false
     t.date "chinchilla_birthday"
     t.date "chinchilla_met_day"
-    t.text "chinchilla_memo", size: :tiny
+    t.string "chinchilla_memo", limit: 200
     t.string "chinchilla_image"
     t.bigint "user_id"
     t.datetime "created_at", null: false
