@@ -2,12 +2,23 @@ class Care < ApplicationRecord
   # Chinchillaモデルに従属
   belongs_to :chinchilla
 
-  # care_dayのバリデーション（未来の日付でないこと）
+  # care_dayのバリデーション（空でないこと,未来の日付でないこと,同じチンチラに対して重複しないこと）
+  validates :care_day, presence: true
+
   validate :care_day_cannot_be_in_the_future
+
+  validate :care_day_must_be_unique_per_chinchilla
 
   def care_day_cannot_be_in_the_future
     if care_day.present? && care_day > Date.today
       errors.add(:care_day, "は未来の日付に設定できません")
+    end
+  end
+
+  def care_day_must_be_unique_per_chinchilla
+    # 同じチンチラに対して同じcare_dayが存在するかをチェック
+    if chinchilla.present? && chinchilla.cares.where(care_day: care_day).exists?
+      errors.add(:care_day, "は同じチンチラに対して重複することはできません")
     end
   end
 
