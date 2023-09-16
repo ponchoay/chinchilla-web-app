@@ -27,10 +27,12 @@ class Chinchilla < ApplicationRecord
   validate :chinchilla_met_day_cannot_be_in_the_future_and_before_birthday
 
   def chinchilla_met_day_cannot_be_in_the_future_and_before_birthday
-    if chinchilla_met_day.present? && chinchilla_met_day > Date.today
-      errors.add(:chinchilla_met_day, "は未来の日付に設定できません")
-    elsif chinchilla_met_day.present? && chinchilla_met_day < chinchilla_birthday
-      errors.add(:chinchilla_met_day, "は誕生日よりも過去の日付に設定してください")
+    if chinchilla_met_day.present?
+      if chinchilla_met_day > Date.today
+        errors.add(:chinchilla_met_day, "は未来の日付に設定できません")
+      elsif chinchilla_birthday.present? && chinchilla_met_day < chinchilla_birthday
+        errors.add(:chinchilla_met_day, "は誕生日よりも過去の日付に設定できません")
+      end
     end
   end
 
