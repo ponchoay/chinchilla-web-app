@@ -4,7 +4,7 @@ import { createChinchilla } from 'src/lib/api/chinchilla'
 
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { chinchillaSchema } from 'src/validation/chinchilla'
+import { chinchillaRegistrationSchema } from 'src/validation/chinchilla'
 
 import { Button } from 'src/components/shared/Button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -26,7 +26,7 @@ export const ChinchillaRegistrationPage = () => {
       chinchillaBirthday: '',
       chinchillaMetDay: ''
     },
-    resolver: zodResolver(chinchillaSchema)
+    resolver: zodResolver(chinchillaRegistrationSchema)
   })
 
   // プレビュー用

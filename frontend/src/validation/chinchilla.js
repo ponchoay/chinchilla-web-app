@@ -1,14 +1,14 @@
 import { z } from 'zod'
 
-export const chinchillaSchema = z
+export const chinchillaRegistrationSchema = z
   .object({
     chinchillaName: z
       .string()
       .nonempty('名前は必須です')
       .max(15, '名前は15文字以下で入力してください'),
     chinchillaSex: z.string().nonempty('性別は必須です'),
-    chinchillaBirthday: z.string().optional(),
-    chinchillaMetDay: z.string().optional()
+    chinchillaBirthday: z.string().nullable(),
+    chinchillaMetDay: z.string().nullable()
   })
   // 第一引数の条件がfalseの場合に、第二引数のメッセージを表示
   .refine((data) => !data.chinchillaBirthday || new Date(data.chinchillaBirthday) <= new Date(), {
