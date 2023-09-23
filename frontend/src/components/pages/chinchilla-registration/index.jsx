@@ -138,7 +138,7 @@ export const ChinchillaRegistrationPage = () => {
             <p className="label text-base text-dark-pink">{errors.chinchillaName.message}</p>
           )}
         </div>
-        <div className="form-control mt-6 h-32 w-96">
+        <div className="form-control mt-3 h-32 w-96">
           <label htmlFor="chinchillaSex" className="label">
             <span className="text-base text-dark-black">性別</span>
             <div>
@@ -162,7 +162,7 @@ export const ChinchillaRegistrationPage = () => {
             <p className="label text-base text-dark-pink">{errors.chinchillaSex.message}</p>
           )}
         </div>
-        <div className="form-control mt-6 h-32 w-96">
+        <div className="form-control mt-3 h-32 w-96">
           <label htmlFor="chinchillaBirthday" className="label">
             <span className="text-base text-dark-black">誕生日</span>
           </label>
@@ -176,7 +176,7 @@ export const ChinchillaRegistrationPage = () => {
             <p className="label text-base text-dark-pink">{errors.chinchillaBirthday.message}</p>
           )}
         </div>
-        <div className="form-control mb-12 mt-6 h-32 w-96">
+        <div className="form-control mb-6 mt-3 h-32 w-96">
           <label htmlFor="chinchillaMetDay" className="label">
             <span className="text-base text-dark-black">お迎え日</span>
           </label>

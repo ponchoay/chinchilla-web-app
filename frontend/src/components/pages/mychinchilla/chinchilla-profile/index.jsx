@@ -198,7 +198,7 @@ export const ChinchillaProfilePage = () => {
                 <p className="label text-base text-dark-pink">{errors.chinchillaName.message}</p>
               )}
             </div>
-            <div className="form-control mt-6 h-32 w-96">
+            <div className="form-control mt-3 h-32 w-96">
               <label htmlFor="chinchillaSex" className="label">
                 <span className="text-base text-dark-black">性別</span>
                 <div>
@@ -220,7 +220,7 @@ export const ChinchillaProfilePage = () => {
                 <p className="label text-base text-dark-pink">{errors.chinchillaSex.message}</p>
               )}
             </div>
-            <div className="form-control mt-6 h-32 w-96">
+            <div className="form-control mt-3 h-32 w-96">
               <label htmlFor="chinchillaBirthday" className="label">
                 <span className="text-base text-dark-black">誕生日</span>
               </label>
@@ -236,7 +236,7 @@ export const ChinchillaProfilePage = () => {
                 </p>
               )}
             </div>
-            <div className="form-control mt-6 h-32 w-96">
+            <div className="form-control mt-3 h-32 w-96">
               <label htmlFor="chinchillaMetDay" className="label">
                 <span className="text-base text-dark-black">お迎え日</span>
               </label>
@@ -250,7 +250,7 @@ export const ChinchillaProfilePage = () => {
                 <p className="label text-base text-dark-pink">{errors.chinchillaMetDay.message}</p>
               )}
             </div>
-            <div className="form-control mb-12 mt-12 h-[500px] w-[500px]">
+            <div className="form-control my-6 h-[500px] w-[500px]">
               <label htmlFor="chinchillaMemo" className="label">
                 <span className="label-text text-base text-dark-black">メモ</span>
               </label>
