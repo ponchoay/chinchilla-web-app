@@ -7,7 +7,7 @@ import { AuthContext } from 'src/contexts/auth'
 
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { userSchema } from 'src/validation/validation'
+import { userSchema } from 'src/validation/auth'
 
 import { Button } from 'src/components/shared/Button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
