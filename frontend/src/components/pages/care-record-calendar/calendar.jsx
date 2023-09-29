@@ -6,23 +6,10 @@ import ja from 'date-fns/locale/ja'
 import { cn } from 'src/lib/utils'
 import { buttonVariants } from 'src/components/pages/care-record-calendar/button'
 
-const cares = [
-  '2023-09-01',
-  '2023-09-02',
-  '2023-09-03',
-  '2023-09-04',
-  '2023-09-05',
-  '2023-09-06',
-  '2023-09-07',
-  '2023-09-08',
-  '2023-09-09',
-  '2023-09-10',
-  '2023-09-11'
-]
-const careDays = cares.map((care) => new Date(care))
-console.log('careDays', careDays)
+function Calendar({ allCares, className, classNames, showOutsideDays = true, ...props }) {
+  // 選択したチンチラのお世話記録の一覧を取得
+  const careDays = allCares.map((care) => new Date(care.careDay))
 
-function Calendar({ className, classNames, showOutsideDays = true, ...props }) {
   return (
     <DayPicker
       // デフォルトで今月を表示

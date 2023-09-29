@@ -16,6 +16,8 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 
 import { Calendar } from 'src/components/pages/care-record-calendar/calendar'
+import { format } from 'date-fns'
+import ja from 'date-fns/locale/ja'
 
 export const CareRecordCalendarPage = () => {
   const [allChinchillas, setAllChinchillas] = useState([])
@@ -35,8 +37,8 @@ export const CareRecordCalendarPage = () => {
   const [carePlay, setCarePlay] = useState('')
   const [careMemo, setCareMemo] = useState('')
 
-  const [date, setDate] = useState(new Date())
-  console.log('選択中：', date)
+  // 選択中のカレンダーの日付の状態管理
+  const [date, setDate] = useState()
 
   // 全てのチンチラのデータを取得
   const fetch = async () => {
@@ -49,14 +51,14 @@ export const CareRecordCalendarPage = () => {
     fetch()
   }, [])
 
-  // 選択したチンチラのお世話記録の一覧を取得
+  // チンチラを選択し、お世話記録の一覧を取得
   const handleGetChinchilla = async (event) => {
     // selectedChinchillaIdはこの関数の中だけで使うchinchillaId
     const selectedChinchillaId = event.target.value
     setChinchillaId(selectedChinchillaId)
     try {
       const res = await getAllCares(selectedChinchillaId)
-      console.log(res.data)
+      console.log('お世話記録一覧：', res.data)
       setAllCares(res.data)
 
       // 別のチンチラを選択する際に、画面の表示をリセットする
@@ -73,20 +75,32 @@ export const CareRecordCalendarPage = () => {
   }
 
   // 選択した日付のお世話記録を表示
-  const handleSelectedCare = (event) => {
-    // selectedCareIDはこの関数の中だけで使うCareId
-    const selectedCareId = event.target.value
-    setCareId(selectedCareId)
+  const handleSelectedCare = (date) => {
+    // チンチラを選択していない場合又はお世話記録を登録していないチンチラを選択した場合
+    if (allCares.length === 0) return
 
-    // careIdは文字列なので、==で条件比較
-    const selectedCare = allCares.filter((care) => care.id == selectedCareId)
+    // カレンダーで選択した日付と一致するお世話の記録をselectedCareに格納
+    const selectedCare = allCares.filter(
+      (care) => care.careDay === format(new Date(date), 'yyyy-MM-dd', { locale: ja })
+    )
 
-    console.log(selectedCare)
-    setCareFood(selectedCare[0].careFood)
-    setCareToilet(selectedCare[0].careToilet)
-    setCareBath(selectedCare[0].careBath)
-    setCarePlay(selectedCare[0].carePlay)
-    setCareMemo(selectedCare[0].careMemo)
+    console.log('選択中のお世話', selectedCare)
+
+    // お世話の記録がない場合
+    if (selectedCare.length === 0) {
+      setCareFood('')
+      setCareToilet('')
+      setCareBath('')
+      setCarePlay('')
+      setCareMemo('')
+    } else {
+      // お世話の記録がある場合
+      setCareFood(selectedCare[0].careFood)
+      setCareToilet(selectedCare[0].careToilet)
+      setCareBath(selectedCare[0].careBath)
+      setCarePlay(selectedCare[0].carePlay)
+      setCareMemo(selectedCare[0].careMemo)
+    }
   }
 
   // お世話記録を削除
@@ -171,7 +185,13 @@ export const CareRecordCalendarPage = () => {
       <p className="text-center text-2xl font-bold tracking-widest text-dark-blue">お世話の記録</p>
 
       {/* カレンダー */}
-      <Calendar selected={date} onSelect={setDate} className="mt-3" />
+      <Calendar
+        selected={date}
+        onSelect={setDate}
+        onDayClick={handleSelectedCare}
+        allCares={allCares}
+        className="mt-6"
+      />
 
       {isEditing ? (
         <>
@@ -478,32 +498,6 @@ export const CareRecordCalendarPage = () => {
               {allChinchillas.map((chinchilla) => (
                 <option key={chinchilla.id} value={chinchilla.id}>
                   {chinchilla.chinchillaName}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="form-control mt-6 w-96">
-            <label htmlFor="careDay" className="label">
-              <span className="text-base text-dark-black">お世話の日付を選択</span>
-              <div>
-                <FontAwesomeIcon icon={faAsterisk} className="mr-1 text-xs text-dark-pink" />
-                <span className="label-text-alt text-dark-black">必須入力</span>
-              </div>
-            </label>
-            <select
-              id="careDay"
-              value={careId}
-              onChange={(e) => {
-                handleSelectedCare(e)
-              }}
-              className="w-ful select select-bordered select-primary border-dark-blue bg-ligth-white text-base font-light text-dark-black"
-            >
-              <option hidden value="">
-                選択してください
-              </option>
-              {allCares.map((care) => (
-                <option key={care.id} value={care.id}>
-                  {care.careDay}
                 </option>
               ))}
             </select>
