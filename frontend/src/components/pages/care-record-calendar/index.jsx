@@ -15,6 +15,8 @@ import {
   faPlus
 } from '@fortawesome/free-solid-svg-icons'
 
+import { Calendar } from 'src/components/pages/care-record-calendar/calendar'
+
 export const CareRecordCalendarPage = () => {
   const [allChinchillas, setAllChinchillas] = useState([])
   const [allCares, setAllCares] = useState([])
@@ -32,6 +34,9 @@ export const CareRecordCalendarPage = () => {
   const [careBath, setCareBath] = useState('')
   const [carePlay, setCarePlay] = useState('')
   const [careMemo, setCareMemo] = useState('')
+
+  const [date, setDate] = useState(new Date())
+  console.log('選択中：', date)
 
   // 全てのチンチラのデータを取得
   const fetch = async () => {
@@ -164,6 +169,10 @@ export const CareRecordCalendarPage = () => {
   return (
     <div className="my-40 grid place-content-center place-items-center">
       <p className="text-center text-2xl font-bold tracking-widest text-dark-blue">お世話の記録</p>
+
+      {/* カレンダー */}
+      <Calendar selected={date} onSelect={setDate} className="mt-3" />
+
       {isEditing ? (
         <>
           <div className="form-control mt-6 w-96">
