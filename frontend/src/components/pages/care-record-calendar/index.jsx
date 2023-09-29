@@ -88,6 +88,7 @@ export const CareRecordCalendarPage = () => {
 
     // お世話の記録がない場合
     if (selectedCare.length === 0) {
+      setCareId(0)
       setCareFood('')
       setCareToilet('')
       setCareBath('')
@@ -95,6 +96,7 @@ export const CareRecordCalendarPage = () => {
       setCareMemo('')
     } else {
       // お世話の記録がある場合
+      setCareId(selectedCare[0].id)
       setCareFood(selectedCare[0].careFood)
       setCareToilet(selectedCare[0].careToilet)
       setCareBath(selectedCare[0].careBath)
