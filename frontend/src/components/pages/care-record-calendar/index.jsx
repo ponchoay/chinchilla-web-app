@@ -38,7 +38,7 @@ export const CareRecordCalendarPage = () => {
   const [careMemo, setCareMemo] = useState('')
 
   // 選択中のカレンダーの日付の状態管理
-  const [date, setDate] = useState()
+  const [selectedDate, setSelectedDate] = useState(null)
 
   // 全てのチンチラのデータを取得
   const fetch = async () => {
@@ -76,6 +76,25 @@ export const CareRecordCalendarPage = () => {
 
   // 選択した日付のお世話記録を表示
   const handleSelectedCare = (date) => {
+    // 2つの日付を比較する関数を定義
+    const isSameDay = (date1, date2) => {
+      return (
+        format(date1, 'yyyy-MM-dd', { locale: ja }) === format(date2, 'yyyy-MM-dd', { locale: ja })
+      )
+    }
+
+    // すでに選択されている日付を再度クリックした場合、選択状態を解除
+    if (selectedDate && isSameDay(selectedDate, date)) {
+      setCareId(0)
+      setSelectedDate(null)
+      setCareFood('')
+      setCareToilet('')
+      setCareBath('')
+      setCarePlay('')
+      setCareMemo('')
+      return
+    }
+
     // チンチラを選択していない場合又はお世話記録を登録していないチンチラを選択した場合
     if (allCares.length === 0) return
 
@@ -188,8 +207,8 @@ export const CareRecordCalendarPage = () => {
 
       {/* カレンダー */}
       <Calendar
-        selected={date}
-        onSelect={setDate}
+        selected={selectedDate}
+        onSelect={setSelectedDate}
         onDayClick={handleSelectedCare}
         allCares={allCares}
         className="mt-6"
