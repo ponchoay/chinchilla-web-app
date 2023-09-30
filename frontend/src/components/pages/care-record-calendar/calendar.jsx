@@ -64,8 +64,7 @@ function Calendar({ allCares, className, classNames, showOutsideDays = true, ...
           'h-9 w-9 p-0 font-normal aria-selected:opacity-100 rounded-full'
         ),
         // 選択中の日付
-        day_selected:
-          'rounded-full !bg-light-blue !text-ligth-white focus:bg-light-blue focus:text-ligth-white',
+        day_selected: 'ring ring-dark-pink focus:ring focus:ring-dark-pink',
 
         // 今日の日付
         day_today: 'bg-slate-200 rounded-full text-dark-black',
