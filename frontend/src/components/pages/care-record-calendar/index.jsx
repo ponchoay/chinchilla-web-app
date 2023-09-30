@@ -15,6 +15,10 @@ import {
   faPlus
 } from '@fortawesome/free-solid-svg-icons'
 
+import { Calendar } from 'src/components/pages/care-record-calendar/calendar'
+import { format } from 'date-fns'
+import ja from 'date-fns/locale/ja'
+
 export const CareRecordCalendarPage = () => {
   const [allChinchillas, setAllChinchillas] = useState([])
   const [allCares, setAllCares] = useState([])
@@ -33,6 +37,9 @@ export const CareRecordCalendarPage = () => {
   const [carePlay, setCarePlay] = useState('')
   const [careMemo, setCareMemo] = useState('')
 
+  // 選択中のカレンダーの日付の状態管理
+  const [selectedDate, setSelectedDate] = useState(null)
+
   // 全てのチンチラのデータを取得
   const fetch = async () => {
     const res = await getAllChinchillas()
@@ -44,14 +51,14 @@ export const CareRecordCalendarPage = () => {
     fetch()
   }, [])
 
-  // 選択したチンチラのお世話記録の一覧を取得
+  // チンチラを選択し、お世話記録の一覧を取得
   const handleGetChinchilla = async (event) => {
     // selectedChinchillaIdはこの関数の中だけで使うchinchillaId
     const selectedChinchillaId = event.target.value
     setChinchillaId(selectedChinchillaId)
     try {
       const res = await getAllCares(selectedChinchillaId)
-      console.log(res.data)
+      console.log('お世話記録一覧：', res.data)
       setAllCares(res.data)
 
       // 別のチンチラを選択する際に、画面の表示をリセットする
@@ -68,20 +75,53 @@ export const CareRecordCalendarPage = () => {
   }
 
   // 選択した日付のお世話記録を表示
-  const handleSelectedCare = (event) => {
-    // selectedCareIDはこの関数の中だけで使うCareId
-    const selectedCareId = event.target.value
-    setCareId(selectedCareId)
+  const handleSelectedCare = (date) => {
+    // 2つの日付を比較する関数を定義
+    const isSameDay = (date1, date2) => {
+      return (
+        format(date1, 'yyyy-MM-dd', { locale: ja }) === format(date2, 'yyyy-MM-dd', { locale: ja })
+      )
+    }
 
-    // careIdは文字列なので、==で条件比較
-    const selectedCare = allCares.filter((care) => care.id == selectedCareId)
+    // すでに選択されている日付を再度クリックした場合、選択状態を解除
+    if (selectedDate && isSameDay(selectedDate, date)) {
+      setCareId(0)
+      setSelectedDate(null)
+      setCareFood('')
+      setCareToilet('')
+      setCareBath('')
+      setCarePlay('')
+      setCareMemo('')
+      return
+    }
 
-    console.log(selectedCare)
-    setCareFood(selectedCare[0].careFood)
-    setCareToilet(selectedCare[0].careToilet)
-    setCareBath(selectedCare[0].careBath)
-    setCarePlay(selectedCare[0].carePlay)
-    setCareMemo(selectedCare[0].careMemo)
+    // チンチラを選択していない場合又はお世話記録を登録していないチンチラを選択した場合
+    if (allCares.length === 0) return
+
+    // カレンダーで選択した日付と一致するお世話の記録をselectedCareに格納
+    const selectedCare = allCares.filter(
+      (care) => care.careDay === format(new Date(date), 'yyyy-MM-dd', { locale: ja })
+    )
+
+    console.log('選択中のお世話', selectedCare)
+
+    // お世話の記録がない場合
+    if (selectedCare.length === 0) {
+      setCareId(0)
+      setCareFood('')
+      setCareToilet('')
+      setCareBath('')
+      setCarePlay('')
+      setCareMemo('')
+    } else {
+      // お世話の記録がある場合
+      setCareId(selectedCare[0].id)
+      setCareFood(selectedCare[0].careFood)
+      setCareToilet(selectedCare[0].careToilet)
+      setCareBath(selectedCare[0].careBath)
+      setCarePlay(selectedCare[0].carePlay)
+      setCareMemo(selectedCare[0].careMemo)
+    }
   }
 
   // お世話記録を削除
@@ -164,6 +204,16 @@ export const CareRecordCalendarPage = () => {
   return (
     <div className="my-40 grid place-content-center place-items-center">
       <p className="text-center text-2xl font-bold tracking-widest text-dark-blue">お世話の記録</p>
+
+      {/* カレンダー */}
+      <Calendar
+        selected={selectedDate}
+        onSelect={setSelectedDate}
+        onDayClick={handleSelectedCare}
+        allCares={allCares}
+        className="mt-6"
+      />
+
       {isEditing ? (
         <>
           <div className="form-control mt-6 w-96">
@@ -190,31 +240,7 @@ export const CareRecordCalendarPage = () => {
               ))}
             </select>
           </div>
-          <div className="form-control mt-6 w-96">
-            <label htmlFor="careDay" className="label">
-              <span className="text-base text-dark-black">お世話の日付を選択</span>
-              <div>
-                <FontAwesomeIcon icon={faAsterisk} className="mr-1 text-xs text-dark-pink" />
-                <span className="label-text-alt text-dark-black">必須入力</span>
-              </div>
-            </label>
-            <select
-              id="careDay"
-              value={careId}
-              className="w-ful select select-bordered select-primary border-dark-blue bg-ligth-white text-base font-light text-dark-black"
-              disabled
-            >
-              <option hidden value="">
-                選択してください
-              </option>
-              {allCares.map((care) => (
-                <option key={care.id} value={care.id}>
-                  {care.careDay}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="mb-8 mt-12 h-[300px] w-[500px] rounded-xl border border-solid border-dark-blue bg-ligth-white">
+          <div className="mt-6 h-[300px] w-[500px] rounded-xl border border-solid border-dark-blue bg-ligth-white">
             <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
               <p className="w-24 text-center text-base text-dark-black">食事</p>
               <div className="flex grow justify-evenly text-center text-base text-dark-black">
@@ -416,7 +442,7 @@ export const CareRecordCalendarPage = () => {
               </div>
             </div>
           </div>
-          <div className="form-control mb-12 mt-12 w-[500px]">
+          <div className="form-control mb-12 mt-6 w-[500px]">
             <label htmlFor="careMemo" className="mx-1 my-2 flex">
               <FontAwesomeIcon icon={faFilePen} className="mx-1 pt-[3px] text-lg text-dark-black" />
               <span className="label-text text-base text-dark-black">メモ</span>
@@ -473,33 +499,7 @@ export const CareRecordCalendarPage = () => {
               ))}
             </select>
           </div>
-          <div className="form-control mt-6 w-96">
-            <label htmlFor="careDay" className="label">
-              <span className="text-base text-dark-black">お世話の日付を選択</span>
-              <div>
-                <FontAwesomeIcon icon={faAsterisk} className="mr-1 text-xs text-dark-pink" />
-                <span className="label-text-alt text-dark-black">必須入力</span>
-              </div>
-            </label>
-            <select
-              id="careDay"
-              value={careId}
-              onChange={(e) => {
-                handleSelectedCare(e)
-              }}
-              className="w-ful select select-bordered select-primary border-dark-blue bg-ligth-white text-base font-light text-dark-black"
-            >
-              <option hidden value="">
-                選択してください
-              </option>
-              {allCares.map((care) => (
-                <option key={care.id} value={care.id}>
-                  {care.careDay}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="mb-8 mt-12 h-[300px] w-[500px] rounded-xl  bg-ligth-white">
+          <div className="mt-6 h-[300px] w-[500px] rounded-xl  bg-ligth-white">
             <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
               <p className="w-24 text-center text-base text-dark-black">食事</p>
               <div className="flex grow justify-evenly text-center text-base text-dark-black">
@@ -605,7 +605,7 @@ export const CareRecordCalendarPage = () => {
               </div>
             </div>
           </div>
-          <div className="my-12">
+          <div className="mb-12 mt-6">
             <div className="mx-1 my-2 flex">
               <FontAwesomeIcon icon={faFilePen} className="mx-1 pt-[3px] text-lg text-dark-black" />
               <p className=" text-left text-base text-dark-black">メモ</p>
