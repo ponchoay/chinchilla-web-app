@@ -55,30 +55,29 @@ function Calendar({ allCares, className, classNames, showOutsideDays = true, ...
 
         // 曜日
         head_row: 'flex',
-        head_cell: 'rounded-md w-9 font-normal text-[0.8rem] dark:text-slate-400',
+        head_cell: 'rounded-md w-9 font-normal text-[0.8rem]',
 
         row: 'flex w-full mt-2',
-        cell: 'text-center text-sm p-0 relative first:[&:has([aria-selected])]:rounded-full last:[&:has([aria-selected])]:rounded-full focus-within:relative focus-within:z-20 dark:[&:has([aria-selected])]:bg-slate-800',
+        cell: 'text-center text-sm p-0 relative first:[&:has([aria-selected])]:rounded-full last:[&:has([aria-selected])]:rounded-full focus-within:relative focus-within:z-20',
         day: cn(
           buttonVariants({ variant: 'ghost' }),
           'h-9 w-9 p-0 font-normal aria-selected:opacity-100 rounded-full'
         ),
         // 選択中の日付
         day_selected:
-          'rounded-full bg-light-blue text-ligth-white hover:bg-light-blue hover:text-ligth-white focus:bg-light-blue focus:text-ligth-white dark:bg-slate-50 dark:text-slate-900 dark:hover:bg-slate-50 dark:hover:text-slate-900 dark:focus:bg-slate-50 dark:focus:text-slate-900',
+        'rounded-full bg-light-blue text-ligth-white hover:bg-light-blue hover:text-ligth-white focus:bg-light-blue focus:text-ligth-white',
 
         // 今日の日付
-        day_today: 'bg-slate-200 rounded-full text-dark-black dark:bg-slate-800 dark:text-slate-50',
+        day_today: 'bg-slate-200 rounded-full text-dark-black',
 
         // 先月・来月の日付
-        day_outside: 'opacity-40 dark:text-slate-400',
+        day_outside: 'opacity-40 ',
 
         // 日付を無効にした時
-        day_disabled: 'text-slate-500 opacity-50 dark:text-slate-400',
+        day_disabled: 'text-slate-500 opacity-50 ',
 
         // 日付を範囲選択した時
-        day_range_middle:
-          'aria-selected:bg-slate-100 aria-selected:text-slate-900 dark:aria-selected:bg-slate-800 dark:aria-selected:text-slate-50',
+        day_range_middle: 'aria-selected:bg-slate-100 aria-selected:text-slate-900 ',
 
         // 日付を隠した時
         day_hidden: 'invisible',
