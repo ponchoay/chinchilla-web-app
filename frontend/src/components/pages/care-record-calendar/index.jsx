@@ -240,31 +240,7 @@ export const CareRecordCalendarPage = () => {
               ))}
             </select>
           </div>
-          <div className="form-control mt-6 w-96">
-            <label htmlFor="careDay" className="label">
-              <span className="text-base text-dark-black">お世話の日付を選択</span>
-              <div>
-                <FontAwesomeIcon icon={faAsterisk} className="mr-1 text-xs text-dark-pink" />
-                <span className="label-text-alt text-dark-black">必須入力</span>
-              </div>
-            </label>
-            <select
-              id="careDay"
-              value={careId}
-              className="w-ful select select-bordered select-primary border-dark-blue bg-ligth-white text-base font-light text-dark-black"
-              disabled
-            >
-              <option hidden value="">
-                選択してください
-              </option>
-              {allCares.map((care) => (
-                <option key={care.id} value={care.id}>
-                  {care.careDay}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="mb-8 mt-12 h-[300px] w-[500px] rounded-xl border border-solid border-dark-blue bg-ligth-white">
+          <div className="mt-6 h-[300px] w-[500px] rounded-xl border border-solid border-dark-blue bg-ligth-white">
             <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
               <p className="w-24 text-center text-base text-dark-black">食事</p>
               <div className="flex grow justify-evenly text-center text-base text-dark-black">
@@ -466,7 +442,7 @@ export const CareRecordCalendarPage = () => {
               </div>
             </div>
           </div>
-          <div className="form-control mb-12 mt-12 w-[500px]">
+          <div className="form-control mb-12 mt-6 w-[500px]">
             <label htmlFor="careMemo" className="mx-1 my-2 flex">
               <FontAwesomeIcon icon={faFilePen} className="mx-1 pt-[3px] text-lg text-dark-black" />
               <span className="label-text text-base text-dark-black">メモ</span>
@@ -523,7 +499,7 @@ export const CareRecordCalendarPage = () => {
               ))}
             </select>
           </div>
-          <div className="mb-8 mt-12 h-[300px] w-[500px] rounded-xl  bg-ligth-white">
+          <div className="mt-6 h-[300px] w-[500px] rounded-xl  bg-ligth-white">
             <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
               <p className="w-24 text-center text-base text-dark-black">食事</p>
               <div className="flex grow justify-evenly text-center text-base text-dark-black">
@@ -629,7 +605,7 @@ export const CareRecordCalendarPage = () => {
               </div>
             </div>
           </div>
-          <div className="my-12">
+          <div className="mb-12 mt-6">
             <div className="mx-1 my-2 flex">
               <FontAwesomeIcon icon={faFilePen} className="mx-1 pt-[3px] text-lg text-dark-black" />
               <p className=" text-left text-base text-dark-black">メモ</p>
