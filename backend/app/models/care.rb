@@ -7,7 +7,7 @@ class Care < ApplicationRecord
 
   validate :care_day_cannot_be_in_the_future
 
-  validate :care_day_must_be_unique_per_chinchilla
+  validate :care_day_must_be_unique_per_chinchilla, on: :create
 
   def care_day_cannot_be_in_the_future
     if care_day.present? && care_day > Date.today
