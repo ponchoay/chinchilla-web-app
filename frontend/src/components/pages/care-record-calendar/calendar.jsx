@@ -23,7 +23,7 @@ function Calendar({ allCares, className, classNames, showOutsideDays = true, ...
         hasCare: careDays
       }}
       modifiersClassNames={{
-        hasCare: 'bg-light-pink text-white'
+        hasCare: '!bg-light-pink !text-white hover:opacity-70'
       }}
       // CSS関係
       className={cn(
@@ -65,13 +65,13 @@ function Calendar({ allCares, className, classNames, showOutsideDays = true, ...
         ),
         // 選択中の日付
         day_selected:
-        'rounded-full bg-light-blue text-ligth-white hover:bg-light-blue hover:text-ligth-white focus:bg-light-blue focus:text-ligth-white',
+          'rounded-full !bg-light-blue !text-ligth-white focus:bg-light-blue focus:text-ligth-white',
 
         // 今日の日付
         day_today: 'bg-slate-200 rounded-full text-dark-black',
 
         // 先月・来月の日付
-        day_outside: 'opacity-40 ',
+        day_outside: '!opacity-40',
 
         // 日付を無効にした時
         day_disabled: 'text-slate-500 opacity-50 ',
