@@ -134,12 +134,13 @@ export const CareRecordCalendarPage = () => {
     }
     e.preventDefault()
     try {
-      const res = await deleteCare(careId)
-      console.log(res)
+      const deleteCareRes = await deleteCare(careId)
+      const getAllCaresRes = await getAllCares(chinchillaId)
+      console.log(deleteCareRes)
+      console.log(getAllCaresRes.data)
 
       // 削除後、画面の表示をリセットする
-      setChinchillaId(0)
-      setAllCares([])
+      setAllCares(getAllCaresRes.data)
       setCareId(0)
       setCareFood('')
       setCareToilet('')
