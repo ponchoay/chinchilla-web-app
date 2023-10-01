@@ -155,9 +155,9 @@ export const CareRecordCalendarPage = () => {
 
   // 編集モードを解除した際に、もう一度お世話を表示
   const handleReset = () => {
-    // careIdは文字列なので、==で条件比較
-    const resetedCare = allCares.filter((care) => care.id == careId)
-
+    const resetedCare = allCares.filter(
+      (care) => care.careDay === format(new Date(selectedDate), 'yyyy-MM-dd', { locale: ja })
+    )
     console.log(resetedCare)
     setCareFood(resetedCare[0].careFood)
     setCareToilet(resetedCare[0].careToilet)
