@@ -192,6 +192,19 @@ export const CareRecordCalendarPage = () => {
       // ステータス201 Created
       if (createCareRes.status === 201) {
         setAllCares(getAllCaresRes.data)
+
+        // 作成後にお世話の記録を表示
+        const resetedCare = getAllCaresRes.data.filter(
+          (care) => care.careDay === format(new Date(selectedDate), 'yyyy-MM-dd', { locale: ja })
+        )
+        console.log(resetedCare)
+        setCareId(resetedCare[0].id)
+        setCareFood(resetedCare[0].careFood)
+        setCareToilet(resetedCare[0].careToilet)
+        setCareBath(resetedCare[0].careBath)
+        setCarePlay(resetedCare[0].carePlay)
+        setCareMemo(resetedCare[0].careMemo)
+
         console.log('お世話記録作成成功！')
       } else {
         alert('お世話記録作成失敗')
