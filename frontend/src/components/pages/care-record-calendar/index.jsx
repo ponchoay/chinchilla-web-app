@@ -214,6 +214,7 @@ export const CareRecordCalendarPage = () => {
 
       {isEditing ? (
         <>
+          {/* 編集モード：チンチラの選択 */}
           <div className="form-control mt-6 w-96">
             <label htmlFor="chinchillaName" className="label">
               <span className="text-base text-dark-black">選択中のチンチラ</span>
@@ -238,6 +239,8 @@ export const CareRecordCalendarPage = () => {
               ))}
             </select>
           </div>
+
+          {/* 編集モード：お世話の記録 */}
           <div className="mt-6 h-[300px] w-[500px] rounded-xl border border-solid border-dark-blue bg-ligth-white">
             <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
               <p className="w-24 text-center text-base text-dark-black">食事</p>
@@ -440,6 +443,8 @@ export const CareRecordCalendarPage = () => {
               </div>
             </div>
           </div>
+
+          {/* 編集モード：お世話のメモ */}
           <div className="form-control mb-12 mt-6 w-[500px]">
             <label htmlFor="careMemo" className="mx-1 my-2 flex">
               <FontAwesomeIcon icon={faFilePen} className="mx-1 pt-[3px] text-lg text-dark-black" />
@@ -453,6 +458,8 @@ export const CareRecordCalendarPage = () => {
               className="w-ful textarea textarea-primary h-96 border-dark-blue bg-ligth-white text-base text-dark-black"
             ></textarea>
           </div>
+
+          {/* 編集モード：保存・戻るボタン */}
           <div>
             <Button btnType="submit" click={handleSave} addStyle="btn-primary mr-24 h-16 w-40">
               保存
@@ -471,6 +478,7 @@ export const CareRecordCalendarPage = () => {
         </>
       ) : (
         <>
+          {/* 表示モード：チンチラの選択 */}
           <div className="form-control mt-6 w-96">
             <label htmlFor="chinchillaName" className="label">
               <span className="text-base text-dark-black">チンチラを選択</span>
@@ -497,6 +505,8 @@ export const CareRecordCalendarPage = () => {
               ))}
             </select>
           </div>
+
+          {/* 表示モード：お世話の記録 */}
           <div className="mt-6 h-[300px] w-[500px] rounded-xl  bg-ligth-white">
             <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
               <p className="w-24 text-center text-base text-dark-black">食事</p>
@@ -603,6 +613,8 @@ export const CareRecordCalendarPage = () => {
               </div>
             </div>
           </div>
+
+          {/* 表示モード：お世話のメモ */}
           <div className="mb-12 mt-6">
             <div className="mx-1 my-2 flex">
               <FontAwesomeIcon icon={faFilePen} className="mx-1 pt-[3px] text-lg text-dark-black" />
@@ -612,6 +624,8 @@ export const CareRecordCalendarPage = () => {
               <p className="whitespace-pre-wrap text-left text-base text-dark-black">{careMemo}</p>
             </div>
           </div>
+
+          {/* 表示モード：編集・削除ボタン */}
           <div>
             <Button
               btnType="button"
