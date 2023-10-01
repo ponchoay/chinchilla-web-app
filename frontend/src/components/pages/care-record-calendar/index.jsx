@@ -60,7 +60,7 @@ export const CareRecordCalendarPage = () => {
       console.log('お世話記録一覧：', res.data)
       setAllCares(res.data)
 
-      // 別のチンチラを選択する際に、画面の表示をリセットする
+      // 別のチンチラを選択する際に、画面の表示をリセット
       setCareId(0)
       setCareFood('')
       setCareToilet('')
@@ -73,7 +73,7 @@ export const CareRecordCalendarPage = () => {
     }
   }
 
-  // 選択した日付のお世話記録を表示
+  // 選択した日付のお世話の記録を表示
   const handleSelectedCare = (date) => {
     // 2つの日付を比較する関数を定義
     const isSameDay = (date1, date2) => {
@@ -126,7 +126,7 @@ export const CareRecordCalendarPage = () => {
     }
   }
 
-  // お世話記録を削除
+  // お世話の記録を削除
   const handleDelete = async (e) => {
     if (!careId) {
       alert('お世話を選択してください')
@@ -139,7 +139,7 @@ export const CareRecordCalendarPage = () => {
       console.log(deleteCareRes)
       console.log(getAllCaresRes.data)
 
-      // 削除後、画面の表示をリセットする
+      // 削除後、画面の表示をリセット
       setAllCares(getAllCaresRes.data)
       setCareId(0)
       setCareFood('')
@@ -153,7 +153,7 @@ export const CareRecordCalendarPage = () => {
     }
   }
 
-  // 編集モードを解除した際に、もう一度お世話を表示
+  // 編集モードを解除した際に、もう一度お世話の記録を表示
   const handleReset = () => {
     const resetedCare = allCares.filter(
       (care) => care.careDay === format(new Date(selectedDate), 'yyyy-MM-dd', { locale: ja })
@@ -179,7 +179,7 @@ export const CareRecordCalendarPage = () => {
     return formData
   }
 
-  // create;お世話記録を登録
+  // create;お世話の記録を登録
   const handleCreate = async (e) => {
     e.preventDefault()
     const params = createFormData()
@@ -226,7 +226,7 @@ export const CareRecordCalendarPage = () => {
     return formData
   }
 
-  // update:お世話記録を更新
+  // update:お世話の記録を更新
   const handleUpdate = async (event) => {
     event.preventDefault()
     const params = updateFormData()
