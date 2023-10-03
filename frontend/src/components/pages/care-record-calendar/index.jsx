@@ -330,6 +330,7 @@ export const CareRecordCalendarPage = () => {
 
           {/* 登録モード：お世話の記録 */}
           <div className="mt-6 h-[300px] w-[500px] rounded-xl border border-solid border-dark-blue bg-ligth-white">
+            {/* 登録モード：食事 */}
             <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
               <p className="w-24 text-center text-base text-dark-black">食事</p>
               <div className="flex grow justify-evenly text-center text-base text-dark-black">
@@ -380,6 +381,7 @@ export const CareRecordCalendarPage = () => {
                 </label>
               </div>
             </div>
+            {/* 登録モード：トイレ */}
             <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
               <p className="w-24 text-center text-base text-dark-black">トイレ</p>
               <div className="flex grow justify-evenly text-center text-base text-dark-black">
@@ -430,6 +432,7 @@ export const CareRecordCalendarPage = () => {
                 </label>
               </div>
             </div>
+            {/* 登録モード：砂浴び */}
             <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
               <p className="w-24 text-center text-base text-dark-black">砂浴び</p>
               <div className="flex grow justify-evenly text-center text-base text-dark-black">
@@ -480,6 +483,7 @@ export const CareRecordCalendarPage = () => {
                 </label>
               </div>
             </div>
+            {/* 登録モード：部屋んぽ */}
             <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
               <p className="w-24 text-center text-base text-dark-black">部屋んぽ</p>
               <div className="flex grow justify-evenly text-center text-base text-dark-black">
@@ -708,6 +712,7 @@ export const CareRecordCalendarPage = () => {
 
               {/* 編集モード：お世話の記録 */}
               <div className="mt-6 h-[300px] w-[500px] rounded-xl border border-solid border-dark-blue bg-ligth-white">
+                {/* 編集モード：食事 */}
                 <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
                   <p className="w-24 text-center text-base text-dark-black">食事</p>
                   <div className="flex grow justify-evenly text-center text-base text-dark-black">
@@ -764,6 +769,7 @@ export const CareRecordCalendarPage = () => {
                     </label>
                   </div>
                 </div>
+                {/* 編集モード：トイレ */}
                 <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
                   <p className="w-24 text-center text-base text-dark-black">トイレ</p>
                   <div className="flex grow justify-evenly text-center text-base text-dark-black">
@@ -820,6 +826,7 @@ export const CareRecordCalendarPage = () => {
                     </label>
                   </div>
                 </div>
+                {/* 編集モード：砂浴び */}
                 <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
                   <p className="w-24 text-center text-base text-dark-black">砂浴び</p>
                   <div className="flex grow justify-evenly text-center text-base text-dark-black">
@@ -876,6 +883,7 @@ export const CareRecordCalendarPage = () => {
                     </label>
                   </div>
                 </div>
+                {/* 編集モード：部屋んぽ */}
                 <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
                   <p className="w-24 text-center text-base text-dark-black">部屋んぽ</p>
                   <div className="flex grow justify-evenly text-center text-base text-dark-black">
@@ -1118,7 +1126,7 @@ export const CareRecordCalendarPage = () => {
               </div>
 
               {/* 表示モード：お世話の記録 */}
-              <div className="mt-6 h-[300px] w-[500px] rounded-xl  bg-ligth-white">
+                {/* 表示モード：食事 */}
                 <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
                   <p className="w-24 text-center text-base text-dark-black">食事</p>
                   <div className="flex grow justify-evenly text-center text-base text-dark-black">
@@ -1157,6 +1165,7 @@ export const CareRecordCalendarPage = () => {
                     )}
                   </div>
                 </div>
+                {/* 表示モード：トイレ */}
                 <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
                   <p className="w-24 text-center text-base text-dark-black">トイレ</p>
                   <div className="flex grow justify-evenly text-center text-base text-dark-black">
@@ -1195,6 +1204,7 @@ export const CareRecordCalendarPage = () => {
                     )}
                   </div>
                 </div>
+                {/* 表示モード：砂浴び */}
                 <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
                   <p className="w-24 text-center text-base text-dark-black">砂浴び</p>
                   <div className="flex grow justify-evenly text-center text-base text-dark-black">
@@ -1233,6 +1243,7 @@ export const CareRecordCalendarPage = () => {
                     )}
                   </div>
                 </div>
+                {/* 表示モード：部屋んぽ */}
                 <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
                   <p className="w-24 text-center text-base text-dark-black">部屋んぽ</p>
                   <div className="flex grow justify-evenly text-center text-base text-dark-black">
@@ -1271,6 +1282,7 @@ export const CareRecordCalendarPage = () => {
                     )}
                   </div>
                 </div>
+                {/* 表示モード：体重 */}
                 <div className="mx-10 mt-5 flex items-center border-b border-solid border-b-light-black pb-2">
                   <p className="w-28 text-center text-base text-dark-black">体重</p>
                   <div className="flex grow justify-evenly text-center">
@@ -1281,6 +1293,7 @@ export const CareRecordCalendarPage = () => {
                     )}
                   </div>
                 </div>
+                {/* 表示モード：気温・湿度 */}
                 <div className="mx-10 mt-5 flex items-center border-b border-solid border-b-light-black pb-2">
                   <p className="w-28 text-center text-base text-dark-black">気温・湿度</p>
                   <div className="flex grow justify-evenly text-center">
