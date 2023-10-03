@@ -672,7 +672,14 @@ export const CareRecordCalendarPage = () => {
               // 「チンチラを選択している」かつ「日付を選択している」かつ「お世話記録を何か選択している」場合のみ登録できる
               !chinchillaId ||
               !selectedDate ||
-              (!careFood && !careToilet && !careBath && !carePlay && !careMemo)
+              (!careFood &&
+                !careToilet &&
+                !careBath &&
+                !carePlay &&
+                !careWeight &&
+                !careTemperature &&
+                !careHumidity &&
+                !careMemo)
                 ? true
                 : false
             }
@@ -1080,6 +1087,22 @@ export const CareRecordCalendarPage = () => {
                 <Button
                   btnType="submit"
                   click={handleUpdate}
+                  disabled={
+                    // 「チンチラを選択していない」または「日付を選択していない」または「お世話記録を全て選択していない」場合は登録できない
+                    // 「チンチラを選択している」かつ「日付を選択している」かつ「お世話記録を何か選択している」場合のみ登録できる
+                    !chinchillaId ||
+                    !selectedDate ||
+                    (!careFood &&
+                      !careToilet &&
+                      !careBath &&
+                      !carePlay &&
+                      !careWeight &&
+                      !careTemperature &&
+                      !careHumidity &&
+                      !careMemo)
+                      ? true
+                      : false
+                  }
                   addStyle="btn-primary mr-24 h-16 w-40"
                 >
                   保存
