@@ -3,6 +3,8 @@ import { getAllChinchillas } from 'src/lib/api/chinchilla'
 import { getAllCares, createCare, deleteCare, updateCare } from 'src/lib/api/care'
 import { SelectedChinchillaIdContext } from 'src/contexts/chinchilla'
 
+import { NumericFormat } from 'react-number-format'
+
 import { Button } from 'src/components/shared/Button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -33,6 +35,9 @@ export const CareRecordCalendarPage = () => {
   const [careToilet, setCareToilet] = useState('')
   const [careBath, setCareBath] = useState('')
   const [carePlay, setCarePlay] = useState('')
+  const [careWeight, setCareWeight] = useState(null)
+  const [careTemperature, setCareTemperature] = useState(null)
+  const [careHumidity, setCareHumidity] = useState(null)
   const [careMemo, setCareMemo] = useState('')
 
   // 選択中のカレンダーの日付の状態管理
@@ -66,6 +71,9 @@ export const CareRecordCalendarPage = () => {
       setCareToilet('')
       setCareBath('')
       setCarePlay('')
+      setCareWeight(null)
+      setCareTemperature(null)
+      setCareHumidity(null)
       setCareMemo('')
     } catch (err) {
       console.log(err)
@@ -93,6 +101,9 @@ export const CareRecordCalendarPage = () => {
       setCareToilet('')
       setCareBath('')
       setCarePlay('')
+      setCareWeight(null)
+      setCareTemperature(null)
+      setCareHumidity(null)
       setCareMemo('')
       return
     }
@@ -114,6 +125,9 @@ export const CareRecordCalendarPage = () => {
       setCareToilet('')
       setCareBath('')
       setCarePlay('')
+      setCareWeight(null)
+      setCareTemperature(null)
+      setCareHumidity(null)
       setCareMemo('')
     } else {
       // お世話の記録がある場合
@@ -122,6 +136,9 @@ export const CareRecordCalendarPage = () => {
       setCareToilet(selectedCare[0].careToilet)
       setCareBath(selectedCare[0].careBath)
       setCarePlay(selectedCare[0].carePlay)
+      setCareWeight(selectedCare[0].careWeight)
+      setCareTemperature(selectedCare[0].careTemperature)
+      setCareHumidity(selectedCare[0].careHumidity)
       setCareMemo(selectedCare[0].careMemo)
     }
   }
@@ -146,6 +163,9 @@ export const CareRecordCalendarPage = () => {
       setCareToilet('')
       setCareBath('')
       setCarePlay('')
+      setCareWeight(null)
+      setCareTemperature(null)
+      setCareHumidity(null)
       setCareMemo('')
     } catch (err) {
       console.log(err)
@@ -163,6 +183,9 @@ export const CareRecordCalendarPage = () => {
     setCareToilet(resetedCare[0].careToilet)
     setCareBath(resetedCare[0].careBath)
     setCarePlay(resetedCare[0].carePlay)
+    setCareWeight(resetedCare[0].careWeight)
+    setCareTemperature(resetedCare[0].careTemperature)
+    setCareHumidity(resetedCare[0].careHumidity)
     setCareMemo(resetedCare[0].careMemo)
   }
 
@@ -174,6 +197,9 @@ export const CareRecordCalendarPage = () => {
     formData.append('care[careToilet]', careToilet)
     formData.append('care[careBath]', careBath)
     formData.append('care[carePlay]', carePlay)
+    formData.append('care[careWeight]', careWeight)
+    formData.append('care[careTemperature]', careTemperature)
+    formData.append('care[careHumidity]', careHumidity)
     formData.append('care[careMemo]', careMemo)
     formData.append('care[chinchillaId]', chinchillaId)
     return formData
@@ -203,6 +229,9 @@ export const CareRecordCalendarPage = () => {
         setCareToilet(resetedCare[0].careToilet)
         setCareBath(resetedCare[0].careBath)
         setCarePlay(resetedCare[0].carePlay)
+        setCareWeight(resetedCare[0].careWeight)
+        setCareTemperature(resetedCare[0].careTemperature)
+        setCareHumidity(resetedCare[0].careHumidity)
         setCareMemo(resetedCare[0].careMemo)
 
         console.log('お世話記録作成成功！')
@@ -222,6 +251,9 @@ export const CareRecordCalendarPage = () => {
     formData.append('care[careToilet]', careToilet)
     formData.append('care[careBath]', careBath)
     formData.append('care[carePlay]', carePlay)
+    formData.append('care[careWeight]', careWeight)
+    formData.append('care[careTemperature]', careTemperature)
+    formData.append('care[careHumidity]', careHumidity)
     formData.append('care[careMemo]', careMemo)
     return formData
   }
@@ -498,6 +530,117 @@ export const CareRecordCalendarPage = () => {
                 </label>
               </div>
             </div>
+          </div>
+
+          {/* 登録モード：体重 */}
+          <div className="form-control mt-6 w-96">
+            <label htmlFor="careWeight" className="label">
+              <span className="text-base text-dark-black">体重（g）</span>
+              <div>
+                <FontAwesomeIcon icon={faAsterisk} className="mr-1 text-xs text-dark-pink" />
+                <span className="label-text-alt text-dark-black">半角数字</span>
+              </div>
+            </label>
+            <NumericFormat
+              id="careWeight"
+              onValueChange={(values) => {
+                // 文字列としての生の値を取得
+                const rawValue = values.value
+
+                // 文字列を数値に変換
+                const careWeight = parseFloat(rawValue)
+                setCareWeight(careWeight)
+              }}
+              isAllowed={(values) => {
+                const { floatValue, formattedValue } = values
+
+                // 入力が空の場合は許容
+                if (formattedValue === '') return true
+
+                // 1から9999の範囲内であることを確認
+                return floatValue >= 1 && floatValue <= 9999
+              }}
+              placeholder="500"
+              thousandSeparator=","
+              allowNegative={false}
+              decimalScale={0}
+              suffix={'g'}
+              className="w-ful input input-bordered input-primary input-md border-dark-blue bg-ligth-white text-base text-dark-black"
+            />
+          </div>
+
+          {/* 登録モード：気温 */}
+          <div className="form-control mt-6 w-96">
+            <label htmlFor="careTemperature" className="label">
+              <span className="text-base text-dark-black">気温（℃）</span>
+              <div>
+                <FontAwesomeIcon icon={faAsterisk} className="mr-1 text-xs text-dark-pink" />
+                <span className="label-text-alt text-dark-black">半角数字</span>
+              </div>
+            </label>
+            <NumericFormat
+              id="careTemperature"
+              onValueChange={(values) => {
+                // 文字列としての生の値を取得
+                const rawValue = values.value
+
+                // 文字列を数値に変換
+                const careTemperature = parseFloat(rawValue)
+                setCareTemperature(careTemperature)
+              }}
+              isAllowed={(values) => {
+                const { floatValue, formattedValue } = values
+
+                // 入力が空の場合は許容
+                if (formattedValue === '') return true
+
+                // 1から100の範囲内であることを確認
+                return floatValue >= 1 && floatValue <= 100
+              }}
+              placeholder="21.5"
+              thousandSeparator=","
+              allowNegative={false}
+              decimalScale={1}
+              suffix={'℃'}
+              className="w-ful input input-bordered input-primary input-md border-dark-blue bg-ligth-white text-base text-dark-black"
+            />
+          </div>
+
+          {/* 登録モード：湿度 */}
+          <div className="form-control mt-6 w-96">
+            <label htmlFor="careHumidity" className="label">
+              <span className="text-base text-dark-black">湿度（%）</span>
+              <div>
+                <FontAwesomeIcon icon={faAsterisk} className="mr-1 text-xs text-dark-pink" />
+                <span className="label-text-alt text-dark-black">半角数字</span>
+              </div>
+            </label>
+            <NumericFormat
+              id="careHumidity"
+              onValueChange={(values) => {
+                // 文字列としての生の値を取得
+                const rawValue = values.value
+
+                // 文字列を数値に変換
+                const careHumidity = parseFloat(rawValue)
+                setCareHumidity(careHumidity)
+              }}
+              isAllowed={(values) => {
+                const { floatValue, formattedValue } = values
+
+                // 入力が空の場合は許容
+                if (formattedValue === '') return true
+
+                // 1から100の範囲内であることを確認
+                return floatValue >= 1 && floatValue <= 100
+              }}
+              placeholder="40"
+              thousandSeparator=","
+              allowNegative={false}
+              decimalScale={0}
+              suffix={'%'}
+              className="w-ful input input-bordered input-primary input-md border-dark-blue bg-ligth-white text-base text-dark-black"
+            />
           </div>
 
           {/* 登録モード：お世話のメモ */}
