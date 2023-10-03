@@ -19,11 +19,11 @@ class Care < ApplicationRecord
   # care_playのバリデーション（指定の値を含むこと）
   validates :care_play, inclusion: { in: ["good", "usually", "bad", ""] }
 
-  # care_weightのバリデーション（0より大きい整数であること、nullを許容すること）
-  validates :care_weight, numericality: { only_integer: true, greater_than: 0 }, allow_nil: true
+  # care_weightのバリデーション（0より大きく9999以下の整数であること、nullを許容すること）
+  validates :care_weight, numericality: { only_integer: true, greater_than: 0, less_than_or_equal_to: 9999 }, allow_nil: true
 
   # care_temperatureのバリデーション（0より大きく100以下の数値であること、nullを許容すること、小数第一位までであること）
-  validates :care_temperature, numericality: { greater_than: 0, less_than_or_equal_to: 100  }, allow_nil: true
+  validates :care_temperature, numericality: { greater_than: 0, less_than_or_equal_to: 100 }, allow_nil: true
   validate :care_temperature_must_have_one_decimal_place
 
   # care_humidityのバリデーション（0より大きく100以下の整数であること、nullを許容すること）
