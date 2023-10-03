@@ -934,6 +934,120 @@ export const CareRecordCalendarPage = () => {
                 </div>
               </div>
 
+              {/* 編集モード：体重 */}
+              <div className="form-control mt-6 w-96">
+                <label htmlFor="careWeight" className="label">
+                  <span className="text-base text-dark-black">体重（g）</span>
+                  <div>
+                    <FontAwesomeIcon icon={faAsterisk} className="mr-1 text-xs text-dark-pink" />
+                    <span className="label-text-alt text-dark-black">半角数字</span>
+                  </div>
+                </label>
+                <NumericFormat
+                  id="careWeight"
+                  defaultValue={careWeight}
+                  onValueChange={(values) => {
+                    // 文字列としての生の値を取得
+                    const rawValue = values.value
+
+                    // 文字列を数値に変換
+                    const careWeight = parseFloat(rawValue)
+                    setCareWeight(careWeight)
+                  }}
+                  isAllowed={(values) => {
+                    const { floatValue, formattedValue } = values
+
+                    // 入力が空の場合は許容
+                    if (formattedValue === '') return true
+
+                    // 1から9999の範囲内であることを確認
+                    return floatValue >= 1 && floatValue <= 9999
+                  }}
+                  placeholder="500"
+                  thousandSeparator=","
+                  allowNegative={false}
+                  decimalScale={0}
+                  suffix={'g'}
+                  className="w-ful input input-bordered input-primary input-md border-dark-blue bg-ligth-white text-base text-dark-black"
+                />
+              </div>
+
+              {/* 編集モード：気温 */}
+              <div className="form-control mt-6 w-96">
+                <label htmlFor="careTemperature" className="label">
+                  <span className="text-base text-dark-black">気温（℃）</span>
+                  <div>
+                    <FontAwesomeIcon icon={faAsterisk} className="mr-1 text-xs text-dark-pink" />
+                    <span className="label-text-alt text-dark-black">半角数字</span>
+                  </div>
+                </label>
+                <NumericFormat
+                  id="careTemperature"
+                  defaultValue={careTemperature}
+                  onValueChange={(values) => {
+                    // 文字列としての生の値を取得
+                    const rawValue = values.value
+
+                    // 文字列を数値に変換
+                    const careTemperature = parseFloat(rawValue)
+                    setCareTemperature(careTemperature)
+                  }}
+                  isAllowed={(values) => {
+                    const { floatValue, formattedValue } = values
+
+                    // 入力が空の場合は許容
+                    if (formattedValue === '') return true
+
+                    // 1から100の範囲内であることを確認
+                    return floatValue >= 1 && floatValue <= 100
+                  }}
+                  placeholder="21.5"
+                  thousandSeparator=","
+                  allowNegative={false}
+                  decimalScale={1}
+                  suffix={'℃'}
+                  className="w-ful input input-bordered input-primary input-md border-dark-blue bg-ligth-white text-base text-dark-black"
+                />
+              </div>
+
+              {/* 編集モード：湿度 */}
+              <div className="form-control mt-6 w-96">
+                <label htmlFor="careHumidity" className="label">
+                  <span className="text-base text-dark-black">湿度（%）</span>
+                  <div>
+                    <FontAwesomeIcon icon={faAsterisk} className="mr-1 text-xs text-dark-pink" />
+                    <span className="label-text-alt text-dark-black">半角数字</span>
+                  </div>
+                </label>
+                <NumericFormat
+                  id="careHumidity"
+                  defaultValue={careHumidity}
+                  onValueChange={(values) => {
+                    // 文字列としての生の値を取得
+                    const rawValue = values.value
+
+                    // 文字列を数値に変換
+                    const careHumidity = parseFloat(rawValue)
+                    setCareHumidity(careHumidity)
+                  }}
+                  isAllowed={(values) => {
+                    const { floatValue, formattedValue } = values
+
+                    // 入力が空の場合は許容
+                    if (formattedValue === '') return true
+
+                    // 1から100の範囲内であることを確認
+                    return floatValue >= 1 && floatValue <= 100
+                  }}
+                  placeholder="40"
+                  thousandSeparator=","
+                  allowNegative={false}
+                  decimalScale={0}
+                  suffix={'%'}
+                  className="w-ful input input-bordered input-primary input-md border-dark-blue bg-ligth-white text-base text-dark-black"
+                />
+              </div>
+
               {/* 編集モード：お世話のメモ */}
               <div className="form-control mb-12 mt-6 w-[500px]">
                 <label htmlFor="careMemo" className="mx-1 my-2 flex">
