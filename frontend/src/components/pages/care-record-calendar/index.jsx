@@ -1157,6 +1157,31 @@ export const CareRecordCalendarPage = () => {
                     )}
                   </div>
                 </div>
+                <div className="mx-10 mt-5 flex items-center border-b border-solid border-b-light-black pb-2">
+                  <p className="w-28 text-center text-base text-dark-black">体重</p>
+                  <div className="flex grow justify-evenly text-center">
+                    {careWeight ? (
+                      <p className="text-center text-base text-dark-black">{careWeight}g</p>
+                    ) : (
+                      <></>
+                    )}
+                  </div>
+                </div>
+                <div className="mx-10 mt-5 flex items-center border-b border-solid border-b-light-black pb-2">
+                  <p className="w-28 text-center text-base text-dark-black">気温・湿度</p>
+                  <div className="flex grow justify-evenly text-center">
+                    {careTemperature ? (
+                      <p className="text-center text-base text-dark-black">{careTemperature}℃</p>
+                    ) : (
+                      <></>
+                    )}
+                    {careHumidity ? (
+                      <p className="text-center text-base text-dark-black">{careHumidity}%</p>
+                    ) : (
+                      <></>
+                    )}
+                  </div>
+                </div>
               </div>
 
               {/* 表示モード：お世話のメモ */}
