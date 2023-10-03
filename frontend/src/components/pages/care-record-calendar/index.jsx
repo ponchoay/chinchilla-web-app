@@ -332,7 +332,7 @@ export const CareRecordCalendarPage = () => {
           <div className="mt-6 h-[300px] w-[500px] rounded-xl border border-solid border-dark-blue bg-ligth-white">
             {/* 登録モード：食事 */}
             <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
-              <p className="w-24 text-center text-base text-dark-black">食事</p>
+              <p className="w-28 text-center text-base text-dark-black">食事</p>
               <div className="flex grow justify-evenly text-center text-base text-dark-black">
                 <input
                   id="careFoodIsGood"
@@ -383,7 +383,7 @@ export const CareRecordCalendarPage = () => {
             </div>
             {/* 登録モード：トイレ */}
             <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
-              <p className="w-24 text-center text-base text-dark-black">トイレ</p>
+              <p className="w-28 text-center text-base text-dark-black">トイレ</p>
               <div className="flex grow justify-evenly text-center text-base text-dark-black">
                 <input
                   id="careToiletIsGood"
@@ -434,7 +434,7 @@ export const CareRecordCalendarPage = () => {
             </div>
             {/* 登録モード：砂浴び */}
             <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
-              <p className="w-24 text-center text-base text-dark-black">砂浴び</p>
+              <p className="w-28 text-center text-base text-dark-black">砂浴び</p>
               <div className="flex grow justify-evenly text-center text-base text-dark-black">
                 <input
                   id="careBathIsGood"
@@ -485,7 +485,7 @@ export const CareRecordCalendarPage = () => {
             </div>
             {/* 登録モード：部屋んぽ */}
             <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
-              <p className="w-24 text-center text-base text-dark-black">部屋んぽ</p>
+              <p className="w-28 text-center text-base text-dark-black">部屋んぽ</p>
               <div className="flex grow justify-evenly text-center text-base text-dark-black">
                 <input
                   id="carePlayIsGood"
@@ -714,7 +714,7 @@ export const CareRecordCalendarPage = () => {
               <div className="mt-6 h-[300px] w-[500px] rounded-xl border border-solid border-dark-blue bg-ligth-white">
                 {/* 編集モード：食事 */}
                 <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
-                  <p className="w-24 text-center text-base text-dark-black">食事</p>
+                  <p className="w-28 text-center text-base text-dark-black">食事</p>
                   <div className="flex grow justify-evenly text-center text-base text-dark-black">
                     <input
                       id="careFoodIsGood"
@@ -771,7 +771,7 @@ export const CareRecordCalendarPage = () => {
                 </div>
                 {/* 編集モード：トイレ */}
                 <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
-                  <p className="w-24 text-center text-base text-dark-black">トイレ</p>
+                  <p className="w-28 text-center text-base text-dark-black">トイレ</p>
                   <div className="flex grow justify-evenly text-center text-base text-dark-black">
                     <input
                       id="careToiletIsGood"
@@ -828,7 +828,7 @@ export const CareRecordCalendarPage = () => {
                 </div>
                 {/* 編集モード：砂浴び */}
                 <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
-                  <p className="w-24 text-center text-base text-dark-black">砂浴び</p>
+                  <p className="w-28 text-center text-base text-dark-black">砂浴び</p>
                   <div className="flex grow justify-evenly text-center text-base text-dark-black">
                     <input
                       id="careBathIsGood"
@@ -885,7 +885,7 @@ export const CareRecordCalendarPage = () => {
                 </div>
                 {/* 編集モード：部屋んぽ */}
                 <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
-                  <p className="w-24 text-center text-base text-dark-black">部屋んぽ</p>
+                  <p className="w-28 text-center text-base text-dark-black">部屋んぽ</p>
                   <div className="flex grow justify-evenly text-center text-base text-dark-black">
                     <input
                       id="carePlayIsGood"
@@ -1126,9 +1126,10 @@ export const CareRecordCalendarPage = () => {
               </div>
 
               {/* 表示モード：お世話の記録 */}
+              <div className="mt-6 h-[400px] w-[500px] rounded-xl  bg-ligth-white">
                 {/* 表示モード：食事 */}
                 <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
-                  <p className="w-24 text-center text-base text-dark-black">食事</p>
+                  <p className="w-28 text-center text-base text-dark-black">食事</p>
                   <div className="flex grow justify-evenly text-center text-base text-dark-black">
                     {careFood === 'good' ? (
                       <FontAwesomeIcon
@@ -1167,7 +1168,7 @@ export const CareRecordCalendarPage = () => {
                 </div>
                 {/* 表示モード：トイレ */}
                 <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
-                  <p className="w-24 text-center text-base text-dark-black">トイレ</p>
+                  <p className="w-28 text-center text-base text-dark-black">トイレ</p>
                   <div className="flex grow justify-evenly text-center text-base text-dark-black">
                     {careToilet === 'good' ? (
                       <FontAwesomeIcon
@@ -1206,7 +1207,7 @@ export const CareRecordCalendarPage = () => {
                 </div>
                 {/* 表示モード：砂浴び */}
                 <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
-                  <p className="w-24 text-center text-base text-dark-black">砂浴び</p>
+                  <p className="w-28 text-center text-base text-dark-black">砂浴び</p>
                   <div className="flex grow justify-evenly text-center text-base text-dark-black">
                     {careBath === 'good' ? (
                       <FontAwesomeIcon
@@ -1245,7 +1246,7 @@ export const CareRecordCalendarPage = () => {
                 </div>
                 {/* 表示モード：部屋んぽ */}
                 <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
-                  <p className="w-24 text-center text-base text-dark-black">部屋んぽ</p>
+                  <p className="w-28 text-center text-base text-dark-black">部屋んぽ</p>
                   <div className="flex grow justify-evenly text-center text-base text-dark-black">
                     {carePlay === 'good' ? (
                       <FontAwesomeIcon
