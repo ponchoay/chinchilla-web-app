@@ -3,6 +3,8 @@ import { getAllChinchillas } from 'src/lib/api/chinchilla'
 import { getAllCares, createCare, deleteCare, updateCare } from 'src/lib/api/care'
 import { SelectedChinchillaIdContext } from 'src/contexts/chinchilla'
 
+import { NumericFormat } from 'react-number-format'
+
 import { Button } from 'src/components/shared/Button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -33,6 +35,9 @@ export const CareRecordCalendarPage = () => {
   const [careToilet, setCareToilet] = useState('')
   const [careBath, setCareBath] = useState('')
   const [carePlay, setCarePlay] = useState('')
+  const [careWeight, setCareWeight] = useState(null)
+  const [careTemperature, setCareTemperature] = useState(null)
+  const [careHumidity, setCareHumidity] = useState(null)
   const [careMemo, setCareMemo] = useState('')
 
   // 選択中のカレンダーの日付の状態管理
@@ -62,10 +67,14 @@ export const CareRecordCalendarPage = () => {
 
       // 別のチンチラを選択する際に、画面の表示をリセット
       setCareId(0)
+      setSelectedDate(null)
       setCareFood('')
       setCareToilet('')
       setCareBath('')
       setCarePlay('')
+      setCareWeight(null)
+      setCareTemperature(null)
+      setCareHumidity(null)
       setCareMemo('')
     } catch (err) {
       console.log(err)
@@ -93,6 +102,9 @@ export const CareRecordCalendarPage = () => {
       setCareToilet('')
       setCareBath('')
       setCarePlay('')
+      setCareWeight(null)
+      setCareTemperature(null)
+      setCareHumidity(null)
       setCareMemo('')
       return
     }
@@ -114,6 +126,9 @@ export const CareRecordCalendarPage = () => {
       setCareToilet('')
       setCareBath('')
       setCarePlay('')
+      setCareWeight(null)
+      setCareTemperature(null)
+      setCareHumidity(null)
       setCareMemo('')
     } else {
       // お世話の記録がある場合
@@ -122,6 +137,9 @@ export const CareRecordCalendarPage = () => {
       setCareToilet(selectedCare[0].careToilet)
       setCareBath(selectedCare[0].careBath)
       setCarePlay(selectedCare[0].carePlay)
+      setCareWeight(selectedCare[0].careWeight)
+      setCareTemperature(selectedCare[0].careTemperature)
+      setCareHumidity(selectedCare[0].careHumidity)
       setCareMemo(selectedCare[0].careMemo)
     }
   }
@@ -146,6 +164,9 @@ export const CareRecordCalendarPage = () => {
       setCareToilet('')
       setCareBath('')
       setCarePlay('')
+      setCareWeight(null)
+      setCareTemperature(null)
+      setCareHumidity(null)
       setCareMemo('')
     } catch (err) {
       console.log(err)
@@ -163,6 +184,9 @@ export const CareRecordCalendarPage = () => {
     setCareToilet(resetedCare[0].careToilet)
     setCareBath(resetedCare[0].careBath)
     setCarePlay(resetedCare[0].carePlay)
+    setCareWeight(resetedCare[0].careWeight)
+    setCareTemperature(resetedCare[0].careTemperature)
+    setCareHumidity(resetedCare[0].careHumidity)
     setCareMemo(resetedCare[0].careMemo)
   }
 
@@ -174,6 +198,9 @@ export const CareRecordCalendarPage = () => {
     formData.append('care[careToilet]', careToilet)
     formData.append('care[careBath]', careBath)
     formData.append('care[carePlay]', carePlay)
+    formData.append('care[careWeight]', careWeight)
+    formData.append('care[careTemperature]', careTemperature)
+    formData.append('care[careHumidity]', careHumidity)
     formData.append('care[careMemo]', careMemo)
     formData.append('care[chinchillaId]', chinchillaId)
     return formData
@@ -203,6 +230,9 @@ export const CareRecordCalendarPage = () => {
         setCareToilet(resetedCare[0].careToilet)
         setCareBath(resetedCare[0].careBath)
         setCarePlay(resetedCare[0].carePlay)
+        setCareWeight(resetedCare[0].careWeight)
+        setCareTemperature(resetedCare[0].careTemperature)
+        setCareHumidity(resetedCare[0].careHumidity)
         setCareMemo(resetedCare[0].careMemo)
 
         console.log('お世話記録作成成功！')
@@ -222,6 +252,9 @@ export const CareRecordCalendarPage = () => {
     formData.append('care[careToilet]', careToilet)
     formData.append('care[careBath]', careBath)
     formData.append('care[carePlay]', carePlay)
+    formData.append('care[careWeight]', careWeight)
+    formData.append('care[careTemperature]', careTemperature)
+    formData.append('care[careHumidity]', careHumidity)
     formData.append('care[careMemo]', careMemo)
     return formData
   }
@@ -298,8 +331,9 @@ export const CareRecordCalendarPage = () => {
 
           {/* 登録モード：お世話の記録 */}
           <div className="mt-6 h-[300px] w-[500px] rounded-xl border border-solid border-dark-blue bg-ligth-white">
+            {/* 登録モード：食事 */}
             <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
-              <p className="w-24 text-center text-base text-dark-black">食事</p>
+              <p className="w-28 text-center text-base text-dark-black">食事</p>
               <div className="flex grow justify-evenly text-center text-base text-dark-black">
                 <input
                   id="careFoodIsGood"
@@ -348,8 +382,9 @@ export const CareRecordCalendarPage = () => {
                 </label>
               </div>
             </div>
+            {/* 登録モード：トイレ */}
             <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
-              <p className="w-24 text-center text-base text-dark-black">トイレ</p>
+              <p className="w-28 text-center text-base text-dark-black">トイレ</p>
               <div className="flex grow justify-evenly text-center text-base text-dark-black">
                 <input
                   id="careToiletIsGood"
@@ -398,8 +433,9 @@ export const CareRecordCalendarPage = () => {
                 </label>
               </div>
             </div>
+            {/* 登録モード：砂浴び */}
             <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
-              <p className="w-24 text-center text-base text-dark-black">砂浴び</p>
+              <p className="w-28 text-center text-base text-dark-black">砂浴び</p>
               <div className="flex grow justify-evenly text-center text-base text-dark-black">
                 <input
                   id="careBathIsGood"
@@ -448,8 +484,9 @@ export const CareRecordCalendarPage = () => {
                 </label>
               </div>
             </div>
+            {/* 登録モード：部屋んぽ */}
             <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
-              <p className="w-24 text-center text-base text-dark-black">部屋んぽ</p>
+              <p className="w-28 text-center text-base text-dark-black">部屋んぽ</p>
               <div className="flex grow justify-evenly text-center text-base text-dark-black">
                 <input
                   id="carePlayIsGood"
@@ -498,6 +535,117 @@ export const CareRecordCalendarPage = () => {
                 </label>
               </div>
             </div>
+          </div>
+
+          {/* 登録モード：体重 */}
+          <div className="form-control mt-6 w-96">
+            <label htmlFor="careWeight" className="label">
+              <span className="text-base text-dark-black">体重（g）</span>
+              <div>
+                <FontAwesomeIcon icon={faAsterisk} className="mr-1 text-xs text-dark-pink" />
+                <span className="label-text-alt text-dark-black">半角数字</span>
+              </div>
+            </label>
+            <NumericFormat
+              id="careWeight"
+              onValueChange={(values) => {
+                // 文字列としての生の値を取得
+                const rawValue = values.value
+
+                // 文字列を数値に変換
+                const careWeight = parseFloat(rawValue)
+                setCareWeight(careWeight)
+              }}
+              isAllowed={(values) => {
+                const { floatValue, formattedValue } = values
+
+                // 入力が空の場合は許容
+                if (formattedValue === '') return true
+
+                // 1から9999の範囲内であることを確認
+                return floatValue >= 1 && floatValue <= 9999
+              }}
+              placeholder="500"
+              thousandSeparator=","
+              allowNegative={false}
+              decimalScale={0}
+              suffix={'g'}
+              className="w-ful input input-bordered input-primary input-md border-dark-blue bg-ligth-white text-base text-dark-black"
+            />
+          </div>
+
+          {/* 登録モード：気温 */}
+          <div className="form-control mt-6 w-96">
+            <label htmlFor="careTemperature" className="label">
+              <span className="text-base text-dark-black">気温（℃）</span>
+              <div>
+                <FontAwesomeIcon icon={faAsterisk} className="mr-1 text-xs text-dark-pink" />
+                <span className="label-text-alt text-dark-black">半角数字</span>
+              </div>
+            </label>
+            <NumericFormat
+              id="careTemperature"
+              onValueChange={(values) => {
+                // 文字列としての生の値を取得
+                const rawValue = values.value
+
+                // 文字列を数値に変換
+                const careTemperature = parseFloat(rawValue)
+                setCareTemperature(careTemperature)
+              }}
+              isAllowed={(values) => {
+                const { floatValue, formattedValue } = values
+
+                // 入力が空の場合は許容
+                if (formattedValue === '') return true
+
+                // 1から100の範囲内であることを確認
+                return floatValue >= 1 && floatValue <= 100
+              }}
+              placeholder="21.5"
+              thousandSeparator=","
+              allowNegative={false}
+              decimalScale={1}
+              suffix={'℃'}
+              className="w-ful input input-bordered input-primary input-md border-dark-blue bg-ligth-white text-base text-dark-black"
+            />
+          </div>
+
+          {/* 登録モード：湿度 */}
+          <div className="form-control mt-6 w-96">
+            <label htmlFor="careHumidity" className="label">
+              <span className="text-base text-dark-black">湿度（%）</span>
+              <div>
+                <FontAwesomeIcon icon={faAsterisk} className="mr-1 text-xs text-dark-pink" />
+                <span className="label-text-alt text-dark-black">半角数字</span>
+              </div>
+            </label>
+            <NumericFormat
+              id="careHumidity"
+              onValueChange={(values) => {
+                // 文字列としての生の値を取得
+                const rawValue = values.value
+
+                // 文字列を数値に変換
+                const careHumidity = parseFloat(rawValue)
+                setCareHumidity(careHumidity)
+              }}
+              isAllowed={(values) => {
+                const { floatValue, formattedValue } = values
+
+                // 入力が空の場合は許容
+                if (formattedValue === '') return true
+
+                // 1から100の範囲内であることを確認
+                return floatValue >= 1 && floatValue <= 100
+              }}
+              placeholder="40"
+              thousandSeparator=","
+              allowNegative={false}
+              decimalScale={0}
+              suffix={'%'}
+              className="w-ful input input-bordered input-primary input-md border-dark-blue bg-ligth-white text-base text-dark-black"
+            />
           </div>
 
           {/* 登録モード：お世話のメモ */}
@@ -565,8 +713,9 @@ export const CareRecordCalendarPage = () => {
 
               {/* 編集モード：お世話の記録 */}
               <div className="mt-6 h-[300px] w-[500px] rounded-xl border border-solid border-dark-blue bg-ligth-white">
+                {/* 編集モード：食事 */}
                 <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
-                  <p className="w-24 text-center text-base text-dark-black">食事</p>
+                  <p className="w-28 text-center text-base text-dark-black">食事</p>
                   <div className="flex grow justify-evenly text-center text-base text-dark-black">
                     <input
                       id="careFoodIsGood"
@@ -621,8 +770,9 @@ export const CareRecordCalendarPage = () => {
                     </label>
                   </div>
                 </div>
+                {/* 編集モード：トイレ */}
                 <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
-                  <p className="w-24 text-center text-base text-dark-black">トイレ</p>
+                  <p className="w-28 text-center text-base text-dark-black">トイレ</p>
                   <div className="flex grow justify-evenly text-center text-base text-dark-black">
                     <input
                       id="careToiletIsGood"
@@ -677,8 +827,9 @@ export const CareRecordCalendarPage = () => {
                     </label>
                   </div>
                 </div>
+                {/* 編集モード：砂浴び */}
                 <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
-                  <p className="w-24 text-center text-base text-dark-black">砂浴び</p>
+                  <p className="w-28 text-center text-base text-dark-black">砂浴び</p>
                   <div className="flex grow justify-evenly text-center text-base text-dark-black">
                     <input
                       id="careBathIsGood"
@@ -733,8 +884,9 @@ export const CareRecordCalendarPage = () => {
                     </label>
                   </div>
                 </div>
+                {/* 編集モード：部屋んぽ */}
                 <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
-                  <p className="w-24 text-center text-base text-dark-black">部屋んぽ</p>
+                  <p className="w-28 text-center text-base text-dark-black">部屋んぽ</p>
                   <div className="flex grow justify-evenly text-center text-base text-dark-black">
                     <input
                       id="carePlayIsGood"
@@ -789,6 +941,120 @@ export const CareRecordCalendarPage = () => {
                     </label>
                   </div>
                 </div>
+              </div>
+
+              {/* 編集モード：体重 */}
+              <div className="form-control mt-6 w-96">
+                <label htmlFor="careWeight" className="label">
+                  <span className="text-base text-dark-black">体重（g）</span>
+                  <div>
+                    <FontAwesomeIcon icon={faAsterisk} className="mr-1 text-xs text-dark-pink" />
+                    <span className="label-text-alt text-dark-black">半角数字</span>
+                  </div>
+                </label>
+                <NumericFormat
+                  id="careWeight"
+                  defaultValue={careWeight}
+                  onValueChange={(values) => {
+                    // 文字列としての生の値を取得
+                    const rawValue = values.value
+
+                    // 文字列を数値に変換
+                    const careWeight = parseFloat(rawValue)
+                    setCareWeight(careWeight)
+                  }}
+                  isAllowed={(values) => {
+                    const { floatValue, formattedValue } = values
+
+                    // 入力が空の場合は許容
+                    if (formattedValue === '') return true
+
+                    // 1から9999の範囲内であることを確認
+                    return floatValue >= 1 && floatValue <= 9999
+                  }}
+                  placeholder="500"
+                  thousandSeparator=","
+                  allowNegative={false}
+                  decimalScale={0}
+                  suffix={'g'}
+                  className="w-ful input input-bordered input-primary input-md border-dark-blue bg-ligth-white text-base text-dark-black"
+                />
+              </div>
+
+              {/* 編集モード：気温 */}
+              <div className="form-control mt-6 w-96">
+                <label htmlFor="careTemperature" className="label">
+                  <span className="text-base text-dark-black">気温（℃）</span>
+                  <div>
+                    <FontAwesomeIcon icon={faAsterisk} className="mr-1 text-xs text-dark-pink" />
+                    <span className="label-text-alt text-dark-black">半角数字</span>
+                  </div>
+                </label>
+                <NumericFormat
+                  id="careTemperature"
+                  defaultValue={careTemperature}
+                  onValueChange={(values) => {
+                    // 文字列としての生の値を取得
+                    const rawValue = values.value
+
+                    // 文字列を数値に変換
+                    const careTemperature = parseFloat(rawValue)
+                    setCareTemperature(careTemperature)
+                  }}
+                  isAllowed={(values) => {
+                    const { floatValue, formattedValue } = values
+
+                    // 入力が空の場合は許容
+                    if (formattedValue === '') return true
+
+                    // 1から100の範囲内であることを確認
+                    return floatValue >= 1 && floatValue <= 100
+                  }}
+                  placeholder="21.5"
+                  thousandSeparator=","
+                  allowNegative={false}
+                  decimalScale={1}
+                  suffix={'℃'}
+                  className="w-ful input input-bordered input-primary input-md border-dark-blue bg-ligth-white text-base text-dark-black"
+                />
+              </div>
+
+              {/* 編集モード：湿度 */}
+              <div className="form-control mt-6 w-96">
+                <label htmlFor="careHumidity" className="label">
+                  <span className="text-base text-dark-black">湿度（%）</span>
+                  <div>
+                    <FontAwesomeIcon icon={faAsterisk} className="mr-1 text-xs text-dark-pink" />
+                    <span className="label-text-alt text-dark-black">半角数字</span>
+                  </div>
+                </label>
+                <NumericFormat
+                  id="careHumidity"
+                  defaultValue={careHumidity}
+                  onValueChange={(values) => {
+                    // 文字列としての生の値を取得
+                    const rawValue = values.value
+
+                    // 文字列を数値に変換
+                    const careHumidity = parseFloat(rawValue)
+                    setCareHumidity(careHumidity)
+                  }}
+                  isAllowed={(values) => {
+                    const { floatValue, formattedValue } = values
+
+                    // 入力が空の場合は許容
+                    if (formattedValue === '') return true
+
+                    // 1から100の範囲内であることを確認
+                    return floatValue >= 1 && floatValue <= 100
+                  }}
+                  placeholder="40"
+                  thousandSeparator=","
+                  allowNegative={false}
+                  decimalScale={0}
+                  suffix={'%'}
+                  className="w-ful input input-bordered input-primary input-md border-dark-blue bg-ligth-white text-base text-dark-black"
+                />
               </div>
 
               {/* 編集モード：お世話のメモ */}
@@ -861,9 +1127,10 @@ export const CareRecordCalendarPage = () => {
               </div>
 
               {/* 表示モード：お世話の記録 */}
-              <div className="mt-6 h-[300px] w-[500px] rounded-xl  bg-ligth-white">
+              <div className="mt-6 h-[400px] w-[500px] rounded-xl  bg-ligth-white">
+                {/* 表示モード：食事 */}
                 <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
-                  <p className="w-24 text-center text-base text-dark-black">食事</p>
+                  <p className="w-28 text-center text-base text-dark-black">食事</p>
                   <div className="flex grow justify-evenly text-center text-base text-dark-black">
                     {careFood === 'good' ? (
                       <FontAwesomeIcon
@@ -900,8 +1167,9 @@ export const CareRecordCalendarPage = () => {
                     )}
                   </div>
                 </div>
+                {/* 表示モード：トイレ */}
                 <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
-                  <p className="w-24 text-center text-base text-dark-black">トイレ</p>
+                  <p className="w-28 text-center text-base text-dark-black">トイレ</p>
                   <div className="flex grow justify-evenly text-center text-base text-dark-black">
                     {careToilet === 'good' ? (
                       <FontAwesomeIcon
@@ -938,8 +1206,9 @@ export const CareRecordCalendarPage = () => {
                     )}
                   </div>
                 </div>
+                {/* 表示モード：砂浴び */}
                 <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
-                  <p className="w-24 text-center text-base text-dark-black">砂浴び</p>
+                  <p className="w-28 text-center text-base text-dark-black">砂浴び</p>
                   <div className="flex grow justify-evenly text-center text-base text-dark-black">
                     {careBath === 'good' ? (
                       <FontAwesomeIcon
@@ -976,8 +1245,9 @@ export const CareRecordCalendarPage = () => {
                     )}
                   </div>
                 </div>
+                {/* 表示モード：部屋んぽ */}
                 <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
-                  <p className="w-24 text-center text-base text-dark-black">部屋んぽ</p>
+                  <p className="w-28 text-center text-base text-dark-black">部屋んぽ</p>
                   <div className="flex grow justify-evenly text-center text-base text-dark-black">
                     {carePlay === 'good' ? (
                       <FontAwesomeIcon
@@ -1011,6 +1281,33 @@ export const CareRecordCalendarPage = () => {
                         icon={faFaceDizzy}
                         className="label text-2xl text-light-black"
                       />
+                    )}
+                  </div>
+                </div>
+                {/* 表示モード：体重 */}
+                <div className="mx-10 mt-5 flex items-center border-b border-solid border-b-light-black pb-2">
+                  <p className="w-28 text-center text-base text-dark-black">体重</p>
+                  <div className="flex grow justify-evenly text-center">
+                    {careWeight ? (
+                      <p className="text-center text-base text-dark-black">{careWeight}g</p>
+                    ) : (
+                      <></>
+                    )}
+                  </div>
+                </div>
+                {/* 表示モード：気温・湿度 */}
+                <div className="mx-10 mt-5 flex items-center border-b border-solid border-b-light-black pb-2">
+                  <p className="w-28 text-center text-base text-dark-black">気温・湿度</p>
+                  <div className="flex grow justify-evenly text-center">
+                    {careTemperature ? (
+                      <p className="text-center text-base text-dark-black">{careTemperature}℃</p>
+                    ) : (
+                      <></>
+                    )}
+                    {careHumidity ? (
+                      <p className="text-center text-base text-dark-black">{careHumidity}%</p>
+                    ) : (
+                      <></>
                     )}
                   </div>
                 </div>

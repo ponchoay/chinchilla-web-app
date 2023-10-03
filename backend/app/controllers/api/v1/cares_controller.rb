@@ -10,7 +10,7 @@ class Api::V1::CaresController < ApplicationController
 
   # お世話記録 作成
   def create
-    care = Care.new(care_params)
+    care = Care.new(create_care_params)
 
     if care.save!
       # 成功した場合、ステータス201を返す
@@ -24,7 +24,7 @@ class Api::V1::CaresController < ApplicationController
   # お世話記録 更新
   def update
     care = Care.find(params[:id])
-    if care = care.update!(care_params)
+    if care = care.update!(update_care_params)
       # 成功した場合、ステータス204を返す
       render json: care,status: :no_content
     else
@@ -40,7 +40,15 @@ class Api::V1::CaresController < ApplicationController
   end
 
   private
-  def care_params
+
+  # createアクション用のストロングパラメーター
+  def create_care_params
     params.require(:care).permit(:care_day, :care_food, :care_toilet, :care_bath, :care_play, :care_weight, :care_temperature, :care_humidity, :care_memo, :care_image1, :care_image2, :care_image3, :chinchilla_id)
   end
+
+  # updateアクション用のストロングパラメーター
+  def update_care_params
+    params.require(:care).permit(:care_food, :care_toilet, :care_bath, :care_play, :care_weight, :care_temperature, :care_humidity, :care_memo, :care_image1, :care_image2, :care_image3)
+  end
+
 end
