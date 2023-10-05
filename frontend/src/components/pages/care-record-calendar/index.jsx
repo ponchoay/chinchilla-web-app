@@ -6,6 +6,7 @@ import { SelectedChinchillaIdContext } from 'src/contexts/chinchilla'
 import { ChinchillaSelectFormItem } from 'src/components/pages/care-record-calendar/chinchillaSelectFormItem'
 import { RadioButtonItem } from 'src/components/pages/care-record-calendar/radioButtonItem'
 import { NumericFormItem } from 'src/components/pages/care-record-calendar/numericFormItem'
+import { CareMemoFormItem } from 'src/components/pages/care-record-calendar/careMemoFormItem'
 
 import { Button } from 'src/components/shared/Button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -363,19 +364,7 @@ export const CareRecordCalendarPage = () => {
           />
 
           {/* 登録モード：お世話のメモ */}
-          <div className="form-control mb-12 mt-6 w-[500px]">
-            <label htmlFor="careMemo" className="mx-1 my-2 flex">
-              <FontAwesomeIcon icon={faFilePen} className="mx-1 pt-[3px] text-lg text-dark-black" />
-              <span className="label-text text-base text-dark-black">メモ</span>
-            </label>
-            <textarea
-              id="careMemo"
-              placeholder="メモを記入してください。"
-              value={careMemo}
-              onChange={(event) => setCareMemo(event.target.value)}
-              className="w-ful textarea textarea-primary h-96 border-dark-blue bg-ligth-white text-base text-dark-black"
-            ></textarea>
-          </div>
+          <CareMemoFormItem careMemo={careMemo} setCareMemo={setCareMemo} />
 
           {/* 登録モード：登録ボタン */}
           <Button
@@ -469,22 +458,7 @@ export const CareRecordCalendarPage = () => {
               />
 
               {/* 編集モード：お世話のメモ */}
-              <div className="form-control mb-12 mt-6 w-[500px]">
-                <label htmlFor="careMemo" className="mx-1 my-2 flex">
-                  <FontAwesomeIcon
-                    icon={faFilePen}
-                    className="mx-1 pt-[3px] text-lg text-dark-black"
-                  />
-                  <span className="label-text text-base text-dark-black">メモ</span>
-                </label>
-                <textarea
-                  id="careMemo"
-                  placeholder="メモを記入してください。"
-                  value={careMemo}
-                  onChange={(event) => setCareMemo(event.target.value)}
-                  className="w-ful textarea textarea-primary h-96 border-dark-blue bg-ligth-white text-base text-dark-black"
-                ></textarea>
-              </div>
+              <CareMemoFormItem careMemo={careMemo} setCareMemo={setCareMemo} />
 
               {/* 編集モード：保存・戻るボタン */}
               <div>
