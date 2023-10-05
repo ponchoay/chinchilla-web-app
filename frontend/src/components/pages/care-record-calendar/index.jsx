@@ -3,6 +3,8 @@ import { getAllChinchillas } from 'src/lib/api/chinchilla'
 import { getAllCares, createCare, deleteCare, updateCare } from 'src/lib/api/care'
 import { SelectedChinchillaIdContext } from 'src/contexts/chinchilla'
 
+import { RadioButtonItem } from 'src/components/pages/care-record-calendar/radioButtonItem'
+
 import { NumericFormat } from 'react-number-format'
 
 import { Button } from 'src/components/shared/Button'
@@ -286,15 +288,6 @@ export const CareRecordCalendarPage = () => {
     }
   }
 
-  // ラジオボタンの削除
-  const handleRadioClick = (setter, currentValue, newValue) => {
-    if (currentValue === newValue) {
-      return setter('')
-    }
-
-    setter(newValue)
-  }
-
   return (
     <div className="my-40 grid place-content-center place-items-center">
       <p className="text-center text-2xl font-bold tracking-widest text-dark-blue">お世話の記録</p>
@@ -340,210 +333,15 @@ export const CareRecordCalendarPage = () => {
 
           {/* 登録モード：お世話の記録 */}
           <div className="mt-6 h-[300px] w-[500px] rounded-xl border border-solid border-dark-blue bg-ligth-white">
-            {/* 登録モード：食事 */}
-            <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
-              <p className="w-28 text-center text-base text-dark-black">食事</p>
-              <div className="flex grow justify-evenly text-center text-base text-dark-black">
-                <input
-                  id="careFoodIsGood"
-                  type="radio"
-                  name="careFood"
-                  value="good"
-                  onChange={(e) => setCareFood(e.target.value)}
-                  className="hidden"
-                />
-                <label htmlFor="careFoodIsGood" className="label cursor-pointer">
-                  {careFood === 'good' ? (
-                    <FontAwesomeIcon icon={faFaceSmileBeam} className="text-2xl text-dark-blue" />
-                  ) : (
-                    <FontAwesomeIcon icon={faFaceSmileBeam} className="text-2xl text-light-black" />
-                  )}
-                </label>
-                <input
-                  id="careFoodIsUsually"
-                  type="radio"
-                  name="careFood"
-                  value="usually"
-                  onChange={(e) => setCareFood(e.target.value)}
-                  className="hidden"
-                />
-                <label htmlFor="careFoodIsUsually" className="label cursor-pointer">
-                  {careFood === 'usually' ? (
-                    <FontAwesomeIcon icon={faFaceMeh} className="text-2xl text-dark-black" />
-                  ) : (
-                    <FontAwesomeIcon icon={faFaceMeh} className="text-2xl text-light-black" />
-                  )}
-                </label>
-                <input
-                  id="careFoodIsBad"
-                  type="radio"
-                  name="careFood"
-                  value="bad"
-                  onChange={(e) => setCareFood(e.target.value)}
-                  className="hidden"
-                />
-                <label htmlFor="careFoodIsBad" className="label cursor-pointer">
-                  {careFood === 'bad' ? (
-                    <FontAwesomeIcon icon={faFaceDizzy} className="text-2xl text-dark-pink" />
-                  ) : (
-                    <FontAwesomeIcon icon={faFaceDizzy} className="text-2xl text-light-black" />
-                  )}
-                </label>
-              </div>
-            </div>
-            {/* 登録モード：トイレ */}
-            <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
-              <p className="w-28 text-center text-base text-dark-black">トイレ</p>
-              <div className="flex grow justify-evenly text-center text-base text-dark-black">
-                <input
-                  id="careToiletIsGood"
-                  type="radio"
-                  name="careToilet"
-                  value="good"
-                  onChange={(e) => setCareToilet(e.target.value)}
-                  className="hidden"
-                />
-                <label htmlFor="careToiletIsGood" className="label cursor-pointer">
-                  {careToilet === 'good' ? (
-                    <FontAwesomeIcon icon={faFaceSmileBeam} className="text-2xl text-dark-blue" />
-                  ) : (
-                    <FontAwesomeIcon icon={faFaceSmileBeam} className="text-2xl text-light-black" />
-                  )}
-                </label>
-                <input
-                  id="careToiletIsUsually"
-                  type="radio"
-                  name="careToilet"
-                  value="usually"
-                  onChange={(e) => setCareToilet(e.target.value)}
-                  className="hidden"
-                />
-                <label htmlFor="careToiletIsUsually" className="label cursor-pointer">
-                  {careToilet === 'usually' ? (
-                    <FontAwesomeIcon icon={faFaceMeh} className="text-2xl text-dark-black" />
-                  ) : (
-                    <FontAwesomeIcon icon={faFaceMeh} className="text-2xl text-light-black" />
-                  )}
-                </label>
-                <input
-                  id="careToiletIsBad"
-                  type="radio"
-                  name="careToilet"
-                  value="bad"
-                  onChange={(e) => setCareToilet(e.target.value)}
-                  className="hidden"
-                />
-                <label htmlFor="careToiletIsBad" className="label cursor-pointer">
-                  {careToilet === 'bad' ? (
-                    <FontAwesomeIcon icon={faFaceDizzy} className="text-2xl text-dark-pink" />
-                  ) : (
-                    <FontAwesomeIcon icon={faFaceDizzy} className="text-2xl text-light-black" />
-                  )}
-                </label>
-              </div>
-            </div>
-            {/* 登録モード：砂浴び */}
-            <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
-              <p className="w-28 text-center text-base text-dark-black">砂浴び</p>
-              <div className="flex grow justify-evenly text-center text-base text-dark-black">
-                <input
-                  id="careBathIsGood"
-                  type="radio"
-                  name="careBath"
-                  value="good"
-                  onChange={(e) => setCareBath(e.target.value)}
-                  className="hidden"
-                />
-                <label htmlFor="careBathIsGood" className="label cursor-pointer">
-                  {careBath === 'good' ? (
-                    <FontAwesomeIcon icon={faFaceSmileBeam} className="text-2xl text-dark-blue" />
-                  ) : (
-                    <FontAwesomeIcon icon={faFaceSmileBeam} className="text-2xl text-light-black" />
-                  )}
-                </label>
-                <input
-                  id="careBathIsUsually"
-                  type="radio"
-                  name="careBath"
-                  value="usually"
-                  onChange={(e) => setCareBath(e.target.value)}
-                  className="hidden"
-                />
-                <label htmlFor="careBathIsUsually" className="label cursor-pointer">
-                  {careBath === 'usually' ? (
-                    <FontAwesomeIcon icon={faFaceMeh} className="text-2xl text-dark-black" />
-                  ) : (
-                    <FontAwesomeIcon icon={faFaceMeh} className="text-2xl text-light-black" />
-                  )}
-                </label>
-                <input
-                  id="careBathIsBad"
-                  type="radio"
-                  name="careBath"
-                  value="bad"
-                  onChange={(e) => setCareBath(e.target.value)}
-                  className="hidden"
-                />
-                <label htmlFor="careBathIsBad" className="label cursor-pointer">
-                  {careBath === 'bad' ? (
-                    <FontAwesomeIcon icon={faFaceDizzy} className="text-2xl text-dark-pink" />
-                  ) : (
-                    <FontAwesomeIcon icon={faFaceDizzy} className="text-2xl text-light-black" />
-                  )}
-                </label>
-              </div>
-            </div>
-            {/* 登録モード：部屋んぽ */}
-            <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
-              <p className="w-28 text-center text-base text-dark-black">部屋んぽ</p>
-              <div className="flex grow justify-evenly text-center text-base text-dark-black">
-                <input
-                  id="carePlayIsGood"
-                  type="radio"
-                  name="carePlay"
-                  value="good"
-                  onChange={(e) => setCarePlay(e.target.value)}
-                  className="hidden"
-                />
-                <label htmlFor="carePlayIsGood" className="label cursor-pointer">
-                  {carePlay === 'good' ? (
-                    <FontAwesomeIcon icon={faFaceSmileBeam} className="text-2xl text-dark-blue" />
-                  ) : (
-                    <FontAwesomeIcon icon={faFaceSmileBeam} className="text-2xl text-light-black" />
-                  )}
-                </label>
-                <input
-                  id="carePlayIsUsually"
-                  type="radio"
-                  name="carePlay"
-                  value="usually"
-                  onChange={(e) => setCarePlay(e.target.value)}
-                  className="hidden"
-                />
-                <label htmlFor="carePlayIsUsually" className="label cursor-pointer">
-                  {carePlay === 'usually' ? (
-                    <FontAwesomeIcon icon={faFaceMeh} className="text-2xl text-dark-black" />
-                  ) : (
-                    <FontAwesomeIcon icon={faFaceMeh} className="text-2xl text-light-black" />
-                  )}
-                </label>
-                <input
-                  id="carePlayIsBad"
-                  type="radio"
-                  name="carePlay"
-                  value="bad"
-                  onChange={(e) => setCarePlay(e.target.value)}
-                  className="hidden"
-                />
-                <label htmlFor="carePlayIsBad" className="label cursor-pointer">
-                  {carePlay === 'bad' ? (
-                    <FontAwesomeIcon icon={faFaceDizzy} className="text-2xl text-dark-pink" />
-                  ) : (
-                    <FontAwesomeIcon icon={faFaceDizzy} className="text-2xl text-light-black" />
-                  )}
-                </label>
-              </div>
-            </div>
+            <RadioButtonItem label="食事" item="Food" value={careFood} setValue={setCareFood} />
+            <RadioButtonItem
+              label="トイレ"
+              item="Toilet"
+              value={careToilet}
+              setValue={setCareToilet}
+            />
+            <RadioButtonItem label="砂浴び" item="Bath" value={careBath} setValue={setCareBath} />
+            <RadioButtonItem label="部屋んぽ" item="Play" value={carePlay} setValue={setCarePlay} />
           </div>
 
           {/* 登録モード：体重 */}
@@ -711,294 +509,25 @@ export const CareRecordCalendarPage = () => {
 
               {/* 編集モード：お世話の記録 */}
               <div className="mt-6 h-[300px] w-[500px] rounded-xl border border-solid border-dark-blue bg-ligth-white">
-                {/* 編集モード：食事 */}
-                <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
-                  <p className="w-28 text-center text-base text-dark-black">食事</p>
-                  <div className="flex grow justify-evenly text-center text-base text-dark-black">
-                    <input
-                      id="careFoodIsGood"
-                      type="radio"
-                      name="careFood"
-                      value="good"
-                      checked={careFood === 'good'}
-                      onChange={() => {}}
-                      className="hidden"
-                    />
-                    <label
-                      htmlFor="careFoodIsGood"
-                      onClick={() => handleRadioClick(setCareFood, careFood, 'good')}
-                      className="label cursor-pointer"
-                    >
-                      {careFood === 'good' ? (
-                        <FontAwesomeIcon
-                          icon={faFaceSmileBeam}
-                          className="text-2xl text-dark-blue"
-                        />
-                      ) : (
-                        <FontAwesomeIcon
-                          icon={faFaceSmileBeam}
-                          className="text-2xl text-light-black"
-                        />
-                      )}
-                    </label>
-                    <input
-                      id="careFoodIsUsually"
-                      type="radio"
-                      name="careFood"
-                      value="usually"
-                      checked={careFood === 'usually'}
-                      onChange={() => {}}
-                      className="hidden"
-                    />
-                    <label
-                      htmlFor="careFoodIsUsually"
-                      onClick={() => handleRadioClick(setCareFood, careFood, 'usually')}
-                      className="label cursor-pointer"
-                    >
-                      {careFood === 'usually' ? (
-                        <FontAwesomeIcon icon={faFaceMeh} className="text-2xl text-dark-black" />
-                      ) : (
-                        <FontAwesomeIcon icon={faFaceMeh} className="text-2xl text-light-black" />
-                      )}
-                    </label>
-                    <input
-                      id="careFoodIsBad"
-                      type="radio"
-                      name="careFood"
-                      value="bad"
-                      checked={careFood === 'bad'}
-                      onChange={() => {}}
-                      className="hidden"
-                    />
-                    <label
-                      htmlFor="careFoodIsBad"
-                      onClick={() => handleRadioClick(setCareFood, careFood, 'bad')}
-                      className="label cursor-pointer"
-                    >
-                      {careFood === 'bad' ? (
-                        <FontAwesomeIcon icon={faFaceDizzy} className="text-2xl text-dark-pink" />
-                      ) : (
-                        <FontAwesomeIcon icon={faFaceDizzy} className="text-2xl text-light-black" />
-                      )}
-                    </label>
-                  </div>
-                </div>
-                {/* 編集モード：トイレ */}
-                <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
-                  <p className="w-28 text-center text-base text-dark-black">トイレ</p>
-                  <div className="flex grow justify-evenly text-center text-base text-dark-black">
-                    <input
-                      id="careToiletIsGood"
-                      type="radio"
-                      name="careToilet"
-                      value="good"
-                      checked={careToilet === 'good'}
-                      onChange={() => {}}
-                      className="hidden"
-                    />
-                    <label
-                      htmlFor="careToiletIsGood"
-                      onClick={() => handleRadioClick(setCareToilet, careToilet, 'good')}
-                      className="label cursor-pointer"
-                    >
-                      {careToilet === 'good' ? (
-                        <FontAwesomeIcon
-                          icon={faFaceSmileBeam}
-                          className="text-2xl text-dark-blue"
-                        />
-                      ) : (
-                        <FontAwesomeIcon
-                          icon={faFaceSmileBeam}
-                          className="text-2xl text-light-black"
-                        />
-                      )}
-                    </label>
-                    <input
-                      id="careToiletIsUsually"
-                      type="radio"
-                      name="careToilet"
-                      value="usually"
-                      checked={careToilet === 'usually'}
-                      onChange={() => {}}
-                      className="hidden"
-                    />
-                    <label
-                      htmlFor="careToiletIsUsually"
-                      onClick={() => handleRadioClick(setCareToilet, careToilet, 'usually')}
-                      className="label cursor-pointer"
-                    >
-                      {careToilet === 'usually' ? (
-                        <FontAwesomeIcon icon={faFaceMeh} className="text-2xl text-dark-black" />
-                      ) : (
-                        <FontAwesomeIcon icon={faFaceMeh} className="text-2xl text-light-black" />
-                      )}
-                    </label>
-                    <input
-                      id="careToiletIsBad"
-                      type="radio"
-                      name="careToilet"
-                      value="bad"
-                      checked={careToilet === 'bad'}
-                      onChange={() => {}}
-                      className="hidden"
-                    />
-                    <label
-                      htmlFor="careToiletIsBad"
-                      onClick={() => handleRadioClick(setCareToilet, careToilet, 'bad')}
-                      className="label cursor-pointer"
-                    >
-                      {careToilet === 'bad' ? (
-                        <FontAwesomeIcon icon={faFaceDizzy} className="text-2xl text-dark-pink" />
-                      ) : (
-                        <FontAwesomeIcon icon={faFaceDizzy} className="text-2xl text-light-black" />
-                      )}
-                    </label>
-                  </div>
-                </div>
-                {/* 編集モード：砂浴び */}
-                <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
-                  <p className="w-28 text-center text-base text-dark-black">砂浴び</p>
-                  <div className="flex grow justify-evenly text-center text-base text-dark-black">
-                    <input
-                      id="careBathIsGood"
-                      type="radio"
-                      name="careBath"
-                      value="good"
-                      checked={careBath === 'good'}
-                      onChange={() => {}}
-                      className="hidden"
-                    />
-                    <label
-                      htmlFor="careBathIsGood"
-                      onClick={() => handleRadioClick(setCareBath, careBath, 'good')}
-                      className="label cursor-pointer"
-                    >
-                      {careBath === 'good' ? (
-                        <FontAwesomeIcon
-                          icon={faFaceSmileBeam}
-                          className="text-2xl text-dark-blue"
-                        />
-                      ) : (
-                        <FontAwesomeIcon
-                          icon={faFaceSmileBeam}
-                          className="text-2xl text-light-black"
-                        />
-                      )}
-                    </label>
-                    <input
-                      id="careBathIsUsually"
-                      type="radio"
-                      name="careBath"
-                      value="usually"
-                      checked={careBath === 'usually'}
-                      onChange={() => {}}
-                      className="hidden"
-                    />
-                    <label
-                      htmlFor="careBathIsUsually"
-                      onClick={() => handleRadioClick(setCareBath, careBath, 'usually')}
-                      className="label cursor-pointer"
-                    >
-                      {careBath === 'usually' ? (
-                        <FontAwesomeIcon icon={faFaceMeh} className="text-2xl text-dark-black" />
-                      ) : (
-                        <FontAwesomeIcon icon={faFaceMeh} className="text-2xl text-light-black" />
-                      )}
-                    </label>
-                    <input
-                      id="careBathIsBad"
-                      type="radio"
-                      name="careBath"
-                      value="bad"
-                      checked={careBath === 'bad'}
-                      onChange={() => {}}
-                      className="hidden"
-                    />
-                    <label
-                      htmlFor="careBathIsBad"
-                      onClick={() => handleRadioClick(setCareBath, careBath, 'bad')}
-                      className="label cursor-pointer"
-                    >
-                      {careBath === 'bad' ? (
-                        <FontAwesomeIcon icon={faFaceDizzy} className="text-2xl text-dark-pink" />
-                      ) : (
-                        <FontAwesomeIcon icon={faFaceDizzy} className="text-2xl text-light-black" />
-                      )}
-                    </label>
-                  </div>
-                </div>
-                {/* 編集モード：部屋んぽ */}
-                <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
-                  <p className="w-28 text-center text-base text-dark-black">部屋んぽ</p>
-                  <div className="flex grow justify-evenly text-center text-base text-dark-black">
-                    <input
-                      id="carePlayIsGood"
-                      type="radio"
-                      name="carePlay"
-                      value="good"
-                      checked={carePlay === 'good'}
-                      onChange={() => {}}
-                      className="hidden"
-                    />
-                    <label
-                      htmlFor="carePlayIsGood"
-                      onClick={() => handleRadioClick(setCarePlay, carePlay, 'good')}
-                      className="label cursor-pointer"
-                    >
-                      {carePlay === 'good' ? (
-                        <FontAwesomeIcon
-                          icon={faFaceSmileBeam}
-                          className="text-2xl text-dark-blue"
-                        />
-                      ) : (
-                        <FontAwesomeIcon
-                          icon={faFaceSmileBeam}
-                          className="text-2xl text-light-black"
-                        />
-                      )}
-                    </label>
-                    <input
-                      id="carePlayIsUsually"
-                      type="radio"
-                      name="carePlay"
-                      value="usually"
-                      checked={carePlay === 'usually'}
-                      onChange={() => {}}
-                      className="hidden"
-                    />
-                    <label
-                      htmlFor="carePlayIsUsually"
-                      onClick={() => handleRadioClick(setCarePlay, carePlay, 'usually')}
-                      className="label cursor-pointer"
-                    >
-                      {carePlay === 'usually' ? (
-                        <FontAwesomeIcon icon={faFaceMeh} className="text-2xl text-dark-black" />
-                      ) : (
-                        <FontAwesomeIcon icon={faFaceMeh} className="text-2xl text-light-black" />
-                      )}
-                    </label>
-                    <input
-                      id="carePlayIsBad"
-                      type="radio"
-                      name="carePlay"
-                      value="bad"
-                      checked={carePlay === 'bad'}
-                      onChange={() => {}}
-                      className="hidden"
-                    />
-                    <label
-                      htmlFor="carePlayIsBad"
-                      onClick={() => handleRadioClick(setCarePlay, carePlay, 'bad')}
-                      className="label cursor-pointer"
-                    >
-                      {carePlay === 'bad' ? (
-                        <FontAwesomeIcon icon={faFaceDizzy} className="text-2xl text-dark-pink" />
-                      ) : (
-                        <FontAwesomeIcon icon={faFaceDizzy} className="text-2xl text-light-black" />
-                      )}
-                    </label>
-                  </div>
-                </div>
+                <RadioButtonItem label="食事" item="Food" value={careFood} setValue={setCareFood} />
+                <RadioButtonItem
+                  label="トイレ"
+                  item="Toilet"
+                  value={careToilet}
+                  setValue={setCareToilet}
+                />
+                <RadioButtonItem
+                  label="砂浴び"
+                  item="Bath"
+                  value={careBath}
+                  setValue={setCareBath}
+                />
+                <RadioButtonItem
+                  label="部屋んぽ"
+                  item="Play"
+                  value={carePlay}
+                  setValue={setCarePlay}
+                />
               </div>
 
               {/* 編集モード：体重 */}
