@@ -198,9 +198,9 @@ export const CareRecordCalendarPage = () => {
     formData.append('care[careToilet]', careToilet)
     formData.append('care[careBath]', careBath)
     formData.append('care[carePlay]', carePlay)
-    formData.append('care[careWeight]', careWeight)
-    formData.append('care[careTemperature]', careTemperature)
-    formData.append('care[careHumidity]', careHumidity)
+    formData.append('care[careWeight]', careWeight === undefined ? '' : careWeight)
+    formData.append('care[careTemperature]', careTemperature === undefined ? '' : careTemperature)
+    formData.append('care[careHumidity]', careHumidity === undefined ? '' : careHumidity)
     formData.append('care[careMemo]', careMemo)
     formData.append('care[chinchillaId]', chinchillaId)
     return formData
@@ -252,9 +252,9 @@ export const CareRecordCalendarPage = () => {
     formData.append('care[careToilet]', careToilet)
     formData.append('care[careBath]', careBath)
     formData.append('care[carePlay]', carePlay)
-    formData.append('care[careWeight]', careWeight)
-    formData.append('care[careTemperature]', careTemperature)
-    formData.append('care[careHumidity]', careHumidity)
+    formData.append('care[careWeight]', careWeight === undefined ? '' : careWeight)
+    formData.append('care[careTemperature]', careTemperature === undefined ? '' : careTemperature)
+    formData.append('care[careHumidity]', careHumidity === undefined ? '' : careHumidity)
     formData.append('care[careMemo]', careMemo)
     return formData
   }
@@ -549,21 +549,15 @@ export const CareRecordCalendarPage = () => {
             <NumericFormat
               id="careWeight"
               onValueChange={(values) => {
-                // 文字列としての生の値を取得
-                const rawValue = values.value
-
-                // 文字列を数値に変換
-                const careWeight = parseFloat(rawValue)
-                setCareWeight(careWeight)
+                // 数値を取り出す
+                setCareWeight(values.floatValue)
               }}
               isAllowed={(values) => {
-                const { floatValue, formattedValue } = values
+                // 入力が空の場合は許容(trueを返す)
+                if (values.floatValue === undefined) return true
 
-                // 入力が空の場合は許容
-                if (formattedValue === '') return true
-
-                // 1から9999の範囲内であることを確認
-                return floatValue >= 1 && floatValue <= 9999
+                // 1から9999の範囲内であることを確認(trueを返す)
+                return values.floatValue >= 1 && values.floatValue <= 9999
               }}
               placeholder="500"
               thousandSeparator=","
@@ -586,21 +580,15 @@ export const CareRecordCalendarPage = () => {
             <NumericFormat
               id="careTemperature"
               onValueChange={(values) => {
-                // 文字列としての生の値を取得
-                const rawValue = values.value
-
-                // 文字列を数値に変換
-                const careTemperature = parseFloat(rawValue)
-                setCareTemperature(careTemperature)
+                // 数値を取り出す
+                setCareTemperature(values.floatValue)
               }}
               isAllowed={(values) => {
-                const { floatValue, formattedValue } = values
+                // 入力が空の場合は許容(trueを返す)
+                if (values.floatValue === undefined) return true
 
-                // 入力が空の場合は許容
-                if (formattedValue === '') return true
-
-                // 1から100の範囲内であることを確認
-                return floatValue >= 1 && floatValue <= 100
+                // 1から100の範囲内であることを確認(trueを返す)
+                return values.floatValue >= 1 && values.floatValue <= 100
               }}
               placeholder="21.5"
               thousandSeparator=","
@@ -623,21 +611,15 @@ export const CareRecordCalendarPage = () => {
             <NumericFormat
               id="careHumidity"
               onValueChange={(values) => {
-                // 文字列としての生の値を取得
-                const rawValue = values.value
-
-                // 文字列を数値に変換
-                const careHumidity = parseFloat(rawValue)
-                setCareHumidity(careHumidity)
+                // 数値を取り出す
+                setCareHumidity(values.floatValue)
               }}
               isAllowed={(values) => {
-                const { floatValue, formattedValue } = values
+                // 入力が空の場合は許容(trueを返す)
+                if (values.floatValue === undefined) return true
 
-                // 入力が空の場合は許容
-                if (formattedValue === '') return true
-
-                // 1から100の範囲内であることを確認
-                return floatValue >= 1 && floatValue <= 100
+                // 1から100の範囲内であることを確認(trueを返す)
+                return values.floatValue >= 1 && values.floatValue <= 100
               }}
               placeholder="40"
               thousandSeparator=","
@@ -672,7 +654,14 @@ export const CareRecordCalendarPage = () => {
               // 「チンチラを選択している」かつ「日付を選択している」かつ「お世話記録を何か選択している」場合のみ登録できる
               !chinchillaId ||
               !selectedDate ||
-              (!careFood && !careToilet && !careBath && !carePlay && !careMemo)
+              (!careFood &&
+                !careToilet &&
+                !careBath &&
+                !carePlay &&
+                !careWeight &&
+                !careTemperature &&
+                !careHumidity &&
+                !careMemo)
                 ? true
                 : false
             }
@@ -956,21 +945,15 @@ export const CareRecordCalendarPage = () => {
                   id="careWeight"
                   defaultValue={careWeight}
                   onValueChange={(values) => {
-                    // 文字列としての生の値を取得
-                    const rawValue = values.value
-
-                    // 文字列を数値に変換
-                    const careWeight = parseFloat(rawValue)
-                    setCareWeight(careWeight)
+                    // 数値を取り出す
+                    setCareWeight(values.floatValue)
                   }}
                   isAllowed={(values) => {
-                    const { floatValue, formattedValue } = values
+                    // 入力が空の場合は許容(trueを返す)
+                    if (values.floatValue === undefined) return true
 
-                    // 入力が空の場合は許容
-                    if (formattedValue === '') return true
-
-                    // 1から9999の範囲内であることを確認
-                    return floatValue >= 1 && floatValue <= 9999
+                    // 1から9999の範囲内であることを確認(trueを返す)
+                    return values.floatValue >= 1 && values.floatValue <= 9999
                   }}
                   placeholder="500"
                   thousandSeparator=","
@@ -994,21 +977,15 @@ export const CareRecordCalendarPage = () => {
                   id="careTemperature"
                   defaultValue={careTemperature}
                   onValueChange={(values) => {
-                    // 文字列としての生の値を取得
-                    const rawValue = values.value
-
-                    // 文字列を数値に変換
-                    const careTemperature = parseFloat(rawValue)
-                    setCareTemperature(careTemperature)
+                    // 数値を取り出す
+                    setCareTemperature(values.floatValue)
                   }}
                   isAllowed={(values) => {
-                    const { floatValue, formattedValue } = values
+                    // 入力が空の場合は許容(trueを返す)
+                    if (values.floatValue === undefined) return true
 
-                    // 入力が空の場合は許容
-                    if (formattedValue === '') return true
-
-                    // 1から100の範囲内であることを確認
-                    return floatValue >= 1 && floatValue <= 100
+                    // 1から100の範囲内であることを確認(trueを返す)
+                    return values.floatValue >= 1 && values.floatValue <= 100
                   }}
                   placeholder="21.5"
                   thousandSeparator=","
@@ -1032,21 +1009,15 @@ export const CareRecordCalendarPage = () => {
                   id="careHumidity"
                   defaultValue={careHumidity}
                   onValueChange={(values) => {
-                    // 文字列としての生の値を取得
-                    const rawValue = values.value
-
-                    // 文字列を数値に変換
-                    const careHumidity = parseFloat(rawValue)
-                    setCareHumidity(careHumidity)
+                    // 数値を取り出す
+                    setCareHumidity(values.floatValue)
                   }}
                   isAllowed={(values) => {
-                    const { floatValue, formattedValue } = values
+                    // 入力が空の場合は許容(trueを返す)
+                    if (values.floatValue === undefined) return true
 
-                    // 入力が空の場合は許容
-                    if (formattedValue === '') return true
-
-                    // 1から100の範囲内であることを確認
-                    return floatValue >= 1 && floatValue <= 100
+                    // 1から100の範囲内であることを確認(trueを返す)
+                    return values.floatValue >= 1 && values.floatValue <= 100
                   }}
                   placeholder="40"
                   thousandSeparator=","
@@ -1080,6 +1051,22 @@ export const CareRecordCalendarPage = () => {
                 <Button
                   btnType="submit"
                   click={handleUpdate}
+                  disabled={
+                    // 「チンチラを選択していない」または「日付を選択していない」または「お世話記録を全て選択していない」場合は登録できない
+                    // 「チンチラを選択している」かつ「日付を選択している」かつ「お世話記録を何か選択している」場合のみ登録できる
+                    !chinchillaId ||
+                    !selectedDate ||
+                    (!careFood &&
+                      !careToilet &&
+                      !careBath &&
+                      !carePlay &&
+                      !careWeight &&
+                      !careTemperature &&
+                      !careHumidity &&
+                      !careMemo)
+                      ? true
+                      : false
+                  }
                   addStyle="btn-primary mr-24 h-16 w-40"
                 >
                   保存
