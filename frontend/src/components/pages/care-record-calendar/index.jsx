@@ -3,13 +3,13 @@ import { getAllChinchillas } from 'src/lib/api/chinchilla'
 import { getAllCares, createCare, deleteCare, updateCare } from 'src/lib/api/care'
 import { SelectedChinchillaIdContext } from 'src/contexts/chinchilla'
 
+import { ChinchillaSelectFormItem } from 'src/components/pages/care-record-calendar/chinchillaSelectFormItem'
 import { RadioButtonItem } from 'src/components/pages/care-record-calendar/radioButtonItem'
 import { NumericFormItem } from 'src/components/pages/care-record-calendar/numericFormItem'
 
 import { Button } from 'src/components/shared/Button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-  faAsterisk,
   faFaceSmileBeam,
   faFaceDizzy,
   faFaceMeh,
@@ -300,36 +300,16 @@ export const CareRecordCalendarPage = () => {
         className="mt-6"
       />
 
+      {/* チンチラの選択 */}
+      <ChinchillaSelectFormItem
+        chinchillaId={chinchillaId}
+        handleGetChinchilla={handleGetChinchilla}
+        allChinchillas={allChinchillas}
+        isEditing={isEditing}
+      />
+
       {careId === 0 ? (
         <>
-          {/* 登録モード：チンチラの選択 */}
-          <div className="form-control mt-6 w-96">
-            <label htmlFor="chinchillaName" className="label">
-              <span className="text-base text-dark-black">チンチラを選択</span>
-              <div>
-                <FontAwesomeIcon icon={faAsterisk} className="mr-1 text-xs text-dark-pink" />
-                <span className="label-text-alt text-dark-black">必須入力</span>
-              </div>
-            </label>
-            <select
-              id="chinchillaName"
-              value={chinchillaId}
-              onChange={(e) => {
-                handleGetChinchilla(e)
-              }}
-              className="w-ful select select-bordered select-primary border-dark-blue bg-ligth-white text-base font-light text-dark-black"
-            >
-              <option hidden value="">
-                選択してください
-              </option>
-              {allChinchillas.map((chinchilla) => (
-                <option key={chinchilla.id} value={chinchilla.id}>
-                  {chinchilla.chinchillaName}
-                </option>
-              ))}
-            </select>
-          </div>
-
           {/* 登録モード：お世話の記録 */}
           <div className="mt-6 h-[300px] w-[500px] rounded-xl border border-solid border-dark-blue bg-ligth-white">
             <RadioButtonItem label="食事" item="Food" value={careFood} setValue={setCareFood} />
@@ -426,32 +406,6 @@ export const CareRecordCalendarPage = () => {
         <>
           {isEditing ? (
             <>
-              {/* 編集モード：チンチラの選択 */}
-              <div className="form-control mt-6 w-96">
-                <label htmlFor="chinchillaName" className="label">
-                  <span className="text-base text-dark-black">選択中のチンチラ</span>
-                  <div>
-                    <FontAwesomeIcon icon={faAsterisk} className="mr-1 text-xs text-dark-pink" />
-                    <span className="label-text-alt text-dark-black">必須入力</span>
-                  </div>
-                </label>
-                <select
-                  id="chinchillaName"
-                  value={chinchillaId}
-                  className="w-ful select select-bordered select-primary border-dark-blue bg-ligth-white text-base font-light text-dark-black"
-                  disabled
-                >
-                  <option hidden value="">
-                    選択してください
-                  </option>
-                  {allChinchillas.map((chinchilla) => (
-                    <option key={chinchilla.id} value={chinchilla.id}>
-                      {chinchilla.chinchillaName}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
               {/* 編集モード：お世話の記録 */}
               <div className="mt-6 h-[300px] w-[500px] rounded-xl border border-solid border-dark-blue bg-ligth-white">
                 <RadioButtonItem label="食事" item="Food" value={careFood} setValue={setCareFood} />
@@ -571,34 +525,6 @@ export const CareRecordCalendarPage = () => {
             </>
           ) : (
             <>
-              {/* 表示モード：チンチラの選択 */}
-              <div className="form-control mt-6 w-96">
-                <label htmlFor="chinchillaName" className="label">
-                  <span className="text-base text-dark-black">チンチラを選択</span>
-                  <div>
-                    <FontAwesomeIcon icon={faAsterisk} className="mr-1 text-xs text-dark-pink" />
-                    <span className="label-text-alt text-dark-black">必須入力</span>
-                  </div>
-                </label>
-                <select
-                  id="chinchillaName"
-                  value={chinchillaId}
-                  onChange={(e) => {
-                    handleGetChinchilla(e)
-                  }}
-                  className="w-ful select select-bordered select-primary border-dark-blue bg-ligth-white text-base font-light text-dark-black"
-                >
-                  <option hidden value="">
-                    選択してください
-                  </option>
-                  {allChinchillas.map((chinchilla) => (
-                    <option key={chinchilla.id} value={chinchilla.id}>
-                      {chinchilla.chinchillaName}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
               {/* 表示モード：お世話の記録 */}
               <div className="mt-6 h-[400px] w-[500px] rounded-xl  bg-ligth-white">
                 {/* 表示モード：食事 */}
