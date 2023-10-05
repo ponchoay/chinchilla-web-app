@@ -286,6 +286,15 @@ export const CareRecordCalendarPage = () => {
     }
   }
 
+  // ラジオボタンの削除
+  const handleRadioClick = (setter, currentValue, newValue) => {
+    if (currentValue === newValue) {
+      return setter('')
+    }
+
+    setter(newValue)
+  }
+
   return (
     <div className="my-40 grid place-content-center place-items-center">
       <p className="text-center text-2xl font-bold tracking-widest text-dark-blue">お世話の記録</p>
@@ -711,10 +720,15 @@ export const CareRecordCalendarPage = () => {
                       type="radio"
                       name="careFood"
                       value="good"
-                      onChange={(e) => setCareFood(e.target.value)}
+                      checked={careFood === 'good'}
+                      onChange={() => {}}
                       className="hidden"
                     />
-                    <label htmlFor="careFoodIsGood" className="label cursor-pointer">
+                    <label
+                      htmlFor="careFoodIsGood"
+                      onClick={() => handleRadioClick(setCareFood, careFood, 'good')}
+                      className="label cursor-pointer"
+                    >
                       {careFood === 'good' ? (
                         <FontAwesomeIcon
                           icon={faFaceSmileBeam}
@@ -732,10 +746,15 @@ export const CareRecordCalendarPage = () => {
                       type="radio"
                       name="careFood"
                       value="usually"
-                      onChange={(e) => setCareFood(e.target.value)}
+                      checked={careFood === 'usually'}
+                      onChange={() => {}}
                       className="hidden"
                     />
-                    <label htmlFor="careFoodIsUsually" className="label cursor-pointer">
+                    <label
+                      htmlFor="careFoodIsUsually"
+                      onClick={() => handleRadioClick(setCareFood, careFood, 'usually')}
+                      className="label cursor-pointer"
+                    >
                       {careFood === 'usually' ? (
                         <FontAwesomeIcon icon={faFaceMeh} className="text-2xl text-dark-black" />
                       ) : (
@@ -747,10 +766,15 @@ export const CareRecordCalendarPage = () => {
                       type="radio"
                       name="careFood"
                       value="bad"
-                      onChange={(e) => setCareFood(e.target.value)}
+                      checked={careFood === 'bad'}
+                      onChange={() => {}}
                       className="hidden"
                     />
-                    <label htmlFor="careFoodIsBad" className="label cursor-pointer">
+                    <label
+                      htmlFor="careFoodIsBad"
+                      onClick={() => handleRadioClick(setCareFood, careFood, 'bad')}
+                      className="label cursor-pointer"
+                    >
                       {careFood === 'bad' ? (
                         <FontAwesomeIcon icon={faFaceDizzy} className="text-2xl text-dark-pink" />
                       ) : (
@@ -768,10 +792,15 @@ export const CareRecordCalendarPage = () => {
                       type="radio"
                       name="careToilet"
                       value="good"
-                      onChange={(e) => setCareToilet(e.target.value)}
+                      checked={careToilet === 'good'}
+                      onChange={() => {}}
                       className="hidden"
                     />
-                    <label htmlFor="careToiletIsGood" className="label cursor-pointer">
+                    <label
+                      htmlFor="careToiletIsGood"
+                      onClick={() => handleRadioClick(setCareToilet, careToilet, 'good')}
+                      className="label cursor-pointer"
+                    >
                       {careToilet === 'good' ? (
                         <FontAwesomeIcon
                           icon={faFaceSmileBeam}
@@ -789,10 +818,15 @@ export const CareRecordCalendarPage = () => {
                       type="radio"
                       name="careToilet"
                       value="usually"
-                      onChange={(e) => setCareToilet(e.target.value)}
+                      checked={careToilet === 'usually'}
+                      onChange={() => {}}
                       className="hidden"
                     />
-                    <label htmlFor="careToiletIsUsually" className="label cursor-pointer">
+                    <label
+                      htmlFor="careToiletIsUsually"
+                      onClick={() => handleRadioClick(setCareToilet, careToilet, 'usually')}
+                      className="label cursor-pointer"
+                    >
                       {careToilet === 'usually' ? (
                         <FontAwesomeIcon icon={faFaceMeh} className="text-2xl text-dark-black" />
                       ) : (
@@ -804,10 +838,15 @@ export const CareRecordCalendarPage = () => {
                       type="radio"
                       name="careToilet"
                       value="bad"
-                      onChange={(e) => setCareToilet(e.target.value)}
+                      checked={careToilet === 'bad'}
+                      onChange={() => {}}
                       className="hidden"
                     />
-                    <label htmlFor="careToiletIsBad" className="label cursor-pointer">
+                    <label
+                      htmlFor="careToiletIsBad"
+                      onClick={() => handleRadioClick(setCareToilet, careToilet, 'bad')}
+                      className="label cursor-pointer"
+                    >
                       {careToilet === 'bad' ? (
                         <FontAwesomeIcon icon={faFaceDizzy} className="text-2xl text-dark-pink" />
                       ) : (
@@ -825,10 +864,15 @@ export const CareRecordCalendarPage = () => {
                       type="radio"
                       name="careBath"
                       value="good"
-                      onChange={(e) => setCareBath(e.target.value)}
+                      checked={careBath === 'good'}
+                      onChange={() => {}}
                       className="hidden"
                     />
-                    <label htmlFor="careBathIsGood" className="label cursor-pointer">
+                    <label
+                      htmlFor="careBathIsGood"
+                      onClick={() => handleRadioClick(setCareBath, careBath, 'good')}
+                      className="label cursor-pointer"
+                    >
                       {careBath === 'good' ? (
                         <FontAwesomeIcon
                           icon={faFaceSmileBeam}
@@ -846,10 +890,15 @@ export const CareRecordCalendarPage = () => {
                       type="radio"
                       name="careBath"
                       value="usually"
-                      onChange={(e) => setCareBath(e.target.value)}
+                      checked={careBath === 'usually'}
+                      onChange={() => {}}
                       className="hidden"
                     />
-                    <label htmlFor="careBathIsUsually" className="label cursor-pointer">
+                    <label
+                      htmlFor="careBathIsUsually"
+                      onClick={() => handleRadioClick(setCareBath, careBath, 'usually')}
+                      className="label cursor-pointer"
+                    >
                       {careBath === 'usually' ? (
                         <FontAwesomeIcon icon={faFaceMeh} className="text-2xl text-dark-black" />
                       ) : (
@@ -861,10 +910,15 @@ export const CareRecordCalendarPage = () => {
                       type="radio"
                       name="careBath"
                       value="bad"
-                      onChange={(e) => setCareBath(e.target.value)}
+                      checked={careBath === 'bad'}
+                      onChange={() => {}}
                       className="hidden"
                     />
-                    <label htmlFor="careBathIsBad" className="label cursor-pointer">
+                    <label
+                      htmlFor="careBathIsBad"
+                      onClick={() => handleRadioClick(setCareBath, careBath, 'bad')}
+                      className="label cursor-pointer"
+                    >
                       {careBath === 'bad' ? (
                         <FontAwesomeIcon icon={faFaceDizzy} className="text-2xl text-dark-pink" />
                       ) : (
@@ -882,10 +936,15 @@ export const CareRecordCalendarPage = () => {
                       type="radio"
                       name="carePlay"
                       value="good"
-                      onChange={(e) => setCarePlay(e.target.value)}
+                      checked={carePlay === 'good'}
+                      onChange={() => {}}
                       className="hidden"
                     />
-                    <label htmlFor="carePlayIsGood" className="label cursor-pointer">
+                    <label
+                      htmlFor="carePlayIsGood"
+                      onClick={() => handleRadioClick(setCarePlay, carePlay, 'good')}
+                      className="label cursor-pointer"
+                    >
                       {carePlay === 'good' ? (
                         <FontAwesomeIcon
                           icon={faFaceSmileBeam}
@@ -903,10 +962,15 @@ export const CareRecordCalendarPage = () => {
                       type="radio"
                       name="carePlay"
                       value="usually"
-                      onChange={(e) => setCarePlay(e.target.value)}
+                      checked={carePlay === 'usually'}
+                      onChange={() => {}}
                       className="hidden"
                     />
-                    <label htmlFor="carePlayIsUsually" className="label cursor-pointer">
+                    <label
+                      htmlFor="carePlayIsUsually"
+                      onClick={() => handleRadioClick(setCarePlay, carePlay, 'usually')}
+                      className="label cursor-pointer"
+                    >
                       {carePlay === 'usually' ? (
                         <FontAwesomeIcon icon={faFaceMeh} className="text-2xl text-dark-black" />
                       ) : (
@@ -918,10 +982,15 @@ export const CareRecordCalendarPage = () => {
                       type="radio"
                       name="carePlay"
                       value="bad"
-                      onChange={(e) => setCarePlay(e.target.value)}
+                      checked={carePlay === 'bad'}
+                      onChange={() => {}}
                       className="hidden"
                     />
-                    <label htmlFor="carePlayIsBad" className="label cursor-pointer">
+                    <label
+                      htmlFor="carePlayIsBad"
+                      onClick={() => handleRadioClick(setCarePlay, carePlay, 'bad')}
+                      className="label cursor-pointer"
+                    >
                       {carePlay === 'bad' ? (
                         <FontAwesomeIcon icon={faFaceDizzy} className="text-2xl text-dark-pink" />
                       ) : (
