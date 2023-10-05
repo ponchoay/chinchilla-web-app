@@ -2,7 +2,7 @@ import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFaceSmileBeam, faFaceDizzy, faFaceMeh } from '@fortawesome/free-solid-svg-icons'
 
-export const RadioButtonItem = ({ label, item, value, setValue }) => {
+export const InputRadioButtonItem = ({ label, item, value, setValue }) => {
   // ラジオボタンの取り消し
   const handleRadioClick = (setter, currentValue, newValue) => {
     if (currentValue === newValue) {

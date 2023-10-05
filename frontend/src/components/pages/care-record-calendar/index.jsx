@@ -4,18 +4,14 @@ import { getAllCares, createCare, deleteCare, updateCare } from 'src/lib/api/car
 import { SelectedChinchillaIdContext } from 'src/contexts/chinchilla'
 
 import { ChinchillaSelectFormItem } from 'src/components/pages/care-record-calendar/chinchillaSelectFormItem'
-import { RadioButtonItem } from 'src/components/pages/care-record-calendar/radioButtonItem'
+import { InputRadioButtonItem } from 'src/components/pages/care-record-calendar/inputRadioButtonItem'
+import { DisplayRadioButtonItem } from 'src/components/pages/care-record-calendar/displayRadioButtonItem'
 import { NumericFormItem } from 'src/components/pages/care-record-calendar/numericFormItem'
 import { CareMemoFormItem } from 'src/components/pages/care-record-calendar/careMemoFormItem'
 
 import { Button } from 'src/components/shared/Button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faFaceSmileBeam,
-  faFaceDizzy,
-  faFaceMeh,
-  faFilePen
-} from '@fortawesome/free-solid-svg-icons'
+import { faFilePen } from '@fortawesome/free-solid-svg-icons'
 
 import { Calendar } from 'src/components/pages/care-record-calendar/calendar'
 import { format } from 'date-fns'
@@ -313,15 +309,30 @@ export const CareRecordCalendarPage = () => {
         <>
           {/* 登録モード：お世話の記録 */}
           <div className="mt-6 h-[300px] w-[500px] rounded-xl border border-solid border-dark-blue bg-ligth-white">
-            <RadioButtonItem label="食事" item="Food" value={careFood} setValue={setCareFood} />
-            <RadioButtonItem
+            <InputRadioButtonItem
+              label="食事"
+              item="Food"
+              value={careFood}
+              setValue={setCareFood}
+            />
+            <InputRadioButtonItem
               label="トイレ"
               item="Toilet"
               value={careToilet}
               setValue={setCareToilet}
             />
-            <RadioButtonItem label="砂浴び" item="Bath" value={careBath} setValue={setCareBath} />
-            <RadioButtonItem label="部屋んぽ" item="Play" value={carePlay} setValue={setCarePlay} />
+            <InputRadioButtonItem
+              label="砂浴び"
+              item="Bath"
+              value={careBath}
+              setValue={setCareBath}
+            />
+            <InputRadioButtonItem
+              label="部屋んぽ"
+              item="Play"
+              value={carePlay}
+              setValue={setCarePlay}
+            />
           </div>
 
           {/* 登録モード：体重 */}
@@ -397,20 +408,25 @@ export const CareRecordCalendarPage = () => {
             <>
               {/* 編集モード：お世話の記録 */}
               <div className="mt-6 h-[300px] w-[500px] rounded-xl border border-solid border-dark-blue bg-ligth-white">
-                <RadioButtonItem label="食事" item="Food" value={careFood} setValue={setCareFood} />
-                <RadioButtonItem
+                <InputRadioButtonItem
+                  label="食事"
+                  item="Food"
+                  value={careFood}
+                  setValue={setCareFood}
+                />
+                <InputRadioButtonItem
                   label="トイレ"
                   item="Toilet"
                   value={careToilet}
                   setValue={setCareToilet}
                 />
-                <RadioButtonItem
+                <InputRadioButtonItem
                   label="砂浴び"
                   item="Bath"
                   value={careBath}
                   setValue={setCareBath}
                 />
-                <RadioButtonItem
+                <InputRadioButtonItem
                   label="部屋んぽ"
                   item="Play"
                   value={carePlay}
@@ -501,162 +517,11 @@ export const CareRecordCalendarPage = () => {
             <>
               {/* 表示モード：お世話の記録 */}
               <div className="mt-6 h-[400px] w-[500px] rounded-xl  bg-ligth-white">
-                {/* 表示モード：食事 */}
-                <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
-                  <p className="w-28 text-center text-base text-dark-black">食事</p>
-                  <div className="flex grow justify-evenly text-center text-base text-dark-black">
-                    {careFood === 'good' ? (
-                      <FontAwesomeIcon
-                        icon={faFaceSmileBeam}
-                        className="label text-2xl text-dark-blue"
-                      />
-                    ) : (
-                      <FontAwesomeIcon
-                        icon={faFaceSmileBeam}
-                        className="label text-2xl text-light-black"
-                      />
-                    )}
-                    {careFood === 'usually' ? (
-                      <FontAwesomeIcon
-                        icon={faFaceMeh}
-                        className="label text-2xl text-dark-black"
-                      />
-                    ) : (
-                      <FontAwesomeIcon
-                        icon={faFaceMeh}
-                        className="label text-2xl text-light-black"
-                      />
-                    )}
-                    {careFood === 'bad' ? (
-                      <FontAwesomeIcon
-                        icon={faFaceDizzy}
-                        className="label text-2xl text-dark-pink"
-                      />
-                    ) : (
-                      <FontAwesomeIcon
-                        icon={faFaceDizzy}
-                        className="label text-2xl text-light-black"
-                      />
-                    )}
-                  </div>
-                </div>
-                {/* 表示モード：トイレ */}
-                <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
-                  <p className="w-28 text-center text-base text-dark-black">トイレ</p>
-                  <div className="flex grow justify-evenly text-center text-base text-dark-black">
-                    {careToilet === 'good' ? (
-                      <FontAwesomeIcon
-                        icon={faFaceSmileBeam}
-                        className="label text-2xl text-dark-blue"
-                      />
-                    ) : (
-                      <FontAwesomeIcon
-                        icon={faFaceSmileBeam}
-                        className="label text-2xl text-light-black"
-                      />
-                    )}
-                    {careToilet === 'usually' ? (
-                      <FontAwesomeIcon
-                        icon={faFaceMeh}
-                        className="label text-2xl text-dark-black"
-                      />
-                    ) : (
-                      <FontAwesomeIcon
-                        icon={faFaceMeh}
-                        className="label text-2xl text-light-black"
-                      />
-                    )}
-                    {careToilet === 'bad' ? (
-                      <FontAwesomeIcon
-                        icon={faFaceDizzy}
-                        className="label text-2xl text-dark-pink"
-                      />
-                    ) : (
-                      <FontAwesomeIcon
-                        icon={faFaceDizzy}
-                        className="label text-2xl text-light-black"
-                      />
-                    )}
-                  </div>
-                </div>
-                {/* 表示モード：砂浴び */}
-                <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
-                  <p className="w-28 text-center text-base text-dark-black">砂浴び</p>
-                  <div className="flex grow justify-evenly text-center text-base text-dark-black">
-                    {careBath === 'good' ? (
-                      <FontAwesomeIcon
-                        icon={faFaceSmileBeam}
-                        className="label text-2xl text-dark-blue"
-                      />
-                    ) : (
-                      <FontAwesomeIcon
-                        icon={faFaceSmileBeam}
-                        className="label text-2xl text-light-black"
-                      />
-                    )}
-                    {careBath === 'usually' ? (
-                      <FontAwesomeIcon
-                        icon={faFaceMeh}
-                        className="label text-2xl text-dark-black"
-                      />
-                    ) : (
-                      <FontAwesomeIcon
-                        icon={faFaceMeh}
-                        className="label text-2xl text-light-black"
-                      />
-                    )}
-                    {careBath === 'bad' ? (
-                      <FontAwesomeIcon
-                        icon={faFaceDizzy}
-                        className="label text-2xl text-dark-pink"
-                      />
-                    ) : (
-                      <FontAwesomeIcon
-                        icon={faFaceDizzy}
-                        className="label text-2xl text-light-black"
-                      />
-                    )}
-                  </div>
-                </div>
-                {/* 表示モード：部屋んぽ */}
-                <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
-                  <p className="w-28 text-center text-base text-dark-black">部屋んぽ</p>
-                  <div className="flex grow justify-evenly text-center text-base text-dark-black">
-                    {carePlay === 'good' ? (
-                      <FontAwesomeIcon
-                        icon={faFaceSmileBeam}
-                        className="label text-2xl text-dark-blue"
-                      />
-                    ) : (
-                      <FontAwesomeIcon
-                        icon={faFaceSmileBeam}
-                        className="label text-2xl text-light-black"
-                      />
-                    )}
-                    {carePlay === 'usually' ? (
-                      <FontAwesomeIcon
-                        icon={faFaceMeh}
-                        className="label text-2xl text-dark-black"
-                      />
-                    ) : (
-                      <FontAwesomeIcon
-                        icon={faFaceMeh}
-                        className="label text-2xl text-light-black"
-                      />
-                    )}
-                    {carePlay === 'bad' ? (
-                      <FontAwesomeIcon
-                        icon={faFaceDizzy}
-                        className="label text-2xl text-dark-pink"
-                      />
-                    ) : (
-                      <FontAwesomeIcon
-                        icon={faFaceDizzy}
-                        className="label text-2xl text-light-black"
-                      />
-                    )}
-                  </div>
-                </div>
+                <DisplayRadioButtonItem label="食事" item="careFood" value={careFood} />
+                <DisplayRadioButtonItem label="トイレ" item="careToilet" value={careToilet} />
+                <DisplayRadioButtonItem label="砂浴び" item="careBath" value={careBath} />
+                <DisplayRadioButtonItem label="部屋んぽ" item="carePlay" value={carePlay} />
+
                 {/* 表示モード：体重 */}
                 <div className="mx-10 mt-5 flex items-center border-b border-solid border-b-light-black pb-2">
                   <p className="w-28 text-center text-base text-dark-black">体重</p>
@@ -668,6 +533,7 @@ export const CareRecordCalendarPage = () => {
                     )}
                   </div>
                 </div>
+
                 {/* 表示モード：気温・湿度 */}
                 <div className="mx-10 mt-5 flex items-center border-b border-solid border-b-light-black pb-2">
                   <p className="w-28 text-center text-base text-dark-black">気温・湿度</p>
