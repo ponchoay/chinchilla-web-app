@@ -4,8 +4,7 @@ import { getAllCares, createCare, deleteCare, updateCare } from 'src/lib/api/car
 import { SelectedChinchillaIdContext } from 'src/contexts/chinchilla'
 
 import { RadioButtonItem } from 'src/components/pages/care-record-calendar/radioButtonItem'
-
-import { NumericFormat } from 'react-number-format'
+import { NumericFormItem } from 'src/components/pages/care-record-calendar/numericFormItem'
 
 import { Button } from 'src/components/shared/Button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -345,97 +344,43 @@ export const CareRecordCalendarPage = () => {
           </div>
 
           {/* 登録モード：体重 */}
-          <div className="form-control mt-6 w-96">
-            <label htmlFor="careWeight" className="label">
-              <span className="text-base text-dark-black">体重（g）</span>
-              <div>
-                <FontAwesomeIcon icon={faAsterisk} className="mr-1 text-xs text-dark-pink" />
-                <span className="label-text-alt text-dark-black">半角数字</span>
-              </div>
-            </label>
-            <NumericFormat
-              id="careWeight"
-              onValueChange={(values) => {
-                // 数値を取り出す
-                setCareWeight(values.floatValue ? values.floatValue : null)
-              }}
-              isAllowed={(values) => {
-                // 入力が空の場合は許容(trueを返す)
-                if (!values.floatValue) return true
-
-                // 1から9999の範囲内であることを確認(trueを返す)
-                return values.floatValue >= 1 && values.floatValue <= 9999
-              }}
-              placeholder="500"
-              thousandSeparator=","
-              allowNegative={false}
-              decimalScale={0}
-              suffix={'g'}
-              className="w-ful input input-bordered input-primary input-md border-dark-blue bg-ligth-white text-base text-dark-black"
-            />
-          </div>
+          <NumericFormItem
+            label="体重（g）"
+            item="careWeight"
+            value={careWeight}
+            setValue={setCareWeight}
+            min={1}
+            max={9999}
+            placeholder="500"
+            decimalScale={0}
+            suffix="g"
+          />
 
           {/* 登録モード：気温 */}
-          <div className="form-control mt-6 w-96">
-            <label htmlFor="careTemperature" className="label">
-              <span className="text-base text-dark-black">気温（℃）</span>
-              <div>
-                <FontAwesomeIcon icon={faAsterisk} className="mr-1 text-xs text-dark-pink" />
-                <span className="label-text-alt text-dark-black">半角数字</span>
-              </div>
-            </label>
-            <NumericFormat
-              id="careTemperature"
-              onValueChange={(values) => {
-                // 数値を取り出す
-                setCareTemperature(values.floatValue ? values.floatValue : null)
-              }}
-              isAllowed={(values) => {
-                // 入力が空の場合は許容(trueを返す)
-                if (!values.floatValue) return true
-
-                // 1から100の範囲内であることを確認(trueを返す)
-                return values.floatValue >= 1 && values.floatValue <= 100
-              }}
-              placeholder="21.5"
-              thousandSeparator=","
-              allowNegative={false}
-              decimalScale={1}
-              suffix={'℃'}
-              className="w-ful input input-bordered input-primary input-md border-dark-blue bg-ligth-white text-base text-dark-black"
-            />
-          </div>
+          <NumericFormItem
+            label="気温（℃）"
+            item="careTemperature"
+            value={careTemperature}
+            setValue={setCareTemperature}
+            min={1}
+            max={100}
+            placeholder="21.5"
+            decimalScale={1}
+            suffix="℃"
+          />
 
           {/* 登録モード：湿度 */}
-          <div className="form-control mt-6 w-96">
-            <label htmlFor="careHumidity" className="label">
-              <span className="text-base text-dark-black">湿度（%）</span>
-              <div>
-                <FontAwesomeIcon icon={faAsterisk} className="mr-1 text-xs text-dark-pink" />
-                <span className="label-text-alt text-dark-black">半角数字</span>
-              </div>
-            </label>
-            <NumericFormat
-              id="careHumidity"
-              onValueChange={(values) => {
-                // 数値を取り出す
-                setCareHumidity(values.floatValue ? values.floatValue : null)
-              }}
-              isAllowed={(values) => {
-                // 入力が空の場合は許容(trueを返す)
-                if (!values.floatValue) return true
-
-                // 1から100の範囲内であることを確認(trueを返す)
-                return values.floatValue >= 1 && values.floatValue <= 100
-              }}
-              placeholder="40"
-              thousandSeparator=","
-              allowNegative={false}
-              decimalScale={0}
-              suffix={'%'}
-              className="w-ful input input-bordered input-primary input-md border-dark-blue bg-ligth-white text-base text-dark-black"
-            />
-          </div>
+          <NumericFormItem
+            label="湿度（%）"
+            item="careHumidity"
+            value={careHumidity}
+            setValue={setCareHumidity}
+            min={1}
+            max={100}
+            placeholder="40"
+            decimalScale={0}
+            suffix="%"
+          />
 
           {/* 登録モード：お世話のメモ */}
           <div className="form-control mb-12 mt-6 w-[500px]">
@@ -531,100 +476,43 @@ export const CareRecordCalendarPage = () => {
               </div>
 
               {/* 編集モード：体重 */}
-              <div className="form-control mt-6 w-96">
-                <label htmlFor="careWeight" className="label">
-                  <span className="text-base text-dark-black">体重（g）</span>
-                  <div>
-                    <FontAwesomeIcon icon={faAsterisk} className="mr-1 text-xs text-dark-pink" />
-                    <span className="label-text-alt text-dark-black">半角数字</span>
-                  </div>
-                </label>
-                <NumericFormat
-                  id="careWeight"
-                  defaultValue={careWeight}
-                  onValueChange={(values) => {
-                    // 数値を取り出す
-                    setCareWeight(values.floatValue ? values.floatValue : null)
-                  }}
-                  isAllowed={(values) => {
-                    // 入力が空の場合は許容(trueを返す)
-                    if (!values.floatValue) return true
-
-                    // 1から9999の範囲内であることを確認(trueを返す)
-                    return values.floatValue >= 1 && values.floatValue <= 9999
-                  }}
-                  placeholder="500"
-                  thousandSeparator=","
-                  allowNegative={false}
-                  decimalScale={0}
-                  suffix={'g'}
-                  className="w-ful input input-bordered input-primary input-md border-dark-blue bg-ligth-white text-base text-dark-black"
-                />
-              </div>
+              <NumericFormItem
+                label="体重（g）"
+                item="careWeight"
+                value={careWeight}
+                setValue={setCareWeight}
+                min={1}
+                max={9999}
+                placeholder="500"
+                decimalScale={0}
+                suffix="g"
+              />
 
               {/* 編集モード：気温 */}
-              <div className="form-control mt-6 w-96">
-                <label htmlFor="careTemperature" className="label">
-                  <span className="text-base text-dark-black">気温（℃）</span>
-                  <div>
-                    <FontAwesomeIcon icon={faAsterisk} className="mr-1 text-xs text-dark-pink" />
-                    <span className="label-text-alt text-dark-black">半角数字</span>
-                  </div>
-                </label>
-                <NumericFormat
-                  id="careTemperature"
-                  defaultValue={careTemperature}
-                  onValueChange={(values) => {
-                    // 数値を取り出す
-                    setCareTemperature(values.floatValue ? values.floatValue : null)
-                  }}
-                  isAllowed={(values) => {
-                    // 入力が空の場合は許容(trueを返す)
-                    if (!values.floatValue) return true
-
-                    // 1から100の範囲内であることを確認(trueを返す)
-                    return values.floatValue >= 1 && values.floatValue <= 100
-                  }}
-                  placeholder="21.5"
-                  thousandSeparator=","
-                  allowNegative={false}
-                  decimalScale={1}
-                  suffix={'℃'}
-                  className="w-ful input input-bordered input-primary input-md border-dark-blue bg-ligth-white text-base text-dark-black"
-                />
-              </div>
+              <NumericFormItem
+                label="気温（℃）"
+                item="careTemperature"
+                value={careTemperature}
+                setValue={setCareTemperature}
+                min={1}
+                max={100}
+                placeholder="21.5"
+                decimalScale={1}
+                suffix="℃"
+              />
 
               {/* 編集モード：湿度 */}
-              <div className="form-control mt-6 w-96">
-                <label htmlFor="careHumidity" className="label">
-                  <span className="text-base text-dark-black">湿度（%）</span>
-                  <div>
-                    <FontAwesomeIcon icon={faAsterisk} className="mr-1 text-xs text-dark-pink" />
-                    <span className="label-text-alt text-dark-black">半角数字</span>
-                  </div>
-                </label>
-                <NumericFormat
-                  id="careHumidity"
-                  defaultValue={careHumidity}
-                  onValueChange={(values) => {
-                    // 数値を取り出す
-                    setCareHumidity(values.floatValue ? values.floatValue : null)
-                  }}
-                  isAllowed={(values) => {
-                    // 入力が空の場合は許容(trueを返す)
-                    if (!values.floatValue) return true
-
-                    // 1から100の範囲内であることを確認(trueを返す)
-                    return values.floatValue >= 1 && values.floatValue <= 100
-                  }}
-                  placeholder="40"
-                  thousandSeparator=","
-                  allowNegative={false}
-                  decimalScale={0}
-                  suffix={'%'}
-                  className="w-ful input input-bordered input-primary input-md border-dark-blue bg-ligth-white text-base text-dark-black"
-                />
-              </div>
+              <NumericFormItem
+                label="湿度（%）"
+                item="careHumidity"
+                value={careHumidity}
+                setValue={setCareHumidity}
+                min={1}
+                max={100}
+                placeholder="40"
+                decimalScale={0}
+                suffix="%"
+              />
 
               {/* 編集モード：お世話のメモ */}
               <div className="form-control mb-12 mt-6 w-[500px]">
