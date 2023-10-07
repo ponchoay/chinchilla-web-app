@@ -3,6 +3,8 @@ import { useRouter } from 'next/router'
 import { getChinchilla, updateChinchilla, deleteChinchilla } from 'src/lib/api/chinchilla'
 import { SelectedChinchillaIdContext } from 'src/contexts/chinchilla'
 
+import { DisplayChinchillaProfileItem } from 'src/components/pages/mychinchilla/chinchilla-profile/displayChinchillaProfileItem'
+
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { chinchillaProfileSchema } from 'src/validation/chinchilla'
@@ -295,30 +297,19 @@ export const ChinchillaProfilePage = () => {
               />
             </div>
             <div className="mt-8 h-[230px] w-[500px] rounded-xl bg-ligth-white">
-              <div className="mx-10 mt-6 flex border-b border-solid border-b-light-black">
-                <p className="w-24 text-center text-base text-dark-black">名前</p>
-                <p className="grow text-center text-base text-dark-black">
-                  {selectedChinchilla.chinchillaName}
-                </p>
-              </div>
-              <div className="mx-10 mt-6 flex border-b border-solid border-b-light-black">
-                <p className="w-24 text-center text-base text-dark-black">性別</p>
-                <p className="grow text-center text-base text-dark-black">
-                  {selectedChinchilla.chinchillaSex}
-                </p>
-              </div>
-              <div className="mx-10 mt-6 flex border-b border-solid border-b-light-black">
-                <p className="w-24 text-center text-base text-dark-black">誕生日</p>
-                <p className="grow text-center text-base text-dark-black">
-                  {selectedChinchilla.chinchillaBirthday}
-                </p>
-              </div>
-              <div className="mx-10 mt-6 flex border-b border-solid border-b-light-black">
-                <p className="w-24 text-center text-base text-dark-black">お迎え日</p>
-                <p className="grow text-center text-base text-dark-black">
-                  {selectedChinchilla.chinchillaMetDay}
-                </p>
-              </div>
+              <DisplayChinchillaProfileItem
+                label="名前"
+                value={selectedChinchilla.chinchillaName}
+              />
+              <DisplayChinchillaProfileItem label="性別" value={selectedChinchilla.chinchillaSex} />
+              <DisplayChinchillaProfileItem
+                label="誕生日"
+                value={selectedChinchilla.chinchillaBirthday}
+              />
+              <DisplayChinchillaProfileItem
+                label="お迎え日"
+                value={selectedChinchilla.chinchillaMetDay}
+              />
             </div>
             <div className="my-12">
               <div className="mx-1 my-2 flex">
