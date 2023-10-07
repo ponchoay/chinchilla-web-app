@@ -3,17 +3,15 @@ import { getAllChinchillas } from 'src/lib/api/chinchilla'
 import { getAllCares, createCare, deleteCare, updateCare } from 'src/lib/api/care'
 import { SelectedChinchillaIdContext } from 'src/contexts/chinchilla'
 
-import { NumericFormat } from 'react-number-format'
+import { ChinchillaSelectFormItem } from 'src/components/pages/care-record-calendar/chinchillaSelectFormItem'
+import { InputRadioButtonItem } from 'src/components/pages/care-record-calendar/inputRadioButtonItem'
+import { DisplayRadioButtonItem } from 'src/components/pages/care-record-calendar/displayRadioButtonItem'
+import { NumericFormItem } from 'src/components/pages/care-record-calendar/numericFormItem'
+import { CareMemoFormItem } from 'src/components/pages/care-record-calendar/careMemoFormItem'
 
 import { Button } from 'src/components/shared/Button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faAsterisk,
-  faFaceSmileBeam,
-  faFaceDizzy,
-  faFaceMeh,
-  faFilePen
-} from '@fortawesome/free-solid-svg-icons'
+import { faFilePen } from '@fortawesome/free-solid-svg-icons'
 
 import { Calendar } from 'src/components/pages/care-record-calendar/calendar'
 import { format } from 'date-fns'
@@ -198,9 +196,9 @@ export const CareRecordCalendarPage = () => {
     formData.append('care[careToilet]', careToilet)
     formData.append('care[careBath]', careBath)
     formData.append('care[carePlay]', carePlay)
-    formData.append('care[careWeight]', careWeight === undefined ? '' : careWeight)
-    formData.append('care[careTemperature]', careTemperature === undefined ? '' : careTemperature)
-    formData.append('care[careHumidity]', careHumidity === undefined ? '' : careHumidity)
+    formData.append('care[careWeight]', careWeight === null ? '' : careWeight)
+    formData.append('care[careTemperature]', careTemperature === null ? '' : careTemperature)
+    formData.append('care[careHumidity]', careHumidity === null ? '' : careHumidity)
     formData.append('care[careMemo]', careMemo)
     formData.append('care[chinchillaId]', chinchillaId)
     return formData
@@ -252,9 +250,9 @@ export const CareRecordCalendarPage = () => {
     formData.append('care[careToilet]', careToilet)
     formData.append('care[careBath]', careBath)
     formData.append('care[carePlay]', carePlay)
-    formData.append('care[careWeight]', careWeight === undefined ? '' : careWeight)
-    formData.append('care[careTemperature]', careTemperature === undefined ? '' : careTemperature)
-    formData.append('care[careHumidity]', careHumidity === undefined ? '' : careHumidity)
+    formData.append('care[careWeight]', careWeight === null ? '' : careWeight)
+    formData.append('care[careTemperature]', careTemperature === null ? '' : careTemperature)
+    formData.append('care[careHumidity]', careHumidity === null ? '' : careHumidity)
     formData.append('care[careMemo]', careMemo)
     return formData
   }
@@ -299,351 +297,85 @@ export const CareRecordCalendarPage = () => {
         className="mt-6"
       />
 
+      {/* チンチラの選択 */}
+      <ChinchillaSelectFormItem
+        chinchillaId={chinchillaId}
+        handleGetChinchilla={handleGetChinchilla}
+        allChinchillas={allChinchillas}
+        isEditing={isEditing}
+      />
+
       {careId === 0 ? (
         <>
-          {/* 登録モード：チンチラの選択 */}
-          <div className="form-control mt-6 w-96">
-            <label htmlFor="chinchillaName" className="label">
-              <span className="text-base text-dark-black">チンチラを選択</span>
-              <div>
-                <FontAwesomeIcon icon={faAsterisk} className="mr-1 text-xs text-dark-pink" />
-                <span className="label-text-alt text-dark-black">必須入力</span>
-              </div>
-            </label>
-            <select
-              id="chinchillaName"
-              value={chinchillaId}
-              onChange={(e) => {
-                handleGetChinchilla(e)
-              }}
-              className="w-ful select select-bordered select-primary border-dark-blue bg-ligth-white text-base font-light text-dark-black"
-            >
-              <option hidden value="">
-                選択してください
-              </option>
-              {allChinchillas.map((chinchilla) => (
-                <option key={chinchilla.id} value={chinchilla.id}>
-                  {chinchilla.chinchillaName}
-                </option>
-              ))}
-            </select>
-          </div>
-
           {/* 登録モード：お世話の記録 */}
           <div className="mt-6 h-[300px] w-[500px] rounded-xl border border-solid border-dark-blue bg-ligth-white">
-            {/* 登録モード：食事 */}
-            <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
-              <p className="w-28 text-center text-base text-dark-black">食事</p>
-              <div className="flex grow justify-evenly text-center text-base text-dark-black">
-                <input
-                  id="careFoodIsGood"
-                  type="radio"
-                  name="careFood"
-                  value="good"
-                  onChange={(e) => setCareFood(e.target.value)}
-                  className="hidden"
-                />
-                <label htmlFor="careFoodIsGood" className="label cursor-pointer">
-                  {careFood === 'good' ? (
-                    <FontAwesomeIcon icon={faFaceSmileBeam} className="text-2xl text-dark-blue" />
-                  ) : (
-                    <FontAwesomeIcon icon={faFaceSmileBeam} className="text-2xl text-light-black" />
-                  )}
-                </label>
-                <input
-                  id="careFoodIsUsually"
-                  type="radio"
-                  name="careFood"
-                  value="usually"
-                  onChange={(e) => setCareFood(e.target.value)}
-                  className="hidden"
-                />
-                <label htmlFor="careFoodIsUsually" className="label cursor-pointer">
-                  {careFood === 'usually' ? (
-                    <FontAwesomeIcon icon={faFaceMeh} className="text-2xl text-dark-black" />
-                  ) : (
-                    <FontAwesomeIcon icon={faFaceMeh} className="text-2xl text-light-black" />
-                  )}
-                </label>
-                <input
-                  id="careFoodIsBad"
-                  type="radio"
-                  name="careFood"
-                  value="bad"
-                  onChange={(e) => setCareFood(e.target.value)}
-                  className="hidden"
-                />
-                <label htmlFor="careFoodIsBad" className="label cursor-pointer">
-                  {careFood === 'bad' ? (
-                    <FontAwesomeIcon icon={faFaceDizzy} className="text-2xl text-dark-pink" />
-                  ) : (
-                    <FontAwesomeIcon icon={faFaceDizzy} className="text-2xl text-light-black" />
-                  )}
-                </label>
-              </div>
-            </div>
-            {/* 登録モード：トイレ */}
-            <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
-              <p className="w-28 text-center text-base text-dark-black">トイレ</p>
-              <div className="flex grow justify-evenly text-center text-base text-dark-black">
-                <input
-                  id="careToiletIsGood"
-                  type="radio"
-                  name="careToilet"
-                  value="good"
-                  onChange={(e) => setCareToilet(e.target.value)}
-                  className="hidden"
-                />
-                <label htmlFor="careToiletIsGood" className="label cursor-pointer">
-                  {careToilet === 'good' ? (
-                    <FontAwesomeIcon icon={faFaceSmileBeam} className="text-2xl text-dark-blue" />
-                  ) : (
-                    <FontAwesomeIcon icon={faFaceSmileBeam} className="text-2xl text-light-black" />
-                  )}
-                </label>
-                <input
-                  id="careToiletIsUsually"
-                  type="radio"
-                  name="careToilet"
-                  value="usually"
-                  onChange={(e) => setCareToilet(e.target.value)}
-                  className="hidden"
-                />
-                <label htmlFor="careToiletIsUsually" className="label cursor-pointer">
-                  {careToilet === 'usually' ? (
-                    <FontAwesomeIcon icon={faFaceMeh} className="text-2xl text-dark-black" />
-                  ) : (
-                    <FontAwesomeIcon icon={faFaceMeh} className="text-2xl text-light-black" />
-                  )}
-                </label>
-                <input
-                  id="careToiletIsBad"
-                  type="radio"
-                  name="careToilet"
-                  value="bad"
-                  onChange={(e) => setCareToilet(e.target.value)}
-                  className="hidden"
-                />
-                <label htmlFor="careToiletIsBad" className="label cursor-pointer">
-                  {careToilet === 'bad' ? (
-                    <FontAwesomeIcon icon={faFaceDizzy} className="text-2xl text-dark-pink" />
-                  ) : (
-                    <FontAwesomeIcon icon={faFaceDizzy} className="text-2xl text-light-black" />
-                  )}
-                </label>
-              </div>
-            </div>
-            {/* 登録モード：砂浴び */}
-            <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
-              <p className="w-28 text-center text-base text-dark-black">砂浴び</p>
-              <div className="flex grow justify-evenly text-center text-base text-dark-black">
-                <input
-                  id="careBathIsGood"
-                  type="radio"
-                  name="careBath"
-                  value="good"
-                  onChange={(e) => setCareBath(e.target.value)}
-                  className="hidden"
-                />
-                <label htmlFor="careBathIsGood" className="label cursor-pointer">
-                  {careBath === 'good' ? (
-                    <FontAwesomeIcon icon={faFaceSmileBeam} className="text-2xl text-dark-blue" />
-                  ) : (
-                    <FontAwesomeIcon icon={faFaceSmileBeam} className="text-2xl text-light-black" />
-                  )}
-                </label>
-                <input
-                  id="careBathIsUsually"
-                  type="radio"
-                  name="careBath"
-                  value="usually"
-                  onChange={(e) => setCareBath(e.target.value)}
-                  className="hidden"
-                />
-                <label htmlFor="careBathIsUsually" className="label cursor-pointer">
-                  {careBath === 'usually' ? (
-                    <FontAwesomeIcon icon={faFaceMeh} className="text-2xl text-dark-black" />
-                  ) : (
-                    <FontAwesomeIcon icon={faFaceMeh} className="text-2xl text-light-black" />
-                  )}
-                </label>
-                <input
-                  id="careBathIsBad"
-                  type="radio"
-                  name="careBath"
-                  value="bad"
-                  onChange={(e) => setCareBath(e.target.value)}
-                  className="hidden"
-                />
-                <label htmlFor="careBathIsBad" className="label cursor-pointer">
-                  {careBath === 'bad' ? (
-                    <FontAwesomeIcon icon={faFaceDizzy} className="text-2xl text-dark-pink" />
-                  ) : (
-                    <FontAwesomeIcon icon={faFaceDizzy} className="text-2xl text-light-black" />
-                  )}
-                </label>
-              </div>
-            </div>
-            {/* 登録モード：部屋んぽ */}
-            <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
-              <p className="w-28 text-center text-base text-dark-black">部屋んぽ</p>
-              <div className="flex grow justify-evenly text-center text-base text-dark-black">
-                <input
-                  id="carePlayIsGood"
-                  type="radio"
-                  name="carePlay"
-                  value="good"
-                  onChange={(e) => setCarePlay(e.target.value)}
-                  className="hidden"
-                />
-                <label htmlFor="carePlayIsGood" className="label cursor-pointer">
-                  {carePlay === 'good' ? (
-                    <FontAwesomeIcon icon={faFaceSmileBeam} className="text-2xl text-dark-blue" />
-                  ) : (
-                    <FontAwesomeIcon icon={faFaceSmileBeam} className="text-2xl text-light-black" />
-                  )}
-                </label>
-                <input
-                  id="carePlayIsUsually"
-                  type="radio"
-                  name="carePlay"
-                  value="usually"
-                  onChange={(e) => setCarePlay(e.target.value)}
-                  className="hidden"
-                />
-                <label htmlFor="carePlayIsUsually" className="label cursor-pointer">
-                  {carePlay === 'usually' ? (
-                    <FontAwesomeIcon icon={faFaceMeh} className="text-2xl text-dark-black" />
-                  ) : (
-                    <FontAwesomeIcon icon={faFaceMeh} className="text-2xl text-light-black" />
-                  )}
-                </label>
-                <input
-                  id="carePlayIsBad"
-                  type="radio"
-                  name="carePlay"
-                  value="bad"
-                  onChange={(e) => setCarePlay(e.target.value)}
-                  className="hidden"
-                />
-                <label htmlFor="carePlayIsBad" className="label cursor-pointer">
-                  {carePlay === 'bad' ? (
-                    <FontAwesomeIcon icon={faFaceDizzy} className="text-2xl text-dark-pink" />
-                  ) : (
-                    <FontAwesomeIcon icon={faFaceDizzy} className="text-2xl text-light-black" />
-                  )}
-                </label>
-              </div>
-            </div>
+            <InputRadioButtonItem
+              label="食事"
+              item="Food"
+              value={careFood}
+              setValue={setCareFood}
+            />
+            <InputRadioButtonItem
+              label="トイレ"
+              item="Toilet"
+              value={careToilet}
+              setValue={setCareToilet}
+            />
+            <InputRadioButtonItem
+              label="砂浴び"
+              item="Bath"
+              value={careBath}
+              setValue={setCareBath}
+            />
+            <InputRadioButtonItem
+              label="部屋んぽ"
+              item="Play"
+              value={carePlay}
+              setValue={setCarePlay}
+            />
           </div>
 
           {/* 登録モード：体重 */}
-          <div className="form-control mt-6 w-96">
-            <label htmlFor="careWeight" className="label">
-              <span className="text-base text-dark-black">体重（g）</span>
-              <div>
-                <FontAwesomeIcon icon={faAsterisk} className="mr-1 text-xs text-dark-pink" />
-                <span className="label-text-alt text-dark-black">半角数字</span>
-              </div>
-            </label>
-            <NumericFormat
-              id="careWeight"
-              onValueChange={(values) => {
-                // 数値を取り出す
-                setCareWeight(values.floatValue)
-              }}
-              isAllowed={(values) => {
-                // 入力が空の場合は許容(trueを返す)
-                if (values.floatValue === undefined) return true
-
-                // 1から9999の範囲内であることを確認(trueを返す)
-                return values.floatValue >= 1 && values.floatValue <= 9999
-              }}
-              placeholder="500"
-              thousandSeparator=","
-              allowNegative={false}
-              decimalScale={0}
-              suffix={'g'}
-              className="w-ful input input-bordered input-primary input-md border-dark-blue bg-ligth-white text-base text-dark-black"
-            />
-          </div>
+          <NumericFormItem
+            label="体重（g）"
+            item="careWeight"
+            value={careWeight}
+            setValue={setCareWeight}
+            min={1}
+            max={9999}
+            placeholder="500"
+            decimalScale={0}
+            suffix="g"
+          />
 
           {/* 登録モード：気温 */}
-          <div className="form-control mt-6 w-96">
-            <label htmlFor="careTemperature" className="label">
-              <span className="text-base text-dark-black">気温（℃）</span>
-              <div>
-                <FontAwesomeIcon icon={faAsterisk} className="mr-1 text-xs text-dark-pink" />
-                <span className="label-text-alt text-dark-black">半角数字</span>
-              </div>
-            </label>
-            <NumericFormat
-              id="careTemperature"
-              onValueChange={(values) => {
-                // 数値を取り出す
-                setCareTemperature(values.floatValue)
-              }}
-              isAllowed={(values) => {
-                // 入力が空の場合は許容(trueを返す)
-                if (values.floatValue === undefined) return true
-
-                // 1から100の範囲内であることを確認(trueを返す)
-                return values.floatValue >= 1 && values.floatValue <= 100
-              }}
-              placeholder="21.5"
-              thousandSeparator=","
-              allowNegative={false}
-              decimalScale={1}
-              suffix={'℃'}
-              className="w-ful input input-bordered input-primary input-md border-dark-blue bg-ligth-white text-base text-dark-black"
-            />
-          </div>
+          <NumericFormItem
+            label="気温（℃）"
+            item="careTemperature"
+            value={careTemperature}
+            setValue={setCareTemperature}
+            min={1}
+            max={100}
+            placeholder="21.5"
+            decimalScale={1}
+            suffix="℃"
+          />
 
           {/* 登録モード：湿度 */}
-          <div className="form-control mt-6 w-96">
-            <label htmlFor="careHumidity" className="label">
-              <span className="text-base text-dark-black">湿度（%）</span>
-              <div>
-                <FontAwesomeIcon icon={faAsterisk} className="mr-1 text-xs text-dark-pink" />
-                <span className="label-text-alt text-dark-black">半角数字</span>
-              </div>
-            </label>
-            <NumericFormat
-              id="careHumidity"
-              onValueChange={(values) => {
-                // 数値を取り出す
-                setCareHumidity(values.floatValue)
-              }}
-              isAllowed={(values) => {
-                // 入力が空の場合は許容(trueを返す)
-                if (values.floatValue === undefined) return true
-
-                // 1から100の範囲内であることを確認(trueを返す)
-                return values.floatValue >= 1 && values.floatValue <= 100
-              }}
-              placeholder="40"
-              thousandSeparator=","
-              allowNegative={false}
-              decimalScale={0}
-              suffix={'%'}
-              className="w-ful input input-bordered input-primary input-md border-dark-blue bg-ligth-white text-base text-dark-black"
-            />
-          </div>
+          <NumericFormItem
+            label="湿度（%）"
+            item="careHumidity"
+            value={careHumidity}
+            setValue={setCareHumidity}
+            min={1}
+            max={100}
+            placeholder="40"
+            decimalScale={0}
+            suffix="%"
+          />
 
           {/* 登録モード：お世話のメモ */}
-          <div className="form-control mb-12 mt-6 w-[500px]">
-            <label htmlFor="careMemo" className="mx-1 my-2 flex">
-              <FontAwesomeIcon icon={faFilePen} className="mx-1 pt-[3px] text-lg text-dark-black" />
-              <span className="label-text text-base text-dark-black">メモ</span>
-            </label>
-            <textarea
-              id="careMemo"
-              placeholder="メモを記入してください。"
-              value={careMemo}
-              onChange={(event) => setCareMemo(event.target.value)}
-              className="w-ful textarea textarea-primary h-96 border-dark-blue bg-ligth-white text-base text-dark-black"
-            ></textarea>
-          </div>
+          <CareMemoFormItem careMemo={careMemo} setCareMemo={setCareMemo} />
 
           {/* 登録モード：登録ボタン */}
           <Button
@@ -674,377 +406,75 @@ export const CareRecordCalendarPage = () => {
         <>
           {isEditing ? (
             <>
-              {/* 編集モード：チンチラの選択 */}
-              <div className="form-control mt-6 w-96">
-                <label htmlFor="chinchillaName" className="label">
-                  <span className="text-base text-dark-black">選択中のチンチラ</span>
-                  <div>
-                    <FontAwesomeIcon icon={faAsterisk} className="mr-1 text-xs text-dark-pink" />
-                    <span className="label-text-alt text-dark-black">必須入力</span>
-                  </div>
-                </label>
-                <select
-                  id="chinchillaName"
-                  value={chinchillaId}
-                  className="w-ful select select-bordered select-primary border-dark-blue bg-ligth-white text-base font-light text-dark-black"
-                  disabled
-                >
-                  <option hidden value="">
-                    選択してください
-                  </option>
-                  {allChinchillas.map((chinchilla) => (
-                    <option key={chinchilla.id} value={chinchilla.id}>
-                      {chinchilla.chinchillaName}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
               {/* 編集モード：お世話の記録 */}
               <div className="mt-6 h-[300px] w-[500px] rounded-xl border border-solid border-dark-blue bg-ligth-white">
-                {/* 編集モード：食事 */}
-                <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
-                  <p className="w-28 text-center text-base text-dark-black">食事</p>
-                  <div className="flex grow justify-evenly text-center text-base text-dark-black">
-                    <input
-                      id="careFoodIsGood"
-                      type="radio"
-                      name="careFood"
-                      value="good"
-                      onChange={(e) => setCareFood(e.target.value)}
-                      className="hidden"
-                    />
-                    <label htmlFor="careFoodIsGood" className="label cursor-pointer">
-                      {careFood === 'good' ? (
-                        <FontAwesomeIcon
-                          icon={faFaceSmileBeam}
-                          className="text-2xl text-dark-blue"
-                        />
-                      ) : (
-                        <FontAwesomeIcon
-                          icon={faFaceSmileBeam}
-                          className="text-2xl text-light-black"
-                        />
-                      )}
-                    </label>
-                    <input
-                      id="careFoodIsUsually"
-                      type="radio"
-                      name="careFood"
-                      value="usually"
-                      onChange={(e) => setCareFood(e.target.value)}
-                      className="hidden"
-                    />
-                    <label htmlFor="careFoodIsUsually" className="label cursor-pointer">
-                      {careFood === 'usually' ? (
-                        <FontAwesomeIcon icon={faFaceMeh} className="text-2xl text-dark-black" />
-                      ) : (
-                        <FontAwesomeIcon icon={faFaceMeh} className="text-2xl text-light-black" />
-                      )}
-                    </label>
-                    <input
-                      id="careFoodIsBad"
-                      type="radio"
-                      name="careFood"
-                      value="bad"
-                      onChange={(e) => setCareFood(e.target.value)}
-                      className="hidden"
-                    />
-                    <label htmlFor="careFoodIsBad" className="label cursor-pointer">
-                      {careFood === 'bad' ? (
-                        <FontAwesomeIcon icon={faFaceDizzy} className="text-2xl text-dark-pink" />
-                      ) : (
-                        <FontAwesomeIcon icon={faFaceDizzy} className="text-2xl text-light-black" />
-                      )}
-                    </label>
-                  </div>
-                </div>
-                {/* 編集モード：トイレ */}
-                <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
-                  <p className="w-28 text-center text-base text-dark-black">トイレ</p>
-                  <div className="flex grow justify-evenly text-center text-base text-dark-black">
-                    <input
-                      id="careToiletIsGood"
-                      type="radio"
-                      name="careToilet"
-                      value="good"
-                      onChange={(e) => setCareToilet(e.target.value)}
-                      className="hidden"
-                    />
-                    <label htmlFor="careToiletIsGood" className="label cursor-pointer">
-                      {careToilet === 'good' ? (
-                        <FontAwesomeIcon
-                          icon={faFaceSmileBeam}
-                          className="text-2xl text-dark-blue"
-                        />
-                      ) : (
-                        <FontAwesomeIcon
-                          icon={faFaceSmileBeam}
-                          className="text-2xl text-light-black"
-                        />
-                      )}
-                    </label>
-                    <input
-                      id="careToiletIsUsually"
-                      type="radio"
-                      name="careToilet"
-                      value="usually"
-                      onChange={(e) => setCareToilet(e.target.value)}
-                      className="hidden"
-                    />
-                    <label htmlFor="careToiletIsUsually" className="label cursor-pointer">
-                      {careToilet === 'usually' ? (
-                        <FontAwesomeIcon icon={faFaceMeh} className="text-2xl text-dark-black" />
-                      ) : (
-                        <FontAwesomeIcon icon={faFaceMeh} className="text-2xl text-light-black" />
-                      )}
-                    </label>
-                    <input
-                      id="careToiletIsBad"
-                      type="radio"
-                      name="careToilet"
-                      value="bad"
-                      onChange={(e) => setCareToilet(e.target.value)}
-                      className="hidden"
-                    />
-                    <label htmlFor="careToiletIsBad" className="label cursor-pointer">
-                      {careToilet === 'bad' ? (
-                        <FontAwesomeIcon icon={faFaceDizzy} className="text-2xl text-dark-pink" />
-                      ) : (
-                        <FontAwesomeIcon icon={faFaceDizzy} className="text-2xl text-light-black" />
-                      )}
-                    </label>
-                  </div>
-                </div>
-                {/* 編集モード：砂浴び */}
-                <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
-                  <p className="w-28 text-center text-base text-dark-black">砂浴び</p>
-                  <div className="flex grow justify-evenly text-center text-base text-dark-black">
-                    <input
-                      id="careBathIsGood"
-                      type="radio"
-                      name="careBath"
-                      value="good"
-                      onChange={(e) => setCareBath(e.target.value)}
-                      className="hidden"
-                    />
-                    <label htmlFor="careBathIsGood" className="label cursor-pointer">
-                      {careBath === 'good' ? (
-                        <FontAwesomeIcon
-                          icon={faFaceSmileBeam}
-                          className="text-2xl text-dark-blue"
-                        />
-                      ) : (
-                        <FontAwesomeIcon
-                          icon={faFaceSmileBeam}
-                          className="text-2xl text-light-black"
-                        />
-                      )}
-                    </label>
-                    <input
-                      id="careBathIsUsually"
-                      type="radio"
-                      name="careBath"
-                      value="usually"
-                      onChange={(e) => setCareBath(e.target.value)}
-                      className="hidden"
-                    />
-                    <label htmlFor="careBathIsUsually" className="label cursor-pointer">
-                      {careBath === 'usually' ? (
-                        <FontAwesomeIcon icon={faFaceMeh} className="text-2xl text-dark-black" />
-                      ) : (
-                        <FontAwesomeIcon icon={faFaceMeh} className="text-2xl text-light-black" />
-                      )}
-                    </label>
-                    <input
-                      id="careBathIsBad"
-                      type="radio"
-                      name="careBath"
-                      value="bad"
-                      onChange={(e) => setCareBath(e.target.value)}
-                      className="hidden"
-                    />
-                    <label htmlFor="careBathIsBad" className="label cursor-pointer">
-                      {careBath === 'bad' ? (
-                        <FontAwesomeIcon icon={faFaceDizzy} className="text-2xl text-dark-pink" />
-                      ) : (
-                        <FontAwesomeIcon icon={faFaceDizzy} className="text-2xl text-light-black" />
-                      )}
-                    </label>
-                  </div>
-                </div>
-                {/* 編集モード：部屋んぽ */}
-                <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
-                  <p className="w-28 text-center text-base text-dark-black">部屋んぽ</p>
-                  <div className="flex grow justify-evenly text-center text-base text-dark-black">
-                    <input
-                      id="carePlayIsGood"
-                      type="radio"
-                      name="carePlay"
-                      value="good"
-                      onChange={(e) => setCarePlay(e.target.value)}
-                      className="hidden"
-                    />
-                    <label htmlFor="carePlayIsGood" className="label cursor-pointer">
-                      {carePlay === 'good' ? (
-                        <FontAwesomeIcon
-                          icon={faFaceSmileBeam}
-                          className="text-2xl text-dark-blue"
-                        />
-                      ) : (
-                        <FontAwesomeIcon
-                          icon={faFaceSmileBeam}
-                          className="text-2xl text-light-black"
-                        />
-                      )}
-                    </label>
-                    <input
-                      id="carePlayIsUsually"
-                      type="radio"
-                      name="carePlay"
-                      value="usually"
-                      onChange={(e) => setCarePlay(e.target.value)}
-                      className="hidden"
-                    />
-                    <label htmlFor="carePlayIsUsually" className="label cursor-pointer">
-                      {carePlay === 'usually' ? (
-                        <FontAwesomeIcon icon={faFaceMeh} className="text-2xl text-dark-black" />
-                      ) : (
-                        <FontAwesomeIcon icon={faFaceMeh} className="text-2xl text-light-black" />
-                      )}
-                    </label>
-                    <input
-                      id="carePlayIsBad"
-                      type="radio"
-                      name="carePlay"
-                      value="bad"
-                      onChange={(e) => setCarePlay(e.target.value)}
-                      className="hidden"
-                    />
-                    <label htmlFor="carePlayIsBad" className="label cursor-pointer">
-                      {carePlay === 'bad' ? (
-                        <FontAwesomeIcon icon={faFaceDizzy} className="text-2xl text-dark-pink" />
-                      ) : (
-                        <FontAwesomeIcon icon={faFaceDizzy} className="text-2xl text-light-black" />
-                      )}
-                    </label>
-                  </div>
-                </div>
+                <InputRadioButtonItem
+                  label="食事"
+                  item="Food"
+                  value={careFood}
+                  setValue={setCareFood}
+                />
+                <InputRadioButtonItem
+                  label="トイレ"
+                  item="Toilet"
+                  value={careToilet}
+                  setValue={setCareToilet}
+                />
+                <InputRadioButtonItem
+                  label="砂浴び"
+                  item="Bath"
+                  value={careBath}
+                  setValue={setCareBath}
+                />
+                <InputRadioButtonItem
+                  label="部屋んぽ"
+                  item="Play"
+                  value={carePlay}
+                  setValue={setCarePlay}
+                />
               </div>
 
               {/* 編集モード：体重 */}
-              <div className="form-control mt-6 w-96">
-                <label htmlFor="careWeight" className="label">
-                  <span className="text-base text-dark-black">体重（g）</span>
-                  <div>
-                    <FontAwesomeIcon icon={faAsterisk} className="mr-1 text-xs text-dark-pink" />
-                    <span className="label-text-alt text-dark-black">半角数字</span>
-                  </div>
-                </label>
-                <NumericFormat
-                  id="careWeight"
-                  defaultValue={careWeight}
-                  onValueChange={(values) => {
-                    // 数値を取り出す
-                    setCareWeight(values.floatValue)
-                  }}
-                  isAllowed={(values) => {
-                    // 入力が空の場合は許容(trueを返す)
-                    if (values.floatValue === undefined) return true
-
-                    // 1から9999の範囲内であることを確認(trueを返す)
-                    return values.floatValue >= 1 && values.floatValue <= 9999
-                  }}
-                  placeholder="500"
-                  thousandSeparator=","
-                  allowNegative={false}
-                  decimalScale={0}
-                  suffix={'g'}
-                  className="w-ful input input-bordered input-primary input-md border-dark-blue bg-ligth-white text-base text-dark-black"
-                />
-              </div>
+              <NumericFormItem
+                label="体重（g）"
+                item="careWeight"
+                value={careWeight}
+                setValue={setCareWeight}
+                min={1}
+                max={9999}
+                placeholder="500"
+                decimalScale={0}
+                suffix="g"
+              />
 
               {/* 編集モード：気温 */}
-              <div className="form-control mt-6 w-96">
-                <label htmlFor="careTemperature" className="label">
-                  <span className="text-base text-dark-black">気温（℃）</span>
-                  <div>
-                    <FontAwesomeIcon icon={faAsterisk} className="mr-1 text-xs text-dark-pink" />
-                    <span className="label-text-alt text-dark-black">半角数字</span>
-                  </div>
-                </label>
-                <NumericFormat
-                  id="careTemperature"
-                  defaultValue={careTemperature}
-                  onValueChange={(values) => {
-                    // 数値を取り出す
-                    setCareTemperature(values.floatValue)
-                  }}
-                  isAllowed={(values) => {
-                    // 入力が空の場合は許容(trueを返す)
-                    if (values.floatValue === undefined) return true
-
-                    // 1から100の範囲内であることを確認(trueを返す)
-                    return values.floatValue >= 1 && values.floatValue <= 100
-                  }}
-                  placeholder="21.5"
-                  thousandSeparator=","
-                  allowNegative={false}
-                  decimalScale={1}
-                  suffix={'℃'}
-                  className="w-ful input input-bordered input-primary input-md border-dark-blue bg-ligth-white text-base text-dark-black"
-                />
-              </div>
+              <NumericFormItem
+                label="気温（℃）"
+                item="careTemperature"
+                value={careTemperature}
+                setValue={setCareTemperature}
+                min={1}
+                max={100}
+                placeholder="21.5"
+                decimalScale={1}
+                suffix="℃"
+              />
 
               {/* 編集モード：湿度 */}
-              <div className="form-control mt-6 w-96">
-                <label htmlFor="careHumidity" className="label">
-                  <span className="text-base text-dark-black">湿度（%）</span>
-                  <div>
-                    <FontAwesomeIcon icon={faAsterisk} className="mr-1 text-xs text-dark-pink" />
-                    <span className="label-text-alt text-dark-black">半角数字</span>
-                  </div>
-                </label>
-                <NumericFormat
-                  id="careHumidity"
-                  defaultValue={careHumidity}
-                  onValueChange={(values) => {
-                    // 数値を取り出す
-                    setCareHumidity(values.floatValue)
-                  }}
-                  isAllowed={(values) => {
-                    // 入力が空の場合は許容(trueを返す)
-                    if (values.floatValue === undefined) return true
-
-                    // 1から100の範囲内であることを確認(trueを返す)
-                    return values.floatValue >= 1 && values.floatValue <= 100
-                  }}
-                  placeholder="40"
-                  thousandSeparator=","
-                  allowNegative={false}
-                  decimalScale={0}
-                  suffix={'%'}
-                  className="w-ful input input-bordered input-primary input-md border-dark-blue bg-ligth-white text-base text-dark-black"
-                />
-              </div>
+              <NumericFormItem
+                label="湿度（%）"
+                item="careHumidity"
+                value={careHumidity}
+                setValue={setCareHumidity}
+                min={1}
+                max={100}
+                placeholder="40"
+                decimalScale={0}
+                suffix="%"
+              />
 
               {/* 編集モード：お世話のメモ */}
-              <div className="form-control mb-12 mt-6 w-[500px]">
-                <label htmlFor="careMemo" className="mx-1 my-2 flex">
-                  <FontAwesomeIcon
-                    icon={faFilePen}
-                    className="mx-1 pt-[3px] text-lg text-dark-black"
-                  />
-                  <span className="label-text text-base text-dark-black">メモ</span>
-                </label>
-                <textarea
-                  id="careMemo"
-                  placeholder="メモを記入してください。"
-                  value={careMemo}
-                  onChange={(event) => setCareMemo(event.target.value)}
-                  className="w-ful textarea textarea-primary h-96 border-dark-blue bg-ligth-white text-base text-dark-black"
-                ></textarea>
-              </div>
+              <CareMemoFormItem careMemo={careMemo} setCareMemo={setCareMemo} />
 
               {/* 編集モード：保存・戻るボタン */}
               <div>
@@ -1085,216 +515,32 @@ export const CareRecordCalendarPage = () => {
             </>
           ) : (
             <>
-              {/* 表示モード：チンチラの選択 */}
-              <div className="form-control mt-6 w-96">
-                <label htmlFor="chinchillaName" className="label">
-                  <span className="text-base text-dark-black">チンチラを選択</span>
-                  <div>
-                    <FontAwesomeIcon icon={faAsterisk} className="mr-1 text-xs text-dark-pink" />
-                    <span className="label-text-alt text-dark-black">必須入力</span>
-                  </div>
-                </label>
-                <select
-                  id="chinchillaName"
-                  value={chinchillaId}
-                  onChange={(e) => {
-                    handleGetChinchilla(e)
-                  }}
-                  className="w-ful select select-bordered select-primary border-dark-blue bg-ligth-white text-base font-light text-dark-black"
-                >
-                  <option hidden value="">
-                    選択してください
-                  </option>
-                  {allChinchillas.map((chinchilla) => (
-                    <option key={chinchilla.id} value={chinchilla.id}>
-                      {chinchilla.chinchillaName}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
               {/* 表示モード：お世話の記録 */}
               <div className="mt-6 h-[400px] w-[500px] rounded-xl  bg-ligth-white">
-                {/* 表示モード：食事 */}
-                <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
-                  <p className="w-28 text-center text-base text-dark-black">食事</p>
-                  <div className="flex grow justify-evenly text-center text-base text-dark-black">
-                    {careFood === 'good' ? (
-                      <FontAwesomeIcon
-                        icon={faFaceSmileBeam}
-                        className="label text-2xl text-dark-blue"
-                      />
-                    ) : (
-                      <FontAwesomeIcon
-                        icon={faFaceSmileBeam}
-                        className="label text-2xl text-light-black"
-                      />
-                    )}
-                    {careFood === 'usually' ? (
-                      <FontAwesomeIcon
-                        icon={faFaceMeh}
-                        className="label text-2xl text-dark-black"
-                      />
-                    ) : (
-                      <FontAwesomeIcon
-                        icon={faFaceMeh}
-                        className="label text-2xl text-light-black"
-                      />
-                    )}
-                    {careFood === 'bad' ? (
-                      <FontAwesomeIcon
-                        icon={faFaceDizzy}
-                        className="label text-2xl text-dark-pink"
-                      />
-                    ) : (
-                      <FontAwesomeIcon
-                        icon={faFaceDizzy}
-                        className="label text-2xl text-light-black"
-                      />
-                    )}
-                  </div>
-                </div>
-                {/* 表示モード：トイレ */}
-                <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
-                  <p className="w-28 text-center text-base text-dark-black">トイレ</p>
-                  <div className="flex grow justify-evenly text-center text-base text-dark-black">
-                    {careToilet === 'good' ? (
-                      <FontAwesomeIcon
-                        icon={faFaceSmileBeam}
-                        className="label text-2xl text-dark-blue"
-                      />
-                    ) : (
-                      <FontAwesomeIcon
-                        icon={faFaceSmileBeam}
-                        className="label text-2xl text-light-black"
-                      />
-                    )}
-                    {careToilet === 'usually' ? (
-                      <FontAwesomeIcon
-                        icon={faFaceMeh}
-                        className="label text-2xl text-dark-black"
-                      />
-                    ) : (
-                      <FontAwesomeIcon
-                        icon={faFaceMeh}
-                        className="label text-2xl text-light-black"
-                      />
-                    )}
-                    {careToilet === 'bad' ? (
-                      <FontAwesomeIcon
-                        icon={faFaceDizzy}
-                        className="label text-2xl text-dark-pink"
-                      />
-                    ) : (
-                      <FontAwesomeIcon
-                        icon={faFaceDizzy}
-                        className="label text-2xl text-light-black"
-                      />
-                    )}
-                  </div>
-                </div>
-                {/* 表示モード：砂浴び */}
-                <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
-                  <p className="w-28 text-center text-base text-dark-black">砂浴び</p>
-                  <div className="flex grow justify-evenly text-center text-base text-dark-black">
-                    {careBath === 'good' ? (
-                      <FontAwesomeIcon
-                        icon={faFaceSmileBeam}
-                        className="label text-2xl text-dark-blue"
-                      />
-                    ) : (
-                      <FontAwesomeIcon
-                        icon={faFaceSmileBeam}
-                        className="label text-2xl text-light-black"
-                      />
-                    )}
-                    {careBath === 'usually' ? (
-                      <FontAwesomeIcon
-                        icon={faFaceMeh}
-                        className="label text-2xl text-dark-black"
-                      />
-                    ) : (
-                      <FontAwesomeIcon
-                        icon={faFaceMeh}
-                        className="label text-2xl text-light-black"
-                      />
-                    )}
-                    {careBath === 'bad' ? (
-                      <FontAwesomeIcon
-                        icon={faFaceDizzy}
-                        className="label text-2xl text-dark-pink"
-                      />
-                    ) : (
-                      <FontAwesomeIcon
-                        icon={faFaceDizzy}
-                        className="label text-2xl text-light-black"
-                      />
-                    )}
-                  </div>
-                </div>
-                {/* 表示モード：部屋んぽ */}
-                <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
-                  <p className="w-28 text-center text-base text-dark-black">部屋んぽ</p>
-                  <div className="flex grow justify-evenly text-center text-base text-dark-black">
-                    {carePlay === 'good' ? (
-                      <FontAwesomeIcon
-                        icon={faFaceSmileBeam}
-                        className="label text-2xl text-dark-blue"
-                      />
-                    ) : (
-                      <FontAwesomeIcon
-                        icon={faFaceSmileBeam}
-                        className="label text-2xl text-light-black"
-                      />
-                    )}
-                    {carePlay === 'usually' ? (
-                      <FontAwesomeIcon
-                        icon={faFaceMeh}
-                        className="label text-2xl text-dark-black"
-                      />
-                    ) : (
-                      <FontAwesomeIcon
-                        icon={faFaceMeh}
-                        className="label text-2xl text-light-black"
-                      />
-                    )}
-                    {carePlay === 'bad' ? (
-                      <FontAwesomeIcon
-                        icon={faFaceDizzy}
-                        className="label text-2xl text-dark-pink"
-                      />
-                    ) : (
-                      <FontAwesomeIcon
-                        icon={faFaceDizzy}
-                        className="label text-2xl text-light-black"
-                      />
-                    )}
-                  </div>
-                </div>
+                <DisplayRadioButtonItem label="食事" item="careFood" value={careFood} />
+                <DisplayRadioButtonItem label="トイレ" item="careToilet" value={careToilet} />
+                <DisplayRadioButtonItem label="砂浴び" item="careBath" value={careBath} />
+                <DisplayRadioButtonItem label="部屋んぽ" item="carePlay" value={carePlay} />
+
                 {/* 表示モード：体重 */}
                 <div className="mx-10 mt-5 flex items-center border-b border-solid border-b-light-black pb-2">
                   <p className="w-28 text-center text-base text-dark-black">体重</p>
                   <div className="flex grow justify-evenly text-center">
-                    {careWeight ? (
+                    {careWeight && (
                       <p className="text-center text-base text-dark-black">{careWeight}g</p>
-                    ) : (
-                      <></>
                     )}
                   </div>
                 </div>
+
                 {/* 表示モード：気温・湿度 */}
                 <div className="mx-10 mt-5 flex items-center border-b border-solid border-b-light-black pb-2">
                   <p className="w-28 text-center text-base text-dark-black">気温・湿度</p>
                   <div className="flex grow justify-evenly text-center">
-                    {careTemperature ? (
+                    {careTemperature && (
                       <p className="text-center text-base text-dark-black">{careTemperature}℃</p>
-                    ) : (
-                      <></>
                     )}
-                    {careHumidity ? (
+                    {careHumidity && (
                       <p className="text-center text-base text-dark-black">{careHumidity}%</p>
-                    ) : (
-                      <></>
                     )}
                   </div>
                 </div>
