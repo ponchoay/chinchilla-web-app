@@ -321,7 +321,7 @@ export const ChinchillaProfilePage = () => {
               <DisplayChinchillaProfileItem label="性別" value={selectedChinchilla.chinchillaSex} />
               <DisplayChinchillaProfileItem
                 label="誕生日"
-                value={selectedChinchilla.chinchillaBirthday.replace(/-/g, '/')}
+                value={selectedChinchilla.chinchillaBirthday?.replace(/-/g, '/')}
               />
               <DisplayChinchillaProfileItem
                 label="年齢"
@@ -329,7 +329,7 @@ export const ChinchillaProfilePage = () => {
               />
               <DisplayChinchillaProfileItem
                 label="お迎え日"
-                value={selectedChinchilla.chinchillaMetDay.replace(/-/g, '/')}
+                value={selectedChinchilla.chinchillaMetDay?.replace(/-/g, '/')}
               />
             </div>
             <div className="my-12">
