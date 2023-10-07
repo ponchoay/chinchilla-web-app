@@ -313,7 +313,7 @@ export const ChinchillaProfilePage = () => {
                 className="h-[200px] w-[200px] rounded-3xl border border-solid border-ligth-white bg-ligth-white"
               />
             </div>
-            <div className="mt-8 h-[275px] w-[500px] rounded-xl bg-ligth-white">
+            <div className="mt-8 h-[290px] w-[500px] rounded-xl bg-ligth-white">
               <DisplayChinchillaProfileItem
                 label="名前"
                 value={selectedChinchilla.chinchillaName}
@@ -321,7 +321,7 @@ export const ChinchillaProfilePage = () => {
               <DisplayChinchillaProfileItem label="性別" value={selectedChinchilla.chinchillaSex} />
               <DisplayChinchillaProfileItem
                 label="誕生日"
-                value={selectedChinchilla.chinchillaBirthday}
+                value={selectedChinchilla.chinchillaBirthday.replace(/-/g, '/')}
               />
               <DisplayChinchillaProfileItem
                 label="年齢"
@@ -329,7 +329,7 @@ export const ChinchillaProfilePage = () => {
               />
               <DisplayChinchillaProfileItem
                 label="お迎え日"
-                value={selectedChinchilla.chinchillaMetDay}
+                value={selectedChinchilla.chinchillaMetDay.replace(/-/g, '/')}
               />
             </div>
             <div className="my-12">
