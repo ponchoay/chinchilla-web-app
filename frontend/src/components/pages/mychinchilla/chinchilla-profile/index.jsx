@@ -34,6 +34,7 @@ export const ChinchillaProfilePage = () => {
     register,
     setValue,
     handleSubmit,
+    clearErrors,
     formState: { errors }
   } = useForm({
     defaultValues: {
@@ -291,6 +292,7 @@ export const ChinchillaProfilePage = () => {
                 type="button"
                 click={() => {
                   setIsEditing(false)
+                  clearErrors()
                   setPreviewImage('')
                   setChinchillaImage('')
                 }}
