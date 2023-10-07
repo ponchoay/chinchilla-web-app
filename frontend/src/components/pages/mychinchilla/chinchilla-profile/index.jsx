@@ -9,12 +9,16 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { chinchillaProfileSchema } from 'src/validation/chinchilla'
 
+import { differenceInYears, differenceInMonths } from 'date-fns'
+import { utcToZonedTime } from 'date-fns-tz'
+
 import { Button } from 'src/components/shared/Button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAsterisk, faCirclePlus, faFilePen } from '@fortawesome/free-solid-svg-icons'
 
 export const ChinchillaProfilePage = () => {
   const router = useRouter()
+  const JAPAN_TIMEZONE = 'Asia/Tokyo'
 
   //選択中のチンチラの状態管理（グローバル）
   const [selectedChinchilla, setSelectedChinchilla] = useState([])
@@ -96,6 +100,19 @@ export const ChinchillaProfilePage = () => {
       return selectedChinchilla.chinchillaImage.url
     }
     return '/images/default.svg'
+  }
+
+  // 年齢を計算する関数
+  const calculateAge = (birthdayStr) => {
+    if (!birthdayStr) return ''
+
+    const birthday = new Date(birthdayStr)
+    const nowInJapan = utcToZonedTime(new Date(), JAPAN_TIMEZONE)
+
+    let ageYear = differenceInYears(nowInJapan, birthday)
+    let ageMonth = differenceInMonths(nowInJapan, birthday) % 12
+
+    return `${ageYear}歳${ageMonth}ヶ月`
   }
 
   // FormData形式でデータを作成
@@ -296,7 +313,7 @@ export const ChinchillaProfilePage = () => {
                 className="h-[200px] w-[200px] rounded-3xl border border-solid border-ligth-white bg-ligth-white"
               />
             </div>
-            <div className="mt-8 h-[230px] w-[500px] rounded-xl bg-ligth-white">
+            <div className="mt-8 h-[275px] w-[500px] rounded-xl bg-ligth-white">
               <DisplayChinchillaProfileItem
                 label="名前"
                 value={selectedChinchilla.chinchillaName}
@@ -305,6 +322,10 @@ export const ChinchillaProfilePage = () => {
               <DisplayChinchillaProfileItem
                 label="誕生日"
                 value={selectedChinchilla.chinchillaBirthday}
+              />
+              <DisplayChinchillaProfileItem
+                label="年齢"
+                value={calculateAge(selectedChinchilla.chinchillaBirthday)}
               />
               <DisplayChinchillaProfileItem
                 label="お迎え日"
