@@ -3,9 +3,14 @@ import { useRouter } from 'next/router'
 import { getChinchilla, updateChinchilla, deleteChinchilla } from 'src/lib/api/chinchilla'
 import { SelectedChinchillaIdContext } from 'src/contexts/chinchilla'
 
+import { DisplayChinchillaProfileItem } from 'src/components/pages/mychinchilla/chinchilla-profile/displayChinchillaProfileItem'
+
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { chinchillaProfileSchema } from 'src/validation/chinchilla'
+
+import { differenceInYears, differenceInMonths } from 'date-fns'
+import { utcToZonedTime } from 'date-fns-tz'
 
 import { Button } from 'src/components/shared/Button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -13,6 +18,7 @@ import { faAsterisk, faCirclePlus, faFilePen } from '@fortawesome/free-solid-svg
 
 export const ChinchillaProfilePage = () => {
   const router = useRouter()
+  const JAPAN_TIMEZONE = 'Asia/Tokyo'
 
   //選択中のチンチラの状態管理（グローバル）
   const [selectedChinchilla, setSelectedChinchilla] = useState([])
@@ -28,6 +34,7 @@ export const ChinchillaProfilePage = () => {
     register,
     setValue,
     handleSubmit,
+    clearErrors,
     formState: { errors }
   } = useForm({
     defaultValues: {
@@ -94,6 +101,19 @@ export const ChinchillaProfilePage = () => {
       return selectedChinchilla.chinchillaImage.url
     }
     return '/images/default.svg'
+  }
+
+  // 年齢を計算する関数
+  const calculateAge = (birthdayStr) => {
+    if (!birthdayStr) return ''
+
+    const birthday = new Date(birthdayStr)
+    const nowInJapan = utcToZonedTime(new Date(), JAPAN_TIMEZONE)
+
+    let ageYear = differenceInYears(nowInJapan, birthday)
+    let ageMonth = differenceInMonths(nowInJapan, birthday) % 12
+
+    return `${ageYear}歳${ageMonth}ヶ月`
   }
 
   // FormData形式でデータを作成
@@ -272,6 +292,7 @@ export const ChinchillaProfilePage = () => {
                 type="button"
                 click={() => {
                   setIsEditing(false)
+                  clearErrors()
                   setPreviewImage('')
                   setChinchillaImage('')
                 }}
@@ -294,31 +315,24 @@ export const ChinchillaProfilePage = () => {
                 className="h-[200px] w-[200px] rounded-3xl border border-solid border-ligth-white bg-ligth-white"
               />
             </div>
-            <div className="mt-8 h-[230px] w-[500px] rounded-xl bg-ligth-white">
-              <div className="mx-10 mt-6 flex border-b border-solid border-b-light-black">
-                <p className="w-24 text-center text-base text-dark-black">名前</p>
-                <p className="grow text-center text-base text-dark-black">
-                  {selectedChinchilla.chinchillaName}
-                </p>
-              </div>
-              <div className="mx-10 mt-6 flex border-b border-solid border-b-light-black">
-                <p className="w-24 text-center text-base text-dark-black">性別</p>
-                <p className="grow text-center text-base text-dark-black">
-                  {selectedChinchilla.chinchillaSex}
-                </p>
-              </div>
-              <div className="mx-10 mt-6 flex border-b border-solid border-b-light-black">
-                <p className="w-24 text-center text-base text-dark-black">誕生日</p>
-                <p className="grow text-center text-base text-dark-black">
-                  {selectedChinchilla.chinchillaBirthday}
-                </p>
-              </div>
-              <div className="mx-10 mt-6 flex border-b border-solid border-b-light-black">
-                <p className="w-24 text-center text-base text-dark-black">お迎え日</p>
-                <p className="grow text-center text-base text-dark-black">
-                  {selectedChinchilla.chinchillaMetDay}
-                </p>
-              </div>
+            <div className="mt-8 h-[290px] w-[500px] rounded-xl bg-ligth-white">
+              <DisplayChinchillaProfileItem
+                label="名前"
+                value={selectedChinchilla.chinchillaName}
+              />
+              <DisplayChinchillaProfileItem label="性別" value={selectedChinchilla.chinchillaSex} />
+              <DisplayChinchillaProfileItem
+                label="誕生日"
+                value={selectedChinchilla.chinchillaBirthday?.replace(/-/g, '/')}
+              />
+              <DisplayChinchillaProfileItem
+                label="年齢"
+                value={calculateAge(selectedChinchilla.chinchillaBirthday)}
+              />
+              <DisplayChinchillaProfileItem
+                label="お迎え日"
+                value={selectedChinchilla.chinchillaMetDay?.replace(/-/g, '/')}
+              />
             </div>
             <div className="my-12">
               <div className="mx-1 my-2 flex">
