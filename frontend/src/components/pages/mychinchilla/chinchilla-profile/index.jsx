@@ -4,6 +4,7 @@ import { getChinchilla, updateChinchilla, deleteChinchilla } from 'src/lib/api/c
 import { SelectedChinchillaIdContext } from 'src/contexts/chinchilla'
 
 import { DisplayChinchillaProfileItem } from 'src/components/pages/mychinchilla/chinchilla-profile/displayChinchillaProfileItem'
+import { DeleteConfirmationModal } from 'src/components/shared/DeleteConfirmationModal'
 
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -26,6 +27,9 @@ export const ChinchillaProfilePage = () => {
 
   // 編集モードの状態管理
   const [isEditing, setIsEditing] = useState(false)
+
+  // 削除確認用モーダルの状態管理
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   // 入力内容の状態管理
   const [chinchillaImage, setChinchillaImage] = useState(selectedChinchilla.chinchillaImage)
@@ -163,6 +167,7 @@ export const ChinchillaProfilePage = () => {
       const res = await deleteChinchilla(chinchillaId)
       console.log(res)
       setChinchillaId(0)
+      setIsModalOpen(false)
       router.replace('/mychinchilla')
     } catch (err) {
       console.log(err)
@@ -363,10 +368,22 @@ export const ChinchillaProfilePage = () => {
               >
                 編集
               </Button>
-              <Button type="submit" click={handleDelete} addStyle="btn-secondary h-16 w-40">
+              <Button
+                type="button"
+                click={() => setIsModalOpen(true)}
+                addStyle="btn-secondary h-16 w-40"
+              >
                 削除
               </Button>
             </div>
+
+            {/* 削除確認モーダル */}
+            {isModalOpen && (
+              <DeleteConfirmationModal
+                setIsModalOpen={setIsModalOpen}
+                handleDelete={handleDelete}
+              />
+            )}
           </>
         )}
       </form>

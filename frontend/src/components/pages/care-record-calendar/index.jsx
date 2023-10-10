@@ -8,6 +8,7 @@ import { InputRadioButtonItem } from 'src/components/pages/care-record-calendar/
 import { DisplayRadioButtonItem } from 'src/components/pages/care-record-calendar/displayRadioButtonItem'
 import { NumericFormItem } from 'src/components/pages/care-record-calendar/numericFormItem'
 import { CareMemoFormItem } from 'src/components/pages/care-record-calendar/careMemoFormItem'
+import { DeleteConfirmationModal } from 'src/components/shared/DeleteConfirmationModal'
 
 import { Button } from 'src/components/shared/Button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -27,6 +28,9 @@ export const CareRecordCalendarPage = () => {
 
   // 編集モードの状態管理
   const [isEditing, setIsEditing] = useState(false)
+
+  // 削除確認用モーダルの状態管理
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   // 入力内容の状態管理
   const [careFood, setCareFood] = useState('')
@@ -166,6 +170,8 @@ export const CareRecordCalendarPage = () => {
       setCareTemperature(null)
       setCareHumidity(null)
       setCareMemo('')
+
+      setIsModalOpen(false)
     } catch (err) {
       console.log(err)
       alert('エラーです')
@@ -574,10 +580,22 @@ export const CareRecordCalendarPage = () => {
                 >
                   編集
                 </Button>
-                <Button btnType="submit" click={handleDelete} addStyle="btn-secondary h-16 w-40">
+                <Button
+                  btnType="submit"
+                  click={() => setIsModalOpen(true)}
+                  addStyle="btn-secondary h-16 w-40"
+                >
                   削除
                 </Button>
               </div>
+
+              {/* 削除確認モーダル */}
+              {isModalOpen && (
+                <DeleteConfirmationModal
+                  setIsModalOpen={setIsModalOpen}
+                  handleDelete={handleDelete}
+                />
+              )}
             </>
           )}
         </>
