@@ -11,7 +11,7 @@ export const DeleteConfirmationModal = ({ setIsModalOpen, handleDelete }) => {
             <Button
               type="button"
               click={() => setIsModalOpen(false)}
-              addStyle="btn-primary w-32 h-14 mr-10"
+              addStyle="btn-ghost bg-gray-200 w-32 h-14 mr-10"
             >
               キャンセル
             </Button>
