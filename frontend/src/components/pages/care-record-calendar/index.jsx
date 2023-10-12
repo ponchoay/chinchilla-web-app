@@ -561,7 +561,7 @@ export const CareRecordCalendarPage = () => {
                   />
                   <p className=" text-left text-base text-dark-black">メモ</p>
                 </div>
-                <div className=" h-96 w-[500px] rounded-xl bg-ligth-white p-5">
+                <div className="h-96 w-[500px] overflow-y-auto rounded-xl bg-ligth-white p-5">
                   <p className="whitespace-pre-wrap text-left text-base text-dark-black">
                     {careMemo}
                   </p>
