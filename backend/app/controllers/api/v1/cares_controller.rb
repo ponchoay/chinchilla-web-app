@@ -3,9 +3,15 @@ class Api::V1::CaresController < ApplicationController
   before_action :authenticate_api_v1_user!
 
   # お世話記録 一覧
-  def index
+  def all_cares
     cares = Care.where(chinchilla_id: params[:chinchilla_id])
     render json: cares
+  end
+
+  # 体重 一覧（日付の古い順）
+  def weight_cares
+    cares = Care.where(chinchilla_id: params[:chinchilla_id]).order(:care_day)
+    render json: cares.as_json(only: [:care_day, :care_weight])
   end
 
   # お世話記録 作成
