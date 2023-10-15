@@ -9,8 +9,8 @@ Rails.application.routes.draw do
         resources :sessions, only: %i[index]
       end
 
-      # チンチラプロフィール一覧
-      get '/chinchillas', to: 'chinchillas#index'
+      # マイチンチラ用
+      get '/my_chinchillas', to: 'chinchillas#my_chinchillas'
       # チンチラ個別プロフィール
       get '/chinchillas/:id', to: 'chinchillas#show'
       # チンチラプロフィール作成
