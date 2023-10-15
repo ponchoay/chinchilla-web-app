@@ -21,7 +21,9 @@ Rails.application.routes.draw do
       delete '/chinchillas/:id', to: 'chinchillas#destroy'
 
       # お世話記録 一覧
-      get '/cares', to: 'cares#index'
+      get '/all_cares', to: 'cares#all_cares'
+      # 体重 一覧
+      get '/weight_cares', to: 'cares#weight_cares'
       # お世話記録 作成
       post '/cares', to: 'cares#create'
       # お世話記録 更新
