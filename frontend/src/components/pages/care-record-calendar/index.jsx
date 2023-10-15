@@ -47,9 +47,21 @@ export const CareRecordCalendarPage = () => {
 
   // 全てのチンチラのデータを取得
   const fetch = async () => {
-    const res = await getAllChinchillas()
-    console.log(res.data)
-    setAllChinchillas(res.data)
+    try {
+      const res = await getAllChinchillas()
+      console.log('チンチラ一覧', res.data)
+      setAllChinchillas(res.data)
+
+      // チンチラを選択中の場合に、お世話の記録を取得
+      if (chinchillaId) {
+        const res = await getAllCares(chinchillaId)
+        console.log('お世話記録一覧：', res.data)
+        setAllCares(res.data)
+      }
+    } catch (err) {
+      console.log(err)
+      alert('エラーです')
+    }
   }
 
   // 初回レンダリング時に全てのチンチラのデータを取得
