@@ -3,10 +3,10 @@ import { client } from 'src/lib/api/client'
 
 // 機能&リクエストURL
 
-// チンチラプロフィール一覧(全部)
-export const getAllChinchillas = () => {
+// マイチンチラページ用 id, chinchillaName, chinchillaImageを取得
+export const getMyChinchillas = () => {
   if (!Cookies.get('_access_token') || !Cookies.get('_client') || !Cookies.get('_uid')) return
-  return client.get('/chinchillas', {
+  return client.get('/my_chinchillas', {
     headers: {
       'access-token': Cookies.get('_access_token'),
       client: Cookies.get('_client'),
@@ -15,7 +15,19 @@ export const getAllChinchillas = () => {
   })
 }
 
-// チンチラプロフィール一覧(個別)
+// チンチラの選択セレクトボックス用 id, chinchillaNameを取得
+export const getMyChinchillasNames = () => {
+  if (!Cookies.get('_access_token') || !Cookies.get('_client') || !Cookies.get('_uid')) return
+  return client.get('/my_chinchillas_names', {
+    headers: {
+      'access-token': Cookies.get('_access_token'),
+      client: Cookies.get('_client'),
+      uid: Cookies.get('_uid')
+    }
+  })
+}
+
+// チンチラプロフィール用
 export const getChinchilla = (chinchillaId) => {
   if (!Cookies.get('_access_token') || !Cookies.get('_client') || !Cookies.get('_uid')) return
   return client.get(`/chinchillas/${chinchillaId}`, {

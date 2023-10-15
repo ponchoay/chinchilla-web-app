@@ -1,6 +1,6 @@
 import { useEffect, useState, useContext } from 'react'
 import Link from 'next/link'
-import { getAllChinchillas } from 'src/lib/api/chinchilla'
+import { getMyChinchillas } from 'src/lib/api/chinchilla'
 import { SelectedChinchillaIdContext } from 'src/contexts/chinchilla'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -11,8 +11,8 @@ export const MyChinchillaPage = () => {
   const { setChinchillaId } = useContext(SelectedChinchillaIdContext)
 
   const fetch = async () => {
-    const res = await getAllChinchillas()
-    console.log(res.data)
+    const res = await getMyChinchillas()
+    console.log('マイチンチラ', res.data)
     setAllChinchillas(res.data)
   }
 

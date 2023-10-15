@@ -2,11 +2,18 @@ class Api::V1::ChinchillasController < ApplicationController
   # ログイン状態の確認
   before_action :authenticate_api_v1_user!
 
-  # チンチラプロフィール 一覧
-  def index
+  # マイチンチラ用
+  def my_chinchillas
     user_id = current_api_v1_user.id
     chinchillas = Chinchilla.where(user_id: user_id)
-    render json: chinchillas
+    render json: chinchillas.as_json(only: [:id, :chinchilla_name, :chinchilla_image])
+  end
+
+  # チンチラの選択セレクトボックス用
+  def my_chinchillas_names
+    user_id = current_api_v1_user.id
+    chinchillas = Chinchilla.where(user_id: user_id)
+    render json: chinchillas.as_json(only: [:id, :chinchilla_name])
   end
 
   # チンチラ個別プロフィール
