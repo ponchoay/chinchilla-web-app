@@ -15,10 +15,10 @@ export const getMyChinchillas = () => {
   })
 }
 
-// チンチラの選択セレクトボックス用
-export const getAllChinchillas = () => {
+// チンチラの選択セレクトボックス用 id, chinchillaNameを取得
+export const getMyChinchillasNames = () => {
   if (!Cookies.get('_access_token') || !Cookies.get('_client') || !Cookies.get('_uid')) return
-  return client.get('/chinchillas', {
+  return client.get('/my_chinchillas_names', {
     headers: {
       'access-token': Cookies.get('_access_token'),
       client: Cookies.get('_client'),

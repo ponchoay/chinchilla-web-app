@@ -11,6 +11,8 @@ Rails.application.routes.draw do
 
       # マイチンチラ用
       get '/my_chinchillas', to: 'chinchillas#my_chinchillas'
+      # チンチラの選択セレクトボックス用
+      get '/my_chinchillas_names', to: 'chinchillas#my_chinchillas_names'
       # チンチラ個別プロフィール
       get '/chinchillas/:id', to: 'chinchillas#show'
       # チンチラプロフィール作成

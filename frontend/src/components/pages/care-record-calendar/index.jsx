@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from 'react'
-import { getAllChinchillas } from 'src/lib/api/chinchilla'
+import { getMyChinchillasNames } from 'src/lib/api/chinchilla'
 import { getAllCares, createCare, deleteCare, updateCare } from 'src/lib/api/care'
 import { SelectedChinchillaIdContext } from 'src/contexts/chinchilla'
 
@@ -48,7 +48,7 @@ export const CareRecordCalendarPage = () => {
   // 全てのチンチラのデータを取得
   const fetch = async () => {
     try {
-      const res = await getAllChinchillas()
+      const res = await getMyChinchillasNames()
       console.log('チンチラ一覧', res.data)
       setAllChinchillas(res.data)
 
