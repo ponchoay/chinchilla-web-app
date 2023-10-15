@@ -4,7 +4,7 @@ import { getAllChinchillas } from 'src/lib/api/chinchilla'
 import { getWeightCares } from 'src/lib/api/care'
 import { SelectedChinchillaIdContext } from 'src/contexts/chinchilla'
 
-import { ChinchillaSelectFormItem } from 'src/components/pages/weight-chart/chinchillaSelectFormItem'
+import { ChinchillaSelectFormItem } from 'src/components/shared/chinchillaSelectFormItem'
 
 export const WeightChartPage = () => {
   const [allChinchillas, setAllChinchillas] = useState([])

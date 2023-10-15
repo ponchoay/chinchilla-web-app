@@ -3,7 +3,7 @@ import { getAllChinchillas } from 'src/lib/api/chinchilla'
 import { getAllCares, createCare, deleteCare, updateCare } from 'src/lib/api/care'
 import { SelectedChinchillaIdContext } from 'src/contexts/chinchilla'
 
-import { ChinchillaSelectFormItem } from 'src/components/pages/care-record-calendar/chinchillaSelectFormItem'
+import { ChinchillaSelectFormItem } from 'src/components/shared/chinchillaSelectFormItem'
 import { InputRadioButtonItem } from 'src/components/pages/care-record-calendar/inputRadioButtonItem'
 import { DisplayRadioButtonItem } from 'src/components/pages/care-record-calendar/displayRadioButtonItem'
 import { NumericFormItem } from 'src/components/pages/care-record-calendar/numericFormItem'
