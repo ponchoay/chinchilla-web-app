@@ -20,9 +20,21 @@ export const WeightChartPage = () => {
 
   // 全てのチンチラのデータを取得
   const fetch = async () => {
-    const res = await getAllChinchillas()
-    console.log(res.data)
-    setAllChinchillas(res.data)
+    try {
+      const res = await getAllChinchillas()
+      console.log('チンチラ一覧', res.data)
+      setAllChinchillas(res.data)
+
+      // チンチラを選択中の場合に、体重の記録を取得
+      if (chinchillaId) {
+        const res = await getWeightCares(chinchillaId)
+        console.log('体重記録一覧：', res.data)
+        setAllWeightCares(res.data)
+      }
+    } catch (err) {
+      console.log(err)
+      alert('エラーです')
+    }
   }
 
   // // 初回レンダリング時に全てのチンチラのデータを取得
@@ -30,7 +42,7 @@ export const WeightChartPage = () => {
     fetch()
   }, [])
 
-  // チンチラを選択し、お世話記録の一覧を取得
+  // チンチラを選択し、体重の記録を取得
   const handleGetChinchilla = async (event) => {
     // selectedChinchillaIdはこの関数の中だけで使うchinchillaId
     const selectedChinchillaId = event.target.value
