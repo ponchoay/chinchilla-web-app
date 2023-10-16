@@ -23,7 +23,9 @@ export const ChinchillaProfilePage = () => {
 
   //選択中のチンチラの状態管理（グローバル）
   const [selectedChinchilla, setSelectedChinchilla] = useState([])
-  const { chinchillaId, setChinchillaId } = useContext(SelectedChinchillaIdContext)
+  const { chinchillaId, setChinchillaId, setHeaderName, setHeaderImage } = useContext(
+    SelectedChinchillaIdContext
+  )
 
   // 編集モードの状態管理
   const [isEditing, setIsEditing] = useState(false)
@@ -57,6 +59,8 @@ export const ChinchillaProfilePage = () => {
       const res = await getChinchilla(chinchillaId)
       console.log(res.data)
       setSelectedChinchilla(res.data)
+      setHeaderName(res.data.chinchillaName)
+      setHeaderImage(res.data.chinchillaImage)
     } catch (err) {
       console.log(err)
       router.replace('/mychinchilla')
