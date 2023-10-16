@@ -171,6 +171,8 @@ export const ChinchillaProfilePage = () => {
       const res = await deleteChinchilla(chinchillaId)
       console.log(res)
       setChinchillaId(0)
+      setHeaderName('')
+      setHeaderImage('')
       setIsModalOpen(false)
       router.replace('/mychinchilla')
     } catch (err) {
