@@ -1,9 +1,7 @@
 import { useState, useEffect, useContext } from 'react'
-import { getMyChinchillasNames } from 'src/lib/api/chinchilla'
 import { getAllCares, createCare, deleteCare, updateCare } from 'src/lib/api/care'
 import { SelectedChinchillaIdContext } from 'src/contexts/chinchilla'
 
-import { ChinchillaSelectFormItem } from 'src/components/shared/chinchillaSelectFormItem'
 import { InputRadioButtonItem } from 'src/components/pages/care-record-calendar/inputRadioButtonItem'
 import { DisplayRadioButtonItem } from 'src/components/pages/care-record-calendar/displayRadioButtonItem'
 import { NumericFormItem } from 'src/components/pages/care-record-calendar/numericFormItem'
@@ -19,12 +17,11 @@ import { format } from 'date-fns'
 import ja from 'date-fns/locale/ja'
 
 export const CareRecordCalendarPage = () => {
-  const [allChinchillas, setAllChinchillas] = useState([])
   const [allCares, setAllCares] = useState([])
   const [careId, setCareId] = useState(0)
 
-  //選択中のチンチラの状態管理（グローバル）
-  const { chinchillaId, setChinchillaId } = useContext(SelectedChinchillaIdContext)
+  // 選択中のチンチラの状態管理（グローバル）
+  const { chinchillaId } = useContext(SelectedChinchillaIdContext)
 
   // 編集モードの状態管理
   const [isEditing, setIsEditing] = useState(false)
@@ -45,18 +42,25 @@ export const CareRecordCalendarPage = () => {
   // 選択中のカレンダーの日付の状態管理
   const [selectedDate, setSelectedDate] = useState(null)
 
-  // 全てのチンチラのデータを取得
+  // チンチラを選択中の場合に、お世話の記録を取得
   const fetch = async () => {
     try {
-      const res = await getMyChinchillasNames()
-      console.log('チンチラ一覧', res.data)
-      setAllChinchillas(res.data)
-
-      // チンチラを選択中の場合に、お世話の記録を取得
       if (chinchillaId) {
         const res = await getAllCares(chinchillaId)
         console.log('お世話記録一覧：', res.data)
         setAllCares(res.data)
+
+        // 別のチンチラを選択する際に、画面の表示をリセット
+        setCareId(0)
+        setSelectedDate(null)
+        setCareFood('')
+        setCareToilet('')
+        setCareBath('')
+        setCarePlay('')
+        setCareWeight(null)
+        setCareTemperature(null)
+        setCareHumidity(null)
+        setCareMemo('')
       }
     } catch (err) {
       console.log(err)
@@ -64,37 +68,10 @@ export const CareRecordCalendarPage = () => {
     }
   }
 
-  // 初回レンダリング時に全てのチンチラのデータを取得
+  // chinchillaIdの変更を検知してレンダリング
   useEffect(() => {
     fetch()
-  }, [])
-
-  // チンチラを選択し、お世話記録の一覧を取得
-  const handleGetChinchilla = async (event) => {
-    // selectedChinchillaIdはこの関数の中だけで使うchinchillaId
-    const selectedChinchillaId = event.target.value
-    setChinchillaId(selectedChinchillaId)
-    try {
-      const res = await getAllCares(selectedChinchillaId)
-      console.log('お世話記録一覧：', res.data)
-      setAllCares(res.data)
-
-      // 別のチンチラを選択する際に、画面の表示をリセット
-      setCareId(0)
-      setSelectedDate(null)
-      setCareFood('')
-      setCareToilet('')
-      setCareBath('')
-      setCarePlay('')
-      setCareWeight(null)
-      setCareTemperature(null)
-      setCareHumidity(null)
-      setCareMemo('')
-    } catch (err) {
-      console.log(err)
-      alert('エラーです')
-    }
-  }
+  }, [chinchillaId])
 
   // 選択した日付のお世話の記録を表示
   const handleSelectedCare = (date) => {
@@ -313,14 +290,6 @@ export const CareRecordCalendarPage = () => {
         onDayClick={handleSelectedCare}
         allCares={allCares}
         className="mt-6"
-      />
-
-      {/* チンチラの選択 */}
-      <ChinchillaSelectFormItem
-        chinchillaId={chinchillaId}
-        handleGetChinchilla={handleGetChinchilla}
-        allChinchillas={allChinchillas}
-        isEditing={isEditing}
       />
 
       {careId === 0 ? (
