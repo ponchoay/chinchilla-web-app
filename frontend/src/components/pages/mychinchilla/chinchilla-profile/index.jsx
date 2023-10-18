@@ -23,7 +23,8 @@ export const ChinchillaProfilePage = () => {
 
   //選択中のチンチラの状態管理（グローバル）
   const [selectedChinchilla, setSelectedChinchilla] = useState([])
-  const { chinchillaId, setChinchillaId } = useContext(SelectedChinchillaIdContext)
+  const { chinchillaId, setChinchillaId, setHeaderName, setHeaderImage, setHeaderDisabled } =
+    useContext(SelectedChinchillaIdContext)
 
   // 編集モードの状態管理
   const [isEditing, setIsEditing] = useState(false)
@@ -57,6 +58,8 @@ export const ChinchillaProfilePage = () => {
       const res = await getChinchilla(chinchillaId)
       console.log(res.data)
       setSelectedChinchilla(res.data)
+      setHeaderName(res.data.chinchillaName)
+      setHeaderImage(res.data.chinchillaImage)
     } catch (err) {
       console.log(err)
       router.replace('/mychinchilla')
@@ -148,6 +151,7 @@ export const ChinchillaProfilePage = () => {
       if (res.status === 204) {
         fetch()
         setIsEditing(false)
+        setHeaderDisabled(false)
         setPreviewImage('')
         setChinchillaImage('')
         console.log('チンチラプロフィール更新成功！')
@@ -167,6 +171,8 @@ export const ChinchillaProfilePage = () => {
       const res = await deleteChinchilla(chinchillaId)
       console.log(res)
       setChinchillaId(0)
+      setHeaderName('')
+      setHeaderImage('')
       setIsModalOpen(false)
       router.replace('/mychinchilla')
     } catch (err) {
@@ -297,6 +303,7 @@ export const ChinchillaProfilePage = () => {
                 type="button"
                 click={() => {
                   setIsEditing(false)
+                  setHeaderDisabled(false)
                   clearErrors()
                   setPreviewImage('')
                   setChinchillaImage('')
@@ -358,6 +365,7 @@ export const ChinchillaProfilePage = () => {
                 type="button"
                 click={() => {
                   setIsEditing(true)
+                  setHeaderDisabled(true)
                   setValue('chinchillaName', selectedChinchilla.chinchillaName)
                   setValue('chinchillaSex', selectedChinchilla.chinchillaSex)
                   setValue('chinchillaBirthday', selectedChinchilla.chinchillaBirthday)

@@ -25,7 +25,7 @@ export const NumericFormItem = ({
       </label>
       <NumericFormat
         id={item}
-        defaultValue={value}
+        value={value ? value : ''}
         onValueChange={(values) => {
           // 入力が空(undafined)になる場合はnullをセット
           setValue(values.floatValue === undefined ? null : values.floatValue)
