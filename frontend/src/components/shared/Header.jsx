@@ -16,8 +16,15 @@ export const Header = () => {
   const { isSignedIn, currentUser } = useContext(AuthContext)
 
   //選択中のチンチラの状態管理（グローバル）
-  const { chinchillaId, setChinchillaId, headerName, setHeaderName, headerImage, setHeaderImage } =
-    useContext(SelectedChinchillaIdContext)
+  const {
+    chinchillaId,
+    setChinchillaId,
+    headerName,
+    setHeaderName,
+    headerImage,
+    setHeaderImage,
+    headerDisabled
+  } = useContext(SelectedChinchillaIdContext)
 
   // 削除確認用モーダルの状態管理
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -86,8 +93,8 @@ export const Header = () => {
                       id="chinchillaName"
                       value={chinchillaId}
                       onChange={handleSelectChinchilla}
+                      disabled={headerDisabled === true}
                       className="w-ful select select-bordered select-primary border-dark-blue bg-ligth-white text-base font-light text-dark-black"
-                      // disabled={isEditing === true}
                     >
                       <option hidden value="">
                         選択してください

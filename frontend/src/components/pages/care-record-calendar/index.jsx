@@ -21,7 +21,7 @@ export const CareRecordCalendarPage = () => {
   const [careId, setCareId] = useState(0)
 
   // 選択中のチンチラの状態管理（グローバル）
-  const { chinchillaId } = useContext(SelectedChinchillaIdContext)
+  const { chinchillaId, setHeaderDisabled } = useContext(SelectedChinchillaIdContext)
 
   // 編集モードの状態管理
   const [isEditing, setIsEditing] = useState(false)
@@ -84,6 +84,7 @@ export const CareRecordCalendarPage = () => {
 
     // 日付を選択した場合は編集モードを解除
     setIsEditing(false)
+    setHeaderDisabled(false)
 
     // すでに選択されている日付を再度クリックした場合、選択状態を解除
     if (selectedDate && isSameDay(selectedDate, date)) {
@@ -269,6 +270,7 @@ export const CareRecordCalendarPage = () => {
       if (updateCareRes.status === 204) {
         setAllCares(getAllCaresRes.data)
         setIsEditing(false)
+        setHeaderDisabled(false)
         console.log('お世話記録更新成功！')
       } else {
         alert('お世話記録更新失敗')
@@ -492,6 +494,7 @@ export const CareRecordCalendarPage = () => {
                   btnType="button"
                   click={() => {
                     setIsEditing(false)
+                    setHeaderDisabled(false)
                     handleReset()
                   }}
                   addStyle="btn-secondary h-16 w-40"
@@ -555,6 +558,7 @@ export const CareRecordCalendarPage = () => {
                   btnType="button"
                   click={() => {
                     setIsEditing(true)
+                    setHeaderDisabled(true)
                   }}
                   disabled={!chinchillaId || !careId ? true : false}
                   addStyle="btn-primary mr-24 h-16 w-40"

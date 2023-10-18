@@ -8,6 +8,7 @@ export const ChinchillaProvider = ({ children }) => {
   const [chinchillaId, setChinchillaId] = useState(0)
   const [headerName, setHeaderName] = useState('')
   const [headerImage, setHeaderImage] = useState('')
+  const [headerDisabled, setHeaderDisabled] = useState(false)
 
   const value = {
     chinchillaId,
@@ -15,7 +16,9 @@ export const ChinchillaProvider = ({ children }) => {
     headerName,
     setHeaderName,
     headerImage,
-    setHeaderImage
+    setHeaderImage,
+    headerDisabled,
+    setHeaderDisabled
   }
 
   return (
