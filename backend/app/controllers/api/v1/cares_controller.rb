@@ -8,9 +8,9 @@ class Api::V1::CaresController < ApplicationController
     render json: cares
   end
 
-  # 体重 一覧（日付の古い順）
+  # 体重 一覧（nullを除いて日付の古い順）
   def weight_cares
-    cares = Care.where(chinchilla_id: params[:chinchilla_id]).order(:care_day)
+    cares = Care.where(chinchilla_id: params[:chinchilla_id]).where.not(care_weight: nil).order(:care_day)
     render json: cares.as_json(only: [:care_day, :care_weight])
   end
 
