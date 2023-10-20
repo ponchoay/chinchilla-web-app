@@ -1,12 +1,6 @@
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts'
 
-export const WeightChart = ({ allWeightCares }) => {
-  // 日付をDate型に変換
-  const careWeightDataList = allWeightCares.map((item) => ({
-    ...item,
-    careDay: new Date(item.careDay).getTime()
-  }))
-
+export const WeightChart = ({ filteredData }) => {
   // ツールチップの表示形式をカスタマイズ
   const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
@@ -25,7 +19,7 @@ export const WeightChart = ({ allWeightCares }) => {
     <LineChart
       width={700}
       height={400}
-      data={careWeightDataList}
+      data={filteredData}
       margin={{ top: 30, right: 40, bottom: 20, left: 10 }}
       className="mt-6 rounded-xl bg-ligth-white"
     >
@@ -33,7 +27,6 @@ export const WeightChart = ({ allWeightCares }) => {
       <CartesianGrid stroke="#ccc" strokeDasharray="3 3" />
       <XAxis
         dataKey="careDay"
-        interval={1}
         angle={-30}
         type="number"
         domain={['dataMin', 'dataMax']}
@@ -52,7 +45,6 @@ export const WeightChart = ({ allWeightCares }) => {
       />
       <YAxis
         dataKey="careWeight"
-        interval={0}
         domain={['dataMin', 'dataMax']}
         tick={{
           fontSize: 14,
