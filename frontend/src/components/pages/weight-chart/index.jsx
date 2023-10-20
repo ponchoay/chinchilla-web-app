@@ -39,6 +39,73 @@ export const WeightChartPage = () => {
         const res = await getWeightCares(chinchillaId)
         console.log('体重記録一覧：', res.data)
         setAllWeightCares(res.data)
+
+        // 選択中の表示範囲にあわせて初期表示
+        // DBの日付をDate型に変換
+        const careWeightDataList = res.data.map((item) => ({
+          ...item,
+          careDay: new Date(item.careDay)
+        }))
+
+        // グラフに渡す用にデータ整形
+        const newFilteredData = careWeightDataList
+          // 選択された時間範囲に基づいてデータをフィルタリング
+          .filter((item) => {
+            // 現在の日付を日本時間で取得
+            const currentJSTDate = toJST(new Date())
+
+            // 1年前の日付より新しい日付(同日も含む)のみfilteredDataに含める
+            if (timeRange === '1year') {
+              return (
+                new Date(item.careDay) >=
+                new Date(
+                  currentJSTDate.getFullYear() - 1,
+                  currentJSTDate.getMonth(),
+                  currentJSTDate.getDate()
+                )
+              )
+            }
+
+            // 6か月前の日付より新しい日付(同日も含む)のみfilteredDataに含める
+            if (timeRange === '6months') {
+              return (
+                new Date(item.careDay) >=
+                new Date(
+                  currentJSTDate.getFullYear(),
+                  currentJSTDate.getMonth() - 6,
+                  currentJSTDate.getDate()
+                )
+              )
+            }
+
+            // 1か月前の日付より新しい日付(同日も含む)のみfilteredDataに含める
+            if (timeRange === '1month') {
+              return (
+                new Date(item.careDay) >=
+                new Date(
+                  currentJSTDate.getFullYear(),
+                  currentJSTDate.getMonth() - 1,
+                  currentJSTDate.getDate()
+                )
+              )
+            }
+
+            // allの場合はフィルタリングせずに全てfilteredDataに含める
+            return true
+          })
+
+          // フィルタリングしたデータを日付のミリ秒で取得
+          .map((item) => {
+            return { ...item, careDay: item.careDay.getTime() }
+          })
+
+        // 平均体重を計算
+        const totalWeight = newFilteredData.reduce((acc, data) => acc + data.careWeight, 0)
+        const averageWeight = (totalWeight / newFilteredData.length).toFixed(1) // 小数点第1位まで表示
+
+        setFilteredData(newFilteredData)
+        setAverageWeight(averageWeight)
+        setDataCount(newFilteredData.length) // 記録の数を計算
       }
     } catch (err) {
       console.log(err)
@@ -51,7 +118,7 @@ export const WeightChartPage = () => {
     fetch()
   }, [chinchillaId])
 
-  // ラジオボタンで発火
+  // ラジオボタンで表示範囲を変更
   const handleTimeRangeChange = (range) => {
     // DBの日付をDate型に変換
     const careWeightDataList = allWeightCares.map((item) => ({
