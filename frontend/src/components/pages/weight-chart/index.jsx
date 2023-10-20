@@ -38,37 +38,38 @@ export const WeightChartPage = () => {
     fetch()
   }, [chinchillaId])
 
-  console.log('timeRange', timeRange)
-
   return (
     <div className="my-40 grid place-content-center place-items-center">
       <p className="text-center text-2xl font-bold tracking-widest text-dark-blue">体重</p>
       <DynamicWeightChart allWeightCares={allWeightCares} timeRange={timeRange} />
 
-      <div className="m-6">
+      <div className="mt-10">
         <div className="join">
           <input
-            id="past1month"
+            id="1month"
             type="radio"
             name="options"
             onChange={() => setTimeRange('1month')}
             aria-label="過去1か月"
+            checked={chinchillaId && timeRange === '1month'}
             className="btn  join-item"
           />
           <input
-            id="past6months"
+            id="6months"
             type="radio"
             name="options"
             onChange={() => setTimeRange('6months')}
             aria-label="過去6か月"
+            checked={chinchillaId && timeRange === '6months'}
             className="btn  join-item"
           />
           <input
-            id="past1year"
+            id="1year"
             type="radio"
             name="options"
             onChange={() => setTimeRange('1year')}
             aria-label="過去1年間"
+            checked={chinchillaId && timeRange === '1year'}
             className="btn  join-item"
           />
           <input
@@ -77,6 +78,7 @@ export const WeightChartPage = () => {
             name="options"
             onChange={() => setTimeRange('all')}
             aria-label="全期間"
+            checked={chinchillaId && timeRange === 'all'}
             className="btn  join-item"
           />
         </div>
