@@ -92,7 +92,6 @@ export const WeightChart = ({ allWeightCares, timeRange }) => {
       <CartesianGrid stroke="#ccc" strokeDasharray="3 3" />
       <XAxis
         dataKey="careDay"
-        interval={1}
         angle={-30}
         type="number"
         domain={['dataMin', 'dataMax']}
@@ -111,7 +110,6 @@ export const WeightChart = ({ allWeightCares, timeRange }) => {
       />
       <YAxis
         dataKey="careWeight"
-        interval={0}
         domain={['dataMin', 'dataMax']}
         tick={{
           fontSize: 14,
