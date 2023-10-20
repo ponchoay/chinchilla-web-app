@@ -52,7 +52,7 @@ export const WeightChartPage = () => {
             onChange={() => setTimeRange('1month')}
             aria-label="過去1か月"
             checked={chinchillaId && timeRange === '1month'}
-            className="btn  join-item"
+            className="btn join-item"
           />
           <input
             id="6months"
@@ -61,7 +61,7 @@ export const WeightChartPage = () => {
             onChange={() => setTimeRange('6months')}
             aria-label="過去6か月"
             checked={chinchillaId && timeRange === '6months'}
-            className="btn  join-item"
+            className="btn join-item"
           />
           <input
             id="1year"
@@ -70,7 +70,7 @@ export const WeightChartPage = () => {
             onChange={() => setTimeRange('1year')}
             aria-label="過去1年間"
             checked={chinchillaId && timeRange === '1year'}
-            className="btn  join-item"
+            className="btn join-item"
           />
           <input
             id="all"
@@ -79,7 +79,7 @@ export const WeightChartPage = () => {
             onChange={() => setTimeRange('all')}
             aria-label="全期間"
             checked={chinchillaId && timeRange === 'all'}
-            className="btn  join-item"
+            className="btn join-item px-7"
           />
         </div>
       </div>
