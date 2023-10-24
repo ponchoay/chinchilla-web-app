@@ -12,7 +12,7 @@ export const client = applyCaseMiddleware(
   axios.create({
     //Cookieを利用
     withCredentials: true,
-    baseURL: process.env.NEXT_PUBLIC_APP_API_DOMEIN
+    baseURL: process.env.NEXT_PUBLIC_APP_API_DOMAIN
   }),
   options
 )
