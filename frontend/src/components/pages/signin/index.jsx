@@ -43,7 +43,7 @@ export const SignInPage = () => {
         setIsSignedIn(true)
         setCurrentUser(res.data.data)
 
-        router.push('/mypage')
+        router.push('/mychinchilla')
         console.log('ログイン成功！')
       } else {
         alert('ログイン失敗')

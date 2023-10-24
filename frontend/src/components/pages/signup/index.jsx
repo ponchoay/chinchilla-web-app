@@ -43,7 +43,7 @@ export const SignUpPage = () => {
         setIsSignedIn(true)
         setCurrentUser(res.data.data)
 
-        router.push('/mypage')
+        router.push('/mychinchilla')
         console.log('新規登録成功！')
       } else {
         alert('新規登録失敗')
