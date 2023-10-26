@@ -22,7 +22,9 @@ export const MyChinchillaPage = () => {
 
   return (
     <div className="my-40 grid place-content-center place-items-center">
-      <p className="text-center text-2xl font-bold tracking-widest text-dark-blue">マイチンチラ</p>
+      <h1 className="text-center text-2xl font-bold tracking-widest text-dark-blue">
+        マイチンチラ
+      </h1>
       <div className="mt-6 grid grid-cols-2 gap-x-20 gap-y-14">
         {allChinchillas.map((chinchilla) => (
           <div key={chinchilla.id}>

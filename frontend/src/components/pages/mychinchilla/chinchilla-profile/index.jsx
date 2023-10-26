@@ -183,7 +183,9 @@ export const ChinchillaProfilePage = () => {
 
   return (
     <div className="my-40 grid place-content-center place-items-center">
-      <p className="text-center text-2xl font-bold tracking-widest text-dark-blue">プロフィール</p>
+      <h1 className="text-center text-2xl font-bold tracking-widest text-dark-blue">
+        プロフィール
+      </h1>
       <form
         noValidate
         onSubmit={handleSubmit(onSubmit)}

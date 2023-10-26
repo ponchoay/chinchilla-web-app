@@ -91,9 +91,9 @@ export const ChinchillaRegistrationPage = () => {
 
   return (
     <div className="my-40 grid place-content-center place-items-center">
-      <p className="text-center text-2xl font-bold tracking-widest text-dark-blue">
+      <h1 className="text-center text-2xl font-bold tracking-widest text-dark-blue">
         チンチラの登録
-      </p>
+      </h1>
       <form
         noValidate
         onSubmit={handleSubmit(onSubmit)}
