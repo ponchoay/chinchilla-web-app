@@ -75,6 +75,7 @@ export const SignUpPage = () => {
           <input
             id="email"
             type="email"
+            autoComplete="email"
             {...register('email')}
             placeholder="your@email.com"
             className="w-ful input input-bordered input-primary input-md border-dark-blue bg-ligth-white text-base text-dark-black"
@@ -94,6 +95,7 @@ export const SignUpPage = () => {
               <input
                 id="password"
                 type={isRevealPassword ? 'text' : 'password'}
+                autoComplete="current-password"
                 {...register('password')}
                 placeholder="password"
                 className="input input-bordered input-primary input-md w-96 border-dark-blue bg-ligth-white text-base text-dark-black"
