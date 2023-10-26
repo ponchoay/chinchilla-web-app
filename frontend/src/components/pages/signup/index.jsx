@@ -84,10 +84,10 @@ export const SignUpPage = () => {
         <div className="form-control mb-12 h-32 w-96">
           <label htmlFor="password" className="label">
             <span className="text-base text-dark-black">パスワード</span>
-            <div>
+            <span className="label-text-alt text-sm text-dark-black">
               <FontAwesomeIcon icon={faAsterisk} className="mr-1 text-xs text-dark-pink" />
-              <span className="label-text-alt text-sm text-dark-black">6文字以上の半角英数字</span>
-            </div>
+              6文字以上の半角英数字
+            </span>
           </label>
           <div className="flex items-center">
             <div className="relative">

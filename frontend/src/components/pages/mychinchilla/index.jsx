@@ -38,6 +38,8 @@ export const MyChinchillaPage = () => {
                       ? chinchilla.chinchillaImage.url
                       : '/images/default.svg'
                   }
+                  width="200"
+                  height="200"
                   alt="プロフィール画像"
                   className="mb-3 h-[200px] w-[200px] rounded-3xl border border-solid border-ligth-white bg-ligth-white"
                 />
@@ -53,7 +55,7 @@ export const MyChinchillaPage = () => {
           className="btn btn-secondary fixed bottom-32 right-40 z-10 grid h-[80px] w-[80px] place-content-center place-items-center rounded-[50%] bg-light-pink"
         >
           <FontAwesomeIcon icon={faPlus} className="absolute top-3 text-4xl text-white" />
-          <p className="absolute bottom-3 text-sm text-white">登録</p>
+          <span className="absolute bottom-3 text-sm text-white">登録</span>
         </button>
       </Link>
     </div>

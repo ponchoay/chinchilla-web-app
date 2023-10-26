@@ -69,6 +69,8 @@ export const Header = () => {
               {headerName && (
                 <img
                   src={headerImage?.url ? headerImage.url : '/images/default.svg'}
+                  width="40"
+                  height="40"
                   alt="プロフィール画像"
                   className="mr-2 h-10 w-10 rounded-[50%] border border-solid border-ligth-white bg-ligth-white"
                 />

@@ -103,6 +103,8 @@ export const ChinchillaRegistrationPage = () => {
           <button type="button" onClick={handleClickChangeImage} className=" mt-6">
             <img
               src={previewImage ? previewImage : '/images/default.svg'}
+              width="200"
+              height="200"
               alt="プロフィール画像"
               className="h-[200px] w-[200px] rounded-3xl border border-solid border-dark-blue bg-ligth-white"
             />
@@ -122,10 +124,10 @@ export const ChinchillaRegistrationPage = () => {
         <div className="form-control mt-6 h-32 w-96">
           <label htmlFor="chinchillaName" className="label">
             <span className="text-base text-dark-black">名前</span>
-            <div>
+            <span className="label-text-alt text-dark-black">
               <FontAwesomeIcon icon={faAsterisk} className="mr-1 text-xs text-dark-pink" />
-              <span className="label-text-alt text-dark-black">必須入力</span>
-            </div>
+              必須入力
+            </span>
           </label>
           <input
             id="chinchillaName"
@@ -141,10 +143,10 @@ export const ChinchillaRegistrationPage = () => {
         <div className="form-control mt-3 h-32 w-96">
           <label htmlFor="chinchillaSex" className="label">
             <span className="text-base text-dark-black">性別</span>
-            <div>
+            <span className="label-text-alt text-dark-black">
               <FontAwesomeIcon icon={faAsterisk} className="mr-1 text-xs text-dark-pink" />
-              <span className="label-text-alt text-dark-black">必須入力</span>
-            </div>
+              必須入力
+            </span>
           </label>
           <select
             id="chinchillaSex"
