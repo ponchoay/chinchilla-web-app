@@ -62,7 +62,7 @@ export const SignUpPage = () => {
 
   return (
     <div className="my-40 grid place-content-center place-items-center">
-      <p className="text-center text-2xl font-bold tracking-widest text-dark-blue">新規登録</p>
+      <h1 className="text-center text-2xl font-bold tracking-widest text-dark-blue">新規登録</h1>
       <form
         noValidate
         onSubmit={handleSubmit(onSubmit)}
@@ -75,6 +75,7 @@ export const SignUpPage = () => {
           <input
             id="email"
             type="email"
+            autoComplete="email"
             {...register('email')}
             placeholder="your@email.com"
             className="w-ful input input-bordered input-primary input-md border-dark-blue bg-ligth-white text-base text-dark-black"
@@ -84,16 +85,17 @@ export const SignUpPage = () => {
         <div className="form-control mb-12 h-32 w-96">
           <label htmlFor="password" className="label">
             <span className="text-base text-dark-black">パスワード</span>
-            <div>
+            <span className="label-text-alt text-sm text-dark-black">
               <FontAwesomeIcon icon={faAsterisk} className="mr-1 text-xs text-dark-pink" />
-              <span className="label-text-alt text-sm text-dark-black">6文字以上の半角英数字</span>
-            </div>
+              6文字以上の半角英数字
+            </span>
           </label>
           <div className="flex items-center">
             <div className="relative">
               <input
                 id="password"
                 type={isRevealPassword ? 'text' : 'password'}
+                autoComplete="current-password"
                 {...register('password')}
                 placeholder="password"
                 className="input input-bordered input-primary input-md w-96 border-dark-blue bg-ligth-white text-base text-dark-black"

@@ -283,7 +283,9 @@ export const CareRecordCalendarPage = () => {
 
   return (
     <div className="my-40 grid place-content-center place-items-center">
-      <p className="text-center text-2xl font-bold tracking-widest text-dark-blue">お世話の記録</p>
+      <h1 className="text-center text-2xl font-bold tracking-widest text-dark-blue">
+        お世話の記録
+      </h1>
 
       {/* カレンダー */}
       <Calendar

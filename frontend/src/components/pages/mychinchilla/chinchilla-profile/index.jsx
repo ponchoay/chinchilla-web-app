@@ -183,7 +183,9 @@ export const ChinchillaProfilePage = () => {
 
   return (
     <div className="my-40 grid place-content-center place-items-center">
-      <p className="text-center text-2xl font-bold tracking-widest text-dark-blue">プロフィール</p>
+      <h1 className="text-center text-2xl font-bold tracking-widest text-dark-blue">
+        プロフィール
+      </h1>
       <form
         noValidate
         onSubmit={handleSubmit(onSubmit)}
@@ -195,6 +197,8 @@ export const ChinchillaProfilePage = () => {
               <button type="button" onClick={handleClickChangeImage} className=" mt-6">
                 <img
                   src={resultImage()}
+                  width="200"
+                  height="200"
                   alt="プロフィール画像"
                   className="h-[200px] w-[200px] rounded-3xl border border-solid border-dark-blue bg-ligth-white"
                 />
@@ -214,10 +218,10 @@ export const ChinchillaProfilePage = () => {
             <div className="form-control mt-6 h-32 w-96">
               <label htmlFor="chinchillaName" className="label">
                 <span className="text-base text-dark-black">名前</span>
-                <div>
+                <span className="label-text-alt text-dark-black">
                   <FontAwesomeIcon icon={faAsterisk} className="mr-1 text-xs text-dark-pink" />
-                  <span className="label-text-alt text-dark-black">必須入力</span>
-                </div>
+                  必須入力
+                </span>
               </label>
               <input
                 id="chinchillaName"
@@ -232,17 +236,19 @@ export const ChinchillaProfilePage = () => {
             <div className="form-control mt-3 h-32 w-96">
               <label htmlFor="chinchillaSex" className="label">
                 <span className="text-base text-dark-black">性別</span>
-                <div>
+                <span className="label-text-alt text-dark-black">
                   <FontAwesomeIcon icon={faAsterisk} className="mr-1 text-xs text-dark-pink" />
-                  <span className="label-text-alt text-dark-black">必須入力</span>
-                </div>
+                  必須入力
+                </span>
               </label>
               <select
                 id="chinchillaSex"
                 {...register('chinchillaSex')}
                 className="w-ful select select-bordered select-primary border-dark-blue bg-ligth-white text-base font-light text-dark-black"
               >
-                性別
+                <option hidden value="">
+                  選択してください
+                </option>
                 <option value="オス">オス</option>
                 <option value="メス">メス</option>
                 <option value="不明">不明</option>
@@ -323,6 +329,8 @@ export const ChinchillaProfilePage = () => {
                     ? selectedChinchilla.chinchillaImage.url
                     : '/images/default.svg'
                 }
+                width="200"
+                height="200"
                 alt="プロフィール画像"
                 className="h-[200px] w-[200px] rounded-3xl border border-solid border-ligth-white bg-ligth-white"
               />
