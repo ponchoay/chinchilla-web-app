@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useRouter } from 'next/router'
+import { updatePassword } from 'src/lib/api/auth'
 
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -10,6 +11,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 
 export const PasswordChangePage = () => {
+  const router = useRouter()
 
   const {
     register,
@@ -20,9 +22,26 @@ export const PasswordChangePage = () => {
     resolver: zodResolver(passwordChangeSchema)
   })
 
+  // パスワード変更機能
+  const onSubmit = async (data) => {
+    const params = { currentPassword: data.currentPassword, password: data.newPassword }
+    try {
+      const res = await updatePassword(params)
+      console.log(res)
 
-  const onSubmit = (data) => {
-    console.log(data)
+      // パスワードの変更が成功した場合
+      if (res.status === 200) {
+        alert('パスワードの変更に成功しました')
+        router.push('/mypage')
+      }
+    } catch (err) {
+      console.log(err)
+
+      // パスワードの変更に失敗した場合
+      if (err.response.status === 422) {
+        alert('パスワードが間違っています')
+      }
+    }
   }
 
   // 現在のパスワード表示/非表示切り替え
