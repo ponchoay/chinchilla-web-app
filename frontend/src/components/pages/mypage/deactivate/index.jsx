@@ -31,13 +31,10 @@ export const DeactivatePage = () => {
         setIsModalOpen(false)
         router.push('/signin')
         setIsSignedIn(false)
-        console.log('アカウントを削除しました！')
-      } else {
-        alert('アカウント削除失敗')
+        alert('アカウントを削除しました')
       }
     } catch (err) {
       console.log(err)
-      alert('エラーです')
     }
   }
 
