@@ -57,6 +57,8 @@ gem 'dotenv-rails'
 # 認証機能用
 gem 'devise'
 gem 'devise_token_auth'
+gem 'devise-i18n'
+gem 'devise-i18n-views'
 
 # 画像アップロード用
 gem 'carrierwave'
