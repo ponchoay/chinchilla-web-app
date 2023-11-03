@@ -18,7 +18,7 @@ export async function middleware(request) {
 
   // 未ログイン時のリダイレクト対象ページ
   const redirectIfNotLoggedInPaths = [
-    '/mypage',
+    '/mypage', // マイページ以下も含む
     '/mychinchilla', // チンチラプロフィールも含む
     '/care-record-calendar',
     '/chinchilla-registration',
@@ -26,7 +26,7 @@ export async function middleware(request) {
   ]
 
   // ログイン時のリダイレクト対象ページ
-  const redirectIfLoggedInPaths = ['/signin', '/signup']
+  const redirectIfLoggedInPaths = ['/signin', '/signup', '/email-confirmation-sent']
 
   if (
     data.is_login === false &&
