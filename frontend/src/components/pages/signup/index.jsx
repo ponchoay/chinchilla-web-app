@@ -1,7 +1,8 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { signUp } from 'src/lib/api/auth'
+import { AuthContext } from 'src/contexts/auth'
 
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -13,7 +14,8 @@ import { faAsterisk, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons
 
 export const SignUpPage = () => {
   const router = useRouter()
-  const confirmSuccessUrl = process.env.NEXT_PUBLIC_CONFIRM_SUCCESS_URL
+  const { setCurrentUser } = useContext(AuthContext)
+  const confirmSuccessUrl = process.env.NEXT_PUBLIC_CONFIRM_SIGNUP_SUCCESS_URL
 
   const {
     register,
@@ -38,7 +40,8 @@ export const SignUpPage = () => {
       // ステータス200 OK
       if (res.status === 200) {
         console.log(res.data.data)
-        router.push('/email-confirmation-sent')
+        setCurrentUser(res.data.data)
+        router.push('/signup/email-confirmation-sent')
         console.log('新規登録成功！')
       }
     } catch (err) {
