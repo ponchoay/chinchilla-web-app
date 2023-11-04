@@ -35,3 +35,27 @@ export const getCurrentUser = () => {
     }
   })
 }
+
+// パスワードの変更 /auth
+export const updatePassword = (params) => {
+  if (!Cookies.get('_access_token') || !Cookies.get('_client') || !Cookies.get('_uid')) return
+  return client.put('auth', params, {
+    headers: {
+      'access-token': Cookies.get('_access_token'),
+      client: Cookies.get('_client'),
+      uid: Cookies.get('_uid')
+    }
+  })
+}
+
+// アカウントの削除 /auth
+export const deleteUser = () => {
+  if (!Cookies.get('_access_token') || !Cookies.get('_client') || !Cookies.get('_uid')) return
+  return client.delete('auth', {
+    headers: {
+      'access-token': Cookies.get('_access_token'),
+      client: Cookies.get('_client'),
+      uid: Cookies.get('_uid')
+    }
+  })
+}

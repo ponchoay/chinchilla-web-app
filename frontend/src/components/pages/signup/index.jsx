@@ -1,9 +1,7 @@
-import { useState, useContext } from 'react'
+import { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import Cookies from 'js-cookie'
 import { signUp } from 'src/lib/api/auth'
-import { AuthContext } from 'src/contexts/auth'
 
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -15,7 +13,7 @@ import { faAsterisk, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons
 
 export const SignUpPage = () => {
   const router = useRouter()
-  const { setIsSignedIn, setCurrentUser } = useContext(AuthContext)
+  const confirmSuccessUrl = process.env.NEXT_PUBLIC_CONFIRM_SUCCESS_URL
 
   const {
     register,
@@ -28,29 +26,24 @@ export const SignUpPage = () => {
 
   // 新規登録機能
   const onSubmit = async (data) => {
-    const params = { email: data.email, password: data.password }
+    const params = {
+      email: data.email,
+      password: data.password,
+      confirmSuccessUrl: confirmSuccessUrl
+    }
     try {
       const res = await signUp(params)
       console.log(res)
 
       // ステータス200 OK
       if (res.status === 200) {
-        // ログインに成功した場合はCookieに各値を格納
-        Cookies.set('_access_token', res.headers['access-token'])
-        Cookies.set('_client', res.headers['client'])
-        Cookies.set('_uid', res.headers['uid'])
-
-        setIsSignedIn(true)
-        setCurrentUser(res.data.data)
-
-        router.push('/mychinchilla')
+        console.log(res.data.data)
+        router.push('/email-confirmation-sent')
         console.log('新規登録成功！')
-      } else {
-        alert('新規登録失敗')
       }
     } catch (err) {
       console.log(err)
-      alert('エラーです')
+      alert('新規登録に失敗しました')
     }
   }
 
