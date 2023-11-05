@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { useRouter } from 'next/router'
-import { signIn } from 'src/lib/api/auth'
+import { sendResetPasswordMail } from 'src/lib/api/auth'
 import { AuthContext } from 'src/contexts/auth'
 
 import { useForm } from 'react-hook-form'
@@ -12,6 +12,7 @@ import { Button } from 'src/components/shared/Button'
 export const PasswordResetPage = () => {
   const router = useRouter()
   const { setProcessUser } = useContext(AuthContext)
+  const redirectUrl = process.env.NEXT_PUBLIC_RESET_PASSWORD_URL
 
   const {
     register,
@@ -24,9 +25,9 @@ export const PasswordResetPage = () => {
 
   // パスワードリセットメール送信機能
   const onSubmit = async (data) => {
-    const params = { email: data.email }
+    const params = { email: data.email, redirectUrl: redirectUrl }
     try {
-      const res = await signIn(params)
+      const res = await sendResetPasswordMail(params)
       console.log(res)
 
       // ステータス200 OK
@@ -40,6 +41,12 @@ export const PasswordResetPage = () => {
       }
     } catch (err) {
       console.log(err)
+      console.log(err.response.data)
+
+      // パスワードの変更に失敗した場合
+      if (err.response.status === 404) {
+        alert('メールアドレスが間違っています')
+      }
     }
   }
 

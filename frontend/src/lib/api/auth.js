@@ -48,6 +48,27 @@ export const updatePassword = (params) => {
   })
 }
 
+// パスワードリセット用のメール送信 /auth/password
+export const sendResetPasswordMail = (params) => {
+  return client.post('auth/password', params)
+}
+
+// パスワードの再設定 /auth/password
+export const resetPassword = (params) => {
+  const urlParams = new URLSearchParams(window.location.search)
+  const accessToken = urlParams.get('access-token')
+  const clientParam = urlParams.get('client') // clientは使えないので、一旦clientParamに
+  const uid = urlParams.get('uid')
+
+  return client.put('auth/password', params, {
+    headers: {
+      'access-token': accessToken,
+      client: clientParam,
+      uid: uid
+    }
+  })
+}
+
 // アカウントの削除 /auth
 export const deleteUser = () => {
   if (!Cookies.get('_access_token') || !Cookies.get('_client') || !Cookies.get('_uid')) return

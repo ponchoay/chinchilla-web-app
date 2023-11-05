@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useRouter } from 'next/router'
-import { updatePassword } from 'src/lib/api/auth'
+import { resetPassword } from 'src/lib/api/auth'
 
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -24,21 +24,25 @@ export const PasswordResetResetPage = () => {
 
   // パスワード変更機能
   const onSubmit = async (data) => {
-    const params = { password: data.password }
+    const params = { password: data.password, passwordConfirmation: data.password }
     try {
-      const res = await updatePassword(params)
+      const res = await resetPassword(params)
       console.log(res)
 
       // パスワードの変更が成功した場合
       if (res.status === 200) {
         router.push('/password-reset/confirmed')
+        console.log('パスワード再設定成功！')
+      } else {
+        console.log('パスワード再設定失敗！')
       }
     } catch (err) {
       console.log(err)
+      console.log(err.response.data)
 
       // パスワードの変更に失敗した場合
-      if (err.response.status === 422) {
-        alert('パスワードが間違っています')
+      if (err.response.status === 401) {
+        alert('パスワードの再設定に失敗しました')
       }
     }
   }
@@ -77,11 +81,7 @@ export const PasswordResetResetPage = () => {
                 placeholder="Password"
                 className="input input-bordered input-primary input-md w-96 border-dark-blue bg-ligth-white text-base text-dark-black"
               />
-              <span
-                onClick={togglePassword}
-                role="presentation"
-                className="absolute right-3 top-3"
-              >
+              <span onClick={togglePassword} role="presentation" className="absolute right-3 top-3">
                 {isRevealPassword ? (
                   <FontAwesomeIcon icon={faEye} />
                 ) : (
@@ -96,11 +96,7 @@ export const PasswordResetResetPage = () => {
         </div>
 
         {/* 保存 */}
-        <Button
-          btnType="submit"
-          disabled={!dirtyFields.password}
-          addStyle="btn-primary h-16 w-40"
-        >
+        <Button btnType="submit" disabled={!dirtyFields.password} addStyle="btn-primary h-16 w-40">
           保存
         </Button>
       </form>
