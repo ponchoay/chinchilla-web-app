@@ -4,7 +4,7 @@ import { updatePassword } from 'src/lib/api/auth'
 
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { passwordChangeSchema } from 'src/validation/auth'
+import { resetPasswordSchema } from 'src/validation/auth'
 
 import { Button } from 'src/components/shared/Button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -18,13 +18,13 @@ export const PasswordResetResetPage = () => {
     handleSubmit,
     formState: { dirtyFields, errors }
   } = useForm({
-    defaultValues: { newPassword: '' },
-    resolver: zodResolver(passwordChangeSchema)
+    defaultValues: { password: '' },
+    resolver: zodResolver(resetPasswordSchema)
   })
 
   // パスワード変更機能
   const onSubmit = async (data) => {
-    const params = { password: data.newPassword }
+    const params = { password: data.password }
     try {
       const res = await updatePassword(params)
       console.log(res)
@@ -44,9 +44,9 @@ export const PasswordResetResetPage = () => {
   }
 
   // 新しいパスワード表示/非表示切り替え
-  const [isRevealNewPassword, setIsRevealNewPassword] = useState(false)
-  const toggleNewPassword = () => {
-    setIsRevealNewPassword((prevState) => !prevState)
+  const [isRevealPassword, setIsRevealPassword] = useState(false)
+  const togglePassword = () => {
+    setIsRevealPassword((prevState) => !prevState)
   }
 
   return (
@@ -61,7 +61,7 @@ export const PasswordResetResetPage = () => {
       >
         {/* 新しいパスワード */}
         <div className="form-control my-6 mb-12 h-28 w-96">
-          <label htmlFor="newPassword" className="label">
+          <label htmlFor="password" className="label">
             <span className="text-base text-dark-black">新しいパスワード</span>
             <span className="label-text-alt text-sm text-dark-black">
               <FontAwesomeIcon icon={faAsterisk} className="mr-1 text-xs text-dark-pink" />
@@ -71,25 +71,25 @@ export const PasswordResetResetPage = () => {
           <div className="flex items-center">
             <div className="relative">
               <input
-                id="newPassword"
-                type={isRevealNewPassword ? 'text' : 'password'}
-                {...register('newPassword')}
-                placeholder="NewPassword"
+                id="password"
+                type={isRevealPassword ? 'text' : 'password'}
+                {...register('password')}
+                placeholder="Password"
                 className="input input-bordered input-primary input-md w-96 border-dark-blue bg-ligth-white text-base text-dark-black"
               />
               <span
-                onClick={toggleNewPassword}
+                onClick={togglePassword}
                 role="presentation"
                 className="absolute right-3 top-3"
               >
-                {isRevealNewPassword ? (
+                {isRevealPassword ? (
                   <FontAwesomeIcon icon={faEye} />
                 ) : (
                   <FontAwesomeIcon icon={faEyeSlash} />
                 )}
               </span>
-              {errors.newPassword && (
-                <p className="label text-base text-dark-pink">{errors.newPassword.message}</p>
+              {errors.password && (
+                <p className="label text-base text-dark-pink">{errors.password.message}</p>
               )}
             </div>
           </div>
@@ -98,7 +98,7 @@ export const PasswordResetResetPage = () => {
         {/* 保存 */}
         <Button
           btnType="submit"
-          disabled={!dirtyFields.newPassword}
+          disabled={!dirtyFields.password}
           addStyle="btn-primary h-16 w-40"
         >
           保存

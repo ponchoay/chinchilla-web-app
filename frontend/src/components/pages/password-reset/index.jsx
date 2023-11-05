@@ -5,7 +5,7 @@ import { AuthContext } from 'src/contexts/auth'
 
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { userSchema } from 'src/validation/auth'
+import { sendPasswordResetMailSchema } from 'src/validation/auth'
 
 import { Button } from 'src/components/shared/Button'
 
@@ -19,7 +19,7 @@ export const PasswordResetPage = () => {
     formState: { dirtyFields, errors }
   } = useForm({
     defaultValues: { email: '' },
-    resolver: zodResolver(userSchema)
+    resolver: zodResolver(sendPasswordResetMailSchema)
   })
 
   // パスワードリセットメール送信機能
