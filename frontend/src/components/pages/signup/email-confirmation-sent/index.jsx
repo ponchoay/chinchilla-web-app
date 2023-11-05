@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 
 export const EmailConfirmationSentPage = () => {
-  const { currentUser } = useContext(AuthContext)
+  const { processUser } = useContext(AuthContext)
 
   return (
     <div className="my-40 grid place-content-center place-items-center">
@@ -17,7 +17,7 @@ export const EmailConfirmationSentPage = () => {
           <FontAwesomeIcon icon={faPaperPlane} className="text-5xl font-bold text-ligth-white" />
         </div>
         <p className="mt-10 text-center text-base text-dark-black">
-          {currentUser?.email}宛に
+          {processUser?.email}宛に
           <br />
           アカウント確認のメールを送信しました。
         </p>

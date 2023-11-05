@@ -8,7 +8,15 @@ export const AuthContext = createContext({})
 export const AuthProvider = ({ children }) => {
   const [isSignedIn, setIsSignedIn] = useState(false)
   const [currentUser, setCurrentUser] = useState()
-  const value = { isSignedIn, setIsSignedIn, currentUser, setCurrentUser }
+  const [processUser, setProcessUser] = useState()
+  const value = {
+    isSignedIn,
+    setIsSignedIn,
+    currentUser,
+    setCurrentUser,
+    processUser,
+    setProcessUser
+  }
 
   // 認証済みのユーザーがいるかどうかチェック
   // 確認できた場合はそのユーザーの情報を取得

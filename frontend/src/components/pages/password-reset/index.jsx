@@ -11,7 +11,7 @@ import { Button } from 'src/components/shared/Button'
 
 export const PasswordResetPage = () => {
   const router = useRouter()
-  const { setCurrentUser } = useContext(AuthContext)
+  const { setProcessUser } = useContext(AuthContext)
 
   const {
     register,
@@ -31,7 +31,7 @@ export const PasswordResetPage = () => {
 
       // ステータス200 OK
       if (res.status === 200) {
-        setCurrentUser(res.data.data)
+        setProcessUser(params.email)
 
         router.push('/password-reset/email-confirmation-sent')
         console.log('パスワードリセットメール送信成功！')

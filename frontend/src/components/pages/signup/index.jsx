@@ -14,7 +14,7 @@ import { faAsterisk, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons
 
 export const SignUpPage = () => {
   const router = useRouter()
-  const { setCurrentUser } = useContext(AuthContext)
+  const { setProcessUser } = useContext(AuthContext)
   const confirmSuccessUrl = process.env.NEXT_PUBLIC_CONFIRM_SIGNUP_SUCCESS_URL
 
   const {
@@ -40,7 +40,7 @@ export const SignUpPage = () => {
       // ステータス200 OK
       if (res.status === 200) {
         console.log(res.data.data)
-        setCurrentUser(res.data.data)
+        setProcessUser(res.data.data)
         router.push('/signup/email-confirmation-sent')
         console.log('新規登録成功！')
       }
