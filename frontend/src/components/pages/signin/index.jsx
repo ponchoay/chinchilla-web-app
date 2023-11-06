@@ -65,6 +65,10 @@ export const SignInPage = () => {
         buttonName="ログイン"
         addStyle="btn-secondary h-16 w-40"
       />
+
+      <Link href="/password-reset" passHref className="link-hover link mt-10">
+        パスワードがわからない場合はこちら
+      </Link>
       <Link href="/signup" passHref className="link-hover link my-2">
         新規登録はこちら
       </Link>
