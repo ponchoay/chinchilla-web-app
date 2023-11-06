@@ -26,7 +26,7 @@ export async function middleware(request) {
   ]
 
   // ログイン時のリダイレクト対象ページ
-  const redirectIfLoggedInPaths = ['/signin', '/signup', '/email-confirmation-sent']
+  const redirectIfLoggedInPaths = ['/signin', '/signup']
 
   if (
     data.is_login === false &&
