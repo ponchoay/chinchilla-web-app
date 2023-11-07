@@ -7,9 +7,9 @@ class Api::V1::Auth::RegistrationsController < DeviseTokenAuth::RegistrationsCon
     params.require(:registration).permit(:email, :password)
   end
 
-  # パスワード変更用のストロングパラメーター
+  # ユーザー情報更新用のストロングパラメーター
   def account_update_params
-    params.require(:registration).permit(:password, :current_password)
+    params.require(:registration).permit(:password, :current_password, :email)
   end
 
 end

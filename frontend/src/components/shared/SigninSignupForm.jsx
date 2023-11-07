@@ -10,6 +10,8 @@ export const SignupSigninForm = ({
   dirtyFields,
   errors,
   onSubmit,
+  emailTitle,
+  passwordTitle,
   buttonName,
   addStyle
 }) => {
@@ -27,7 +29,7 @@ export const SignupSigninForm = ({
     >
       <div className="form-control my-6 h-32 w-96">
         <label htmlFor="email" className="label">
-          <span className="text-base text-dark-black">メールアドレス</span>
+          <span className="text-base text-dark-black">{emailTitle}</span>
         </label>
         <input
           id="email"
@@ -41,7 +43,7 @@ export const SignupSigninForm = ({
       </div>
       <div className="form-control mb-6 h-32 w-96">
         <label htmlFor="password" className="label">
-          <span className="text-base text-dark-black">パスワード</span>
+          <span className="text-base text-dark-black">{passwordTitle}</span>
           <span className="label-text-alt text-sm text-dark-black">
             <FontAwesomeIcon icon={faAsterisk} className="mr-1 text-xs text-dark-pink" />
             6文字以上の半角英数字

@@ -79,11 +79,7 @@ export const PasswordResetPage = () => {
           />
           {errors.email && <p className="label text-base text-dark-pink">{errors.email.message}</p>}
         </div>
-        <Button
-          btnType="submit"
-          disabled={!dirtyFields.email}
-          addStyle="btn-primary h-16 w-40 mt-6"
-        >
+        <Button btnType="submit" disabled={!dirtyFields.email} addStyle="btn-primary h-16 w-40">
           送信
         </Button>
       </form>

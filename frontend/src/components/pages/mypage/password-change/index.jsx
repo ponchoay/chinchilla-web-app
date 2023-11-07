@@ -71,7 +71,7 @@ export const PasswordChangePage = () => {
         </h3>
 
         {/* 現在のパスワード */}
-        <div className="form-control mb-10 mt-6 h-28 w-96">
+        <div className="form-control my-6 h-32 w-96">
           <label htmlFor="currentPassword" className="label">
             <span className="text-base text-dark-black">現在のパスワード</span>
           </label>
@@ -103,7 +103,7 @@ export const PasswordChangePage = () => {
         </div>
 
         {/* 新しいパスワード */}
-        <div className="form-control mb-12 h-28 w-96">
+        <div className="form-control mb-6 h-32 w-96">
           <label htmlFor="newPassword" className="label">
             <span className="text-base text-dark-black">新しいパスワード</span>
           </label>
