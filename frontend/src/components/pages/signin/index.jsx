@@ -44,11 +44,16 @@ export const SignInPage = () => {
         router.push('/mychinchilla')
         console.log('ログイン成功！')
       } else {
-        alert('ログイン失敗')
+        console.log('ログイン失敗！')
       }
     } catch (err) {
       console.log(err)
-      alert('エラーです')
+      console.log(err.response.data)
+
+      // ログインに失敗した場合
+      if (err.response.status === 401) {
+        alert('ログインに失敗しました')
+      }
     }
   }
 

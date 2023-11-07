@@ -41,10 +41,17 @@ export const SignUpPage = () => {
         setProcessUser(res.data.data)
         router.push('/signup/email-confirmation-sent')
         console.log('新規登録成功！')
+      } else {
+        console.log('新規登録失敗！')
       }
     } catch (err) {
       console.log(err)
-      alert('新規登録に失敗しました')
+      console.log(err.response.data)
+
+      // 新規登録に失敗した場合
+      if (err.response.status === 422) {
+        alert('新規登録に失敗しました')
+      }
     }
   }
 
