@@ -22,11 +22,8 @@ export const SignupConfirmedPage = () => {
           ログインページからサービスをご利用いただけます。
         </p>
       </div>
-      <p className="mb-6 mt-28 text-base text-dark-black">ログインはこちら</p>
-      <Link href="/signin" passHref>
-        <Button btnType="button" addStyle="btn-secondary h-16 w-40">
-          ログイン
-        </Button>
+      <Link href="/signin" passHref className="link-hover link mt-10">
+        ログインはこちら
       </Link>
     </div>
   )
