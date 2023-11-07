@@ -27,7 +27,7 @@ export const EmailChangePage = () => {
   const onSubmit = async (data) => {
     const params = {
       email: data.email,
-      password: data.password,
+      currentPassword: data.password,
       confirmSuccessUrl: confirmSuccessUrl
     }
     try {
