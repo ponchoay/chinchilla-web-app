@@ -17,9 +17,12 @@ export const EmailChangeConfirmedPage = () => {
           <br />
           メールアドレスの変更が完了しました。
         </p>
+        <p className="mt-5 text-center text-base text-dark-black">
+          ログインページからサービスをご利用いただけます。
+        </p>
       </div>
-      <Link href="/mypage" passHref className="link-hover link mt-10">
-        マイページに戻る
+      <Link href="/signin" passHref className="link-hover link mt-10">
+        ログインはこちら
       </Link>
     </div>
   )
