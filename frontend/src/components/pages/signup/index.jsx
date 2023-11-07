@@ -58,6 +58,8 @@ export const SignUpPage = () => {
         dirtyFields={dirtyFields}
         errors={errors}
         onSubmit={onSubmit}
+        emailTitle="メールアドレス"
+        passwordTitle="パスワード"
         buttonName="新規登録"
         addStyle="btn-primary h-16 w-40"
       />

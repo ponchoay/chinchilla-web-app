@@ -62,6 +62,8 @@ export const SignInPage = () => {
         dirtyFields={dirtyFields}
         errors={errors}
         onSubmit={onSubmit}
+        emailTitle="メールアドレス"
+        passwordTitle="パスワード"
         buttonName="ログイン"
         addStyle="btn-secondary h-16 w-40"
       />
