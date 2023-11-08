@@ -125,10 +125,10 @@ export const Header = () => {
           </>
         ) : (
           <div className="mr-12 flex">
-            <Link href="/signup" passHref>
+            <Link href="/signup">
               <Button addStyle="btn-primary mr-6 h-4 w-28">新規登録</Button>
             </Link>
-            <Link href="/signin" passHref>
+            <Link href="/signin">
               <Button addStyle="btn-secondary h-4 w-28">ログイン</Button>
             </Link>
           </div>

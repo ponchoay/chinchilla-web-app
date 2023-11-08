@@ -51,7 +51,7 @@ export const MyChinchillaPage = () => {
           </div>
         ))}
       </div>
-      <Link href="/chinchilla-registration" passHref>
+      <Link href="/chinchilla-registration">
         <button
           type="button"
           className="btn btn-secondary fixed bottom-32 right-40 z-10 grid h-[80px] w-[80px] place-content-center place-items-center rounded-[50%] bg-light-pink"

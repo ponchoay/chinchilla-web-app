@@ -66,10 +66,10 @@ export const IndexPage = () => {
         家族を招待することで、記録を共有することもできます。
       </p>
       <div className="flex justify-center">
-        <Link href="/signup" passHref>
+        <Link href="/signup">
           <Button addStyle="btn-primary mr-24 h-16 w-40">新規登録</Button>
         </Link>
-        <Link href="/signin" passHref>
+        <Link href="/signin">
           <Button addStyle="btn-secondary h-16 w-40">ログイン</Button>
         </Link>
       </div>
