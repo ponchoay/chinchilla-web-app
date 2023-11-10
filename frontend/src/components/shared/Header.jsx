@@ -7,7 +7,7 @@ import { getMyChinchillas } from 'src/lib/api/chinchilla'
 
 import { Button } from 'src/components/shared/Button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPaw, faCircleUser, faHandPointer } from '@fortawesome/free-solid-svg-icons'
+import { faCircleUser, faHandPointer } from '@fortawesome/free-solid-svg-icons'
 
 export const Header = () => {
   const [allChinchillas, setAllChinchillas] = useState([])
@@ -52,7 +52,13 @@ export const Header = () => {
     <header className="fixed top-0 z-50 h-16 w-full bg-dark-blue">
       <div className="mx-auto flex h-full max-w-screen-lg items-center justify-between">
         <Link href="/">
-          <img src="/images/chinchilla-logo.svg" alt="チンチラのロゴ" className="ml-12" />
+          <img
+            src="/images/chinchilla-logo.svg"
+            width="182"
+            height="46"
+            alt="チンチラのロゴ"
+            className="ml-12"
+          />
         </Link>
         {isSignedIn && currentUser ? (
           <>
