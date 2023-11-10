@@ -20,10 +20,10 @@ export const Carousel = () => {
       </div>
       <div id="slide2" className="carousel-item relative h-[400px] w-[600px]">
         <img
-          src="/images/weight-chart.png"
+          src="/images/calendar.png"
           width="600"
           height="400"
-          alt="体重のグラフ"
+          alt="お世話を記録するカレンダー"
           className="h-[400px] w-[600px] rounded-lg border-4 border-double border-light-blue/50"
         />
         <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
@@ -54,10 +54,10 @@ export const Carousel = () => {
       </div>
       <div id="slide4" className="carousel-item relative h-[400px] w-[600px]">
         <img
-          src="/images/calendar.png"
+          src="/images/weight-chart.png"
           width="600"
           height="400"
-          alt="お世話を記録するカレンダー"
+          alt="体重のグラフ"
           className="h-[400px] w-[600px] rounded-lg border-4 border-double border-light-blue/50"
         />
         <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
