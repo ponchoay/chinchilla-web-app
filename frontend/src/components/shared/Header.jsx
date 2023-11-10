@@ -51,9 +51,8 @@ export const Header = () => {
   return (
     <header className="fixed top-0 z-50 h-16 w-full bg-dark-blue">
       <div className="mx-auto flex h-full max-w-screen-lg items-center justify-between">
-        <Link href="/" className="ml-12 flex">
-          <FontAwesomeIcon icon={faPaw} className="mr-2 text-4xl font-bold text-ligth-white" />
-          <p className="text-3xl font-bold text-ligth-white">チンチラ</p>
+        <Link href="/">
+          <img src="/images/chinchilla-logo.svg" alt="チンチラのロゴ" className="ml-12" />
         </Link>
         {isSignedIn && currentUser ? (
           <>
