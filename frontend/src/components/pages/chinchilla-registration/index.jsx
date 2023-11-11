@@ -1,3 +1,4 @@
+import React from 'react'
 import { useContext, useRef, useCallback, useState } from 'react'
 import { useRouter } from 'next/router'
 import { createChinchilla } from 'src/lib/api/chinchilla'
@@ -156,18 +157,26 @@ export const ChinchillaRegistrationPage = () => {
               必須入力
             </span>
           </label>
-          <select
-            id="chinchillaSex"
-            {...register('chinchillaSex')}
-            className="w-ful select select-bordered select-primary border-dark-blue bg-ligth-white text-base font-light text-dark-black"
-          >
-            <option hidden value="">
-              選択してください
-            </option>
-            <option value="オス">オス</option>
-            <option value="メス">メス</option>
-            <option value="不明">不明</option>
-          </select>
+          <div className="flex h-12 w-full justify-around rounded-lg border border-solid border-dark-blue bg-ligth-white px-1">
+            {['オス', 'メス', '不明'].map((sex) => (
+              <React.Fragment key={sex}>
+                <label
+                  htmlFor={sex}
+                  className="flex cursor-pointer items-center text-base text-dark-black"
+                >
+                  {sex}
+                  <input
+                    id={sex}
+                    type="radio"
+                    name="chinchillaSex"
+                    value={sex}
+                    {...register('chinchillaSex')}
+                    className="radio-accent radio ml-2"
+                  />
+                </label>
+              </React.Fragment>
+            ))}
+          </div>
           {errors.chinchillaSex && (
             <p className="label text-base text-dark-pink">{errors.chinchillaSex.message}</p>
           )}
