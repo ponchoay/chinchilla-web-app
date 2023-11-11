@@ -29,7 +29,13 @@ export const MyChinchillaPage = () => {
       <h1 className="text-center text-2xl font-bold tracking-widest text-dark-blue">
         マイチンチラ
       </h1>
-      <div className="mt-6 grid grid-cols-2 gap-x-20 gap-y-14">
+      <div
+        className={`mt-6 grid ${
+          allChinchillas.length === 1
+            ? 'grid-cols-1 place-items-center'
+            : 'grid-cols-2 gap-x-20 gap-y-14'
+        }`}
+      >
         {allChinchillas.map((chinchilla) => (
           <div key={chinchilla.id}>
             <Link
@@ -49,7 +55,9 @@ export const MyChinchillaPage = () => {
                   alt="プロフィール画像"
                   className="mb-3 h-[200px] w-[200px] rounded-3xl border border-solid border-ligth-white bg-ligth-white"
                 />
-                <p className="w-[200px] text-center">{chinchilla.chinchillaName}</p>
+                <p className="w-[200px] text-center text-base text-dark-black">
+                  {chinchilla.chinchillaName}
+                </p>
               </div>
             </Link>
           </div>
