@@ -10,7 +10,7 @@ export const Footer = () => {
   return (
     <footer className="fixed bottom-0 z-50 h-16 w-full bg-dark-blue">
       <div className="mx-auto flex h-full max-w-screen-lg place-content-evenly items-center">
-        {isSignedIn && currentUser && (
+        {isSignedIn && currentUser ? (
           <div>
             <Link href="/mychinchilla">
               <FontAwesomeIcon icon={faHouse} className="mx-12 text-4xl text-ligth-white" />
@@ -22,6 +22,8 @@ export const Footer = () => {
               <FontAwesomeIcon icon={faChartLine} className="mx-12 text-4xl text-ligth-white" />
             </Link>
           </div>
+        ) : (
+          <p className="text-base text-ligth-white">© 2023 ponchoay</p>
         )}
       </div>
     </footer>
