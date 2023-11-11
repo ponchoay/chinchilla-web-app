@@ -1,6 +1,7 @@
-import { useRef, useCallback, useState } from 'react'
+import { useContext, useRef, useCallback, useState } from 'react'
 import { useRouter } from 'next/router'
 import { createChinchilla } from 'src/lib/api/chinchilla'
+import { SelectedChinchillaIdContext } from 'src/contexts/chinchilla'
 
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -12,6 +13,10 @@ import { faAsterisk, faCirclePlus } from '@fortawesome/free-solid-svg-icons'
 
 export const ChinchillaRegistrationPage = () => {
   const router = useRouter()
+
+  // 選択中のチンチラの状態管理（グローバル）
+  const { setChinchillaId, setHeaderName, setHeaderImage } = useContext(SelectedChinchillaIdContext)
+
   const [chinchillaImage, setChinchillaImage] = useState('')
   const chinchillaMemo = ''
 
@@ -78,6 +83,9 @@ export const ChinchillaRegistrationPage = () => {
 
       // ステータス201 Created
       if (res.status === 201) {
+        setChinchillaId(res.data.id)
+        setHeaderName(res.data.chinchillaName)
+        setHeaderImage(res.data.chinchillaImage)
         router.push('/mychinchilla')
         console.log('チンチラプロフィール作成成功！')
       } else {

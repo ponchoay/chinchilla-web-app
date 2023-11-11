@@ -7,8 +7,8 @@ export const AuthContext = createContext({})
 //_app.jsにエクスポートして、全体の親にする
 export const AuthProvider = ({ children }) => {
   const [isSignedIn, setIsSignedIn] = useState(false)
-  const [currentUser, setCurrentUser] = useState()
-  const [processUser, setProcessUser] = useState()
+  const [currentUser, setCurrentUser] = useState(undefined)
+  const [processUser, setProcessUser] = useState(undefined)
   const value = {
     isSignedIn,
     setIsSignedIn,
@@ -28,7 +28,7 @@ export const AuthProvider = ({ children }) => {
         setIsSignedIn(true)
         setCurrentUser(res?.data.data)
 
-        console.log(res?.data.data)
+        console.log('ログイン中:', res?.data.data)
       } else {
         console.log('No current user')
       }

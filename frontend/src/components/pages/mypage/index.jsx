@@ -4,6 +4,7 @@ import Link from 'next/link'
 import Cookies from 'js-cookie'
 import { signOut } from 'src/lib/api/auth'
 import { AuthContext } from 'src/contexts/auth'
+import { SelectedChinchillaIdContext } from 'src/contexts/chinchilla'
 
 import { Button } from 'src/components/shared/Button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -11,7 +12,8 @@ import { faKey, faAngleRight, faEnvelope, faTrashCan } from '@fortawesome/free-s
 
 export const MyPagePage = () => {
   const router = useRouter()
-  const { setIsSignedIn } = useContext(AuthContext)
+  const { setIsSignedIn, setCurrentUser, setProcessUser } = useContext(AuthContext)
+  const { setChinchillaId, setHeaderName, setHeaderImage } = useContext(SelectedChinchillaIdContext)
 
   // ログアウト機能
   const handleSignOut = async () => {
@@ -26,6 +28,11 @@ export const MyPagePage = () => {
 
         router.push('/signin')
         setIsSignedIn(false)
+        setCurrentUser(null)
+        setProcessUser(null)
+        setChinchillaId(0)
+        setHeaderName('')
+        setHeaderImage('')
         console.log('ログアウトしました！')
       } else {
         alert('ログアウト失敗')

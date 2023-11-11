@@ -11,9 +11,13 @@ export const MyChinchillaPage = () => {
   const { setChinchillaId } = useContext(SelectedChinchillaIdContext)
 
   const fetch = async () => {
-    const res = await getMyChinchillas()
-    console.log('マイチンチラ', res.data)
-    setAllChinchillas(res.data)
+    try {
+      const res = await getMyChinchillas()
+      console.log('マイチンチラ', res.data)
+      setAllChinchillas(res.data)
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   useEffect(() => {
