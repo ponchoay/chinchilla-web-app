@@ -193,7 +193,9 @@ export const WeightChartPage = () => {
       <h1 className="text-center text-2xl font-bold tracking-widest text-dark-blue">体重</h1>
 
       {/* グラフ */}
-      <DynamicWeightChart filteredData={filteredData} />
+      <div className="mt-6 h-[400px]">
+        <DynamicWeightChart filteredData={filteredData} />
+      </div>
 
       {/* 表示範囲のラジオボタン */}
       <div className="join mt-10">
