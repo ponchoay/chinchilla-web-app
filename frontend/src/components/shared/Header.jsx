@@ -51,15 +51,11 @@ export const Header = () => {
   return (
     <header className="fixed top-0 z-50 h-16 w-full bg-dark-blue">
       <div className="mx-auto flex h-full max-w-screen-lg items-center justify-between">
-        <Link href="/">
-          <img
-            src="/images/chinchilla-logo.svg"
-            width="182"
-            height="46"
-            alt="チンチラのロゴ"
-            className="ml-12"
-          />
-        </Link>
+        <div className="my-auto ml-12">
+          <Link href="/">
+            <img src="/images/chinchilla-logo.svg" width="170" height="45" alt="チンチラのロゴ" />
+          </Link>
+        </div>
         {isSignedIn && currentUser ? (
           <>
             {/* 選択中のチンチラ */}
