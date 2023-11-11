@@ -21,7 +21,7 @@ export const PasswordResetConfirmedPage = () => {
           ログインページからサービスをご利用いただけます。
         </p>
       </div>
-      <Link href="/signin" passHref className="link-hover link mt-10">
+      <Link href="/signin" className="link-hover link mt-10">
         ログインはこちら
       </Link>
     </div>

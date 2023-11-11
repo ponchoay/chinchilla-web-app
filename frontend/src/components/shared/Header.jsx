@@ -7,7 +7,7 @@ import { getMyChinchillas } from 'src/lib/api/chinchilla'
 
 import { Button } from 'src/components/shared/Button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPaw, faCircleUser, faHandPointer } from '@fortawesome/free-solid-svg-icons'
+import { faCircleUser, faHandPointer } from '@fortawesome/free-solid-svg-icons'
 
 export const Header = () => {
   const [allChinchillas, setAllChinchillas] = useState([])
@@ -51,10 +51,11 @@ export const Header = () => {
   return (
     <header className="fixed top-0 z-50 h-16 w-full bg-dark-blue">
       <div className="mx-auto flex h-full max-w-screen-lg items-center justify-between">
-        <Link href="/" className="ml-12 flex">
-          <FontAwesomeIcon icon={faPaw} className="mr-2 text-4xl font-bold text-ligth-white" />
-          <p className="text-3xl font-bold text-ligth-white">チンチラ</p>
-        </Link>
+        <div className="my-auto ml-12">
+          <Link href="/">
+            <img src="/images/chinchilla-logo.svg" width="170" height="45" alt="チンチラのロゴ" />
+          </Link>
+        </div>
         {isSignedIn && currentUser ? (
           <>
             {/* 選択中のチンチラ */}
@@ -125,10 +126,10 @@ export const Header = () => {
           </>
         ) : (
           <div className="mr-12 flex">
-            <Link href="/signup" passHref>
+            <Link href="/signup">
               <Button addStyle="btn-primary mr-6 h-4 w-28">新規登録</Button>
             </Link>
-            <Link href="/signin" passHref>
+            <Link href="/signin">
               <Button addStyle="btn-secondary h-4 w-28">ログイン</Button>
             </Link>
           </div>
