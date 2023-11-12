@@ -6,7 +6,7 @@ import { SelectedChinchillaIdContext } from 'src/contexts/chinchilla'
 import { utcToZonedTime } from 'date-fns-tz'
 
 export const WeightChartPage = () => {
-  // CSRとSSR間のレンダリングエラー回避
+  // ハイドレーションエラー回避
   const DynamicWeightChart = dynamic(
     () =>
       import('src/components/pages/weight-chart/weightChart').then((module) => module.WeightChart),
