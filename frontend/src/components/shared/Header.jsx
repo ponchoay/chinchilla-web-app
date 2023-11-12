@@ -97,7 +97,7 @@ export const Header = () => {
                   className="mr-2 h-10 w-10 rounded-[50%] border border-solid border-ligth-white bg-ligth-white"
                 />
               )}
-              <p className="text-base text-ligth-white">
+              <p className="text-base text-ligth-white transition-colors duration-200 hover:text-slate-200">
                 {headerName ? headerName : 'チンチラを選択'}
               </p>
               {!headerName && (
@@ -142,7 +142,10 @@ export const Header = () => {
               </div>
             )}
             <Link href="/mypage">
-              <FontAwesomeIcon icon={faCircleUser} className="mr-32 text-4xl text-ligth-white" />
+              <FontAwesomeIcon
+                icon={faCircleUser}
+                className="mr-32 text-4xl text-ligth-white transition-colors duration-200 hover:text-slate-200"
+              />
             </Link>
           </>
         ) : (
