@@ -13,13 +13,22 @@ export const Footer = () => {
         {isSignedIn && currentUser ? (
           <div>
             <Link href="/mychinchilla">
-              <FontAwesomeIcon icon={faHouse} className="mx-12 text-4xl text-ligth-white" />
+              <FontAwesomeIcon
+                icon={faHouse}
+                className="mx-12 text-4xl text-ligth-white transition-colors duration-200 hover:text-slate-200"
+              />
             </Link>
             <Link href="/care-record-calendar">
-              <FontAwesomeIcon icon={faCalendarDays} className="mx-12 text-4xl text-ligth-white" />
+              <FontAwesomeIcon
+                icon={faCalendarDays}
+                className="mx-12 text-4xl text-ligth-white transition-colors duration-200 hover:text-slate-200"
+              />
             </Link>
             <Link href="/weight-chart">
-              <FontAwesomeIcon icon={faChartLine} className="mx-12 text-4xl text-ligth-white" />
+              <FontAwesomeIcon
+                icon={faChartLine}
+                className="mx-12 text-4xl text-ligth-white transition-colors duration-200 hover:text-slate-200"
+              />
             </Link>
           </div>
         ) : (

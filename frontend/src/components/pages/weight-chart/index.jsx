@@ -6,7 +6,7 @@ import { SelectedChinchillaIdContext } from 'src/contexts/chinchilla'
 import { utcToZonedTime } from 'date-fns-tz'
 
 export const WeightChartPage = () => {
-  // CSRとSSR間のレンダリングエラー回避
+  // ハイドレーションエラー回避
   const DynamicWeightChart = dynamic(
     () =>
       import('src/components/pages/weight-chart/weightChart').then((module) => module.WeightChart),
@@ -193,7 +193,9 @@ export const WeightChartPage = () => {
       <h1 className="text-center text-2xl font-bold tracking-widest text-dark-blue">体重</h1>
 
       {/* グラフ */}
-      <DynamicWeightChart filteredData={filteredData} />
+      <div className="mt-6 h-[400px]">
+        <DynamicWeightChart filteredData={filteredData} />
+      </div>
 
       {/* 表示範囲のラジオボタン */}
       <div className="join mt-10">

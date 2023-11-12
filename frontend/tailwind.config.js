@@ -56,13 +56,14 @@ module.exports = {
           // ピンク系
           secondary: '#F2B3B3',
           'secondary-dark': '#E67A7A',
-          // 白系
-          accent: '#FFFFFF',
-          // %どうしよ・・・
-          'accent-dark': '#FFFFFF',
+
+          accent: '#7EC2C2',
+          success: '#E67A7A',
+
           // 黒系
           neutral: '#4B4B4B',
           'neutral-light': '#D7D7D7',
+
           // 背景色
           'base-100': '#FFF4E1'
           // info: '#3abff8',

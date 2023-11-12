@@ -21,7 +21,7 @@ export const WeightChart = ({ filteredData }) => {
       height={400}
       data={filteredData}
       margin={{ top: 30, right: 40, bottom: 20, left: 10 }}
-      className="mt-6 rounded-xl bg-ligth-white"
+      className="rounded-xl bg-ligth-white"
     >
       <Line type="monotone" dataKey="careWeight" stroke="#F2B3B3" strokeWidth={2} unit="g" />
       <CartesianGrid stroke="#ccc" strokeDasharray="3 3" />
