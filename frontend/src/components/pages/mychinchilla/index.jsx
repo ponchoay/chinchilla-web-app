@@ -25,15 +25,13 @@ export const MyChinchillaPage = () => {
   }, [])
 
   return (
-    <div className="my-40 grid place-content-center place-items-center">
+    <div className="mx-auto my-28 grid place-content-center place-items-center">
       <h1 className="text-center text-2xl font-bold tracking-widest text-dark-blue">
         マイチンチラ
       </h1>
       <div
-        className={`mt-6 grid ${
-          allChinchillas.length === 1
-            ? 'grid-cols-1 place-items-center'
-            : 'grid-cols-2 gap-x-20 gap-y-14'
+        className={`mt-6 grid grid-cols-1 ${
+          allChinchillas.length === 1 ? 'place-items-center' : 'gap-y-14 sm:grid-cols-2 sm:gap-x-20'
         }`}
       >
         {allChinchillas.map((chinchilla) => (
@@ -66,10 +64,9 @@ export const MyChinchillaPage = () => {
       <Link href="/chinchilla-registration">
         <button
           type="button"
-          className="btn btn-secondary fixed bottom-32 right-40 z-10 grid h-[80px] w-[80px] place-content-center place-items-center rounded-[50%] bg-light-pink"
+          className="btn btn-circle btn-secondary btn-md fixed bottom-20 right-5 z-10 grid place-content-center place-items-center bg-light-pink text-white sm:bottom-40 sm:right-16 lg:bottom-32 lg:right-40"
         >
-          <FontAwesomeIcon icon={faPlus} className="absolute top-3 text-4xl text-white" />
-          <span className="absolute bottom-3 text-sm text-white">登録</span>
+          <FontAwesomeIcon icon={faPlus} className="text-xl" />
         </button>
       </Link>
     </div>
