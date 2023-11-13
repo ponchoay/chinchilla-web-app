@@ -56,7 +56,7 @@ export const SignUpPage = () => {
   }
 
   return (
-    <div className="my-40 grid place-content-center place-items-center">
+    <div className="mx-3 my-28 grid place-content-center place-items-center">
       <h1 className="text-center text-2xl font-bold tracking-widest text-dark-blue">新規登録</h1>
 
       <SignupSigninForm
@@ -68,7 +68,7 @@ export const SignUpPage = () => {
         emailTitle="メールアドレス"
         passwordTitle="パスワード"
         buttonName="新規登録"
-        addStyle="btn-primary h-16 w-40"
+        addStyle="btn-primary h-14 w-32"
       />
 
       <Link href="/signin" className="link-hover link mt-10">
