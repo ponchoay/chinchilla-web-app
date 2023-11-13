@@ -183,7 +183,7 @@ export const ChinchillaProfilePage = () => {
   }
 
   return (
-    <div className="my-40 grid place-content-center place-items-center">
+    <div className="mx-3 my-28 grid place-content-center place-items-center">
       <h1 className="text-center text-2xl font-bold tracking-widest text-dark-blue">
         プロフィール
       </h1>
@@ -195,13 +195,11 @@ export const ChinchillaProfilePage = () => {
         {isEditing ? (
           <>
             <div className="relative">
-              <button type="button" onClick={handleClickChangeImage} className=" mt-6">
+              <button type="button" onClick={handleClickChangeImage} className="mt-6 w-36 sm:w-48">
                 <img
                   src={resultImage()}
-                  width="200"
-                  height="200"
                   alt="プロフィール画像"
-                  className="h-[200px] w-[200px] rounded-3xl border border-solid border-dark-blue bg-ligth-white"
+                  className="aspect-square h-auto w-full rounded-3xl border border-solid border-dark-blue bg-ligth-white"
                 />
                 <FontAwesomeIcon
                   icon={faCirclePlus}
@@ -216,7 +214,7 @@ export const ChinchillaProfilePage = () => {
               ref={imageInputRef}
               className="file-input file-input-bordered file-input-primary hidden w-full max-w-xs"
             />
-            <div className="form-control mt-6 h-32 w-96">
+            <div className="form-control mt-6 h-32 w-80 sm:w-96">
               <label htmlFor="chinchillaName" className="label">
                 <span className="text-base text-dark-black">名前</span>
                 <span className="label-text-alt text-dark-black">
@@ -234,14 +232,14 @@ export const ChinchillaProfilePage = () => {
                 <p className="label text-base text-dark-pink">{errors.chinchillaName.message}</p>
               )}
             </div>
-            <div className="form-control mt-3 h-32 w-96">
-              <label htmlFor="chinchillaSex" className="label">
+            <div className="form-control mt-3 h-32 w-80 sm:w-96">
+              <p className="label">
                 <span className="text-base text-dark-black">性別</span>
                 <span className="label-text-alt text-dark-black">
                   <FontAwesomeIcon icon={faAsterisk} className="mr-1 text-xs text-dark-pink" />
                   必須入力
                 </span>
-              </label>
+              </p>
               <div className="flex h-12 w-full justify-around rounded-lg border border-solid border-dark-blue bg-ligth-white px-1">
                 {['オス', 'メス', '不明'].map((sex) => (
                   <React.Fragment key={sex}>
@@ -266,7 +264,7 @@ export const ChinchillaProfilePage = () => {
                 <p className="label text-base text-dark-pink">{errors.chinchillaSex.message}</p>
               )}
             </div>
-            <div className="form-control mt-3 h-32 w-96">
+            <div className="form-control mt-3 h-32 w-80 sm:w-96">
               <label htmlFor="chinchillaBirthday" className="label">
                 <span className="text-base text-dark-black">誕生日</span>
               </label>
@@ -282,7 +280,7 @@ export const ChinchillaProfilePage = () => {
                 </p>
               )}
             </div>
-            <div className="form-control mt-3 h-32 w-96">
+            <div className="form-control mt-3 h-32 w-80 sm:w-96">
               <label htmlFor="chinchillaMetDay" className="label">
                 <span className="text-base text-dark-black">お迎え日</span>
               </label>
@@ -296,7 +294,7 @@ export const ChinchillaProfilePage = () => {
                 <p className="label text-base text-dark-pink">{errors.chinchillaMetDay.message}</p>
               )}
             </div>
-            <div className="form-control my-6 h-[500px] w-[500px]">
+            <div className="form-control my-6 h-96 w-80 sm:h-[500px] sm:w-[500px]">
               <label htmlFor="chinchillaMemo" className="label">
                 <span className="label-text text-base text-dark-black">メモ</span>
               </label>
@@ -304,14 +302,14 @@ export const ChinchillaProfilePage = () => {
                 id="chinchillaMemo"
                 placeholder="メモを記入してください。"
                 {...register('chinchillaMemo')}
-                className="w-ful textarea textarea-primary h-96 border-dark-blue bg-ligth-white text-base text-dark-black"
+                className="w-ful textarea textarea-primary h-80 border-dark-blue bg-ligth-white text-base text-dark-black sm:h-96"
               ></textarea>
               {errors.chinchillaMemo && (
                 <p className="label text-base text-dark-pink">{errors.chinchillaMemo.message}</p>
               )}
             </div>
             <div>
-              <Button type="submit" addStyle="btn-primary mr-24 h-16 w-40">
+              <Button type="submit" addStyle="btn-primary mx-3 h-14 w-32">
                 保存
               </Button>
               <Button
@@ -323,7 +321,7 @@ export const ChinchillaProfilePage = () => {
                   setPreviewImage('')
                   setChinchillaImage('')
                 }}
-                addStyle="btn-secondary h-16 w-40"
+                addStyle="btn-secondary mx-3 h-14 w-32"
               >
                 戻る
               </Button>
@@ -331,20 +329,18 @@ export const ChinchillaProfilePage = () => {
           </>
         ) : (
           <>
-            <div className="mt-6">
+            <div className="mt-6 w-36 sm:w-48">
               <img
                 src={
                   selectedChinchilla.chinchillaImage?.url
                     ? selectedChinchilla.chinchillaImage.url
                     : '/images/default.svg'
                 }
-                width="200"
-                height="200"
                 alt="プロフィール画像"
-                className="h-[200px] w-[200px] rounded-3xl border border-solid border-ligth-white bg-ligth-white"
+                className="aspect-square h-auto w-full rounded-3xl border border-solid border-ligth-white bg-ligth-white"
               />
             </div>
-            <div className="mt-8 h-[290px] w-[500px] rounded-xl bg-ligth-white">
+            <div className="mt-8 h-[290px] w-80 rounded-xl bg-ligth-white sm:w-[500px]">
               <DisplayChinchillaProfileItem
                 label="名前"
                 value={selectedChinchilla.chinchillaName}
@@ -371,7 +367,7 @@ export const ChinchillaProfilePage = () => {
                 />
                 <p className=" text-left text-base text-dark-black">メモ</p>
               </div>
-              <div className="h-96 w-[500px] overflow-y-auto rounded-xl bg-ligth-white p-5">
+              <div className="h-80 w-80 overflow-y-auto rounded-xl bg-ligth-white p-5 sm:h-96 sm:w-[500px]">
                 <p className="whitespace-pre-wrap text-left text-base text-dark-black">
                   {selectedChinchilla.chinchillaMemo}
                 </p>
@@ -389,14 +385,14 @@ export const ChinchillaProfilePage = () => {
                   setValue('chinchillaMetDay', selectedChinchilla.chinchillaMetDay)
                   setValue('chinchillaMemo', selectedChinchilla.chinchillaMemo)
                 }}
-                addStyle="btn-primary mr-24 h-16 w-40"
+                addStyle="btn-primary mx-3 h-14 w-32"
               >
                 編集
               </Button>
               <Button
                 type="button"
                 click={() => setIsModalOpen(true)}
-                addStyle="btn-secondary h-16 w-40"
+                addStyle="btn-secondary mx-3 h-14 w-32"
               >
                 削除
               </Button>
