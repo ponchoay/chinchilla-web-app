@@ -71,12 +71,10 @@ export const Header = () => {
 
   return (
     <header className="fixed top-0 z-50 h-16 w-full bg-dark-blue">
-      <div className="mx-auto flex h-full max-w-screen-lg items-center justify-between">
-        <div className="my-auto ml-12">
-          <Link href="/">
-            <img src="/images/chinchilla-logo.svg" width="170" height="45" alt="チンチラのロゴ" />
-          </Link>
-        </div>
+      <div className="mx-auto flex h-full w-11/12 max-w-screen-md items-center justify-between">
+        <Link href="/">
+          <img src="/images/chinchilla-logo.svg" width="170" height="45" alt="チンチラのロゴ" />
+        </Link>
         {isSignedIn && currentUser ? (
           <>
             {/* 選択中のチンチラ */}
@@ -149,12 +147,18 @@ export const Header = () => {
             </Link>
           </>
         ) : (
-          <div className="mr-12 flex">
-            <Link href="/signup">
-              <Button addStyle="btn-primary mr-6 h-4 w-28">新規登録</Button>
+          <div className="flex h-full items-center">
+            <Link
+              href="/signup"
+              className="py-auto h-full px-3 py-5 text-center text-sm text-ligth-white transition-colors duration-200 hover:bg-slate-200/50"
+            >
+              新規登録
             </Link>
-            <Link href="/signin">
-              <Button addStyle="btn-secondary h-4 w-28">ログイン</Button>
+            <Link
+              href="/signin"
+              className="py-auto h-full px-3 py-5 text-center text-sm text-ligth-white transition-colors duration-200 hover:bg-slate-200/50"
+            >
+              ログイン
             </Link>
           </div>
         )}
