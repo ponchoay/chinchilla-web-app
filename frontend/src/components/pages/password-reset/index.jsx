@@ -51,11 +51,11 @@ export const PasswordResetPage = () => {
   }
 
   return (
-    <div className="my-40 grid place-content-center place-items-center">
+    <div className="mx-3 my-28 grid place-content-center place-items-center">
       <h1 className="text-center text-2xl font-bold tracking-widest text-dark-blue">
         パスワードの再設定
       </h1>
-      <h3 className="my-6 text-center text-base text-dark-black">
+      <h3 className="my-6 px-3 text-center text-base text-dark-black">
         パスワード再設定用のURLを送信します。
         <br />
         ご登録いただいているメールアドレスを入力してください。
@@ -65,7 +65,7 @@ export const PasswordResetPage = () => {
         onSubmit={handleSubmit(onSubmit)}
         className="grid place-content-center place-items-center"
       >
-        <div className="form-control my-6 h-32 w-96">
+        <div className="form-control my-6 h-32 w-80 sm:w-96">
           <label htmlFor="email" className="label">
             <span className="text-base text-dark-black">メールアドレス</span>
           </label>
@@ -79,7 +79,7 @@ export const PasswordResetPage = () => {
           />
           {errors.email && <p className="label text-base text-dark-pink">{errors.email.message}</p>}
         </div>
-        <Button btnType="submit" disabled={!dirtyFields.email} addStyle="btn-primary h-16 w-40">
+        <Button btnType="submit" disabled={!dirtyFields.email} addStyle="btn-primary h-14 w-32">
           送信
         </Button>
       </form>
