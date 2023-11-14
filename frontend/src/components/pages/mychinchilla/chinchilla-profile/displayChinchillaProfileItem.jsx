@@ -1,7 +1,7 @@
 export const DisplayChinchillaProfileItem = ({ label, value }) => {
   return (
-    <div className="mx-10 mt-5 flex border-b border-solid border-b-light-black pb-2">
-      <p className="w-28 text-center text-base text-dark-black">{label}</p>
+    <div className="mx-5 mt-5 flex border-b border-solid border-b-light-black pb-2 sm:mx-10">
+      <p className="w-20 text-center text-base text-dark-black sm:w-28">{label}</p>
       <p className="grow text-center text-base text-dark-black">{value}</p>
     </div>
   )

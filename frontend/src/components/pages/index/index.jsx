@@ -5,9 +5,9 @@ import { Button } from 'src/components/shared/Button'
 
 export const IndexPage = () => {
   return (
-    <div className="my-40 grid place-content-center place-items-center">
+    <div className="mx-3 my-28 grid place-content-center place-items-center">
       <Carousel />
-      <p className="my-16 text-center text-dark-black">
+      <p className="mb-12 mt-8 text-center text-base text-dark-black">
         チンチラ専用の飼育記録アプリです。
         <br />
         <br />
@@ -18,10 +18,10 @@ export const IndexPage = () => {
       </p>
       <div>
         <Link href="/signup">
-          <Button addStyle="btn-primary mr-24 h-16 w-40">新規登録</Button>
+          <Button addStyle="btn-primary mx-3 h-14 w-32">新規登録</Button>
         </Link>
         <Link href="/signin">
-          <Button addStyle="btn-secondary h-16 w-40">ログイン</Button>
+          <Button addStyle="btn-secondary mx-3 h-14 w-32">ログイン</Button>
         </Link>
       </div>
     </div>

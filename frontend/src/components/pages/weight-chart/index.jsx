@@ -29,6 +29,14 @@ export const WeightChartPage = () => {
   const [averageWeight, setAverageWeight] = useState(null)
   const [dataCount, setDataCount] = useState(null)
 
+  // ラジオボタンの選択肢
+  const radioItems = [
+    { range: '1month', label: '過去1か月' },
+    { range: '6months', label: '過去6か月' },
+    { range: '1year', label: '過去1年間' },
+    { range: 'all', label: '全期間' }
+  ]
+
   // 日本のタイムゾーンを取得
   const toJST = (date) => utcToZonedTime(date, 'Asia/Tokyo')
 
@@ -189,7 +197,7 @@ export const WeightChartPage = () => {
   }
 
   return (
-    <div className="my-40 grid place-content-center place-items-center">
+    <div className="mx-3 my-28  grid place-content-center place-items-center">
       <h1 className="text-center text-2xl font-bold tracking-widest text-dark-blue">体重</h1>
 
       {/* グラフ */}
@@ -199,46 +207,21 @@ export const WeightChartPage = () => {
 
       {/* 表示範囲のラジオボタン */}
       <div className="join mt-10">
-        <input
-          id="1month"
-          type="radio"
-          name="options"
-          onChange={() => handleTimeRangeChange('1month')}
-          aria-label="過去1か月"
-          checked={chinchillaId && timeRange === '1month'}
-          className="btn join-item"
-        />
-        <input
-          id="6months"
-          type="radio"
-          name="options"
-          onChange={() => handleTimeRangeChange('6months')}
-          aria-label="過去6か月"
-          checked={chinchillaId && timeRange === '6months'}
-          className="btn join-item"
-        />
-        <input
-          id="1year"
-          type="radio"
-          name="options"
-          onChange={() => handleTimeRangeChange('1year')}
-          aria-label="過去1年間"
-          checked={chinchillaId && timeRange === '1year'}
-          className="btn join-item"
-        />
-        <input
-          id="all"
-          type="radio"
-          name="options"
-          onChange={() => handleTimeRangeChange('all')}
-          aria-label="全期間"
-          checked={chinchillaId && timeRange === 'all'}
-          className="btn join-item px-7"
-        />
+        {radioItems.map((item) => (
+          <input
+            id={item.range}
+            type="radio"
+            name="options"
+            onChange={() => handleTimeRangeChange(item.range)}
+            aria-label={item.label}
+            checked={chinchillaId && timeRange === item.range}
+            className="btn join-item px-3 sm:px-5"
+          />
+        ))}
       </div>
 
       {/* まとめ */}
-      <div className="mt-6 h-[150px] w-[400px] rounded-xl bg-ligth-white p-3">
+      <div className="mt-6 h-[150px] w-80 rounded-xl bg-ligth-white p-3 sm:w-[400px]">
         <div className="mx-10 mt-5 flex items-center border-b border-solid border-b-light-black pb-2">
           <p className="w-28 text-center text-base text-dark-black">平均体重</p>
           <div className="flex grow justify-evenly text-center">

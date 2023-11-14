@@ -99,7 +99,7 @@ export const ChinchillaRegistrationPage = () => {
   }
 
   return (
-    <div className="my-40 grid place-content-center place-items-center">
+    <div className="mx-3 my-28 grid place-content-center place-items-center">
       <h1 className="text-center text-2xl font-bold tracking-widest text-dark-blue">
         チンチラの登録
       </h1>
@@ -109,13 +109,11 @@ export const ChinchillaRegistrationPage = () => {
         className="grid place-content-center place-items-center"
       >
         <div className="relative">
-          <button type="button" onClick={handleClickChangeImage} className=" mt-6">
+          <button type="button" onClick={handleClickChangeImage} className="mt-6 w-36 sm:w-48">
             <img
               src={previewImage ? previewImage : '/images/default.svg'}
-              width="200"
-              height="200"
               alt="プロフィール画像"
-              className="h-[200px] w-[200px] rounded-3xl border border-solid border-dark-blue bg-ligth-white"
+              className="aspect-square h-auto w-full rounded-3xl border border-solid border-dark-blue bg-ligth-white"
             />
             <FontAwesomeIcon
               icon={faCirclePlus}
@@ -130,7 +128,7 @@ export const ChinchillaRegistrationPage = () => {
           ref={imageInputRef}
           className="file-input file-input-bordered file-input-primary hidden w-full max-w-xs"
         />
-        <div className="form-control mt-6 h-32 w-96">
+        <div className="form-control mt-6 h-32 w-80 sm:w-96">
           <label htmlFor="chinchillaName" className="label">
             <span className="text-base text-dark-black">名前</span>
             <span className="label-text-alt text-dark-black">
@@ -149,14 +147,14 @@ export const ChinchillaRegistrationPage = () => {
             <p className="label text-base text-dark-pink">{errors.chinchillaName.message}</p>
           )}
         </div>
-        <div className="form-control mt-3 h-32 w-96">
-          <label htmlFor="chinchillaSex" className="label">
+        <div className="form-control mt-3 h-32 w-80 sm:w-96">
+          <p className="label">
             <span className="text-base text-dark-black">性別</span>
             <span className="label-text-alt text-dark-black">
               <FontAwesomeIcon icon={faAsterisk} className="mr-1 text-xs text-dark-pink" />
               必須入力
             </span>
-          </label>
+          </p>
           <div className="flex h-12 w-full justify-around rounded-lg border border-solid border-dark-blue bg-ligth-white px-1">
             {['オス', 'メス', '不明'].map((sex) => (
               <React.Fragment key={sex}>
@@ -181,7 +179,7 @@ export const ChinchillaRegistrationPage = () => {
             <p className="label text-base text-dark-pink">{errors.chinchillaSex.message}</p>
           )}
         </div>
-        <div className="form-control mt-3 h-32 w-96">
+        <div className="form-control mt-3 h-32 w-80 sm:w-96">
           <label htmlFor="chinchillaBirthday" className="label">
             <span className="text-base text-dark-black">誕生日</span>
           </label>
@@ -195,7 +193,7 @@ export const ChinchillaRegistrationPage = () => {
             <p className="label text-base text-dark-pink">{errors.chinchillaBirthday.message}</p>
           )}
         </div>
-        <div className="form-control mb-6 mt-3 h-32 w-96">
+        <div className="form-control mb-6 mt-3 h-32 w-80 sm:w-96">
           <label htmlFor="chinchillaMetDay" className="label">
             <span className="text-base text-dark-black">お迎え日</span>
           </label>
@@ -212,7 +210,7 @@ export const ChinchillaRegistrationPage = () => {
         <Button
           type="submit"
           disabled={!dirtyFields.chinchillaName || !dirtyFields.chinchillaSex ? true : false}
-          addStyle="btn-primary h-16 w-40"
+          addStyle="btn-primary h-14 w-32"
         >
           登録
         </Button>

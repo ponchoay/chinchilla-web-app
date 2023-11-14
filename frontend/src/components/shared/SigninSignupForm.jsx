@@ -27,7 +27,7 @@ export const SignupSigninForm = ({
       onSubmit={handleSubmit(onSubmit)}
       className="grid place-content-center place-items-center"
     >
-      <div className="form-control my-6 h-32 w-96">
+      <div className="form-control my-6 h-32 w-80 sm:w-96">
         <label htmlFor="email" className="label">
           <span className="text-base text-dark-black">{emailTitle}</span>
         </label>
@@ -41,7 +41,7 @@ export const SignupSigninForm = ({
         />
         {errors.email && <p className="label text-base text-dark-pink">{errors.email.message}</p>}
       </div>
-      <div className="form-control mb-6 h-32 w-96">
+      <div className="form-control mb-6 h-32 w-80 sm:w-96">
         <label htmlFor="password" className="label">
           <span className="text-base text-dark-black">{passwordTitle}</span>
           <span className="label-text-alt text-sm text-dark-black">
@@ -50,14 +50,14 @@ export const SignupSigninForm = ({
           </span>
         </label>
         <div className="flex items-center">
-          <div className="relative">
+          <div className="relative w-full">
             <input
               id="password"
               type={isRevealPassword ? 'text' : 'password'}
               autoComplete="current-password"
               {...register('password')}
               placeholder="password"
-              className="input input-bordered input-primary input-md w-96 border-dark-blue bg-ligth-white text-base text-dark-black"
+              className="input input-bordered input-primary input-md w-full border-dark-blue bg-ligth-white text-base text-dark-black"
             />
             <span onClick={togglePassword} role="presentation" className="absolute right-3 top-3">
               {isRevealPassword ? (
