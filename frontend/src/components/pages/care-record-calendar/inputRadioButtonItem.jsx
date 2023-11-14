@@ -13,8 +13,8 @@ export const InputRadioButtonItem = ({ label, item, value, setValue }) => {
   }
 
   return (
-    <div className="mx-10 mt-6 flex items-center border-b border-solid border-b-light-black">
-      <p className="w-28 text-center text-base text-dark-black">{label}</p>
+    <div className="mx-5 mt-6 flex items-center border-b border-solid border-b-light-black sm:mx-10">
+      <p className="w-24 text-center text-base text-dark-black sm:w-28">{label}</p>
       <div className="flex grow justify-evenly text-center text-base text-dark-black">
         {['good', 'usually', 'bad'].map((status) => (
           <React.Fragment key={`care${item}Is${status}`}>
