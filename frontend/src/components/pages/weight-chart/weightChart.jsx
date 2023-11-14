@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts'
 
 export const WeightChart = ({ filteredData }) => {
@@ -15,12 +16,31 @@ export const WeightChart = ({ filteredData }) => {
     return null
   }
 
+  // ウィンドウサイズにあわせて横幅を変更
+  const [chartSize, setChartSize] = useState(
+    window.innerWidth >= 768 ? 700 : window.innerWidth >= 525 ? 500 : 350
+  )
+
+  useEffect(() => {
+    const handleResize = () => {
+      setChartSize(window.innerWidth >= 768 ? 700 : window.innerWidth >= 525 ? 500 : 350)
+    }
+
+    // マウント時にイベントリスナーを設定
+    window.addEventListener('resize', handleResize)
+
+    // アンマウント時にクリーンアップ
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [])
+
   return (
     <LineChart
-      width={700}
+      width={chartSize}
       height={400}
       data={filteredData}
-      margin={{ top: 30, right: 40, bottom: 20, left: 10 }}
+      margin={{ top: 30, right: 30, bottom: 20, left: 0 }}
       className="rounded-xl bg-ligth-white"
     >
       <Line type="monotone" dataKey="careWeight" stroke="#F2B3B3" strokeWidth={2} unit="g" />
