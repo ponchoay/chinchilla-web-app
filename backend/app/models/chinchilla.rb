@@ -9,7 +9,7 @@ class Chinchilla < ApplicationRecord
   has_many :cares
 
   # chinchilla_nameのバリデーション（空でないこと,字数制限）
-  validates :chinchilla_name, presence: true, length: { minimum:1, maximum:15 }
+  validates :chinchilla_name, presence: true, length: { minimum:1, maximum:10 }
 
   # chinchilla_sexのバリデーション（空でないこと,指定の値を含むこと）
   validates :chinchilla_sex, presence: true, inclusion: { in: ["オス", "メス", "不明"] }
