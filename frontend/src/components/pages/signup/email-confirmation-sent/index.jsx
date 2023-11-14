@@ -1,32 +1,9 @@
-import { useContext } from 'react'
-import { AuthContext } from 'src/contexts/auth'
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPaperPlane } from '@fortawesome/free-solid-svg-icons'
+import { EmailConfirmationSentNotice } from 'src/components/shared/EmailConfirmationSentNotice'
 
 export const EmailConfirmationSentPage = () => {
-  const { processUser } = useContext(AuthContext)
-
   return (
-    <div className="my-40 grid place-content-center place-items-center">
-      <h1 className="text-center text-2xl font-bold tracking-widest text-dark-blue">
-        認証メール送信
-      </h1>
-      <div className="mt-8 w-[500px] rounded-xl bg-ligth-white p-10">
-        <div className="mx-auto flex h-32 w-32 items-center justify-center rounded-[50%] bg-light-blue">
-          <FontAwesomeIcon icon={faPaperPlane} className="text-5xl font-bold text-ligth-white" />
-        </div>
-        <p className="mt-10 text-center text-base text-dark-black">
-          {processUser?.email}宛に
-          <br />
-          アカウント確認のメールを送信しました。
-        </p>
-        <p className="mt-5 text-center text-base text-dark-black">
-          メール内のリンクをクリックして
-          <br />
-          アカウント登録を完了してください。
-        </p>
-      </div>
+    <div className="mx-3 my-28 grid place-content-center place-items-center">
+      <EmailConfirmationSentNotice subject="アカウント確認用" process="アカウント登録" />
     </div>
   )
 }
