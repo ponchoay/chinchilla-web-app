@@ -16,7 +16,7 @@ export const DisplaySelectChinchilla = ({
           handleFetch()
           setIsModalOpen(true)
         }}
-        className="mx-auto flex items-center"
+        className="flex items-center px-3"
       >
         {/* チンチラが選択されている場合は画像を表示 */}
         {headerName && (
@@ -25,13 +25,13 @@ export const DisplaySelectChinchilla = ({
             width="40"
             height="40"
             alt="プロフィール画像"
-            className="mr-2 h-10 w-10 rounded-[50%] border border-solid border-ligth-white bg-ligth-white"
+            className="mr-1 h-10 w-10 rounded-[50%] border border-solid border-ligth-white bg-ligth-white"
           />
         )}
 
         {/* チンチラが選択されている場合は名前を表示する */}
         {/* 未選択の場合は「チンチラを選択」を表示 */}
-        <p className="text-base text-ligth-white transition-colors duration-200 hover:text-slate-200">
+        <p className="hidden text-base text-ligth-white transition-colors duration-200 hover:text-slate-200 sm:block">
           {headerName ? headerName : 'チンチラを選択'}
           {!headerName && (
             <FontAwesomeIcon icon={faHandPointer} className="ml-1 text-ligth-white" />

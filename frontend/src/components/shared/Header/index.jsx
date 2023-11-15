@@ -77,7 +77,7 @@ export const Header = () => {
 
   return (
     <header className="fixed top-0 z-50 h-16 w-full bg-dark-blue">
-      <div className="mx-auto flex h-full max-w-screen-md items-center justify-between">
+      <div className="mx-auto flex h-full max-w-screen-md items-center justify-between px-3">
         <Link href="/">
           <img
             src="/images/chinchilla-logo.svg"
@@ -109,12 +109,14 @@ export const Header = () => {
             )}
 
             {/* マイページ */}
-            <Link href="/mypage">
-              <FontAwesomeIcon
-                icon={faCircleUser}
-                className="px-5 text-4xl text-ligth-white transition-colors duration-200 hover:text-slate-200"
-              />
-            </Link>
+            <div className="flex w-[130px] justify-end">
+              <Link href="/mypage">
+                <FontAwesomeIcon
+                  icon={faCircleUser}
+                  className="px-3 text-4xl text-ligth-white transition-colors duration-200 hover:text-slate-200"
+                />
+              </Link>
+            </div>
           </>
         ) : (
           // 未ログイン時
@@ -123,7 +125,7 @@ export const Header = () => {
               <Link
                 key={item.key}
                 href={item.link}
-                className="py-auto px-3 text-center text-sm text-ligth-white transition-colors duration-200 hover:bg-slate-200/50"
+                className="h-full px-3 py-[22px] text-center text-sm text-ligth-white transition-colors duration-200 hover:bg-slate-200/50"
               >
                 {item.label}
               </Link>
