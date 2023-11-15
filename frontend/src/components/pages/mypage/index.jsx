@@ -18,18 +18,21 @@ export const MyPagePage = () => {
   // 手続き
   const processItems = [
     {
+      key: 'emailChange',
       link: '/mypage/email-change',
       icon: faEnvelope,
       addStyle: 'hover:rounded-t-xl',
       label: 'メールアドレスを変更する'
     },
     {
+      key: 'passwordChange',
       link: '/mypage/password-change',
       icon: faKey,
       addStyle: '',
       label: 'パスワードを変更する'
     },
     {
+      key: 'deactivate',
       link: '/mypage/deactivate',
       icon: faTrashCan,
       addStyle: 'hover:rounded-b-xl',
@@ -72,7 +75,7 @@ export const MyPagePage = () => {
       {/* 手続き */}
       <div className="mt-8 w-80 rounded-xl  bg-ligth-white sm:w-[500px]">
         {processItems.map((item) => (
-          <Link href={item.link}>
+          <Link href={item.link} key={item.key}>
             <div
               className={`flex justify-between px-6 py-6 text-base text-dark-black transition-colors duration-200 hover:bg-slate-100/50 hover:text-dark-blue sm:px-16 ${item.addStyle}`}
             >
