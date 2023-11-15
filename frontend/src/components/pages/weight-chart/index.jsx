@@ -209,6 +209,7 @@ export const WeightChartPage = () => {
       <div className="join mt-10">
         {radioItems.map((item) => (
           <input
+            key={item.range}
             id={item.range}
             type="radio"
             name="options"
