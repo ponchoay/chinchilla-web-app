@@ -19,7 +19,7 @@ export const SelectChinchillaMordal = ({
             value={chinchillaId}
             onChange={handleSelectChinchilla}
             disabled={headerDisabled === true}
-            className="w-ful select select-bordered select-primary border-dark-blue bg-ligth-white text-base font-light text-dark-black"
+            className="select select-bordered select-primary border-dark-blue bg-ligth-white text-base font-light text-dark-black"
           >
             <option hidden value="">
               選択してください

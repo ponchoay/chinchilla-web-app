@@ -77,7 +77,7 @@ export const MyPagePage = () => {
         {processItems.map((item) => (
           <Link href={item.link} key={item.key}>
             <div
-              className={`flex justify-between px-6 py-6 text-base text-dark-black transition-colors duration-200 hover:bg-slate-100/50 hover:text-dark-blue sm:px-16 ${item.addStyle}`}
+              className={`flex justify-between p-6 text-base text-dark-black transition-colors duration-200 hover:bg-slate-100/50 hover:text-dark-blue sm:px-16 ${item.addStyle}`}
             >
               <FontAwesomeIcon icon={item.icon} className="mr-5 pt-1" />
               <p>{item.label}</p>

@@ -226,7 +226,7 @@ export const ChinchillaProfilePage = () => {
                 id="chinchillaName"
                 type="text"
                 {...register('chinchillaName')}
-                className="w-ful input input-bordered input-primary input-md border-dark-blue bg-ligth-white text-base text-dark-black"
+                className="input input-bordered input-primary input-md border-dark-blue bg-ligth-white text-base text-dark-black"
               />
               {errors.chinchillaName && (
                 <p className="label text-base text-dark-pink">{errors.chinchillaName.message}</p>
@@ -272,7 +272,7 @@ export const ChinchillaProfilePage = () => {
                 id="chinchillaBirthday"
                 type="date"
                 {...register('chinchillaBirthday')}
-                className="w-ful input input-bordered input-primary input-md border-dark-blue bg-ligth-white text-base text-dark-black"
+                className="input input-bordered input-primary input-md border-dark-blue bg-ligth-white text-base text-dark-black"
               />
               {errors.chinchillaBirthday && (
                 <p className="label text-base text-dark-pink">
@@ -288,7 +288,7 @@ export const ChinchillaProfilePage = () => {
                 id="chinchillaMetDay"
                 type="date"
                 {...register('chinchillaMetDay')}
-                className="w-ful input input-bordered input-primary input-md border-dark-blue bg-ligth-white text-base text-dark-black"
+                className="input input-bordered input-primary input-md border-dark-blue bg-ligth-white text-base text-dark-black"
               />
               {errors.chinchillaMetDay && (
                 <p className="label text-base text-dark-pink">{errors.chinchillaMetDay.message}</p>
@@ -306,7 +306,7 @@ export const ChinchillaProfilePage = () => {
                 id="chinchillaMemo"
                 placeholder="メモを記入してください。"
                 {...register('chinchillaMemo')}
-                className="w-ful textarea textarea-primary h-80 border-dark-blue bg-ligth-white text-base text-dark-black sm:h-96"
+                className="textarea textarea-primary h-80 border-dark-blue bg-ligth-white text-base text-dark-black sm:h-96"
               ></textarea>
               {errors.chinchillaMemo && (
                 <p className="label text-base text-dark-pink">{errors.chinchillaMemo.message}</p>

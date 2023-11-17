@@ -13,7 +13,7 @@ export const CareMemoFormItem = ({ careMemo, setCareMemo }) => {
         placeholder="メモを記入してください。"
         value={careMemo}
         onChange={(event) => setCareMemo(event.target.value)}
-        className="w-ful textarea textarea-primary h-80 border-dark-blue bg-ligth-white text-base text-dark-black sm:h-96"
+        className="textarea textarea-primary h-80 border-dark-blue bg-ligth-white text-base text-dark-black sm:h-96"
       ></textarea>
     </div>
   )
