@@ -10,7 +10,7 @@ export const userSchema = z.object({
     .nonempty('パスワードは必須です')
     .min(6, 'パスワードは6文字以上で入力してください')
     .refine((value) => !/\s/.test(value), 'スペースは使用できません')
-    .refine((value) => !/[^\x00-\x7F]+/.test(value), '全角文字は使用できません')
+    .refine((value) => !/[^\u0020-\u007E]+/.test(value), '全角文字は使用できません')
 })
 
 export const sendPasswordResetMailSchema = z.object({
@@ -23,7 +23,7 @@ export const resetPasswordSchema = z.object({
     .nonempty('パスワードは必須です')
     .min(6, 'パスワードは6文字以上で入力してください')
     .refine((value) => !/\s/.test(value), 'スペースは使用できません')
-    .refine((value) => !/[^\x00-\x7F]+/.test(value), '全角文字は使用できません')
+    .refine((value) => !/[^\u0020-\u007E]+/.test(value), '全角文字は使用できません')
 })
 
 export const passwordChangeSchema = z
@@ -33,13 +33,13 @@ export const passwordChangeSchema = z
       .nonempty('パスワードは必須です')
       .min(6, 'パスワードは6文字以上で入力してください')
       .refine((value) => !/\s/.test(value), 'スペースは使用できません')
-      .refine((value) => !/[^\x00-\x7F]+/.test(value), '全角文字は使用できません'),
+      .refine((value) => !/[^\u0020-\u007E]+/.test(value), '全角文字は使用できません'),
     newPassword: z
       .string()
       .nonempty('パスワードは必須です')
       .min(6, 'パスワードは6文字以上で入力してください')
       .refine((value) => !/\s/.test(value), 'スペースは使用できません')
-      .refine((value) => !/[^\x00-\x7F]+/.test(value), '全角文字は使用できません')
+      .refine((value) => !/[^\u0020-\u007E]+/.test(value), '全角文字は使用できません')
   })
   .superRefine(({ currentPassword, newPassword }, ctx) => {
     if (currentPassword === newPassword) {
