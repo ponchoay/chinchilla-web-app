@@ -75,7 +75,7 @@ export const PasswordResetPage = () => {
             autoComplete="email"
             {...register('email')}
             placeholder="your@email.com"
-            className="w-ful input input-bordered input-primary input-md border-dark-blue bg-ligth-white text-base text-dark-black"
+            className="input input-bordered input-primary input-md border-dark-blue bg-ligth-white text-base text-dark-black"
           />
           {errors.email && <p className="label text-base text-dark-pink">{errors.email.message}</p>}
         </div>

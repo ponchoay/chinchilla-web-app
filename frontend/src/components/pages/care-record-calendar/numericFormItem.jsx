@@ -42,7 +42,7 @@ export const NumericFormItem = ({
         allowNegative={false}
         decimalScale={decimalScale}
         suffix={suffix}
-        className="w-ful input input-bordered input-primary input-md border-dark-blue bg-ligth-white text-base text-dark-black"
+        className="input input-bordered input-primary input-md border-dark-blue bg-ligth-white text-base text-dark-black"
       />
     </div>
   )

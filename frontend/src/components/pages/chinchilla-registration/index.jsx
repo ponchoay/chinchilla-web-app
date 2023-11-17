@@ -141,7 +141,7 @@ export const ChinchillaRegistrationPage = () => {
             type="text"
             {...register('chinchillaName')}
             placeholder="チンチラの名前"
-            className="w-ful input input-bordered input-primary input-md border-dark-blue bg-ligth-white text-base text-dark-black"
+            className="input input-bordered input-primary input-md border-dark-blue bg-ligth-white text-base text-dark-black"
           />
           {errors.chinchillaName && (
             <p className="label text-base text-dark-pink">{errors.chinchillaName.message}</p>
@@ -187,7 +187,7 @@ export const ChinchillaRegistrationPage = () => {
             id="chinchillaBirthday"
             type="date"
             {...register('chinchillaBirthday')}
-            className="w-ful input input-bordered input-primary input-md border-dark-blue bg-ligth-white text-base text-dark-black"
+            className="input input-bordered input-primary input-md border-dark-blue bg-ligth-white text-base text-dark-black"
           />
           {errors.chinchillaBirthday && (
             <p className="label text-base text-dark-pink">{errors.chinchillaBirthday.message}</p>
@@ -201,7 +201,7 @@ export const ChinchillaRegistrationPage = () => {
             id="chinchillaMetDay"
             type="date"
             {...register('chinchillaMetDay')}
-            className="w-ful input input-bordered input-primary input-md border-dark-blue bg-ligth-white text-base text-dark-black"
+            className="input input-bordered input-primary input-md border-dark-blue bg-ligth-white text-base text-dark-black"
           />
           {errors.chinchillaMetDay && (
             <p className="label text-base text-dark-pink">{errors.chinchillaMetDay.message}</p>
