@@ -282,7 +282,7 @@ export const CareRecordCalendarPage = () => {
   }
 
   return (
-    <div className="my-40 grid place-content-center place-items-center">
+    <div className="mx-3 my-28 grid place-content-center place-items-center">
       <h1 className="text-center text-2xl font-bold tracking-widest text-dark-blue">
         お世話の記録
       </h1>
@@ -299,7 +299,7 @@ export const CareRecordCalendarPage = () => {
       {careId === 0 ? (
         <>
           {/* 登録モード：お世話の記録 */}
-          <div className="mt-6 h-[300px] w-[500px] rounded-xl border border-solid border-dark-blue bg-ligth-white">
+          <div className="mt-6 h-[300px] w-80 rounded-xl border border-solid border-dark-blue bg-ligth-white sm:w-[500px]">
             <InputRadioButtonItem
               label="食事"
               item="Food"
@@ -388,7 +388,7 @@ export const CareRecordCalendarPage = () => {
                 ? true
                 : false
             }
-            addStyle="btn-primary h-16 w-40"
+            addStyle="btn-primary h-14 w-32"
           >
             登録
           </Button>
@@ -398,7 +398,7 @@ export const CareRecordCalendarPage = () => {
           {isEditing ? (
             <>
               {/* 編集モード：お世話の記録 */}
-              <div className="mt-6 h-[300px] w-[500px] rounded-xl border border-solid border-dark-blue bg-ligth-white">
+              <div className="mt-6 h-[300px] w-80 rounded-xl border border-solid border-dark-blue bg-ligth-white sm:w-[500px]">
                 <InputRadioButtonItem
                   label="食事"
                   item="Food"
@@ -488,7 +488,7 @@ export const CareRecordCalendarPage = () => {
                       ? true
                       : false
                   }
-                  addStyle="btn-primary mr-24 h-16 w-40"
+                  addStyle="btn-primary mx-3 h-14 w-32"
                 >
                   保存
                 </Button>
@@ -499,7 +499,7 @@ export const CareRecordCalendarPage = () => {
                     setHeaderDisabled(false)
                     handleReset()
                   }}
-                  addStyle="btn-secondary h-16 w-40"
+                  addStyle="btn-secondary mx-3 h-14 w-32"
                 >
                   戻る
                 </Button>
@@ -508,14 +508,14 @@ export const CareRecordCalendarPage = () => {
           ) : (
             <>
               {/* 表示モード：お世話の記録 */}
-              <div className="mt-6 h-[400px] w-[500px] rounded-xl  bg-ligth-white">
+              <div className="mt-6 h-96 w-80 rounded-xl bg-ligth-white sm:h-[400px]  sm:w-[500px]">
                 <DisplayRadioButtonItem label="食事" item="careFood" value={careFood} />
                 <DisplayRadioButtonItem label="トイレ" item="careToilet" value={careToilet} />
                 <DisplayRadioButtonItem label="砂浴び" item="careBath" value={careBath} />
                 <DisplayRadioButtonItem label="部屋んぽ" item="carePlay" value={carePlay} />
 
                 {/* 表示モード：体重 */}
-                <div className="mx-10 mt-5 flex items-center border-b border-solid border-b-light-black pb-2">
+                <div className="mx-5 mt-5 flex items-center border-b border-solid border-b-light-black pb-2 sm:mx-10">
                   <p className="w-28 text-center text-base text-dark-black">体重</p>
                   <div className="flex grow justify-evenly text-center">
                     {careWeight && (
@@ -525,7 +525,7 @@ export const CareRecordCalendarPage = () => {
                 </div>
 
                 {/* 表示モード：気温・湿度 */}
-                <div className="mx-10 mt-5 flex items-center border-b border-solid border-b-light-black pb-2">
+                <div className="mx-5 mt-5 flex items-center border-b border-solid border-b-light-black pb-2 sm:mx-10">
                   <p className="w-28 text-center text-base text-dark-black">気温・湿度</p>
                   <div className="flex grow justify-evenly text-center">
                     {careTemperature && (
@@ -547,7 +547,7 @@ export const CareRecordCalendarPage = () => {
                   />
                   <p className=" text-left text-base text-dark-black">メモ</p>
                 </div>
-                <div className="h-96 w-[500px] overflow-y-auto rounded-xl bg-ligth-white p-5">
+                <div className="h-80 w-80 overflow-y-auto rounded-xl bg-ligth-white p-5 sm:h-96 sm:w-[500px]">
                   <p className="whitespace-pre-wrap text-left text-base text-dark-black">
                     {careMemo}
                   </p>
@@ -563,14 +563,14 @@ export const CareRecordCalendarPage = () => {
                     setHeaderDisabled(true)
                   }}
                   disabled={!chinchillaId || !careId ? true : false}
-                  addStyle="btn-primary mr-24 h-16 w-40"
+                  addStyle="btn-primary mx-3 h-14 w-32"
                 >
                   編集
                 </Button>
                 <Button
                   btnType="submit"
                   click={() => setIsModalOpen(true)}
-                  addStyle="btn-secondary h-16 w-40"
+                  addStyle="btn-secondary mx-3 h-14 w-32"
                 >
                   削除
                 </Button>

@@ -48,11 +48,11 @@ export const EmailChangePage = () => {
   }
 
   return (
-    <div className="my-40 grid place-content-center place-items-center">
+    <div className="mx-3 my-28 grid place-content-center place-items-center">
       <h1 className="text-center text-2xl font-bold tracking-widest text-dark-blue">
         メールアドレスの変更
       </h1>
-      <h3 className="my-6 text-center text-base text-dark-black">
+      <h3 className="my-6 px-10 text-center text-base text-dark-black">
         新しいメールアドレスに認証用のURLを送信します
       </h3>
 
@@ -65,7 +65,7 @@ export const EmailChangePage = () => {
         emailTitle="新しいメールアドレス"
         passwordTitle="現在のパスワード"
         buttonName="送信"
-        addStyle="btn-primary h-16 w-40"
+        addStyle="btn-primary h-14 w-32"
       />
     </div>
   )

@@ -54,7 +54,7 @@ export const PasswordResetResetPage = () => {
   }
 
   return (
-    <div className="my-40 grid place-content-center place-items-center">
+    <div className="mx-3 my-28 grid place-content-center place-items-center">
       <h1 className="text-center text-2xl font-bold tracking-widest text-dark-blue">
         パスワードの再設定
       </h1>
@@ -64,7 +64,7 @@ export const PasswordResetResetPage = () => {
         className="grid place-content-center place-items-center"
       >
         {/* 新しいパスワード */}
-        <div className="form-control my-6 mb-12 h-28 w-96">
+        <div className="form-control my-6 mb-12 h-28 w-80 sm:w-96">
           <label htmlFor="password" className="label">
             <span className="text-base text-dark-black">新しいパスワード</span>
             <span className="label-text-alt text-sm text-dark-black">
@@ -79,7 +79,7 @@ export const PasswordResetResetPage = () => {
                 type={isRevealPassword ? 'text' : 'password'}
                 {...register('password')}
                 placeholder="Password"
-                className="input input-bordered input-primary input-md w-96 border-dark-blue bg-ligth-white text-base text-dark-black"
+                className="input input-bordered input-primary input-md w-80 border-dark-blue bg-ligth-white text-base text-dark-black sm:w-96"
               />
               <span onClick={togglePassword} role="presentation" className="absolute right-3 top-3">
                 {isRevealPassword ? (
@@ -96,7 +96,7 @@ export const PasswordResetResetPage = () => {
         </div>
 
         {/* 保存 */}
-        <Button btnType="submit" disabled={!dirtyFields.password} addStyle="btn-primary h-16 w-40">
+        <Button btnType="submit" disabled={!dirtyFields.password} addStyle="btn-primary h-14 w-32">
           保存
         </Button>
       </form>

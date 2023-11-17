@@ -15,6 +15,31 @@ export const MyPagePage = () => {
   const { setIsSignedIn, setCurrentUser, setProcessUser } = useContext(AuthContext)
   const { setChinchillaId, setHeaderName, setHeaderImage } = useContext(SelectedChinchillaIdContext)
 
+  // 手続き
+  const processItems = [
+    {
+      key: 'emailChange',
+      link: '/mypage/email-change',
+      icon: faEnvelope,
+      addStyle: 'hover:rounded-t-xl',
+      label: 'メールアドレスを変更する'
+    },
+    {
+      key: 'passwordChange',
+      link: '/mypage/password-change',
+      icon: faKey,
+      addStyle: '',
+      label: 'パスワードを変更する'
+    },
+    {
+      key: 'deactivate',
+      link: '/mypage/deactivate',
+      icon: faTrashCan,
+      addStyle: 'hover:rounded-b-xl',
+      label: '退会する'
+    }
+  ]
+
   // ログアウト機能
   const handleSignOut = async () => {
     try {
@@ -42,41 +67,29 @@ export const MyPagePage = () => {
       alert('エラーです')
     }
   }
+
   return (
-    <div className="my-40 grid place-content-center place-items-center">
+    <div className="mx-3 my-28 grid place-content-center place-items-center">
       <h1 className="text-center text-2xl font-bold tracking-widest text-dark-blue">マイページ</h1>
-      <div className="mt-8 w-[500px]  rounded-xl bg-ligth-white">
-        {/* メールアドレスの変更 */}
-        <Link href="/mypage/email-change">
-          <div className="flex justify-between px-16 py-6 text-base text-dark-black transition-colors duration-200 hover:rounded-t-xl hover:bg-slate-100/50 hover:text-dark-blue">
-            <FontAwesomeIcon icon={faEnvelope} className="mr-5 pt-1" />
-            <p>メールアドレスを変更する</p>
-            <FontAwesomeIcon icon={faAngleRight} className="ml-auto pt-1" />
-          </div>
-        </Link>
 
-        {/* パスワードの変更 */}
-        <Link href="/mypage/password-change">
-          <div className="flex justify-between px-16 py-6 text-base text-dark-black transition-colors duration-200 hover:bg-slate-100/50 hover:text-dark-blue">
-            <FontAwesomeIcon icon={faKey} className="mr-5 pt-1" />
-            <p>パスワードを変更する</p>
-            <FontAwesomeIcon icon={faAngleRight} className="ml-auto pt-1" />
-          </div>
-        </Link>
-
-        {/* 退会 */}
-        <Link href="/mypage/deactivate">
-          <div className="flex justify-between px-16 py-6 text-base text-dark-black transition-colors duration-200 hover:rounded-b-xl hover:bg-slate-100/50 hover:text-dark-blue">
-            <FontAwesomeIcon icon={faTrashCan} className="mr-5 pt-1" />
-            <p>退会する</p>
-            <FontAwesomeIcon icon={faAngleRight} className="ml-auto pt-1" />
-          </div>
-        </Link>
+      {/* 手続き */}
+      <div className="mt-8 w-80 rounded-xl  bg-ligth-white sm:w-[500px]">
+        {processItems.map((item) => (
+          <Link href={item.link} key={item.key}>
+            <div
+              className={`flex justify-between px-6 py-6 text-base text-dark-black transition-colors duration-200 hover:bg-slate-100/50 hover:text-dark-blue sm:px-16 ${item.addStyle}`}
+            >
+              <FontAwesomeIcon icon={item.icon} className="mr-5 pt-1" />
+              <p>{item.label}</p>
+              <FontAwesomeIcon icon={faAngleRight} className="ml-auto pt-1" />
+            </div>
+          </Link>
+        ))}
       </div>
 
       {/* ログアウト */}
       <div>
-        <Button btnType="submit" click={handleSignOut} addStyle="btn-secondary h-16 w-40 my-12">
+        <Button btnType="submit" click={handleSignOut} addStyle="btn-secondary h-14 w-32 my-12">
           ログアウト
         </Button>
       </div>

@@ -15,7 +15,7 @@ export const NumericFormItem = ({
   suffix
 }) => {
   return (
-    <div className="form-control mt-6 w-96">
+    <div className="form-control mt-6 w-80 sm:w-96">
       <label htmlFor={item} className="label">
         <span className="text-base text-dark-black">{label}</span>
         <div>

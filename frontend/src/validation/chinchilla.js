@@ -9,7 +9,7 @@ export const chinchillaRegistrationSchema = z
     chinchillaName: z
       .string()
       .nonempty('名前は必須です')
-      .max(15, '名前は15文字以下で入力してください'),
+      .max(10, '名前は10文字以下で入力してください'),
     chinchillaSex: z.string().nonempty('性別は必須です'),
     chinchillaBirthday: z.string().nullable(),
     chinchillaMetDay: z.string().nullable()
@@ -59,7 +59,7 @@ export const chinchillaProfileSchema = z
     chinchillaName: z
       .string()
       .nonempty('名前は必須です')
-      .max(15, '名前は15文字以下で入力してください'),
+      .max(10, '名前は10文字以下で入力してください'),
     chinchillaSex: z.string().nonempty('性別は必須です'),
     chinchillaBirthday: z.string().nullable(),
     chinchillaMetDay: z.string().nullable(),

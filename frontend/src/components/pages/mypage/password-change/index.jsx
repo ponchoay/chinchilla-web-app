@@ -57,7 +57,7 @@ export const PasswordChangePage = () => {
   }
 
   return (
-    <div className="my-40 grid place-content-center place-items-center">
+    <div className="mx-3 my-28 grid place-content-center place-items-center">
       <h1 className="text-center text-2xl font-bold tracking-widest text-dark-blue">
         パスワードの変更
       </h1>
@@ -71,7 +71,7 @@ export const PasswordChangePage = () => {
         </h3>
 
         {/* 現在のパスワード */}
-        <div className="form-control my-6 h-32 w-96">
+        <div className="form-control my-6 h-32 w-80 sm:w-96">
           <label htmlFor="currentPassword" className="label">
             <span className="text-base text-dark-black">現在のパスワード</span>
           </label>
@@ -82,7 +82,7 @@ export const PasswordChangePage = () => {
                 type={isRevealCurrentPassword ? 'text' : 'password'}
                 {...register('currentPassword')}
                 placeholder="CurrentPassword"
-                className="input input-bordered input-primary input-md w-96 border-dark-blue bg-ligth-white text-base text-dark-black"
+                className="input input-bordered input-primary input-md w-80 border-dark-blue bg-ligth-white text-base text-dark-black sm:w-96"
               />
               <span
                 onClick={toggleCurremntPassword}
@@ -103,7 +103,7 @@ export const PasswordChangePage = () => {
         </div>
 
         {/* 新しいパスワード */}
-        <div className="form-control mb-6 h-32 w-96">
+        <div className="form-control mb-6 h-32 w-80 sm:w-96">
           <label htmlFor="newPassword" className="label">
             <span className="text-base text-dark-black">新しいパスワード</span>
           </label>
@@ -114,7 +114,7 @@ export const PasswordChangePage = () => {
                 type={isRevealNewPassword ? 'text' : 'password'}
                 {...register('newPassword')}
                 placeholder="NewPassword"
-                className="input input-bordered input-primary input-md w-96 border-dark-blue bg-ligth-white text-base text-dark-black"
+                className="input input-bordered input-primary input-md w-80 border-dark-blue bg-ligth-white text-base text-dark-black sm:w-96"
               />
               <span
                 onClick={toggleNewPassword}
@@ -138,7 +138,7 @@ export const PasswordChangePage = () => {
         <Button
           btnType="submit"
           disabled={!dirtyFields.currentPassword || !dirtyFields.newPassword}
-          addStyle="btn-primary h-16 w-40"
+          addStyle="btn-primary h-14 w-32"
         >
           保存
         </Button>

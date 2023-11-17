@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_12_082210) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_14_044025) do
   create_table "cares", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.date "care_day", null: false
     t.string "care_food"
@@ -32,7 +32,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_12_082210) do
   end
 
   create_table "chinchillas", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "chinchilla_name", limit: 15, null: false
+    t.string "chinchilla_name", limit: 10, null: false
     t.string "chinchilla_sex", null: false
     t.date "chinchilla_birthday"
     t.date "chinchilla_met_day"
