@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import { Kosugi } from 'next/font/google'
 import 'src/styles/globals.css'
 import { ChinchillaProvider } from 'src/contexts/chinchilla'
@@ -14,6 +15,9 @@ config.autoAddCss = false
 export default function App({ Component, pageProps }) {
   return (
     <>
+      <Head>
+        <title>ちらろぐ</title>
+      </Head>
       <style jsx global>{`
         html {
           font-family: ${kosugi.style.fontFamily};
