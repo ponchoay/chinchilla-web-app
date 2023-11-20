@@ -33,8 +33,8 @@ class Api::V1::CaresController < ApplicationController
   def update
     care = Care.find(params[:id])
     if care = care.update!(update_care_params)
-      # 成功した場合、ステータス204を返す
-      render json: care,status: :no_content
+      # 成功した場合、ステータス200を返す
+      render json: care, status: :ok
     else
       #エラー文を取得し、ステータス422を返す
       render json: care.errors, status: :unprocessable_entity
