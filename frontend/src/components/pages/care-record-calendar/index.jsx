@@ -266,8 +266,8 @@ export const CareRecordCalendarPage = () => {
       console.log(updateCareRes)
       console.log(getAllCaresRes.data)
 
-      // ステータス204 no_content
-      if (updateCareRes.status === 204) {
+      // ステータス200 ok
+      if (updateCareRes.status === 200) {
         setAllCares(getAllCaresRes.data)
         setIsEditing(false)
         setHeaderDisabled(false)

@@ -6,13 +6,13 @@ class Api::V1::ChinchillasController < ApplicationController
   def my_chinchillas
     user_id = current_api_v1_user.id
     chinchillas = Chinchilla.where(user_id: user_id)
-    render json: chinchillas.as_json(only: [:id, :chinchilla_name, :chinchilla_image])
+    render json: chinchillas.as_json(only: %w[id chinchilla_name chinchilla_image])
   end
 
   # チンチラ個別プロフィール
   def show
     chinchilla = Chinchilla.find(params[:id])
-    render json:chinchilla
+    render json: chinchilla
   end
 
   # チンチラプロフィール 作成
@@ -20,11 +20,11 @@ class Api::V1::ChinchillasController < ApplicationController
     chinchilla = Chinchilla.new(chinchilla_params)
     chinchilla.user_id = current_api_v1_user.id
 
-    if chinchilla.save!
+    if chinchilla.save
       # 成功した場合、ステータス201を返す
       render json: chinchilla, status: :created
     else
-      #エラー文を取得し、ステータス422を返す
+      # エラー文を取得し、ステータス422を返す
       render json: chinchilla.errors, status: :unprocessable_entity
     end
   end
@@ -32,11 +32,11 @@ class Api::V1::ChinchillasController < ApplicationController
   # チンチラプロフィール 更新
   def update
     chinchilla = Chinchilla.find(params[:id])
-    if chinchilla = chinchilla.update!(chinchilla_params)
-      # 成功した場合、ステータス204を返す
-      render json: chinchilla,status: :no_content
+    if chinchilla.update(chinchilla_params)
+      # 成功した場合、ステータス200を返す
+      render json: chinchilla, status: :ok
     else
-      #エラー文を取得し、ステータス422を返す
+      # エラー文を取得し、ステータス422を返す
       render json: chinchilla.errors, status: :unprocessable_entity
     end
   end
@@ -48,8 +48,11 @@ class Api::V1::ChinchillasController < ApplicationController
   end
 
   private
-  def chinchilla_params
-    params.require(:chinchilla).permit(:chinchilla_name, :chinchilla_sex, :chinchilla_birthday, :chinchilla_met_day, :chinchilla_memo, :chinchilla_image)
-  end
 
+  def chinchilla_params
+    params.require(:chinchilla).permit(
+      :chinchilla_name, :chinchilla_sex, :chinchilla_birthday,
+      :chinchilla_met_day, :chinchilla_memo, :chinchilla_image
+    )
+  end
 end

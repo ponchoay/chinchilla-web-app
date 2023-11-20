@@ -148,8 +148,8 @@ export const ChinchillaProfilePage = () => {
       })
       console.log(res)
 
-      // ステータス204 no_content
-      if (res.status === 204) {
+      // ステータス200 ok
+      if (res.status === 200) {
         fetch()
         setIsEditing(false)
         setHeaderDisabled(false)

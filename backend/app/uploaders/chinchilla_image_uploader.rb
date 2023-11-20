@@ -9,6 +9,6 @@ class ChinchillaImageUploader < CarrierWave::Uploader::Base
 
   # 受け付け可能なファイルの拡張子を指定
   def extension_allowlist
-    %w(jpg jpeg gif png)
+    %w[jpg jpeg gif png]
   end
 end

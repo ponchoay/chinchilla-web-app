@@ -1,0 +1,97 @@
+##################### 基本設定と依存関係 ##################################
+
+#rubocop_todo.ymlに書いてある内容はルール違反してても無視
+inherit_from: .rubocop_todo.yml
+
+require:
+  - rubocop-performance
+  - rubocop-rails
+
+AllCops:
+  # 新ルールを無効化
+  NewCops: disable
+
+  # 対象外
+  Exclude:
+    - 'Gemfile'
+    - 'bin/**/*'
+    - 'db/**/*'
+    - 'log/**/*'
+    - 'tmp/**/*'
+    - 'vendor/**/*'
+    - 'lib/**/*'
+    - 'node_modules/**/*'
+    - 'config/**/*'
+
+
+##################### スタイル ##################################
+
+# 日本語のコメントを許可する
+Style/AsciiComments:
+  Enabled: false
+
+# ドキュメントの無いpublic classを許可する
+Style/Documentation:
+  Enabled: false
+
+# !! のイディオムを許可
+Style/DoubleNegation:
+  Enabled: false
+
+#文字列をfreezeするか
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+# selfが無くても良い時に省略するか。model内において、ローカル変数とメソッド呼び出しの区別をつけた方が分かりやすい場合が多い
+Style/RedundantSelf:
+  Enabled: false
+
+# 文字列リテラルにシングルクォートを使用
+Style/StringLiterals:
+  EnforcedStyle: single_quotes
+
+# シンボルリテラルの不使用を許可
+Style/SymbolLiteral:
+  Enabled: false
+
+# クラスやモジュールをコンパクトに記述
+Style/ClassAndModuleChildren:
+  EnforcedStyle: compact
+
+##################### レイアウト（コードの整形に関連） ##################################
+
+# タブ文字の使用を禁止（代わりにスペースを使用）
+Layout/IndentationStyle:
+  Enabled: false
+
+# 複数行にまたがる引数リストの末尾にカンマを付けない
+Style/TrailingCommaInArguments:
+  EnforcedStyleForMultiline: no_comma
+
+# 行の終わりのセミコロンの使用を禁止
+Style/Semicolon:
+  Enabled: false
+
+##################### メトリクス（コードの複雑さや長さを測定） ##################################
+
+# 変数の代入(A)、メソッドの呼び出し等(B)、条件分岐(C)から算出される複雑度
+Metrics/AbcSize:
+  Max: 30
+
+# 循環的複雑度 ≒ 分岐の数
+Metrics/CyclomaticComplexity:
+  Max: 10
+
+# 1行の文字数
+Layout/LineLength:
+  Max: 100
+
+# メソッドの行数
+Metrics/MethodLength:
+  Max: 20
+
+##################### その他 ##################################
+
+# 日付のタイムゾーンの未設定を許可
+Rails/Date:
+  Enabled: false
