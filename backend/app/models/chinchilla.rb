@@ -13,7 +13,7 @@ class Chinchilla < ApplicationRecord
   validates :chinchilla_name, presence: true, length: { minimum: 1, maximum: 10 }
 
   # chinchilla_sexのバリデーション（空でないこと,指定の値を含むこと）
-  validates :chinchilla_sex, presence: true, inclusion: { in: ['オス', 'メス', '不明'] }
+  validates :chinchilla_sex, presence: true, inclusion: { in: %w[オス メス 不明] }
 
   # chinchilla_birthdayのバリデーション（未来の日付でないこと）
   validate :chinchilla_birthday_cannot_be_in_the_future

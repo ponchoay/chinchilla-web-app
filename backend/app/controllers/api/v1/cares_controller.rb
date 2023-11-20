@@ -13,7 +13,7 @@ class Api::V1::CaresController < ApplicationController
     cares = Care.where(chinchilla_id: params[:chinchilla_id])
                 .where.not(care_weight: nil)
                 .order(:care_day)
-    render json: cares.as_json(only: [:care_day, :care_weight])
+    render json: cares.as_json(only: %w[care_day care_weight])
   end
 
   # お世話記録 作成
