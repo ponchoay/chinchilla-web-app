@@ -6,7 +6,8 @@ class Chinchilla < ApplicationRecord
   mount_uploader :chinchilla_image, ChinchillaImageUploader
 
   # Careモデルと関連付け（1対多の関係）
-  has_many :cares
+  # 親オブジェクトが削除されたら子オブジェクトも削除
+  has_many :cares, dependent: :destroy
 
   # chinchilla_nameのバリデーション（空でないこと,字数制限）
   validates :chinchilla_name, presence: true, length: { minimum:1, maximum:10 }

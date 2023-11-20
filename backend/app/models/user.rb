@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
           :recoverable, :rememberable, :validatable, :confirmable
   include DeviseTokenAuth::Concerns::User
+
   # Chinchillaモデルと関連付け（1対多の関係）
-  has_many :chinchilla
+  # 親オブジェクトが削除されたら子オブジェクトも削除
+  has_many :chinchilla, dependent: :destroy
 end
