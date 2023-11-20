@@ -24,7 +24,7 @@ class Api::V1::CaresController < ApplicationController
       # 成功した場合、ステータス201を返す
       render json: care, status: :created
     else
-      #エラー文を取得し、ステータス422を返す
+      # エラー文を取得し、ステータス422を返す
       render json: care.errors, status: :unprocessable_entity
     end
   end
@@ -36,7 +36,7 @@ class Api::V1::CaresController < ApplicationController
       # 成功した場合、ステータス200を返す
       render json: care, status: :ok
     else
-      #エラー文を取得し、ステータス422を返す
+      # エラー文を取得し、ステータス422を返す
       render json: care.errors, status: :unprocessable_entity
     end
   end

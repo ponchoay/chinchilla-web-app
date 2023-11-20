@@ -2,7 +2,7 @@ class Chinchilla < ApplicationRecord
   # Userモデルに従属
   belongs_to :user
 
-  #アップローダーとchinchilla_imageカラムを紐づけ
+  # アップローダーとchinchilla_imageカラムを紐づけ
   mount_uploader :chinchilla_image, ChinchillaImageUploader
 
   # Careモデルと関連付け（1対多の関係）
