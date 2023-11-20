@@ -32,7 +32,7 @@ class Api::V1::ChinchillasController < ApplicationController
   # チンチラプロフィール 更新
   def update
     chinchilla = Chinchilla.find(params[:id])
-    if chinchilla = chinchilla.update!(chinchilla_params)
+    if chinchilla.update!(chinchilla_params)
       # 成功した場合、ステータス200を返す
       render json: chinchilla, status: :ok
     else

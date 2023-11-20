@@ -32,7 +32,7 @@ class Api::V1::CaresController < ApplicationController
   # お世話記録 更新
   def update
     care = Care.find(params[:id])
-    if care = care.update!(update_care_params)
+    if care.update!(update_care_params)
       # 成功した場合、ステータス200を返す
       render json: care, status: :ok
     else
