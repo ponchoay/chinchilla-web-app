@@ -7,10 +7,11 @@ require:
   - rubocop-performance
   - rubocop-rails
 
-# 対象外
 AllCops:
-  DisplayCopNames: true
-  # TargetRubyVersion: 2.6
+  # 新ルールを無効化
+  NewCops: disable
+
+  # 対象外
   Exclude:
     - 'Gemfile'
     - 'bin/**/*'
@@ -20,19 +21,8 @@ AllCops:
     - 'vendor/**/*'
     - 'lib/**/*'
     - 'node_modules/**/*'
-    - 'config/environments/*'
-    - 'config/puma.rb'
+    - 'config/**/*'
 
-  # 新ルールを有効化
-  NewCops: enable
-
-# trueかfalseを設定しないと警告が出る
-Style/HashEachMethods:
-  Enabled: true
-Style/HashTransformKeys:
-  Enabled: true
-Style/HashTransformValues:
-  Enabled: true
 
 ##################### スタイル ##################################
 
@@ -59,6 +49,14 @@ Style/RedundantSelf:
 # 文字列リテラルにシングルクォートを使用
 Style/StringLiterals:
   EnforcedStyle: single_quotes
+
+# シンボルリテラルの不使用を許可
+Style/SymbolLiteral:
+  Enabled: false
+
+# クラスやモジュールをコンパクトに記述
+Style/ClassAndModuleChildren:
+  EnforcedStyle: compact
 
 ##################### レイアウト（コードの整形に関連） ##################################
 
@@ -87,11 +85,13 @@ Metrics/CyclomaticComplexity:
 # 1行の文字数
 Layout/LineLength:
   Max: 100
-  Exclude:
-    - 'db/migrate/*.rb'
 
 # メソッドの行数
 Metrics/MethodLength:
   Max: 20
-  Exclude:
-    - 'db/migrate/*.rb'
+
+##################### その他 ##################################
+
+# 日付のタイムゾーンの未設定を許可
+Rails/Date:
+  Enabled: false
