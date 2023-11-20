@@ -149,6 +149,7 @@ GEM
     parser (3.2.2.4)
       ast (~> 2.4.1)
       racc
+    prism (0.17.1)
     public_suffix (5.0.3)
     puma (5.6.6)
       nio4r (~> 2.0)
@@ -215,9 +216,14 @@ GEM
       activesupport (>= 4.2.0)
       rack (>= 1.1)
       rubocop (>= 1.33.0, < 2.0)
+    ruby-lsp (0.12.3)
+      language_server-protocol (~> 3.17.0)
+      prism (>= 0.17.1, < 0.18)
+      sorbet-runtime (>= 0.5.5685)
     ruby-progressbar (1.13.0)
     ruby-vips (2.1.4)
       ffi (~> 1.12)
+    sorbet-runtime (0.5.11139)
     ssrf_filter (1.1.1)
     thor (1.2.2)
     timeout (0.4.0)
@@ -250,6 +256,7 @@ DEPENDENCIES
   rubocop
   rubocop-performance
   rubocop-rails
+  ruby-lsp
   tzinfo-data
 
 RUBY VERSION

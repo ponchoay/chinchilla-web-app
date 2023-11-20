@@ -54,6 +54,10 @@ Style/StringLiterals:
 Style/SymbolLiteral:
   Enabled: false
 
+# ハッシュの未省略を許可
+Style/HashSyntax:
+  Enabled: false
+
 # クラスやモジュールをコンパクトに記述
 Style/ClassAndModuleChildren:
   EnforcedStyle: compact

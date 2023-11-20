@@ -11,7 +11,7 @@
   "prettier.ignorePath": "./frontend/.prettierignore",
   // backend
   "[ruby]": {
-    "editor.defaultFormatter": "rubocop.vscode-rubocop"
+    "editor.defaultFormatter": "Shopify.ruby-lsp"
   },
   "rubyLsp.rubyVersionManager": "rbenv",
   "rubyLsp.bundleGemfile": "./backend/Gemfile",
