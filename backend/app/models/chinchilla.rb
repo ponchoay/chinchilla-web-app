@@ -10,7 +10,7 @@ class Chinchilla < ApplicationRecord
   has_many :cares, dependent: :destroy
 
   # chinchilla_nameのバリデーション（空でないこと,字数制限）
-  validates :chinchilla_name, presence: true, length: { minimum:1, maximum:10 }
+  validates :chinchilla_name, presence: true, length: { minimum: 1, maximum: 10 }
 
   # chinchilla_sexのバリデーション（空でないこと,指定の値を含むこと）
   validates :chinchilla_sex, presence: true, inclusion: { in: ['オス', 'メス', '不明'] }
@@ -38,5 +38,5 @@ class Chinchilla < ApplicationRecord
   end
 
   # chinchilla_memoのバリデーション（200文字以下）
-  validates :chinchilla_memo, length: { maximum:200 }
+  validates :chinchilla_memo, length: { maximum: 200 }
 end

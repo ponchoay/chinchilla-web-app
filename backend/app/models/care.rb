@@ -38,7 +38,7 @@ class Care < ApplicationRecord
             allow_nil: true
 
   # care_memoのバリデーション（200文字以下）
-  validates :care_memo, length: { maximum:200 }
+  validates :care_memo, length: { maximum: 200 }
 
   private
 
