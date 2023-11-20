@@ -20,7 +20,7 @@ class Api::V1::ChinchillasController < ApplicationController
     chinchilla = Chinchilla.new(chinchilla_params)
     chinchilla.user_id = current_api_v1_user.id
 
-    if chinchilla.save!
+    if chinchilla.save
       # 成功した場合、ステータス201を返す
       render json: chinchilla, status: :created
     else
@@ -32,7 +32,7 @@ class Api::V1::ChinchillasController < ApplicationController
   # チンチラプロフィール 更新
   def update
     chinchilla = Chinchilla.find(params[:id])
-    if chinchilla.update!(chinchilla_params)
+    if chinchilla.update(chinchilla_params)
       # 成功した場合、ステータス200を返す
       render json: chinchilla, status: :ok
     else

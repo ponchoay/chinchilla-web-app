@@ -43,22 +43,22 @@ class Care < ApplicationRecord
   private
 
   def care_day_cannot_be_in_the_future
-    if care_day.present? && care_day > Date.today
-      errors.add(:care_day, 'は未来の日付に設定できません')
-    end
+    return unless care_day.present? && care_day > Date.today
+
+    errors.add(:care_day, 'は未来の日付に設定できません')
   end
 
   def care_day_must_be_unique_per_chinchilla
     # 同じチンチラに対して同じcare_dayが存在するかをチェック
-    if chinchilla.present? && chinchilla.cares.where(care_day: care_day).exists?
-      errors.add(:care_day, 'は同じチンチラに対して重複することはできません')
-    end
+    return unless chinchilla.present? && chinchilla.cares.where(care_day: care_day).exists?
+
+    errors.add(:care_day, 'は同じチンチラに対して重複することはできません')
   end
 
   def care_temperature_must_have_one_decimal_place
     # care_temperatureの小数第2位を四捨五入した値が、もとの値と一致しないかチェック
-    if care_temperature.present? && (care_temperature.round(1) != care_temperature)
-      errors.add(:care_temperature, 'は小数第1位までの数値である必要があります')
-    end
+    return unless care_temperature.present? && (care_temperature.round(1) != care_temperature)
+
+    errors.add(:care_temperature, 'は小数第1位までの数値である必要があります')
   end
 end

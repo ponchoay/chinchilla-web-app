@@ -20,7 +20,7 @@ class Api::V1::CaresController < ApplicationController
   def create
     care = Care.new(create_care_params)
 
-    if care.save!
+    if care.save
       # 成功した場合、ステータス201を返す
       render json: care, status: :created
     else
@@ -32,7 +32,7 @@ class Api::V1::CaresController < ApplicationController
   # お世話記録 更新
   def update
     care = Care.find(params[:id])
-    if care.update!(update_care_params)
+    if care.update(update_care_params)
       # 成功した場合、ステータス200を返す
       render json: care, status: :ok
     else
