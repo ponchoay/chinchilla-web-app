@@ -38,7 +38,7 @@ export const SignUpPage = () => {
       // ステータス200 OK
       if (res.status === 200) {
         console.log(res.data.data)
-        setProcessUser(res.data.data)
+        setProcessUser(res.data.data.email)
         router.push('/signup/email-confirmation-sent')
         console.log('新規登録成功！')
       } else {
