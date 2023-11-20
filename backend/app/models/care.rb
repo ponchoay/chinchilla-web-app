@@ -8,16 +8,16 @@ class Care < ApplicationRecord
   validate :care_day_must_be_unique_per_chinchilla, on: :create
 
   # care_foodのバリデーション（指定の値を含むこと）
-  validates :care_food, inclusion: { in: ["good", "usually", "bad", ""] }
+  validates :care_food, inclusion: { in: ['good', 'usually', 'bad', ''] }
 
   # care_toiletのバリデーション（指定の値を含むこと）
-  validates :care_toilet, inclusion: { in: ["good", "usually", "bad", ""] }
+  validates :care_toilet, inclusion: { in: ['good', 'usually', 'bad', ''] }
 
   # care_bathのバリデーション（指定の値を含むこと）
-  validates :care_bath, inclusion: { in: ["good", "usually", "bad", ""] }
+  validates :care_bath, inclusion: { in: ['good', 'usually', 'bad', ''] }
 
   # care_playのバリデーション（指定の値を含むこと）
-  validates :care_play, inclusion: { in: ["good", "usually", "bad", ""] }
+  validates :care_play, inclusion: { in: ['good', 'usually', 'bad', ''] }
 
   # care_weightのバリデーション（0より大きく9999以下の整数であること、nullを許容すること）
   validates :care_weight,
@@ -44,21 +44,21 @@ class Care < ApplicationRecord
 
   def care_day_cannot_be_in_the_future
     if care_day.present? && care_day > Date.today
-      errors.add(:care_day, "は未来の日付に設定できません")
+      errors.add(:care_day, 'は未来の日付に設定できません')
     end
   end
 
   def care_day_must_be_unique_per_chinchilla
     # 同じチンチラに対して同じcare_dayが存在するかをチェック
     if chinchilla.present? && chinchilla.cares.where(care_day: care_day).exists?
-      errors.add(:care_day, "は同じチンチラに対して重複することはできません")
+      errors.add(:care_day, 'は同じチンチラに対して重複することはできません')
     end
   end
 
   def care_temperature_must_have_one_decimal_place
     # care_temperatureの小数第2位を四捨五入した値が、もとの値と一致しないかチェック
     if care_temperature.present? && (care_temperature.round(1) != care_temperature)
-      errors.add(:care_temperature, "は小数第1位までの数値である必要があります")
+      errors.add(:care_temperature, 'は小数第1位までの数値である必要があります')
     end
   end
 
