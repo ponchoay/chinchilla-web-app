@@ -39,5 +39,4 @@ class Chinchilla < ApplicationRecord
 
   # chinchilla_memoのバリデーション（200文字以下）
   validates :chinchilla_memo, length: { maximum:200 }
-
 end

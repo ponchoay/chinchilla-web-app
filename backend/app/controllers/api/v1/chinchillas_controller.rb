@@ -48,11 +48,11 @@ class Api::V1::ChinchillasController < ApplicationController
   end
 
   private
+
   def chinchilla_params
     params.require(:chinchilla).permit(
       :chinchilla_name, :chinchilla_sex, :chinchilla_birthday,
       :chinchilla_met_day, :chinchilla_memo, :chinchilla_image
     )
   end
-
 end

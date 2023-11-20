@@ -61,5 +61,4 @@ class Care < ApplicationRecord
       errors.add(:care_temperature, 'は小数第1位までの数値である必要があります')
     end
   end
-
 end

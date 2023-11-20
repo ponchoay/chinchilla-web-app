@@ -66,5 +66,4 @@ class Api::V1::CaresController < ApplicationController
       :care_image1, :care_image2, :care_image3
     )
   end
-
 end
