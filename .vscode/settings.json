@@ -1,3 +1,20 @@
 {
-  "eslint.workingDirectories": ["./frontend"]
+  // 共通
+  "editor.formatOnSave": true,
+
+  // frontend
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "eslint.workingDirectories": ["./frontend"],
+  "prettier.ignorePath": "./frontend/.prettierignore",
+
+
+  // backend
+  "[ruby]": {
+    "editor.defaultFormatter": "Shopify.ruby-lsp"
+  },
+  "rubyLsp.rubyVersionManager": "rbenv",
+  "rubyLsp.bundleGemfile": "./backend/Gemfile",
+  "rubyLsp.formatter": "rubocop"
 }
