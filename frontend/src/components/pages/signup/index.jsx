@@ -9,7 +9,8 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { userSchema } from 'src/validation/auth'
 
 import { PageTitle } from 'src/components/shared/PageTittle'
-import { SignupSigninForm } from 'src/components/shared/SigninSignupForm'
+import { RhfInputForm } from 'src/components/shared/RhfInputForm'
+import { Button } from 'src/components/shared/Button'
 
 export const SignUpPage = () => {
   const router = useRouter()
@@ -17,9 +18,9 @@ export const SignUpPage = () => {
   const confirmSuccessUrl = process.env.NEXT_PUBLIC_CONFIRM_SIGNUP_SUCCESS_URL
 
   const {
-    register,
     handleSubmit,
-    formState: { dirtyFields, errors }
+    control,
+    formState: { dirtyFields }
   } = useForm({
     defaultValues: { email: '', password: '' },
     resolver: zodResolver(userSchema)
@@ -57,22 +58,47 @@ export const SignUpPage = () => {
   }
 
   return (
-    <div className="mx-3 my-28 grid place-content-center place-items-center">
+    <div className="mx-3 my-28 grid place-content-center place-items-center gap-y-6">
       <PageTitle pageTitle="新規登録" />
+      <form
+        noValidate
+        onSubmit={handleSubmit(onSubmit)}
+        className="grid place-content-center place-items-center gap-y-6"
+      >
+        <RhfInputForm
+          htmlFor="email"
+          label="メールアドレス"
+          id="email"
+          type="email"
+          autoComplete="email webauthn"
+          name="email"
+          control={control}
+          placeholder="your@email.com"
+        />
 
-      <SignupSigninForm
-        register={register}
-        handleSubmit={handleSubmit}
-        dirtyFields={dirtyFields}
-        errors={errors}
-        onSubmit={onSubmit}
-        emailTitle="メールアドレス"
-        passwordTitle="パスワード"
-        buttonName="新規登録"
-        addStyle="btn-primary h-14 w-32"
-      />
+        <RhfInputForm
+          htmlFor="password"
+          label="パスワード"
+          explanation="6文字以上の半角英数字"
+          id="password"
+          type="password"
+          autoComplete="current-password webauthn"
+          name="password"
+          control={control}
+          placeholder="password"
+          passwordForm={true}
+        />
 
-      <Link href="/signin" className="link-hover link mt-10 text-base text-dark-black">
+        <Button
+          btnType="submit"
+          disabled={!dirtyFields.email || !dirtyFields.password}
+          addStyle="btn-primary h-14 w-32"
+        >
+          新規登録
+        </Button>
+      </form>
+
+      <Link href="/signin" className="link-hover link text-base text-dark-black">
         ログインはこちら
       </Link>
     </div>
