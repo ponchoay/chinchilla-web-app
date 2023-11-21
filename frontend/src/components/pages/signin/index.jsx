@@ -73,10 +73,10 @@ export const SignInPage = () => {
         addStyle="btn-secondary h-14 w-32"
       />
 
-      <Link href="/password-reset" className="link-hover link mt-10">
+      <Link href="/password-reset" className="link-hover link mt-10 text-base text-dark-black">
         パスワードがわからない場合はこちら
       </Link>
-      <Link href="/signup" className="link-hover link my-2">
+      <Link href="/signup" className="link-hover link my-2 text-base text-dark-black">
         新規登録はこちら
       </Link>
     </div>

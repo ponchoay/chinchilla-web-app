@@ -71,7 +71,7 @@ export const SignUpPage = () => {
         addStyle="btn-primary h-14 w-32"
       />
 
-      <Link href="/signin" className="link-hover link mt-10">
+      <Link href="/signin" className="link-hover link mt-10 text-base text-dark-black">
         ログインはこちら
       </Link>
     </div>
