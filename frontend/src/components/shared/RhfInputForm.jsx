@@ -1,5 +1,7 @@
 import { useController } from 'react-hook-form'
 
+import { useTogglePassword } from 'src/components/shared/hooks/useTogglePassword'
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAsterisk, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 
@@ -13,12 +15,12 @@ export const RhfInputForm = ({
   name,
   control,
   placeholder,
-  passwordForm,
-  isRevealPassword,
-  togglePassword
+  passwordForm
 }) => {
   const { field, fieldState } = useController({ name, control })
   const { error } = fieldState
+
+  const { isRevealPassword, togglePassword } = useTogglePassword()
 
   return (
     <div className="form-control h-32 w-80 sm:w-96">
