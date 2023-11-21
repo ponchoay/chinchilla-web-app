@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react'
+import { useContext } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import Cookies from 'js-cookie'
@@ -25,12 +25,6 @@ export const SignInPage = () => {
     defaultValues: { email: '', password: '' },
     resolver: zodResolver(userSchema)
   })
-
-  // パスワード表示/非表示切り替え
-  const [isRevealPassword, setIsRevealPassword] = useState(false)
-  const togglePassword = () => {
-    setIsRevealPassword((prevState) => !prevState)
-  }
 
   // ログイン機能
   const onSubmit = async (data) => {
@@ -95,8 +89,6 @@ export const SignInPage = () => {
           control={control}
           placeholder="password"
           passwordForm={true}
-          isRevealPassword={isRevealPassword}
-          togglePassword={togglePassword}
         />
 
         <Button
