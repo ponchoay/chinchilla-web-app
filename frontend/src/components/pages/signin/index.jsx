@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useState, useContext } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import Cookies from 'js-cookie'
@@ -10,20 +10,27 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { userSchema } from 'src/validation/auth'
 
 import { PageTitle } from 'src/components/shared/PageTittle'
-import { SignupSigninForm } from 'src/components/shared/SigninSignupForm'
+import { RhfInputForm } from 'src/components/shared/RhfInputForm'
+import { Button } from 'src/components/shared/Button'
 
 export const SignInPage = () => {
   const router = useRouter()
   const { setIsSignedIn, setCurrentUser } = useContext(AuthContext)
 
   const {
-    register,
     handleSubmit,
-    formState: { dirtyFields, errors }
+    control,
+    formState: { dirtyFields }
   } = useForm({
     defaultValues: { email: '', password: '' },
     resolver: zodResolver(userSchema)
   })
+
+  // パスワード表示/非表示切り替え
+  const [isRevealPassword, setIsRevealPassword] = useState(false)
+  const togglePassword = () => {
+    setIsRevealPassword((prevState) => !prevState)
+  }
 
   // ログイン機能
   const onSubmit = async (data) => {
@@ -59,25 +66,52 @@ export const SignInPage = () => {
   }
 
   return (
-    <div className="mx-3 my-28 grid place-content-center place-items-center">
+    <div className="mx-3 my-28 grid place-content-center place-items-center gap-y-6">
       <PageTitle pageTitle="ログイン" />
+      <form
+        noValidate
+        onSubmit={handleSubmit(onSubmit)}
+        className="grid place-content-center place-items-center gap-y-6"
+      >
+        <RhfInputForm
+          htmlFor="email"
+          label="メールアドレス"
+          id="email"
+          type="email"
+          autoComplete="email webauthn"
+          name="email"
+          control={control}
+          placeholder="your@email.com"
+        />
 
-      <SignupSigninForm
-        register={register}
-        handleSubmit={handleSubmit}
-        dirtyFields={dirtyFields}
-        errors={errors}
-        onSubmit={onSubmit}
-        emailTitle="メールアドレス"
-        passwordTitle="パスワード"
-        buttonName="ログイン"
-        addStyle="btn-secondary h-14 w-32"
-      />
+        <RhfInputForm
+          htmlFor="password"
+          label="パスワード"
+          explanation="6文字以上の半角英数字"
+          id="password"
+          type="password"
+          autoComplete="current-password webauthn"
+          name="password"
+          control={control}
+          placeholder="password"
+          passwordForm={true}
+          isRevealPassword={isRevealPassword}
+          togglePassword={togglePassword}
+        />
 
-      <Link href="/password-reset" className="link-hover link mt-10 text-base text-dark-black">
+        <Button
+          btnType="submit"
+          disabled={!dirtyFields.email || !dirtyFields.password}
+          addStyle="btn-secondary h-14 w-32"
+        >
+          ログイン
+        </Button>
+      </form>
+
+      <Link href="/password-reset" className="link-hover link text-base text-dark-black">
         パスワードがわからない場合はこちら
       </Link>
-      <Link href="/signup" className="link-hover link my-2 text-base text-dark-black">
+      <Link href="/signup" className="link-hover link text-base text-dark-black">
         新規登録はこちら
       </Link>
     </div>
