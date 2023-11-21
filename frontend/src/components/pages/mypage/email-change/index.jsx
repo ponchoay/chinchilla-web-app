@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { userSchema } from 'src/validation/auth'
 
+import { PageTitle } from 'src/components/shared/PageTittle'
 import { SignupSigninForm } from 'src/components/shared/SigninSignupForm'
 
 export const EmailChangePage = () => {
@@ -49,9 +50,7 @@ export const EmailChangePage = () => {
 
   return (
     <div className="mx-3 my-28 grid place-content-center place-items-center">
-      <h1 className="text-center text-2xl font-bold tracking-widest text-dark-blue">
-        メールアドレスの変更
-      </h1>
+      <PageTitle pageTitle="メールアドレスの変更" />
       <h3 className="my-6 px-10 text-center text-base text-dark-black">
         新しいメールアドレスに認証用のURLを送信します
       </h3>

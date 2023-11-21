@@ -4,6 +4,7 @@ import Cookies from 'js-cookie'
 import { deleteUser } from 'src/lib/api/auth'
 import { AuthContext } from 'src/contexts/auth'
 
+import { PageTitle } from 'src/components/shared/PageTittle'
 import { DeleteConfirmationModal } from 'src/components/shared/DeleteConfirmationModal'
 
 import { Button } from 'src/components/shared/Button'
@@ -40,9 +41,7 @@ export const DeactivatePage = () => {
 
   return (
     <div className="mx-3 my-28 grid place-content-center place-items-center">
-      <h1 className="text-center text-2xl font-bold tracking-widest text-dark-blue">
-        退会(アカウントを削除)
-      </h1>
+      <PageTitle pageTitle="退会(アカウントを削除)" />
 
       {/* 注意書き */}
       <div className="mt-8 w-80 rounded-xl bg-ligth-white p-5 sm:w-[500px] sm:p-8">

@@ -5,6 +5,8 @@ import { SelectedChinchillaIdContext } from 'src/contexts/chinchilla'
 
 import { utcToZonedTime } from 'date-fns-tz'
 
+import { PageTitle } from 'src/components/shared/PageTittle'
+
 export const WeightChartPage = () => {
   // ハイドレーションエラー回避
   const DynamicWeightChart = dynamic(
@@ -198,7 +200,7 @@ export const WeightChartPage = () => {
 
   return (
     <div className="mx-3 my-28  grid place-content-center place-items-center">
-      <h1 className="text-center text-2xl font-bold tracking-widest text-dark-blue">体重</h1>
+      <PageTitle pageTitle="体重" />
 
       {/* グラフ */}
       <div className="mt-6 h-[400px]">

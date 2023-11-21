@@ -6,6 +6,7 @@ import { signOut } from 'src/lib/api/auth'
 import { AuthContext } from 'src/contexts/auth'
 import { SelectedChinchillaIdContext } from 'src/contexts/chinchilla'
 
+import { PageTitle } from 'src/components/shared/PageTittle'
 import { Button } from 'src/components/shared/Button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faKey, faAngleRight, faEnvelope, faTrashCan } from '@fortawesome/free-solid-svg-icons'
@@ -70,7 +71,7 @@ export const MyPagePage = () => {
 
   return (
     <div className="mx-3 my-28 grid place-content-center place-items-center">
-      <h1 className="text-center text-2xl font-bold tracking-widest text-dark-blue">マイページ</h1>
+      <PageTitle pageTitle="マイページ" />
 
       {/* 手続き */}
       <div className="mt-8 w-80 rounded-xl  bg-ligth-white sm:w-[500px]">

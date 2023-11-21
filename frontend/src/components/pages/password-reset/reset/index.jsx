@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { resetPasswordSchema } from 'src/validation/auth'
 
+import { PageTitle } from 'src/components/shared/PageTittle'
 import { Button } from 'src/components/shared/Button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAsterisk, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
@@ -55,9 +56,7 @@ export const PasswordResetResetPage = () => {
 
   return (
     <div className="mx-3 my-28 grid place-content-center place-items-center">
-      <h1 className="text-center text-2xl font-bold tracking-widest text-dark-blue">
-        パスワードの再設定
-      </h1>
+      <PageTitle pageTitle="パスワードの再設定" />
       <form
         noValidate
         onSubmit={handleSubmit(onSubmit)}

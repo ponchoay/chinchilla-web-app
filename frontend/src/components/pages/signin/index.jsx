@@ -9,6 +9,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { userSchema } from 'src/validation/auth'
 
+import { PageTitle } from 'src/components/shared/PageTittle'
 import { SignupSigninForm } from 'src/components/shared/SigninSignupForm'
 
 export const SignInPage = () => {
@@ -59,7 +60,7 @@ export const SignInPage = () => {
 
   return (
     <div className="mx-3 my-28 grid place-content-center place-items-center">
-      <h1 className="text-center text-2xl font-bold tracking-widest text-dark-blue">ログイン</h1>
+      <PageTitle pageTitle="ログイン" />
 
       <SignupSigninForm
         register={register}
