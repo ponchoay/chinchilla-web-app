@@ -12,8 +12,8 @@ export const RhfInputChinchillaSexRadioForm = ({ name, control }) => {
     <div className="form-control h-32 w-80 sm:w-96">
       <p className="label">
         <span className="text-base text-dark-black">性別</span>
-        <span className="label-text-alt text-dark-black">
-          <FontAwesomeIcon icon={faAsterisk} className="mr-1 text-xs text-dark-pink" />
+        <span className="label-text-alt text-sm text-dark-black">
+          <FontAwesomeIcon icon={faAsterisk} className="mb-[1px] mr-1 text-xs text-dark-pink" />
           必須入力
         </span>
       </p>
@@ -29,8 +29,8 @@ export const RhfInputChinchillaSexRadioForm = ({ name, control }) => {
                 id={sex}
                 type="radio"
                 {...field}
-                name="chinchillaSex"
                 value={sex}
+                defaultChecked={field.value === sex}
                 className="radio-accent radio ml-2"
               />
             </label>
