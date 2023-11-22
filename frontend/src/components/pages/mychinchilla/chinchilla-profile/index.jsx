@@ -15,9 +15,12 @@ import { differenceInYears, differenceInMonths } from 'date-fns'
 import { utcToZonedTime } from 'date-fns-tz'
 
 import { PageTitle } from 'src/components/shared/PageTittle'
+import { RhfInputForm } from 'src/components/shared/RhfInputForm'
+import { RhfInputChinchillaSexRadioForm } from 'src/components/shared/RhfInputChinchillaSexRadioForm'
 import { Button } from 'src/components/shared/Button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAsterisk, faCirclePlus, faFilePen } from '@fortawesome/free-solid-svg-icons'
+import { faCirclePlus, faFilePen } from '@fortawesome/free-solid-svg-icons'
+import { RhfTextareaForm } from 'src/components/shared/RhfTextareaForm'
 
 export const ChinchillaProfilePage = () => {
   const router = useRouter()
@@ -38,19 +41,13 @@ export const ChinchillaProfilePage = () => {
   const [chinchillaImage, setChinchillaImage] = useState(selectedChinchilla.chinchillaImage)
 
   const {
-    register,
     setValue,
     handleSubmit,
+    control,
     clearErrors,
-    formState: { errors }
+    reset,
+    formState: { isDirty }
   } = useForm({
-    defaultValues: {
-      chinchillaName: selectedChinchilla.chinchillaName,
-      chinchillaSex: selectedChinchilla.chinchillaSex,
-      chinchillaBirthday: selectedChinchilla.chinchillaBirthday,
-      chinchillaMetDay: selectedChinchilla.chinchillaMetDay,
-      chinchillaMemo: selectedChinchilla.chinchillaMemo
-    },
     resolver: zodResolver(chinchillaProfileSchema)
   })
 
@@ -156,6 +153,7 @@ export const ChinchillaProfilePage = () => {
         setHeaderDisabled(false)
         setPreviewImage('')
         setChinchillaImage('')
+        reset()
         console.log('チンチラプロフィール更新成功！')
       } else {
         alert('チンチラプロフィール更新失敗')
@@ -184,15 +182,16 @@ export const ChinchillaProfilePage = () => {
   }
 
   return (
-    <div className="mx-3 my-28 grid place-content-center place-items-center">
+    <div className="mx-3 my-28 grid place-content-center place-items-center gap-y-6">
       <PageTitle pageTitle="プロフィール" />
       <form
         noValidate
         onSubmit={handleSubmit(onSubmit)}
-        className="grid place-content-center place-items-center"
+        className="grid place-content-center place-items-center gap-y-6"
       >
         {isEditing ? (
           <>
+            {/* 画像 */}
             <div className="relative">
               <button type="button" onClick={handleClickChangeImage} className="mt-6 w-36 sm:w-48">
                 <img
@@ -213,106 +212,54 @@ export const ChinchillaProfilePage = () => {
               ref={imageInputRef}
               className="file-input file-input-bordered file-input-primary hidden w-full max-w-xs"
             />
-            <div className="form-control mt-6 h-32 w-80 sm:w-96">
-              <label htmlFor="chinchillaName" className="label">
-                <span className="text-base text-dark-black">名前</span>
-                <span className="label-text-alt text-dark-black">
-                  <FontAwesomeIcon icon={faAsterisk} className="mr-1 text-xs text-dark-pink" />
-                  必須入力
-                </span>
-              </label>
-              <input
-                id="chinchillaName"
-                type="text"
-                {...register('chinchillaName')}
-                className="input input-bordered input-primary input-md border-dark-blue bg-ligth-white text-base text-dark-black"
-              />
-              {errors.chinchillaName && (
-                <p className="label text-base text-dark-pink">{errors.chinchillaName.message}</p>
-              )}
-            </div>
-            <div className="form-control mt-3 h-32 w-80 sm:w-96">
-              <p className="label">
-                <span className="text-base text-dark-black">性別</span>
-                <span className="label-text-alt text-dark-black">
-                  <FontAwesomeIcon icon={faAsterisk} className="mr-1 text-xs text-dark-pink" />
-                  必須入力
-                </span>
-              </p>
-              <div className="flex h-12 w-full justify-around rounded-lg border border-solid border-dark-blue bg-ligth-white px-1">
-                {['オス', 'メス', '不明'].map((sex) => (
-                  <React.Fragment key={sex}>
-                    <label
-                      htmlFor={sex}
-                      className="flex cursor-pointer items-center text-base text-dark-black"
-                    >
-                      {sex}
-                      <input
-                        id={sex}
-                        type="radio"
-                        name="chinchillaSex"
-                        value={sex}
-                        {...register('chinchillaSex')}
-                        className="radio-accent radio ml-2"
-                      />
-                    </label>
-                  </React.Fragment>
-                ))}
-              </div>
-              {errors.chinchillaSex && (
-                <p className="label text-base text-dark-pink">{errors.chinchillaSex.message}</p>
-              )}
-            </div>
-            <div className="form-control mt-3 h-32 w-80 sm:w-96">
-              <label htmlFor="chinchillaBirthday" className="label">
-                <span className="text-base text-dark-black">誕生日</span>
-              </label>
-              <input
-                id="chinchillaBirthday"
-                type="date"
-                {...register('chinchillaBirthday')}
-                className="input input-bordered input-primary input-md border-dark-blue bg-ligth-white text-base text-dark-black"
-              />
-              {errors.chinchillaBirthday && (
-                <p className="label text-base text-dark-pink">
-                  {errors.chinchillaBirthday.message}
-                </p>
-              )}
-            </div>
-            <div className="form-control mt-3 h-32 w-80 sm:w-96">
-              <label htmlFor="chinchillaMetDay" className="label">
-                <span className="text-base text-dark-black">お迎え日</span>
-              </label>
-              <input
-                id="chinchillaMetDay"
-                type="date"
-                {...register('chinchillaMetDay')}
-                className="input input-bordered input-primary input-md border-dark-blue bg-ligth-white text-base text-dark-black"
-              />
-              {errors.chinchillaMetDay && (
-                <p className="label text-base text-dark-pink">{errors.chinchillaMetDay.message}</p>
-              )}
-            </div>
-            <div className="form-control my-6 h-96 w-80 sm:h-[500px] sm:w-[500px]">
-              <label htmlFor="chinchillaMemo" className="mx-1 my-2 flex">
-                <FontAwesomeIcon
-                  icon={faFilePen}
-                  className="mx-1 pt-[3px] text-lg text-dark-black"
-                />
-                <span className="label-text text-base text-dark-black">メモ</span>
-              </label>
-              <textarea
-                id="chinchillaMemo"
-                placeholder="メモを記入してください。"
-                {...register('chinchillaMemo')}
-                className="textarea textarea-primary h-80 border-dark-blue bg-ligth-white text-base text-dark-black sm:h-96"
-              ></textarea>
-              {errors.chinchillaMemo && (
-                <p className="label text-base text-dark-pink">{errors.chinchillaMemo.message}</p>
-              )}
-            </div>
+
+            {/* 名前 */}
+            <RhfInputForm
+              htmlFor="chinchillaName"
+              label="名前"
+              explanation="必須入力"
+              id="chinchillaName"
+              type="text"
+              name="chinchillaName"
+              control={control}
+              placeholder="チンチラの名前"
+            />
+
+            {/* 性別 */}
+            <RhfInputChinchillaSexRadioForm name="chinchillaSex" control={control} />
+
+            {/* 誕生日 */}
+            <RhfInputForm
+              htmlFor="chinchillaBirthday"
+              label="誕生日"
+              id="chinchillaBirthday"
+              type="date"
+              name="chinchillaBirthday"
+              control={control}
+            />
+
+            {/* お迎え日 */}
+            <RhfInputForm
+              htmlFor="chinchillaMetDay"
+              label="お迎え日"
+              id="chinchillaMetDay"
+              type="date"
+              name="chinchillaMetDay"
+              control={control}
+            />
+
+            {/* メモ */}
+            <RhfTextareaForm
+              htmlFor="chinchillaMemo"
+              label="メモ"
+              id="chinchillaMemo"
+              name="chinchillaMemo"
+              control={control}
+            />
+
+            {/* 保存・戻るボタン */}
             <div>
-              <Button type="submit" addStyle="btn-primary mx-3 h-14 w-32">
+              <Button type="submit" disabled={!isDirty} addStyle="btn-primary mx-3 h-14 w-32">
                 保存
               </Button>
               <Button
@@ -320,6 +267,7 @@ export const ChinchillaProfilePage = () => {
                 click={() => {
                   setIsEditing(false)
                   setHeaderDisabled(false)
+                  reset()
                   clearErrors()
                   setPreviewImage('')
                   setChinchillaImage('')
@@ -332,7 +280,8 @@ export const ChinchillaProfilePage = () => {
           </>
         ) : (
           <>
-            <div className="mt-6 w-36 sm:w-48">
+            {/* 画像 */}
+            <div className="w-36 sm:w-48">
               <img
                 src={
                   selectedChinchilla.chinchillaImage?.url
@@ -343,7 +292,9 @@ export const ChinchillaProfilePage = () => {
                 className="aspect-square h-auto w-full rounded-3xl border border-solid border-ligth-white bg-ligth-white"
               />
             </div>
-            <div className="mt-8 h-[290px] w-80 rounded-xl bg-ligth-white sm:w-[500px]">
+
+            {/* プロフィール */}
+            <div className="h-[290px] w-80 rounded-xl bg-ligth-white sm:w-[500px]">
               <DisplayChinchillaProfileItem
                 label="名前"
                 value={selectedChinchilla.chinchillaName}
@@ -362,8 +313,10 @@ export const ChinchillaProfilePage = () => {
                 value={selectedChinchilla.chinchillaMetDay?.replace(/-/g, '/')}
               />
             </div>
-            <div className="my-12">
-              <div className="mx-1 my-2 flex">
+
+            {/* メモ */}
+            <div>
+              <div className="flex px-1 py-2">
                 <FontAwesomeIcon
                   icon={faFilePen}
                   className="mx-1 pt-[3px] text-lg text-dark-black"
@@ -376,6 +329,8 @@ export const ChinchillaProfilePage = () => {
                 </p>
               </div>
             </div>
+
+            {/* 編集・削除ボタン */}
             <div>
               <Button
                 type="button"
@@ -384,8 +339,18 @@ export const ChinchillaProfilePage = () => {
                   setHeaderDisabled(true)
                   setValue('chinchillaName', selectedChinchilla.chinchillaName)
                   setValue('chinchillaSex', selectedChinchilla.chinchillaSex)
-                  setValue('chinchillaBirthday', selectedChinchilla.chinchillaBirthday)
-                  setValue('chinchillaMetDay', selectedChinchilla.chinchillaMetDay)
+                  setValue(
+                    'chinchillaBirthday',
+                    selectedChinchilla.chinchillaBirthday === null
+                      ? ''
+                      : selectedChinchilla.chinchillaBirthday
+                  )
+                  setValue(
+                    'chinchillaMetDay',
+                    selectedChinchilla.chinchillaMetDay === null
+                      ? ''
+                      : selectedChinchilla.chinchillaMetDay
+                  )
                   setValue('chinchillaMemo', selectedChinchilla.chinchillaMemo)
                 }}
                 addStyle="btn-primary mx-3 h-14 w-32"
