@@ -339,8 +339,18 @@ export const ChinchillaProfilePage = () => {
                   setHeaderDisabled(true)
                   setValue('chinchillaName', selectedChinchilla.chinchillaName)
                   setValue('chinchillaSex', selectedChinchilla.chinchillaSex)
-                  setValue('chinchillaBirthday', selectedChinchilla.chinchillaBirthday)
-                  setValue('chinchillaMetDay', selectedChinchilla.chinchillaMetDay)
+                  setValue(
+                    'chinchillaBirthday',
+                    selectedChinchilla.chinchillaBirthday === null
+                      ? ''
+                      : selectedChinchilla.chinchillaBirthday
+                  )
+                  setValue(
+                    'chinchillaMetDay',
+                    selectedChinchilla.chinchillaMetDay === null
+                      ? ''
+                      : selectedChinchilla.chinchillaMetDay
+                  )
                   setValue('chinchillaMemo', selectedChinchilla.chinchillaMemo)
                 }}
                 addStyle="btn-primary mx-3 h-14 w-32"
