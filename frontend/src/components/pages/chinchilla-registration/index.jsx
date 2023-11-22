@@ -8,6 +8,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { chinchillaRegistrationSchema } from 'src/validation/chinchilla'
 
+import { PageTitle } from 'src/components/shared/PageTittle'
 import { Button } from 'src/components/shared/Button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAsterisk, faCirclePlus } from '@fortawesome/free-solid-svg-icons'
@@ -100,9 +101,7 @@ export const ChinchillaRegistrationPage = () => {
 
   return (
     <div className="mx-3 my-28 grid place-content-center place-items-center">
-      <h1 className="text-center text-2xl font-bold tracking-widest text-dark-blue">
-        チンチラの登録
-      </h1>
+      <PageTitle pageTitle="チンチラの登録" />
       <form
         noValidate
         onSubmit={handleSubmit(onSubmit)}

@@ -7,7 +7,9 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { userSchema } from 'src/validation/auth'
 
-import { SignupSigninForm } from 'src/components/shared/SigninSignupForm'
+import { PageTitle } from 'src/components/shared/PageTittle'
+import { RhfInputForm } from 'src/components/shared/RhfInputForm'
+import { Button } from 'src/components/shared/Button'
 
 export const EmailChangePage = () => {
   const router = useRouter()
@@ -15,9 +17,9 @@ export const EmailChangePage = () => {
   const confirmSuccessUrl = process.env.NEXT_PUBLIC_CONFIRM_EMAIL_CHANGE_SUCCESS_URL
 
   const {
-    register,
     handleSubmit,
-    formState: { dirtyFields, errors }
+    control,
+    formState: { dirtyFields }
   } = useForm({
     defaultValues: { email: '', password: '' },
     resolver: zodResolver(userSchema)
@@ -48,25 +50,48 @@ export const EmailChangePage = () => {
   }
 
   return (
-    <div className="mx-3 my-28 grid place-content-center place-items-center">
-      <h1 className="text-center text-2xl font-bold tracking-widest text-dark-blue">
-        メールアドレスの変更
-      </h1>
-      <h3 className="my-6 px-10 text-center text-base text-dark-black">
+    <div className="mx-3 my-28 grid place-content-center place-items-center gap-y-6">
+      <PageTitle pageTitle="メールアドレスの変更" />
+      <h3 className="px-10 text-center text-base text-dark-black">
         新しいメールアドレスに認証用のURLを送信します
       </h3>
+      <form
+        noValidate
+        onSubmit={handleSubmit(onSubmit)}
+        className="grid place-content-center place-items-center gap-y-6"
+      >
+        <RhfInputForm
+          htmlFor="email"
+          label="メールアドレス"
+          id="email"
+          type="email"
+          autoComplete="email webauthn"
+          name="email"
+          control={control}
+          placeholder="your@email.com"
+        />
 
-      <SignupSigninForm
-        register={register}
-        handleSubmit={handleSubmit}
-        dirtyFields={dirtyFields}
-        errors={errors}
-        onSubmit={onSubmit}
-        emailTitle="新しいメールアドレス"
-        passwordTitle="現在のパスワード"
-        buttonName="送信"
-        addStyle="btn-primary h-14 w-32"
-      />
+        <RhfInputForm
+          htmlFor="password"
+          label="パスワード"
+          explanation="6文字以上の半角英数字"
+          id="password"
+          type="password"
+          autoComplete="current-password webauthn"
+          name="password"
+          control={control}
+          placeholder="password"
+          passwordForm={true}
+        />
+
+        <Button
+          btnType="submit"
+          disabled={!dirtyFields.email || !dirtyFields.password}
+          addStyle="btn-primary h-14 w-32"
+        >
+          送信
+        </Button>
+      </form>
     </div>
   )
 }

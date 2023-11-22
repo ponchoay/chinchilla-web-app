@@ -9,16 +9,18 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { userSchema } from 'src/validation/auth'
 
-import { SignupSigninForm } from 'src/components/shared/SigninSignupForm'
+import { PageTitle } from 'src/components/shared/PageTittle'
+import { RhfInputForm } from 'src/components/shared/RhfInputForm'
+import { Button } from 'src/components/shared/Button'
 
 export const SignInPage = () => {
   const router = useRouter()
   const { setIsSignedIn, setCurrentUser } = useContext(AuthContext)
 
   const {
-    register,
     handleSubmit,
-    formState: { dirtyFields, errors }
+    control,
+    formState: { dirtyFields }
   } = useForm({
     defaultValues: { email: '', password: '' },
     resolver: zodResolver(userSchema)
@@ -58,25 +60,50 @@ export const SignInPage = () => {
   }
 
   return (
-    <div className="mx-3 my-28 grid place-content-center place-items-center">
-      <h1 className="text-center text-2xl font-bold tracking-widest text-dark-blue">ログイン</h1>
+    <div className="mx-3 my-28 grid place-content-center place-items-center gap-y-6">
+      <PageTitle pageTitle="ログイン" />
+      <form
+        noValidate
+        onSubmit={handleSubmit(onSubmit)}
+        className="grid place-content-center place-items-center gap-y-6"
+      >
+        <RhfInputForm
+          htmlFor="email"
+          label="メールアドレス"
+          id="email"
+          type="email"
+          autoComplete="email webauthn"
+          name="email"
+          control={control}
+          placeholder="your@email.com"
+        />
 
-      <SignupSigninForm
-        register={register}
-        handleSubmit={handleSubmit}
-        dirtyFields={dirtyFields}
-        errors={errors}
-        onSubmit={onSubmit}
-        emailTitle="メールアドレス"
-        passwordTitle="パスワード"
-        buttonName="ログイン"
-        addStyle="btn-secondary h-14 w-32"
-      />
+        <RhfInputForm
+          htmlFor="password"
+          label="パスワード"
+          explanation="6文字以上の半角英数字"
+          id="password"
+          type="password"
+          autoComplete="current-password webauthn"
+          name="password"
+          control={control}
+          placeholder="password"
+          passwordForm={true}
+        />
 
-      <Link href="/password-reset" className="link-hover link mt-10">
+        <Button
+          btnType="submit"
+          disabled={!dirtyFields.email || !dirtyFields.password}
+          addStyle="btn-secondary h-14 w-32"
+        >
+          ログイン
+        </Button>
+      </form>
+
+      <Link href="/password-reset" className="link-hover link text-base text-dark-black">
         パスワードがわからない場合はこちら
       </Link>
-      <Link href="/signup" className="link-hover link my-2">
+      <Link href="/signup" className="link-hover link text-base text-dark-black">
         新規登録はこちら
       </Link>
     </div>

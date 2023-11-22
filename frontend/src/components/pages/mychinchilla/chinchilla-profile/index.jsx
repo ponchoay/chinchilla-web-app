@@ -14,6 +14,7 @@ import { chinchillaProfileSchema } from 'src/validation/chinchilla'
 import { differenceInYears, differenceInMonths } from 'date-fns'
 import { utcToZonedTime } from 'date-fns-tz'
 
+import { PageTitle } from 'src/components/shared/PageTittle'
 import { Button } from 'src/components/shared/Button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAsterisk, faCirclePlus, faFilePen } from '@fortawesome/free-solid-svg-icons'
@@ -184,9 +185,7 @@ export const ChinchillaProfilePage = () => {
 
   return (
     <div className="mx-3 my-28 grid place-content-center place-items-center">
-      <h1 className="text-center text-2xl font-bold tracking-widest text-dark-blue">
-        プロフィール
-      </h1>
+      <PageTitle pageTitle="プロフィール" />
       <form
         noValidate
         onSubmit={handleSubmit(onSubmit)}

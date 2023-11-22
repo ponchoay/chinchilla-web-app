@@ -8,6 +8,7 @@ import { NumericFormItem } from 'src/components/pages/care-record-calendar/numer
 import { CareMemoFormItem } from 'src/components/pages/care-record-calendar/careMemoFormItem'
 import { DeleteConfirmationModal } from 'src/components/shared/DeleteConfirmationModal'
 
+import { PageTitle } from 'src/components/shared/PageTittle'
 import { Button } from 'src/components/shared/Button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFilePen } from '@fortawesome/free-solid-svg-icons'
@@ -283,9 +284,7 @@ export const CareRecordCalendarPage = () => {
 
   return (
     <div className="mx-3 my-28 grid place-content-center place-items-center">
-      <h1 className="text-center text-2xl font-bold tracking-widest text-dark-blue">
-        お世話の記録
-      </h1>
+      <PageTitle pageTitle="お世話の記録" />
 
       {/* カレンダー */}
       <Calendar

@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { getMyChinchillas } from 'src/lib/api/chinchilla'
 import { SelectedChinchillaIdContext } from 'src/contexts/chinchilla'
 
+import { PageTitle } from 'src/components/shared/PageTittle'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 
@@ -26,9 +27,7 @@ export const MyChinchillaPage = () => {
 
   return (
     <div className="mx-auto my-28 grid place-content-center place-items-center">
-      <h1 className="text-center text-2xl font-bold tracking-widest text-dark-blue">
-        マイチンチラ
-      </h1>
+      <PageTitle pageTitle="マイチンチラ" />
       <div
         className={`mt-6 grid grid-cols-1 ${
           allChinchillas.length === 1 ? 'place-items-center' : 'gap-y-14 sm:grid-cols-2 sm:gap-x-20'
