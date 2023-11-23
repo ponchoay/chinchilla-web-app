@@ -296,7 +296,7 @@ export const CareRecordCalendarPage = () => {
       {careId === 0 ? (
         <>
           {/* 登録モード：お世話の記録 */}
-          <div className="mt-6 h-[300px] w-80 rounded-xl border border-solid border-dark-blue bg-ligth-white sm:w-[500px]">
+          <div className="h-[300px] w-80 rounded-xl border border-solid border-dark-blue bg-ligth-white sm:w-[500px]">
             <InputRadioButtonItem
               label="食事"
               item="Food"

@@ -3,7 +3,7 @@ import { faFilePen } from '@fortawesome/free-solid-svg-icons'
 
 export const CareMemoFormItem = ({ careMemo, setCareMemo }) => {
   return (
-    <div className="form-control my-6 h-96 w-80 sm:h-[500px] sm:w-[500px]">
+    <div className="form-control h-96 w-80 sm:h-[464px] sm:w-[500px]">
       <label htmlFor="careMemo" className="mx-1 my-2 flex">
         <FontAwesomeIcon icon={faFilePen} className="mx-1 pt-[3px] text-lg text-dark-black" />
         <span className="label-text text-base text-dark-black">メモ</span>
