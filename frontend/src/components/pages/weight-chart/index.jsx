@@ -199,16 +199,16 @@ export const WeightChartPage = () => {
   }
 
   return (
-    <div className="mx-3 my-28  grid place-content-center place-items-center">
+    <div className="mx-3 my-28 grid place-content-center place-items-center gap-y-6">
       <PageTitle pageTitle="体重" />
 
       {/* グラフ */}
-      <div className="mt-6 h-[400px]">
+      <div className="h-[400px]">
         <DynamicWeightChart filteredData={filteredData} />
       </div>
 
       {/* 表示範囲のラジオボタン */}
-      <div className="join mt-10">
+      <div className="join">
         {radioItems.map((item) => (
           <input
             key={item.range}
@@ -224,7 +224,7 @@ export const WeightChartPage = () => {
       </div>
 
       {/* まとめ */}
-      <div className="mt-6 h-[150px] w-80 rounded-xl bg-ligth-white p-3 sm:w-[400px]">
+      <div className="h-[150px] w-80 rounded-xl bg-ligth-white p-3 sm:w-[400px]">
         <div className="mx-10 mt-5 flex items-center border-b border-solid border-b-light-black pb-2">
           <p className="w-28 text-center text-base text-dark-black">平均体重</p>
           <div className="flex grow justify-evenly text-center">
