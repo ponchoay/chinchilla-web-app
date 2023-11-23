@@ -11,8 +11,11 @@ import { DeleteConfirmationModal } from 'src/components/shared/DeleteConfirmatio
 import { DisplayMemo } from 'src/components/shared/displayMemo'
 import { PageTitle } from 'src/components/shared/PageTittle'
 import { Button } from 'src/components/shared/Button'
-
 import { Calendar } from 'src/components/pages/care-record-calendar/calendar'
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHandPointer } from '@fortawesome/free-solid-svg-icons'
+
 import { format } from 'date-fns'
 import ja from 'date-fns/locale/ja'
 
@@ -293,7 +296,12 @@ export const CareRecordCalendarPage = () => {
         allCares={allCares}
       />
 
-      {careId === 0 ? (
+      {careId === 0 && !selectedDate ? (
+        <p className="text-base text-dark-black">
+          <FontAwesomeIcon icon={faHandPointer} className="mr-1 text-dark-blue" />
+          カレンダーから日付を選択してください
+        </p>
+      ) : careId === 0 && selectedDate ? (
         <>
           {/* 登録モード：お世話の記録 */}
           <div className="h-[300px] w-80 rounded-xl border border-solid border-dark-blue bg-ligth-white sm:w-[500px]">
