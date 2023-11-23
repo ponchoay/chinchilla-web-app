@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext } from 'react'
+
 import { getAllCares, createCare, deleteCare, updateCare } from 'src/lib/api/care'
 import { SelectedChinchillaIdContext } from 'src/contexts/chinchilla'
 
@@ -7,11 +8,9 @@ import { DisplayRadioButtonItem } from 'src/components/pages/care-record-calenda
 import { NumericFormItem } from 'src/components/pages/care-record-calendar/numericFormItem'
 import { CareMemoFormItem } from 'src/components/pages/care-record-calendar/careMemoFormItem'
 import { DeleteConfirmationModal } from 'src/components/shared/DeleteConfirmationModal'
-
+import { DisplayMemo } from 'src/components/shared/displayMemo'
 import { PageTitle } from 'src/components/shared/PageTittle'
 import { Button } from 'src/components/shared/Button'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFilePen } from '@fortawesome/free-solid-svg-icons'
 
 import { Calendar } from 'src/components/pages/care-record-calendar/calendar'
 import { format } from 'date-fns'
@@ -283,7 +282,7 @@ export const CareRecordCalendarPage = () => {
   }
 
   return (
-    <div className="mx-3 my-28 grid place-content-center place-items-center">
+    <div className="mx-3 my-28 grid place-content-center place-items-center gap-y-6">
       <PageTitle pageTitle="お世話の記録" />
 
       {/* カレンダー */}
@@ -292,7 +291,6 @@ export const CareRecordCalendarPage = () => {
         onSelect={setSelectedDate}
         onDayClick={handleSelectedCare}
         allCares={allCares}
-        className="mt-6"
       />
 
       {careId === 0 ? (
@@ -507,7 +505,7 @@ export const CareRecordCalendarPage = () => {
           ) : (
             <>
               {/* 表示モード：お世話の記録 */}
-              <div className="mt-6 h-96 w-80 rounded-xl bg-ligth-white sm:h-[400px]  sm:w-[500px]">
+              <div className="h-96 w-80 rounded-xl bg-ligth-white sm:h-[400px]  sm:w-[500px]">
                 <DisplayRadioButtonItem label="食事" item="careFood" value={careFood} />
                 <DisplayRadioButtonItem label="トイレ" item="careToilet" value={careToilet} />
                 <DisplayRadioButtonItem label="砂浴び" item="careBath" value={careBath} />
@@ -538,20 +536,7 @@ export const CareRecordCalendarPage = () => {
               </div>
 
               {/* 表示モード：お世話のメモ */}
-              <div className="mb-12 mt-6">
-                <div className="mx-1 my-2 flex">
-                  <FontAwesomeIcon
-                    icon={faFilePen}
-                    className="mx-1 pt-[3px] text-lg text-dark-black"
-                  />
-                  <p className=" text-left text-base text-dark-black">メモ</p>
-                </div>
-                <div className="h-80 w-80 overflow-y-auto rounded-xl bg-ligth-white p-5 sm:h-96 sm:w-[500px]">
-                  <p className="whitespace-pre-wrap text-left text-base text-dark-black">
-                    {careMemo}
-                  </p>
-                </div>
-              </div>
+              <DisplayMemo contents={careMemo} />
 
               {/* 表示モード：編集・削除ボタン */}
               <div>

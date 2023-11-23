@@ -1,11 +1,21 @@
 import React from 'react'
 import { useRef, useCallback, useEffect, useState, useContext } from 'react'
 import { useRouter } from 'next/router'
+
 import { getChinchilla, updateChinchilla, deleteChinchilla } from 'src/lib/api/chinchilla'
 import { SelectedChinchillaIdContext } from 'src/contexts/chinchilla'
 
 import { DisplayChinchillaProfileItem } from 'src/components/pages/mychinchilla/chinchilla-profile/displayChinchillaProfileItem'
 import { DeleteConfirmationModal } from 'src/components/shared/DeleteConfirmationModal'
+import { DisplayMemo } from 'src/components/shared/displayMemo'
+import { PageTitle } from 'src/components/shared/PageTittle'
+import { RhfInputForm } from 'src/components/shared/RhfInputForm'
+import { RhfInputChinchillaSexRadioForm } from 'src/components/shared/RhfInputChinchillaSexRadioForm'
+import { Button } from 'src/components/shared/Button'
+import { RhfTextareaForm } from 'src/components/shared/RhfTextareaForm'
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCirclePlus } from '@fortawesome/free-solid-svg-icons'
 
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -13,14 +23,6 @@ import { chinchillaProfileSchema } from 'src/validation/chinchilla'
 
 import { differenceInYears, differenceInMonths } from 'date-fns'
 import { utcToZonedTime } from 'date-fns-tz'
-
-import { PageTitle } from 'src/components/shared/PageTittle'
-import { RhfInputForm } from 'src/components/shared/RhfInputForm'
-import { RhfInputChinchillaSexRadioForm } from 'src/components/shared/RhfInputChinchillaSexRadioForm'
-import { Button } from 'src/components/shared/Button'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCirclePlus, faFilePen } from '@fortawesome/free-solid-svg-icons'
-import { RhfTextareaForm } from 'src/components/shared/RhfTextareaForm'
 
 export const ChinchillaProfilePage = () => {
   const router = useRouter()
@@ -315,20 +317,7 @@ export const ChinchillaProfilePage = () => {
             </div>
 
             {/* メモ */}
-            <div>
-              <div className="flex px-1 py-2">
-                <FontAwesomeIcon
-                  icon={faFilePen}
-                  className="mx-1 pt-[3px] text-lg text-dark-black"
-                />
-                <p className=" text-left text-base text-dark-black">メモ</p>
-              </div>
-              <div className="h-80 w-80 overflow-y-auto rounded-xl bg-ligth-white p-5 sm:h-96 sm:w-[500px]">
-                <p className="whitespace-pre-wrap text-left text-base text-dark-black">
-                  {selectedChinchilla.chinchillaMemo}
-                </p>
-              </div>
-            </div>
+            <DisplayMemo contents={selectedChinchilla.chinchillaMemo} />
 
             {/* 編集・削除ボタン */}
             <div>
