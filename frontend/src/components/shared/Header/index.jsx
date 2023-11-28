@@ -5,7 +5,7 @@ import { SelectedChinchillaIdContext } from 'src/contexts/chinchilla'
 import { getMyChinchillas } from 'src/lib/api/chinchilla'
 
 import { DisplaySelectChinchilla } from 'src/components/shared/Header/DisplaySelectChinchilla'
-import { SelectChinchillaMordal } from 'src/components/shared/Header/selectChinchillaMordal'
+import { SelectChinchillaModal } from 'src/components/shared/Header/selectChinchillaModal'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleUser } from '@fortawesome/free-solid-svg-icons'
@@ -99,7 +99,7 @@ export const Header = () => {
 
             {/* チンチラ選択モーダル */}
             {isModalOpen && (
-              <SelectChinchillaMordal
+              <SelectChinchillaModal
                 chinchillaId={chinchillaId}
                 handleSelectChinchilla={handleSelectChinchilla}
                 headerDisabled={headerDisabled}
