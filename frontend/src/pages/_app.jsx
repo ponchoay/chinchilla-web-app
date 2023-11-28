@@ -2,7 +2,7 @@ import Head from 'next/head'
 import { Kosugi } from 'next/font/google'
 import 'src/styles/globals.css'
 import { ChinchillaProvider } from 'src/contexts/chinchilla'
-import { Layout } from 'src/components/shared/layout'
+import { Layout } from 'src/components/shared/Layout'
 import { AuthProvider } from 'src/contexts/auth'
 
 const kosugi = Kosugi({ weight: ['400'], subsets: ['latin'] })
