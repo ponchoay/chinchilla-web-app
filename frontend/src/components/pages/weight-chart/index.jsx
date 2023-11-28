@@ -218,7 +218,7 @@ export const WeightChartPage = () => {
             onChange={() => handleTimeRangeChange(item.range)}
             aria-label={item.label}
             checked={chinchillaId && timeRange === item.range}
-            className="btn join-item px-3 sm:px-5"
+            className={`btn join-item px-3 sm:px-5 ${item.range === 'all' && 'px-[22px] sm:px-[30px]'}`}
           />
         ))}
       </div>
