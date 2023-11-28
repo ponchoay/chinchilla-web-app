@@ -7,7 +7,7 @@ import { SelectedChinchillaIdContext } from 'src/contexts/chinchilla'
 
 import { DisplayChinchillaProfileItem } from 'src/components/pages/mychinchilla/chinchilla-profile/displayChinchillaProfileItem'
 import { DeleteConfirmationModal } from 'src/components/shared/DeleteConfirmationModal'
-import { DisplayMemo } from 'src/components/shared/displayMemo'
+import { DisplayMemo } from 'src/components/shared/DisplayMemo'
 import { PageTitle } from 'src/components/shared/PageTittle'
 import { RhfInputForm } from 'src/components/shared/RhfInputForm'
 import { RhfInputChinchillaSexRadioForm } from 'src/components/shared/RhfInputChinchillaSexRadioForm'

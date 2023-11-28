@@ -8,7 +8,7 @@ import { DisplayRadioButtonItem } from 'src/components/pages/care-record-calenda
 import { NumericFormItem } from 'src/components/pages/care-record-calendar/numericFormItem'
 import { CareMemoFormItem } from 'src/components/pages/care-record-calendar/careMemoFormItem'
 import { DeleteConfirmationModal } from 'src/components/shared/DeleteConfirmationModal'
-import { DisplayMemo } from 'src/components/shared/displayMemo'
+import { DisplayMemo } from 'src/components/shared/DisplayMemo'
 import { PageTitle } from 'src/components/shared/PageTittle'
 import { Button } from 'src/components/shared/Button'
 import { Calendar } from 'src/components/pages/care-record-calendar/calendar'

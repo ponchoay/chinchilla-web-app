@@ -1,6 +1,6 @@
 import { Button } from 'src/components/shared/Button'
 
-export const SelectChinchillaMordal = ({
+export const SelectChinchillaModal = ({
   chinchillaId,
   handleSelectChinchilla,
   headerDisabled,
