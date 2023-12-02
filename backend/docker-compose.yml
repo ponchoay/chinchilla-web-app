@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  db:
+    container_name: chinchilla_db
+    image: mysql:8.0.33
+    env_file:
+      - ./.env
+    ports:
+      - 3306:3306
+    volumes:
+      - dbvolume:/var/mysql
+    healthcheck:
+      test:
+        [
+          'CMD',
+          'mysqladmin',
+          'ping',
+          '-h',
+          'localhost',
+          '-u',
+          'root',
+          '--password=$$MYSQL_ROOT_PASSWORD'
+        ]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+
+  app:
+    container_name: chinchilla_app
+    build: .
+    env_file:
+      - ./.env
+    environment:
+      - RAILS_ENV=development
+    # 本番用
+    # - RAILS_ENV=production
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3010 -b '0.0.0.0'"
+    volumes:
+      - appvolume:/backend
+    ports:
+      - "3010:3010"
+    tty: true
+    stdin_open: true
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  dbvolume:
+  appvolume:
