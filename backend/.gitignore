@@ -43,7 +43,6 @@ yarn-debug.log*
 .yarn-integrity
 /storage/*
 !/storage/.keep
-/public/uploadse/*
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
