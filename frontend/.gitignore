@@ -34,7 +34,5 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-#API
-.env.local
-.env.development
-.env.production
+# API
+.env.*
