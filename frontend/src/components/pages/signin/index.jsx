@@ -13,6 +13,8 @@ import { PageTitle } from 'src/components/shared/PageTittle'
 import { RhfInputForm } from 'src/components/shared/RhfInputForm'
 import { Button } from 'src/components/shared/Button'
 
+import { debugLog } from 'src/lib/debug/debugLog'
+
 export const SignInPage = () => {
   const router = useRouter()
   const { setIsSignedIn, setCurrentUser } = useContext(AuthContext)
@@ -31,7 +33,7 @@ export const SignInPage = () => {
     const params = { email: data.email, password: data.password }
     try {
       const res = await signIn(params)
-      console.log(res)
+      debugLog('レスポンス', res)
 
       // ステータス200 OK
       if (res.status === 200) {
@@ -44,13 +46,13 @@ export const SignInPage = () => {
         setCurrentUser(res.data.data)
 
         router.push('/mychinchilla')
-        console.log('ログイン成功！')
+        debugLog('ログイン:', '成功')
       } else {
-        console.log('ログイン失敗！')
+        debugLog('ログイン:', '失敗')
       }
     } catch (err) {
-      console.log(err)
-      console.log(err.response.data)
+      debugLog('エラー:', err)
+      debugLog('内容:', err.response.data)
 
       // ログインに失敗した場合
       if (err.response.status === 401) {

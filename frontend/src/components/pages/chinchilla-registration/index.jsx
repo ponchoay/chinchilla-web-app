@@ -14,6 +14,8 @@ import { Button } from 'src/components/shared/Button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCirclePlus } from '@fortawesome/free-solid-svg-icons'
 
+import { debugLog } from 'src/lib/debug/debugLog'
+
 export const ChinchillaRegistrationPage = () => {
   const router = useRouter()
 
@@ -53,7 +55,7 @@ export const ChinchillaRegistrationPage = () => {
   const handleUpload = useCallback((e) => {
     if (!e.target.files) return
     const file = e.target.files[0]
-    console.log(file)
+    debugLog('選択中のファイル:', file)
 
     // プレビュー用（メモリ内のBLOBにアクセスするためのURL生成）
     setPreviewImage(window.URL.createObjectURL(file))
@@ -82,7 +84,7 @@ export const ChinchillaRegistrationPage = () => {
     const params = createFormData(data)
     try {
       const res = await createChinchilla(params)
-      console.log(res)
+      debugLog('レスポンス', res)
 
       // ステータス201 Created
       if (res.status === 201) {
@@ -90,12 +92,12 @@ export const ChinchillaRegistrationPage = () => {
         setHeaderName(res.data.chinchillaName)
         setHeaderImage(res.data.chinchillaImage)
         router.push('/mychinchilla')
-        console.log('チンチラプロフィール作成成功！')
+        debugLog('チンチラプロフィール作成:', '成功')
       } else {
         alert('チンチラプロフィール作成失敗')
       }
     } catch (err) {
-      console.log(err)
+      debugLog('エラー:', err)
       alert('エラーです')
     }
   }

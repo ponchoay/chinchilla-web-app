@@ -7,6 +7,8 @@ import { utcToZonedTime } from 'date-fns-tz'
 
 import { PageTitle } from 'src/components/shared/PageTittle'
 
+import { debugLog } from 'src/lib/debug/debugLog'
+
 export const WeightChartPage = () => {
   // ハイドレーションエラー回避
   const DynamicWeightChart = dynamic(
@@ -47,7 +49,7 @@ export const WeightChartPage = () => {
     try {
       if (chinchillaId) {
         const res = await getWeightCares(chinchillaId)
-        console.log('体重記録一覧：', res.data)
+        debugLog('体重記録一覧:', res.data)
         setAllWeightCares(res.data)
 
         // 選択中の表示範囲にあわせて初期表示
@@ -118,8 +120,7 @@ export const WeightChartPage = () => {
         setDataCount(newFilteredData.length) // 記録の数を計算
       }
     } catch (err) {
-      console.log(err)
-      alert('エラーです')
+      debugLog('エラー:', err)
     }
   }
 
@@ -218,7 +219,9 @@ export const WeightChartPage = () => {
             onChange={() => handleTimeRangeChange(item.range)}
             aria-label={item.label}
             checked={chinchillaId && timeRange === item.range}
-            className={`btn join-item px-3 sm:px-5 ${item.range === 'all' && 'px-[22px] sm:px-[30px]'}`}
+            className={`btn join-item px-3 sm:px-5 ${
+              item.range === 'all' && 'px-[22px] sm:px-[30px]'
+            }`}
           />
         ))}
       </div>

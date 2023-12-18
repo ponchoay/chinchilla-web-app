@@ -9,6 +9,8 @@ import { DeleteConfirmationModal } from 'src/components/shared/DeleteConfirmatio
 
 import { Button } from 'src/components/shared/Button'
 
+import { debugLog } from 'src/lib/debug/debugLog'
+
 export const DeactivatePage = () => {
   const router = useRouter()
   const { setIsSignedIn } = useContext(AuthContext)
@@ -20,7 +22,7 @@ export const DeactivatePage = () => {
   const handleDelete = async () => {
     try {
       const res = await deleteUser()
-      console.log(res)
+      debugLog('レスポンス', res)
 
       // ステータス200 OK
       if (res.status === 200) {
@@ -35,7 +37,7 @@ export const DeactivatePage = () => {
         alert('アカウントを削除しました')
       }
     } catch (err) {
-      console.log(err)
+      debugLog('エラー:', err)
     }
   }
 

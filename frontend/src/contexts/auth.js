@@ -1,5 +1,6 @@
 import { useState, useEffect, createContext } from 'react'
 import { getCurrentUser } from 'src/lib/api/auth'
+import { debugLog } from 'src/lib/debug/debugLog'
 
 // グローバルで扱うためにエクスポートする
 export const AuthContext = createContext({})
@@ -28,12 +29,12 @@ export const AuthProvider = ({ children }) => {
         setIsSignedIn(true)
         setCurrentUser(res?.data.data)
 
-        console.log('ログイン中:', res?.data.data)
+        debugLog('ログインユーザー:', res?.data.data)
       } else {
-        console.log('No current user')
+        debugLog('ログインユーザー:', 'No current user')
       }
     } catch (err) {
-      console.log(err)
+      debugLog('エラー:', err)
     }
   }
 

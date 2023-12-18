@@ -11,6 +11,8 @@ import { PageTitle } from 'src/components/shared/PageTittle'
 import { RhfInputForm } from 'src/components/shared/RhfInputForm'
 import { Button } from 'src/components/shared/Button'
 
+import { debugLog } from 'src/lib/debug/debugLog'
+
 export const PasswordResetPage = () => {
   const router = useRouter()
   const { setProcessUser } = useContext(AuthContext)
@@ -30,20 +32,20 @@ export const PasswordResetPage = () => {
     const params = { email: data.email, redirectUrl: redirectUrl }
     try {
       const res = await sendResetPasswordMail(params)
-      console.log(res)
+      debugLog('レスポンス', res)
 
       // ステータス200 OK
       if (res.status === 200) {
         setProcessUser(params.email)
 
         router.push('/password-reset/email-confirmation-sent')
-        console.log('パスワードリセットメール送信成功！')
+        debugLog('パスワードリセットメール送信:', '成功')
       } else {
-        console.log('パスワードリセットメール送信失敗！')
+        debugLog('パスワードリセットメール送信:', '失敗')
       }
     } catch (err) {
-      console.log(err)
-      console.log(err.response.data)
+      debugLog('エラー:', err)
+      debugLog('内容:', err.response.data)
 
       // パスワードの変更に失敗した場合
       if (err.response.status === 404) {

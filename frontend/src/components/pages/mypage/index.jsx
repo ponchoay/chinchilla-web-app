@@ -11,6 +11,8 @@ import { Button } from 'src/components/shared/Button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faKey, faAngleRight, faEnvelope, faTrashCan } from '@fortawesome/free-solid-svg-icons'
 
+import { debugLog } from 'src/lib/debug/debugLog'
+
 export const MyPagePage = () => {
   const router = useRouter()
   const { setIsSignedIn, setCurrentUser, setProcessUser } = useContext(AuthContext)
@@ -59,12 +61,12 @@ export const MyPagePage = () => {
         setChinchillaId(0)
         setHeaderName('')
         setHeaderImage('')
-        console.log('ログアウトしました！')
+        debugLog('ログアウト:', '成功')
       } else {
-        alert('ログアウト失敗')
+        debugLog('ログアウト:', '失敗')
       }
     } catch (err) {
-      console.log(err)
+      debugLog('エラー:', err)
       alert('エラーです')
     }
   }
