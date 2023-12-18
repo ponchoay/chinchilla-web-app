@@ -24,6 +24,8 @@ import { chinchillaProfileSchema } from 'src/validation/chinchilla'
 import { differenceInYears, differenceInMonths } from 'date-fns'
 import { utcToZonedTime } from 'date-fns-tz'
 
+import { debugLog } from 'src/lib/debug/debugLog'
+
 export const ChinchillaProfilePage = () => {
   const router = useRouter()
   const JAPAN_TIMEZONE = 'Asia/Tokyo'
@@ -57,12 +59,12 @@ export const ChinchillaProfilePage = () => {
   const fetch = async () => {
     try {
       const res = await getChinchilla(chinchillaId)
-      console.log(res.data)
+      debugLog('選択中のチンチラ:', res.data)
       setSelectedChinchilla(res.data)
       setHeaderName(res.data.chinchillaName)
       setHeaderImage(res.data.chinchillaImage)
     } catch (err) {
-      console.log(err)
+      debugLog('エラー:', err)
       router.replace('/mychinchilla')
     }
   }
@@ -88,7 +90,7 @@ export const ChinchillaProfilePage = () => {
   const handleUpload = useCallback((e) => {
     if (!e.target.files) return
     const file = e.target.files[0]
-    console.log(file)
+    debugLog('選択中のファイル:', file)
 
     // プレビュー用（メモリ内のBLOBにアクセスするためのURL生成）
     setPreviewImage(window.URL.createObjectURL(file))
@@ -146,7 +148,7 @@ export const ChinchillaProfilePage = () => {
         chinchillaId,
         params
       })
-      console.log(res)
+      debugLog('レスポンス', res)
 
       // ステータス200 ok
       if (res.status === 200) {
@@ -156,12 +158,12 @@ export const ChinchillaProfilePage = () => {
         setPreviewImage('')
         setChinchillaImage('')
         reset()
-        console.log('チンチラプロフィール更新成功！')
+        debugLog('チンチラプロフィール更新:', '成功')
       } else {
         alert('チンチラプロフィール更新失敗')
       }
     } catch (err) {
-      console.log(err)
+      debugLog('エラー:', err)
       alert('エラーです')
     }
   }
@@ -171,14 +173,14 @@ export const ChinchillaProfilePage = () => {
     e.preventDefault()
     try {
       const res = await deleteChinchilla(chinchillaId)
-      console.log(res)
+      debugLog('レスポンス', res)
       setChinchillaId(0)
       setHeaderName('')
       setHeaderImage('')
       setIsModalOpen(false)
       router.replace('/mychinchilla')
     } catch (err) {
-      console.log(err)
+      debugLog('エラー:', err)
       alert('エラーです')
     }
   }

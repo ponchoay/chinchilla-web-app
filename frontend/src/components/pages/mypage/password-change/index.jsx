@@ -9,6 +9,8 @@ import { PageTitle } from 'src/components/shared/PageTittle'
 import { RhfInputForm } from 'src/components/shared/RhfInputForm'
 import { Button } from 'src/components/shared/Button'
 
+import { debugLog } from 'src/lib/debug/debugLog'
+
 export const PasswordChangePage = () => {
   const router = useRouter()
 
@@ -26,7 +28,7 @@ export const PasswordChangePage = () => {
     const params = { currentPassword: data.currentPassword, password: data.newPassword }
     try {
       const res = await updatePassword(params)
-      console.log(res)
+      debugLog('レスポンス', res)
 
       // パスワードの変更が成功した場合
       if (res.status === 200) {
@@ -34,7 +36,7 @@ export const PasswordChangePage = () => {
         router.push('/mypage')
       }
     } catch (err) {
-      console.log(err)
+      debugLog('エラー:', err)
 
       // パスワードの変更に失敗した場合
       if (err.response.status === 422) {

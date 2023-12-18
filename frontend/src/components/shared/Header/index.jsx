@@ -10,6 +10,8 @@ import { SelectChinchillaModal } from 'src/components/shared/Header/selectChinch
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleUser } from '@fortawesome/free-solid-svg-icons'
 
+import { debugLog } from 'src/lib/debug/debugLog'
+
 export const Header = () => {
   const [allChinchillas, setAllChinchillas] = useState([])
 
@@ -38,7 +40,7 @@ export const Header = () => {
   // モーダルを開いた時に全てのチンチラのデータを取得
   const handleFetch = async () => {
     const res = await getMyChinchillas()
-    console.log('マイチンチラ', res.data)
+    debugLog('マイチンチラ:', res.data)
     setAllChinchillas(res.data)
   }
 
@@ -47,7 +49,7 @@ export const Header = () => {
     const selectedChinchilla = allChinchillas.filter(
       (chinchilla) => chinchilla.id === Number(e.target.value)
     )
-    console.log('選択中のチンチラ', selectedChinchilla)
+    debugLog('選択中のチンチラ:', selectedChinchilla)
     setChinchillaId(selectedChinchilla[0].id)
     setHeaderName(selectedChinchilla[0].chinchillaName)
     setHeaderImage(selectedChinchilla[0].chinchillaImage)
@@ -65,7 +67,7 @@ export const Header = () => {
           setHeaderImage(res.data[0].chinchillaImage)
         }
       } catch (err) {
-        console.log(err)
+        debugLog('エラー:', err)
       }
     }
   }

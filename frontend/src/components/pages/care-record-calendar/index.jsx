@@ -19,6 +19,8 @@ import { faHandPointer } from '@fortawesome/free-solid-svg-icons'
 import { format } from 'date-fns'
 import ja from 'date-fns/locale/ja'
 
+import { debugLog } from 'src/lib/debug/debugLog'
+
 export const CareRecordCalendarPage = () => {
   const [allCares, setAllCares] = useState([])
   const [careId, setCareId] = useState(0)
@@ -50,7 +52,7 @@ export const CareRecordCalendarPage = () => {
     try {
       if (chinchillaId) {
         const res = await getAllCares(chinchillaId)
-        console.log('お世話記録一覧：', res.data)
+        debugLog('お世話記録一覧:', res.data)
         setAllCares(res.data)
 
         // 別のチンチラを選択する際に、画面の表示をリセット
@@ -66,8 +68,7 @@ export const CareRecordCalendarPage = () => {
         setCareMemo('')
       }
     } catch (err) {
-      console.log(err)
-      alert('エラーです')
+      debugLog('エラー:', err)
     }
   }
 
@@ -112,7 +113,7 @@ export const CareRecordCalendarPage = () => {
       (care) => care.careDay === format(new Date(date), 'yyyy-MM-dd', { locale: ja })
     )
 
-    console.log('選択中のお世話', selectedCare)
+    debugLog('選択中のお世話:', selectedCare)
 
     // お世話の記録がない場合
     if (selectedCare.length === 0) {
@@ -149,8 +150,8 @@ export const CareRecordCalendarPage = () => {
     try {
       const deleteCareRes = await deleteCare(careId)
       const getAllCaresRes = await getAllCares(chinchillaId)
-      console.log(deleteCareRes)
-      console.log(getAllCaresRes.data)
+      debugLog('削除レス:', deleteCareRes)
+      debugLog('お世話一覧:', getAllCaresRes.data)
 
       // 削除後、画面の表示をリセット
       setAllCares(getAllCaresRes.data)
@@ -166,8 +167,7 @@ export const CareRecordCalendarPage = () => {
 
       setIsModalOpen(false)
     } catch (err) {
-      console.log(err)
-      alert('エラーです')
+      debugLog('エラー:', err)
     }
   }
 
@@ -176,7 +176,7 @@ export const CareRecordCalendarPage = () => {
     const resetedCare = allCares.filter(
       (care) => care.careDay === format(new Date(selectedDate), 'yyyy-MM-dd', { locale: ja })
     )
-    console.log(resetedCare)
+    debugLog('選択中のお世話:', resetedCare)
     setCareFood(resetedCare[0].careFood)
     setCareToilet(resetedCare[0].careToilet)
     setCareBath(resetedCare[0].careBath)
@@ -210,8 +210,8 @@ export const CareRecordCalendarPage = () => {
     try {
       const createCareRes = await createCare(params)
       const getAllCaresRes = await getAllCares(chinchillaId)
-      console.log(createCareRes)
-      console.log(getAllCaresRes.data)
+      debugLog('作成レス:', createCareRes)
+      debugLog('お世話一覧:', getAllCaresRes.data)
 
       // ステータス201 Created
       if (createCareRes.status === 201) {
@@ -221,7 +221,7 @@ export const CareRecordCalendarPage = () => {
         const resetedCare = getAllCaresRes.data.filter(
           (care) => care.careDay === format(new Date(selectedDate), 'yyyy-MM-dd', { locale: ja })
         )
-        console.log(resetedCare)
+        debugLog('選択中のお世話:', resetedCare)
         setCareId(resetedCare[0].id)
         setCareFood(resetedCare[0].careFood)
         setCareToilet(resetedCare[0].careToilet)
@@ -232,13 +232,12 @@ export const CareRecordCalendarPage = () => {
         setCareHumidity(resetedCare[0].careHumidity)
         setCareMemo(resetedCare[0].careMemo)
 
-        console.log('お世話記録作成成功！')
+        debugLog('お世話記録作成:', '成功')
       } else {
         alert('お世話記録作成失敗')
       }
     } catch (err) {
-      console.log(err)
-      alert('エラーです')
+      debugLog('エラー:', err)
     }
   }
 
@@ -266,21 +265,20 @@ export const CareRecordCalendarPage = () => {
         params
       })
       const getAllCaresRes = await getAllCares(chinchillaId)
-      console.log(updateCareRes)
-      console.log(getAllCaresRes.data)
+      debugLog('更新レス:', updateCareRes)
+      debugLog('お世話一覧:', getAllCaresRes.data)
 
       // ステータス200 ok
       if (updateCareRes.status === 200) {
         setAllCares(getAllCaresRes.data)
         setIsEditing(false)
         setHeaderDisabled(false)
-        console.log('お世話記録更新成功！')
+        debugLog('お世話記録更新:', '成功')
       } else {
         alert('お世話記録更新失敗')
       }
     } catch (err) {
-      console.log(err)
-      alert('エラーです')
+      debugLog('エラー:', err)
     }
   }
 

@@ -36,3 +36,5 @@ next-env.d.ts
 
 #API
 .env.local
+.env.development
+.env.production

@@ -11,6 +11,8 @@ import { PageTitle } from 'src/components/shared/PageTittle'
 import { RhfInputForm } from 'src/components/shared/RhfInputForm'
 import { Button } from 'src/components/shared/Button'
 
+import { debugLog } from 'src/lib/debug/debugLog'
+
 export const EmailChangePage = () => {
   const router = useRouter()
   const { setProcessUser } = useContext(AuthContext)
@@ -34,17 +36,17 @@ export const EmailChangePage = () => {
     }
     try {
       const res = await updateEmail(params)
-      console.log(res)
+      debugLog('レスポンス', res)
 
       // ステータス200 OK
       if (res.status === 200) {
         setProcessUser(params.email)
         router.push('/mypage/email-change/email-confirmation-sent')
-        console.log('メールアドレス変更成功！')
+        debugLog('メールアドレス変更:', '成功')
       }
     } catch (err) {
-      console.log(err)
-      console.log(err.response.data)
+      debugLog('エラー:', err)
+      debugLog('内容:', err.response.data)
       alert('メールアドレスの変更に失敗しました')
     }
   }

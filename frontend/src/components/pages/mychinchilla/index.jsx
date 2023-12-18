@@ -7,6 +7,8 @@ import { PageTitle } from 'src/components/shared/PageTittle'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 
+import { debugLog } from 'src/lib/debug/debugLog'
+
 export const MyChinchillaPage = () => {
   const [allChinchillas, setAllChinchillas] = useState([])
   const { setChinchillaId } = useContext(SelectedChinchillaIdContext)
@@ -14,10 +16,10 @@ export const MyChinchillaPage = () => {
   const fetch = async () => {
     try {
       const res = await getMyChinchillas()
-      console.log('マイチンチラ', res.data)
+      debugLog('マイチンチラ:', res.data)
       setAllChinchillas(res.data)
     } catch (err) {
-      console.log(err)
+      debugLog('エラー:', err)
     }
   }
 

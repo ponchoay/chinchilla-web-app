@@ -9,6 +9,8 @@ import { PageTitle } from 'src/components/shared/PageTittle'
 import { RhfInputForm } from 'src/components/shared/RhfInputForm'
 import { Button } from 'src/components/shared/Button'
 
+import { debugLog } from 'src/lib/debug/debugLog'
+
 export const PasswordResetResetPage = () => {
   const router = useRouter()
 
@@ -26,18 +28,18 @@ export const PasswordResetResetPage = () => {
     const params = { password: data.password, passwordConfirmation: data.password }
     try {
       const res = await resetPassword(params)
-      console.log(res)
+      debugLog('レスポンス', res)
 
       // パスワードの変更が成功した場合
       if (res.status === 200) {
         router.push('/password-reset/confirmed')
-        console.log('パスワード再設定成功！')
+        debugLog('パスワード再設定:', '成功')
       } else {
-        console.log('パスワード再設定失敗！')
+        debugLog('パスワード再設定:', '失敗')
       }
     } catch (err) {
-      console.log(err)
-      console.log(err.response.data)
+      debugLog('エラー:', err)
+      debugLog('内容:', err.response.data)
 
       // パスワードの変更に失敗した場合
       if (err.response.status === 401) {

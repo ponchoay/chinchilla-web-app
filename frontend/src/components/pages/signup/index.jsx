@@ -12,6 +12,8 @@ import { PageTitle } from 'src/components/shared/PageTittle'
 import { RhfInputForm } from 'src/components/shared/RhfInputForm'
 import { Button } from 'src/components/shared/Button'
 
+import { debugLog } from 'src/lib/debug/debugLog'
+
 export const SignUpPage = () => {
   const router = useRouter()
   const { setProcessUser } = useContext(AuthContext)
@@ -35,20 +37,20 @@ export const SignUpPage = () => {
     }
     try {
       const res = await signUp(params)
-      console.log(res)
+      debugLog('レスポンス', res)
 
       // ステータス200 OK
       if (res.status === 200) {
-        console.log(res.data.data)
+        debugLog('新規登録ユーザー:', res.data.data)
         setProcessUser(res.data.data.email)
         router.push('/signup/email-confirmation-sent')
-        console.log('新規登録成功！')
+        debugLog('新規登録:', '成功')
       } else {
-        console.log('新規登録失敗！')
+        debugLog('新規登録:', '失敗')
       }
     } catch (err) {
-      console.log(err)
-      console.log(err.response.data)
+      debugLog('エラー:', err)
+      debugLog('内容:', err.response.data)
 
       // 新規登録に失敗した場合
       if (err.response.status === 422) {
