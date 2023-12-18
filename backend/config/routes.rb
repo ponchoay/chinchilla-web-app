@@ -32,6 +32,9 @@ Rails.application.routes.draw do
       # お世話記録 削除
       delete '/cares/:id', to: 'cares#destroy'
 
+      # テスト用
+      get '/test', to: 'tests#index'
+
     end
   end
 end
