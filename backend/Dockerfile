@@ -30,6 +30,9 @@ FROM ruby:3.2.2-alpine
 ENV LANG=C.UTF-8
 ENV TZ=Asia/Tokyo
 
+# ローカルで使用する時はコメントアウトする
+ENV RAILS_ENV=production
+
 RUN apk update && \
   apk upgrade && \
   apk add --no-cache \
@@ -48,4 +51,4 @@ RUN chmod +x /usr/bin/entrypoint.sh
 ENTRYPOINT ["entrypoint.sh"]
 EXPOSE 3010
 
-CMD ["rails", "server", "-b", "0.0.0.0"]
+CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
