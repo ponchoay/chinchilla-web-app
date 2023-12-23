@@ -96,7 +96,7 @@ export const SignInPage = () => {
 
         <Button
           btnType="submit"
-          disabled={!dirtyFields.email || !dirtyFields.password}
+          disabled={!dirtyFields.email || !dirtyFields.password || isSubmitting}
           addStyle="btn-secondary h-14 w-32"
         >
           ログイン

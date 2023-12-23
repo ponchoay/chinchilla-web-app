@@ -50,7 +50,7 @@ export const ChinchillaProfilePage = () => {
     control,
     clearErrors,
     reset,
-    formState: { isDirty }
+    formState: { isSubmitting }
   } = useForm({
     resolver: zodResolver(chinchillaProfileSchema)
   })
@@ -263,7 +263,7 @@ export const ChinchillaProfilePage = () => {
 
             {/* 保存・戻るボタン */}
             <div>
-              <Button type="submit" disabled={!isDirty} addStyle="btn-primary mx-3 h-14 w-32">
+              <Button type="submit" disabled={isSubmitting} addStyle="btn-primary mx-3 h-14 w-32">
                 保存
               </Button>
               <Button

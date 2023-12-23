@@ -89,7 +89,7 @@ export const EmailChangePage = () => {
 
         <Button
           btnType="submit"
-          disabled={!dirtyFields.email || !dirtyFields.password}
+          disabled={!dirtyFields.email || !dirtyFields.password || isSubmitting}
           addStyle="btn-primary h-14 w-32"
         >
           送信

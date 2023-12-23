@@ -78,7 +78,11 @@ export const PasswordResetPage = () => {
           control={control}
           placeholder="your@email.com"
         />
-        <Button btnType="submit" disabled={!dirtyFields.email} addStyle="btn-primary h-14 w-32">
+        <Button
+          btnType="submit"
+          disabled={!dirtyFields.email || isSubmitting}
+          addStyle="btn-primary h-14 w-32"
+        >
           送信
         </Button>
       </form>

@@ -71,7 +71,11 @@ export const PasswordResetResetPage = () => {
         />
 
         {/* 保存 */}
-        <Button btnType="submit" disabled={!dirtyFields.password} addStyle="btn-primary h-14 w-32">
+        <Button
+          btnType="submit"
+          disabled={!dirtyFields.password || isSubmitting}
+          addStyle="btn-primary h-14 w-32"
+        >
           保存
         </Button>
       </form>
