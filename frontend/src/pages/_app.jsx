@@ -21,6 +21,8 @@ export default function App({ Component, pageProps }) {
       <style jsx global>{`
         html {
           font-family: ${kosugi.style.fontFamily};
+          /* ヘッダーの高さ分スクロール位置を調整 */
+          scroll-padding-top: 7rem;
         }
       `}</style>
       <AuthProvider>
