@@ -64,7 +64,7 @@ export const EmailChangePage = () => {
       >
         <RhfInputForm
           htmlFor="email"
-          label="メールアドレス"
+          label="新しいメールアドレス"
           id="email"
           type="email"
           autoComplete="email webauthn"
@@ -75,7 +75,7 @@ export const EmailChangePage = () => {
 
         <RhfInputForm
           htmlFor="password"
-          label="パスワード"
+          label="現在のパスワード"
           explanation="6文字以上の半角英数字"
           id="password"
           type="password"
