@@ -81,13 +81,16 @@ export const Header = () => {
     <header className="fixed top-0 z-50 h-16 w-full bg-dark-blue">
       <div className="mx-auto flex h-full max-w-screen-md items-center justify-between px-3">
         <Link href="/">
-          <img
-            src="/images/chinchilla-logo.svg"
-            width="130"
-            height="34"
-            alt="チンチラのロゴ"
-            className="pb-1"
-          />
+          <div className="flex">
+            <img src="/images/chinchilla-logo.svg" width="40" height="48" alt="サイトのロゴ" className=''/>
+            <img
+              src="/images/chillalog.svg"
+              width="100"
+              height="48"
+              alt="サービス名"
+              className={`ml-1 ${isSignedIn && currentUser && 'hidden sm:block'}`}
+            />
+          </div>
         </Link>
         {isSignedIn && currentUser ? (
           <>
