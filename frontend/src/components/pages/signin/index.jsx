@@ -12,6 +12,7 @@ import { userSchema } from 'src/validation/auth'
 import { PageTitle } from 'src/components/shared/PageTittle'
 import { RhfInputForm } from 'src/components/shared/RhfInputForm'
 import { Button } from 'src/components/shared/Button'
+import { LoadingDots } from 'src/components/shared/LoadingDots'
 
 import { debugLog } from 'src/lib/debug/debugLog'
 
@@ -22,7 +23,7 @@ export const SignInPage = () => {
   const {
     handleSubmit,
     control,
-    formState: { dirtyFields }
+    formState: { dirtyFields, isSubmitting }
   } = useForm({
     defaultValues: { email: '', password: '' },
     resolver: zodResolver(userSchema)
@@ -108,6 +109,9 @@ export const SignInPage = () => {
       <Link href="/signup" className="link-hover link text-base text-dark-black">
         新規登録はこちら
       </Link>
+
+      {/* 送信中はローディング画面を表示 */}
+      {isSubmitting && <LoadingDots />}
     </div>
   )
 }

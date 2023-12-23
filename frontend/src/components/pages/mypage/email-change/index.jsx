@@ -10,6 +10,7 @@ import { userSchema } from 'src/validation/auth'
 import { PageTitle } from 'src/components/shared/PageTittle'
 import { RhfInputForm } from 'src/components/shared/RhfInputForm'
 import { Button } from 'src/components/shared/Button'
+import { LoadingDots } from 'src/components/shared/LoadingDots'
 
 import { debugLog } from 'src/lib/debug/debugLog'
 
@@ -21,7 +22,7 @@ export const EmailChangePage = () => {
   const {
     handleSubmit,
     control,
-    formState: { dirtyFields }
+    formState: { dirtyFields, isSubmitting }
   } = useForm({
     defaultValues: { email: '', password: '' },
     resolver: zodResolver(userSchema)
@@ -94,6 +95,9 @@ export const EmailChangePage = () => {
           送信
         </Button>
       </form>
+
+      {/* 送信中はローディング画面を表示 */}
+      {isSubmitting && <LoadingDots />}
     </div>
   )
 }
