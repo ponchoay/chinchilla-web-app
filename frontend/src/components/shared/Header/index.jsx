@@ -114,11 +114,11 @@ export const Header = () => {
             )}
 
             {/* マイページ */}
-            <div className="flex w-[130px] justify-end">
+            <div className="flex justify-end sm:w-[150px]">
               <Link href="/mypage">
                 <FontAwesomeIcon
                   icon={faCircleUser}
-                  className="px-3 text-4xl text-ligth-white transition-colors duration-200 hover:text-slate-200"
+                  className="pr-2 text-4xl text-ligth-white transition-colors duration-200 hover:text-slate-200"
                 />
               </Link>
             </div>
