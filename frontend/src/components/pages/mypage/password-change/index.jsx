@@ -17,7 +17,7 @@ export const PasswordChangePage = () => {
   const {
     handleSubmit,
     control,
-    formState: { dirtyFields }
+    formState: { dirtyFields, isSubmitting }
   } = useForm({
     defaultValues: { currentPassword: '', newPassword: '' },
     resolver: zodResolver(passwordChangeSchema)
@@ -86,7 +86,7 @@ export const PasswordChangePage = () => {
         {/* 保存 */}
         <Button
           btnType="submit"
-          disabled={!dirtyFields.currentPassword || !dirtyFields.newPassword}
+          disabled={!dirtyFields.currentPassword || !dirtyFields.newPassword || isSubmitting}
           addStyle="btn-primary h-14 w-32"
         >
           保存

@@ -28,7 +28,7 @@ export const ChinchillaRegistrationPage = () => {
   const {
     handleSubmit,
     control,
-    formState: { dirtyFields }
+    formState: { dirtyFields, isSubmitting }
   } = useForm({
     defaultValues: {
       chinchillaName: '',
@@ -169,7 +169,7 @@ export const ChinchillaRegistrationPage = () => {
 
         <Button
           type="submit"
-          disabled={!dirtyFields.chinchillaName || !dirtyFields.chinchillaSex ? true : false}
+          disabled={!dirtyFields.chinchillaName || !dirtyFields.chinchillaSex || isSubmitting}
           addStyle="btn-primary h-14 w-32"
         >
           登録

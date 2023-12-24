@@ -31,7 +31,7 @@ export const DisplaySelectChinchilla = ({
 
         {/* チンチラが選択されている場合は名前を表示する */}
         {/* 未選択の場合は「チンチラを選択」を表示 */}
-        <p className="hidden text-base text-ligth-white transition-colors duration-200 hover:text-slate-200 sm:block">
+        <p className="text-base text-ligth-white transition-colors duration-200 hover:text-slate-200">
           {headerName ? headerName : 'チンチラを選択'}
           {!headerName && (
             <FontAwesomeIcon icon={faHandPointer} className="ml-1 text-ligth-white" />

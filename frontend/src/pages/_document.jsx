@@ -1,7 +1,7 @@
 import { Html, Head, Main, NextScript } from 'next/document'
 
 const description =
-  'チンチラ専用の飼育記録アプリです。毎日のお世話をカレンダーに記録してチンチラさんの成長を振り返ることができます。'
+  '「ちらろぐ」は、チンチラのお世話を記録できるサービスです。毎日のお世話をカレンダーに記録して、チンチラさんの成長を振り返ることができます。'
 
 export default function Document() {
   return (

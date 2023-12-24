@@ -11,6 +11,7 @@ import { userSchema } from 'src/validation/auth'
 import { PageTitle } from 'src/components/shared/PageTittle'
 import { RhfInputForm } from 'src/components/shared/RhfInputForm'
 import { Button } from 'src/components/shared/Button'
+import { LoadingDots } from 'src/components/shared/LoadingDots'
 
 import { debugLog } from 'src/lib/debug/debugLog'
 
@@ -22,7 +23,7 @@ export const SignUpPage = () => {
   const {
     handleSubmit,
     control,
-    formState: { dirtyFields }
+    formState: { dirtyFields, isSubmitting }
   } = useForm({
     defaultValues: { email: '', password: '' },
     resolver: zodResolver(userSchema)
@@ -93,7 +94,7 @@ export const SignUpPage = () => {
 
         <Button
           btnType="submit"
-          disabled={!dirtyFields.email || !dirtyFields.password}
+          disabled={!dirtyFields.email || !dirtyFields.password || isSubmitting}
           addStyle="btn-primary h-14 w-32"
         >
           新規登録
@@ -103,6 +104,9 @@ export const SignUpPage = () => {
       <Link href="/signin" className="link-hover link text-base text-dark-black">
         ログインはこちら
       </Link>
+
+      {/* 送信中はローディング画面を表示 */}
+      {isSubmitting && <LoadingDots />}
     </div>
   )
 }

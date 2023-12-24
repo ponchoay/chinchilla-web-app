@@ -8,12 +8,11 @@ export const IndexPage = () => {
     <div className="mx-3 my-28 grid place-content-center place-items-center">
       <Carousel />
       <p className="mb-12 mt-8 text-center text-base text-dark-black">
-        チンチラ専用の飼育記録アプリです。
+        「ちらろぐ」は、チンチラのお世話を記録できるサービスです。
         <br />
         <br />
-        毎日のお世話をカレンダーに記録して
+        毎日のお世話をカレンダーに記録して、チンチラさんの成長を振り返ることができます。
         <br />
-        チンチラさんの成長を振り返ることができます。
         <br />
       </p>
       <div>

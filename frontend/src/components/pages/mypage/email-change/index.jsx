@@ -10,6 +10,7 @@ import { userSchema } from 'src/validation/auth'
 import { PageTitle } from 'src/components/shared/PageTittle'
 import { RhfInputForm } from 'src/components/shared/RhfInputForm'
 import { Button } from 'src/components/shared/Button'
+import { LoadingDots } from 'src/components/shared/LoadingDots'
 
 import { debugLog } from 'src/lib/debug/debugLog'
 
@@ -21,7 +22,7 @@ export const EmailChangePage = () => {
   const {
     handleSubmit,
     control,
-    formState: { dirtyFields }
+    formState: { dirtyFields, isSubmitting }
   } = useForm({
     defaultValues: { email: '', password: '' },
     resolver: zodResolver(userSchema)
@@ -64,7 +65,7 @@ export const EmailChangePage = () => {
       >
         <RhfInputForm
           htmlFor="email"
-          label="メールアドレス"
+          label="新しいメールアドレス"
           id="email"
           type="email"
           autoComplete="email webauthn"
@@ -75,7 +76,7 @@ export const EmailChangePage = () => {
 
         <RhfInputForm
           htmlFor="password"
-          label="パスワード"
+          label="現在のパスワード"
           explanation="6文字以上の半角英数字"
           id="password"
           type="password"
@@ -88,12 +89,15 @@ export const EmailChangePage = () => {
 
         <Button
           btnType="submit"
-          disabled={!dirtyFields.email || !dirtyFields.password}
+          disabled={!dirtyFields.email || !dirtyFields.password || isSubmitting}
           addStyle="btn-primary h-14 w-32"
         >
           送信
         </Button>
       </form>
+
+      {/* 送信中はローディング画面を表示 */}
+      {isSubmitting && <LoadingDots />}
     </div>
   )
 }
