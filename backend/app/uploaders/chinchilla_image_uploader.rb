@@ -1,6 +1,10 @@
 class ChinchillaImageUploader < CarrierWave::Uploader::Base
-  # public/に保存
-  storage :file
+  # 本番環境ではS3、それ以外では/publicに保存する
+  if Rails.env.production?
+    storage :fog
+  else
+    storage :file
+  end
 
   # 保存されるディレクトリを設定
   def store_dir
