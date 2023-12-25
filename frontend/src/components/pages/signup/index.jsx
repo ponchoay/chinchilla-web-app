@@ -63,6 +63,16 @@ export const SignUpPage = () => {
   return (
     <div className="mx-3 my-28 grid place-content-center place-items-center gap-y-6">
       <PageTitle pageTitle="新規登録" />
+      <h3 className="w-80 text-center text-base text-dark-black sm:w-96">
+        <Link href="/terms" className="link-hover link text-dark-blue">
+          利用規約
+        </Link>
+        および
+        <Link href="/privacy-policy" className="link-hover link text-dark-blue">
+          プライバシーポリシー
+        </Link>
+        に同意した上で、以下の「新規登録」ボタンを押してください。
+      </h3>
       <form
         noValidate
         onSubmit={handleSubmit(onSubmit)}
