@@ -32,7 +32,23 @@ export const Footer = () => {
             ))}
           </>
         ) : (
-          <p className="m-auto text-base text-ligth-white">© 2023 ponchoay</p>
+          <>
+            <div>
+              <Link
+                href="/terms"
+                className="px-6 py-[26px] text-xs text-ligth-white transition-colors duration-200 hover:bg-slate-200/50 sm:text-sm"
+              >
+                利用規約
+              </Link>
+              <Link
+                href="/privacy-policy"
+                className="px-2 py-[26px] text-xs text-ligth-white transition-colors duration-200  hover:bg-slate-200/50 sm:text-sm"
+              >
+                プライバシーポリシー
+              </Link>
+            </div>
+            <p className="px-4 text-xs text-ligth-white sm:text-sm">© 2023 ponchoay</p>
+          </>
         )}
       </div>
     </footer>
