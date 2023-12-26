@@ -28,11 +28,11 @@ export const MyChinchillaPage = () => {
   }, [])
 
   return (
-    <div className="mx-auto my-28 grid place-content-center place-items-center">
+    <div className="mx-auto my-24 grid place-content-center place-items-center sm:my-28">
       <PageTitle pageTitle="マイチンチラ" />
       <div
         className={`mt-6 grid grid-cols-1 ${
-          allChinchillas.length === 1 ? 'place-items-center' : 'gap-y-14 sm:grid-cols-2 sm:gap-x-20'
+          allChinchillas.length === 1 ? 'place-items-center' : 'gap-y-10 sm:grid-cols-2 sm:gap-x-20'
         }`}
       >
         {allChinchillas.map((chinchilla) => (
