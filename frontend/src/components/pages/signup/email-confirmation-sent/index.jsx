@@ -2,7 +2,7 @@ import { EmailConfirmationSentNotice } from 'src/components/shared/EmailConfirma
 
 export const EmailConfirmationSentPage = () => {
   return (
-    <div className="mx-3 my-28 grid place-content-center place-items-center">
+    <div className="mx-3 my-24 grid place-content-center place-items-center sm:my-28">
       <EmailConfirmationSentNotice subject="アカウント確認用" process="アカウント登録" />
     </div>
   )
