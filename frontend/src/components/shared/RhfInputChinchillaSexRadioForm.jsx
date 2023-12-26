@@ -9,10 +9,10 @@ export const RhfInputChinchillaSexRadioForm = ({ name, control }) => {
   const { error } = fieldState
 
   return (
-    <div className="form-control h-32 w-80 sm:w-96">
+    <div className="form-control h-28 w-80 sm:h-32 sm:w-96">
       <p className="label">
-        <span className="text-base text-dark-black">性別</span>
-        <span className="label-text-alt text-sm text-dark-black">
+        <span className="text-sm text-dark-black sm:text-base">性別</span>
+        <span className="label-text-alt text-xs text-dark-black sm:text-sm">
           <FontAwesomeIcon icon={faAsterisk} className="mb-[1px] mr-1 text-xs text-dark-pink" />
           必須入力
         </span>
@@ -22,7 +22,7 @@ export const RhfInputChinchillaSexRadioForm = ({ name, control }) => {
           <React.Fragment key={sex}>
             <label
               htmlFor={sex}
-              className="flex cursor-pointer items-center text-base text-dark-black"
+              className="flex cursor-pointer items-center text-sm text-dark-black sm:text-base"
             >
               {sex}
               <input
@@ -37,7 +37,7 @@ export const RhfInputChinchillaSexRadioForm = ({ name, control }) => {
           </React.Fragment>
         ))}
       </div>
-      {error && <p className="label text-base text-dark-pink">{error.message}</p>}
+      {error && <p className="label text-sm text-dark-pink sm:text-base">{error.message}</p>}
     </div>
   )
 }
