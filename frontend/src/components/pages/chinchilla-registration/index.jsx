@@ -167,6 +167,9 @@ export const ChinchillaRegistrationPage = () => {
           control={control}
         />
 
+        {/* テスト用 */}
+        <input type="date" className="h-14 w-80 sm:w-96" />
+
         <Button
           type="submit"
           disabled={!dirtyFields.chinchillaName || !dirtyFields.chinchillaSex || isSubmitting}
