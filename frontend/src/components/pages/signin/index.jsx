@@ -63,12 +63,12 @@ export const SignInPage = () => {
   }
 
   return (
-    <div className="mx-3 my-28 grid place-content-center place-items-center gap-y-6">
+    <div className="mx-3 my-24 grid place-content-center place-items-center gap-y-4 sm:my-28 sm:gap-y-6">
       <PageTitle pageTitle="ログイン" />
       <form
         noValidate
         onSubmit={handleSubmit(onSubmit)}
-        className="grid place-content-center place-items-center gap-y-6"
+        className="grid place-content-center place-items-center gap-y-4 sm:gap-y-6"
       >
         <RhfInputForm
           htmlFor="email"
@@ -103,10 +103,10 @@ export const SignInPage = () => {
         </Button>
       </form>
 
-      <Link href="/password-reset" className="link-hover link text-base text-dark-black">
+      <Link href="/password-reset" className="link-hover link text-sm text-dark-black sm:text-base">
         パスワードがわからない場合はこちら
       </Link>
-      <Link href="/signup" className="link-hover link text-base text-dark-black">
+      <Link href="/signup" className="link-hover link text-sm text-dark-black sm:text-base">
         新規登録はこちら
       </Link>
 

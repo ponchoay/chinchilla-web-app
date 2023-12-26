@@ -56,9 +56,9 @@ export const PasswordResetPage = () => {
   }
 
   return (
-    <div className="mx-3 my-28 grid place-content-center place-items-center gap-y-6">
+    <div className="mx-3 my-24 grid place-content-center place-items-center gap-y-4 sm:my-28 sm:gap-y-6">
       <PageTitle pageTitle="パスワードの再設定" />
-      <h3 className="px-3 text-center text-base text-dark-black">
+      <h3 className="w-80 text-justify text-sm text-dark-black sm:w-96 sm:text-base">
         パスワード再設定用のURLを送信します。
         <br />
         ご登録いただいているメールアドレスを入力してください。
@@ -66,7 +66,7 @@ export const PasswordResetPage = () => {
       <form
         noValidate
         onSubmit={handleSubmit(onSubmit)}
-        className="grid place-content-center place-items-center gap-y-6"
+        className="grid place-content-center place-items-center gap-y-4 sm:gap-y-6"
       >
         <RhfInputForm
           htmlFor="email"

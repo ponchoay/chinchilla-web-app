@@ -61,9 +61,9 @@ export const SignUpPage = () => {
   }
 
   return (
-    <div className="mx-3 my-28 grid place-content-center place-items-center gap-y-6">
+    <div className="mx-3 my-24 grid place-content-center place-items-center gap-y-4 sm:my-28 sm:gap-y-6">
       <PageTitle pageTitle="新規登録" />
-      <h3 className="w-80 text-center text-base text-dark-black sm:w-96">
+      <h3 className="w-80 text-justify text-sm text-dark-black sm:w-96 sm:text-base">
         <Link href="/terms" className="link-hover link text-dark-blue">
           利用規約
         </Link>
@@ -76,7 +76,7 @@ export const SignUpPage = () => {
       <form
         noValidate
         onSubmit={handleSubmit(onSubmit)}
-        className="grid place-content-center place-items-center gap-y-6"
+        className="grid place-content-center place-items-center gap-y-4 sm:gap-y-6"
       >
         <RhfInputForm
           htmlFor="email"
@@ -111,7 +111,7 @@ export const SignUpPage = () => {
         </Button>
       </form>
 
-      <Link href="/signin" className="link-hover link text-base text-dark-black">
+      <Link href="/signin" className="link-hover link text-sm text-dark-black sm:text-base">
         ログインはこちら
       </Link>
 

@@ -50,12 +50,12 @@ export const PasswordResetResetPage = () => {
   }
 
   return (
-    <div className="mx-3 my-28 grid place-content-center place-items-center gap-y-6">
+    <div className="mx-3 my-24 grid place-content-center place-items-center gap-y-4 sm:my-28 sm:gap-y-6">
       <PageTitle pageTitle="パスワードの再設定" />
       <form
         noValidate
         onSubmit={handleSubmit(onSubmit)}
-        className="grid place-content-center place-items-center gap-y-6"
+        className="grid place-content-center place-items-center gap-y-4 sm:gap-y-6"
       >
         {/* 新しいパスワード */}
         <RhfInputForm
@@ -79,7 +79,6 @@ export const PasswordResetResetPage = () => {
           保存
         </Button>
       </form>
-
       {/* 送信中はローディング画面を表示 */}
       {isSubmitting && <LoadingDots />}
     </div>

@@ -103,12 +103,12 @@ export const ChinchillaRegistrationPage = () => {
   }
 
   return (
-    <div className="mx-3 my-28 grid place-content-center place-items-center gap-y-6">
+    <div className="mx-3 my-24 grid place-content-center place-items-center gap-y-3 sm:my-28 sm:gap-y-6">
       <PageTitle pageTitle="チンチラの登録" />
       <form
         noValidate
         onSubmit={handleSubmit(onSubmit)}
-        className="grid place-content-center place-items-center gap-y-6"
+        className="grid place-content-center place-items-center gap-y-2 sm:gap-y-4"
       >
         {/* 画像 */}
         <div className="relative">

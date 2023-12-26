@@ -3,7 +3,7 @@ import { ProcessConfirmedNotice } from 'src/components/shared/ProcessConfirmedNo
 
 export const SignupConfirmedPage = () => {
   return (
-    <div className="mx-3 my-28 grid place-content-center place-items-center">
+    <div className="mx-3 my-24 grid place-content-center place-items-center sm:my-28">
       <PageTitle pageTitle="登録完了" />
       <ProcessConfirmedNotice process="メールアドレスの確認" />
     </div>
