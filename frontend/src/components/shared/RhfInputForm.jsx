@@ -41,7 +41,7 @@ export const RhfInputForm = ({
             autoComplete={autoComplete}
             {...field}
             placeholder={placeholder}
-            className="input input-bordered input-primary input-md w-full border-dark-blue bg-ligth-white text-base text-dark-black"
+            className="input input-bordered input-primary input-md w-80 border-dark-blue bg-ligth-white text-base text-dark-black sm:w-96"
           />
           {passwordForm && (
             <span onClick={togglePassword} role="presentation" className="absolute right-3 top-3">
