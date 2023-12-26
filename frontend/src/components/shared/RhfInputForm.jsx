@@ -23,11 +23,11 @@ export const RhfInputForm = ({
   const { isRevealPassword, togglePassword } = useTogglePassword()
 
   return (
-    <div className="form-control h-32 w-80 sm:w-96">
+    <div className="form-control h-28 w-80 sm:h-32 sm:w-96">
       <label htmlFor={htmlFor} className="label">
-        <span className="text-base text-dark-black">{label}</span>
+        <span className="text-sm text-dark-black sm:text-base">{label}</span>
         {explanation && (
-          <span className="label-text-alt text-sm text-dark-black">
+          <span className="label-text-alt text-xs text-dark-black sm:text-sm">
             <FontAwesomeIcon icon={faAsterisk} className="mb-[1px] mr-1 text-xs text-dark-pink" />
             {explanation}
           </span>
@@ -52,7 +52,7 @@ export const RhfInputForm = ({
               )}
             </span>
           )}
-          {error && <p className="label text-base text-dark-pink">{error.message}</p>}
+          {error && <p className="label text-sm text-dark-pink sm:text-base">{error.message}</p>}
         </div>
       </div>
     </div>
