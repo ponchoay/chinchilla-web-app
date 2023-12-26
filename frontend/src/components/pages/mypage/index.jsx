@@ -72,7 +72,7 @@ export const MyPagePage = () => {
   }
 
   return (
-    <div className="mx-3 my-28 grid place-content-center place-items-center">
+    <div className="mx-3 my-24 grid place-content-center place-items-center sm:my-28">
       <PageTitle pageTitle="マイページ" />
 
       {/* 手続き */}
@@ -80,11 +80,11 @@ export const MyPagePage = () => {
         {processItems.map((item) => (
           <Link href={item.link} key={item.key}>
             <div
-              className={`flex justify-between p-6 text-base text-dark-black transition-colors duration-200 hover:bg-slate-100/50 hover:text-dark-blue sm:px-16 ${item.addStyle}`}
+              className={`flex justify-between p-6 text-sm text-dark-black transition-colors duration-200 hover:bg-slate-100/50 hover:text-dark-blue sm:px-16 sm:text-base ${item.addStyle}`}
             >
-              <FontAwesomeIcon icon={item.icon} className="mr-5 pt-1" />
+              <FontAwesomeIcon icon={item.icon} className="mr-5 pt-[2px] sm:pt-1" />
               <p>{item.label}</p>
-              <FontAwesomeIcon icon={faAngleRight} className="ml-auto pt-1" />
+              <FontAwesomeIcon icon={faAngleRight} className="ml-auto pt-[2px] sm:pt-1" />
             </div>
           </Link>
         ))}
