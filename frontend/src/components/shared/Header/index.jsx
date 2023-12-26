@@ -82,7 +82,7 @@ export const Header = () => {
       <div className="mx-auto flex h-full max-w-screen-md items-center justify-between px-3">
         <Link href="/">
           <div className="flex">
-            <img src="/images/chinchilla-logo.svg" width="40" height="48" alt="サイトのロゴ" />
+            <img src="/images/chinchilla-logo.png" width="45" height="52" alt="サイトのロゴ" />
             <img
               src="/images/chillalog.svg"
               width="100"
