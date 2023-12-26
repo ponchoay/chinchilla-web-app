@@ -3,32 +3,32 @@ import { Provision } from 'src/components/shared/Provision'
 
 export const PrivacyPolicyPage = () => {
   return (
-    <div className="mx-auto my-28 grid max-w-screen-md place-content-center place-items-center gap-y-6 px-6">
+    <div className="mx-auto my-24 grid max-w-screen-md place-content-center place-items-center gap-y-6 px-6 sm:my-28">
       <PageTitle pageTitle="プライバシーポリシー" />
-      <p className="text-justify text-base text-dark-black">
+      <p className="text-justify text-sm text-dark-black sm:text-base">
         本ウェブサイト上で提供するサービス「ちらろぐ」（以下、「本サービス」といいます。）における、ユーザーの個人情報の取扱いについて、以下のとおりプライバシーポリシー（以下、「本ポリシー」といいます。）を定めます。
       </p>
 
       <div className="w-full">
         <Provision text="第1条（個人情報）" />
-        <p className="text-justify text-base text-dark-black">
+        <p className="text-justify text-sm text-dark-black sm:text-base">
           「個人情報」とは、個人情報保護法にいう「個人情報」を指すものとし、特定の個人を識別できる情報（個人識別情報）を指します。
         </p>
       </div>
 
       <div className="w-full">
         <Provision text="第2条（個人情報の収集方法）" />
-        <p className="text-justify text-base text-dark-black">
+        <p className="text-justify text-sm text-dark-black sm:text-base">
           本サービスは、ユーザーが利用登録をする際に、メールアドレスを取得します。
         </p>
       </div>
 
       <div className="w-full">
         <Provision text="第3条（個人情報を収集・利用する目的）" />
-        <p className="text-justify text-base text-dark-black">
+        <p className="text-justify text-sm text-dark-black sm:text-base">
           本サービスが個人情報を収集・利用する目的は、以下のとおりです。
         </p>
-        <ol className="list-inside list-decimal pt-3 text-justify text-base text-dark-black">
+        <ol className="list-inside list-decimal pt-3 text-justify text-sm text-dark-black sm:text-base">
           <li className="pb-1">本サービスの提供・運営のため</li>
           <li className="pb-1">
             ユーザーからのお問い合わせに回答するため（本人確認を行うことを含む）
@@ -45,7 +45,7 @@ export const PrivacyPolicyPage = () => {
 
       <div className="w-full">
         <Provision text="第4条（利用目的の変更）" />
-        <ol className="list-inside list-decimal text-justify text-base text-dark-black">
+        <ol className="list-inside list-decimal text-justify text-sm text-dark-black sm:text-base">
           <li className="pb-1">
             本サービスは、利用目的が変更前と関連性を有すると合理的に認められる場合に限り、個人情報の利用目的を変更するものとします。
           </li>
@@ -57,14 +57,14 @@ export const PrivacyPolicyPage = () => {
 
       <div className="w-full">
         <Provision text="第5条（個人情報の第三者提供）" />
-        <p className="text-justify text-base text-dark-black">
+        <p className="text-justify text-sm text-dark-black sm:text-base">
           本サービスは、ユーザーの同意を得ることなく、第三者に個人情報を提供することはありません。ただし、個人情報保護法その他の法令で認められる場合を除きます。
         </p>
       </div>
 
       <div className="w-full">
         <Provision text="第6条（プライバシーポリシーの変更）" />
-        <ol className="list-inside list-decimal text-justify text-base text-dark-black">
+        <ol className="list-inside list-decimal text-justify text-sm text-dark-black sm:text-base">
           <li className="pb-1">
             本ポリシーの内容は、法令その他本ポリシーに別段の定めのある事項を除いて、ユーザーに通知することなく、変更することができるものとします。
           </li>
