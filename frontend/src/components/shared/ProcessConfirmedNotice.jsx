@@ -13,15 +13,15 @@ export const ProcessConfirmedNotice = ({ process }) => {
             className="text-2xl font-bold text-ligth-white sm:text-5xl"
           />
         </div>
-        <p className="mt-5 text-justify text-base text-dark-black sm:mt-10 sm:text-center">
+        <p className="mt-5 text-justify text-sm text-dark-black sm:mt-10 sm:text-center sm:text-base">
           <br />
           {process}が完了しました。
         </p>
-        <p className="mt-5 text-justify text-base text-dark-black sm:text-center">
+        <p className="mt-5 text-justify text-sm text-dark-black sm:text-center sm:text-base">
           ログインページからサービスをご利用いただけます。
         </p>
       </div>
-      <Link href="/signin" className="link-hover link mt-10 text-base text-dark-black">
+      <Link href="/signin" className="link-hover link mt-10 text-sm text-dark-black sm:text-base">
         ログインはこちら
       </Link>
     </>
