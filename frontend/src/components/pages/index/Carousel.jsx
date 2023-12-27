@@ -2,24 +2,24 @@ import React from 'react'
 
 export const Carousel = () => {
   const carouselItems = [
-    // {
-    //   slideId: 'slide1',
-    //   src: '/images/chinchilla.png',
-    //   alt: 'チンチラ',
-    //   addStyle: ''
-    // },
+    {
+      slideId: 'slide1',
+      src: '/images/chinchilla.png',
+      alt: 'チンチラ',
+      addStyle: ''
+    },
     {
       slideId: 'slide2',
       src: '/images/calendar.png',
       alt: 'お世話を記録するカレンダー',
       addStyle: 'border-4 border-double border-light-blue/50'
     },
-    // {
-    //   slideId: 'slide3',
-    //   src: '/images/chinchilla-eat.png',
-    //   alt: '餌を食べるチンチラ',
-    //   addStyle: ''
-    // },
+    {
+      slideId: 'slide3',
+      src: '/images/chinchilla-eat.png',
+      alt: '餌を食べるチンチラ',
+      addStyle: ''
+    },
     {
       slideId: 'slide4',
       src: '/images/weight-chart.png',
