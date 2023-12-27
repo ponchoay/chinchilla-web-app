@@ -40,7 +40,7 @@ export const WeightChart = ({ filteredData }) => {
       width={chartSize}
       height={400}
       data={filteredData}
-      margin={{ top: 30, right: 30, bottom: 20, left: 0 }}
+      margin={{ top: 30, right: 30, bottom: 15, left: -5 }}
       className="rounded-xl bg-ligth-white"
     >
       <Line type="monotone" dataKey="careWeight" stroke="#F2B3B3" strokeWidth={2} unit="g" />

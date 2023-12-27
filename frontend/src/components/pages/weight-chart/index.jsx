@@ -200,7 +200,7 @@ export const WeightChartPage = () => {
   }
 
   return (
-    <div className="mx-3 my-28 grid place-content-center place-items-center gap-y-6">
+    <div className="mx-3 my-24 grid place-content-center place-items-center gap-y-6 sm:my-28">
       <PageTitle pageTitle="体重" />
 
       {/* グラフ */}
@@ -227,20 +227,20 @@ export const WeightChartPage = () => {
       </div>
 
       {/* まとめ */}
-      <div className="h-[150px] w-80 rounded-xl bg-ligth-white p-3 sm:w-[400px]">
-        <div className="mx-10 mt-5 flex items-center border-b border-solid border-b-light-black pb-2">
-          <p className="w-28 text-center text-base text-dark-black">平均体重</p>
+      <div className="h-32 w-72 rounded-xl bg-ligth-white p-3 sm:h-[150px] sm:w-[400px]">
+        <div className="mx-5 mt-3 flex items-center border-b border-solid border-b-light-black pb-2 sm:mx-10 sm:mt-5">
+          <p className="w-28 text-center text-sm text-dark-black sm:text-base">平均体重</p>
           <div className="flex grow justify-evenly text-center">
             {averageWeight > 0 && (
-              <p className="text-center text-base text-dark-black">{averageWeight}g</p>
+              <p className="text-center text-sm text-dark-black sm:text-base">{averageWeight}g</p>
             )}
           </div>
         </div>
-        <div className="mx-10 mt-5 flex items-center border-b border-solid border-b-light-black pb-2">
-          <p className="w-28 text-center text-base text-dark-black">記録の数</p>
+        <div className="mx-5 mt-5 flex items-center border-b border-solid border-b-light-black pb-2 sm:mx-10">
+          <p className="w-28 text-center text-sm text-dark-black sm:text-base">記録の数</p>
           <div className="flex grow justify-evenly text-center">
             {dataCount > 0 && (
-              <p className="text-center text-base text-dark-black">{dataCount}日</p>
+              <p className="text-center text-sm text-dark-black sm:text-base">{dataCount}日</p>
             )}
           </div>
         </div>
