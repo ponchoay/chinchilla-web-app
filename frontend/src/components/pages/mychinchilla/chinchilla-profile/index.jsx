@@ -199,7 +199,7 @@ export const ChinchillaProfilePage = () => {
           <>
             {/* 画像 */}
             <div className="relative">
-              <button type="button" onClick={handleClickChangeImage} className="mt-6 w-36 sm:w-48">
+              <button type="button" onClick={handleClickChangeImage} className="w-36 sm:w-48">
                 <img
                   src={resultImage()}
                   alt="プロフィール画像"
@@ -300,7 +300,7 @@ export const ChinchillaProfilePage = () => {
             </div>
 
             {/* プロフィール */}
-            <div className="h-[265px] w-80 rounded-xl bg-ligth-white sm:w-[500px]">
+            <div className="h-[265px] w-80 rounded-xl bg-ligth-white sm:h-[290px] sm:w-[500px]">
               <DisplayChinchillaProfileItem
                 label="名前"
                 value={selectedChinchilla.chinchillaName}
