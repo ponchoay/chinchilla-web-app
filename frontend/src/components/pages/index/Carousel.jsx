@@ -36,6 +36,8 @@ export const Carousel = () => {
             <div id={item.slideId} className="carousel-item aspect-[3/2] h-auto w-full ">
               <img
                 src={item.src}
+                width="336"
+                height="224"
                 alt={item.alt}
                 className={`aspect-[3/2] h-auto w-full rounded-lg ${item.addStyle}`}
               />
