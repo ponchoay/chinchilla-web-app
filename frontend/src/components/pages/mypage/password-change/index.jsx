@@ -46,17 +46,16 @@ export const PasswordChangePage = () => {
   }
 
   return (
-    <div className="mx-3 my-28 grid place-content-center place-items-center gap-y-6">
+    <div className="mx-3 my-24 grid place-content-center place-items-center gap-y-4 sm:my-28 sm:gap-y-6">
       <PageTitle pageTitle="パスワードの変更" />
+      <h3 className="w-80 text-justify text-sm text-dark-black sm:w-96 sm:text-base">
+        パスワードは6文字以上の半角英数字で入力してください
+      </h3>
       <form
         noValidate
         onSubmit={handleSubmit(onSubmit)}
-        className="grid place-content-center place-items-center gap-y-6"
+        className="grid place-content-center place-items-center gap-y-4 sm:gap-y-6"
       >
-        <h3 className="text-base text-dark-black">
-          パスワードは6文字以上の半角英数字で入力してください
-        </h3>
-
         {/* 現在のパスワード */}
         <RhfInputForm
           htmlFor="currentPassword"
