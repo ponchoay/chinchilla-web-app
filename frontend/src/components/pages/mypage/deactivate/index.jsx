@@ -42,16 +42,16 @@ export const DeactivatePage = () => {
   }
 
   return (
-    <div className="mx-3 my-28 grid place-content-center place-items-center">
+    <div className="mx-3 my-24 grid place-content-center place-items-center sm:my-28">
       <PageTitle pageTitle="退会(アカウントを削除)" />
 
       {/* 注意書き */}
       <div className="mt-8 w-80 rounded-xl bg-ligth-white p-5 sm:w-[500px] sm:p-8">
-        <p className="mb-5 text-justify text-base text-dark-black">
+        <p className="mb-5 text-justify text-sm text-dark-black sm:text-base">
           アカウントと保存されたデータを完全に削除します。
         </p>
 
-        <p className="text-justify text-base text-dark-black">
+        <p className="text-justify text-sm text-dark-black sm:text-base">
           アカウントを削除すると、保存されたデータは復元することができません。
         </p>
       </div>

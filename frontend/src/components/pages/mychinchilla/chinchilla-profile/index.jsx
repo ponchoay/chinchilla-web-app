@@ -186,12 +186,14 @@ export const ChinchillaProfilePage = () => {
   }
 
   return (
-    <div className="mx-3 my-28 grid place-content-center place-items-center gap-y-6">
+    <div className="mx-3 my-24 grid place-content-center place-items-center gap-y-3 sm:my-28 sm:gap-y-6">
       <PageTitle pageTitle="プロフィール" />
       <form
         noValidate
         onSubmit={handleSubmit(onSubmit)}
-        className="grid place-content-center place-items-center gap-y-6"
+        className={`grid place-content-center place-items-center ${
+          isEditing ? 'gap-y-2 sm:gap-y-4' : 'gap-y-4'
+        }`}
       >
         {isEditing ? (
           <>
@@ -298,7 +300,7 @@ export const ChinchillaProfilePage = () => {
             </div>
 
             {/* プロフィール */}
-            <div className="h-[290px] w-80 rounded-xl bg-ligth-white sm:w-[500px]">
+            <div className="h-[265px] w-80 rounded-xl bg-ligth-white sm:w-[500px]">
               <DisplayChinchillaProfileItem
                 label="名前"
                 value={selectedChinchilla.chinchillaName}

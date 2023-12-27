@@ -14,7 +14,7 @@ export const Footer = () => {
   ]
 
   return (
-    <footer className="fixed bottom-0 z-50 h-16 w-full bg-dark-blue">
+    <footer className="fixed bottom-0 z-50 h-12 w-full bg-dark-blue sm:h-16">
       <div className="mx-auto flex h-full max-w-screen-md items-center justify-between">
         {isSignedIn && currentUser ? (
           <>
@@ -26,7 +26,7 @@ export const Footer = () => {
               >
                 <FontAwesomeIcon
                   icon={item.icon}
-                  className="block text-center text-4xl text-ligth-white"
+                  className="block text-center text-2xl text-ligth-white sm:text-4xl"
                 />
               </Link>
             ))}
@@ -36,13 +36,13 @@ export const Footer = () => {
             <div>
               <Link
                 href="/terms"
-                className="px-6 py-[26px] text-xs text-ligth-white transition-colors duration-200 hover:bg-slate-200/50 sm:text-sm"
+                className="px-6 py-[19px] text-xs text-ligth-white transition-colors duration-200 hover:bg-slate-200/50 sm:py-[26px] sm:text-sm"
               >
                 利用規約
               </Link>
               <Link
                 href="/privacy-policy"
-                className="px-2 py-[26px] text-xs text-ligth-white transition-colors duration-200  hover:bg-slate-200/50 sm:text-sm"
+                className="px-2 py-[19px] text-xs text-ligth-white transition-colors duration-200 hover:bg-slate-200/50  sm:py-[26px] sm:text-sm"
               >
                 プライバシーポリシー
               </Link>

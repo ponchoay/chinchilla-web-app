@@ -6,6 +6,7 @@ import { faAsterisk } from '@fortawesome/free-solid-svg-icons'
 export const NumericFormItem = ({
   label,
   item,
+  inputmode,
   value,
   setValue,
   min,
@@ -17,14 +18,15 @@ export const NumericFormItem = ({
   return (
     <div className="form-control w-80 sm:w-96">
       <label htmlFor={item} className="label">
-        <span className="text-base text-dark-black">{label}</span>
+        <span className="text-sm text-dark-black sm:text-base">{label}</span>
         <div>
-          <FontAwesomeIcon icon={faAsterisk} className="mr-1 text-xs text-dark-pink" />
-          <span className="label-text-alt text-dark-black">半角数字</span>
+          <FontAwesomeIcon icon={faAsterisk} className="mb-[1px] mr-1 text-xs text-dark-pink" />
+          <span className="label-text-alt text-xs text-dark-black sm:text-sm">半角数字</span>
         </div>
       </label>
       <NumericFormat
         id={item}
+        inputmode={inputmode}
         value={value ? value : ''}
         onValueChange={(values) => {
           // 入力が空(undafined)になる場合はnullをセット
