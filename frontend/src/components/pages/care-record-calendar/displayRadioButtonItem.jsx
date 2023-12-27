@@ -4,9 +4,9 @@ import { faFaceSmileBeam, faFaceDizzy, faFaceMeh } from '@fortawesome/free-solid
 
 export const DisplayRadioButtonItem = ({ label, item, value }) => {
   return (
-    <div className="mx-5 mt-5 flex items-center border-b border-solid border-b-light-black sm:mx-10 sm:mt-6">
-      <p className="w-24 text-center text-base text-dark-black sm:w-28">{label}</p>
-      <div className="flex grow justify-evenly text-center text-base text-dark-black">
+    <div className="mx-5 mt-3 flex items-center border-b border-solid border-b-light-black sm:mx-10 sm:mt-6">
+      <p className="w-24 text-center text-sm text-dark-black sm:w-28 sm:text-base">{label}</p>
+      <div className="flex grow justify-evenly text-center text-sm text-dark-black sm:text-base">
         {['good', 'usually', 'bad'].map((status) => (
           <React.Fragment key={`care${item}Is${status}`}>
             {value === status ? (
@@ -15,16 +15,16 @@ export const DisplayRadioButtonItem = ({ label, item, value }) => {
                   status === 'good'
                     ? faFaceSmileBeam
                     : status === 'usually'
-                    ? faFaceMeh
-                    : faFaceDizzy
+                      ? faFaceMeh
+                      : faFaceDizzy
                 }
-                className={`label text-2xl ${
+                className={`label text-xl sm:text-2xl ${
                   value === status
                     ? status === 'good'
                       ? 'text-dark-blue'
                       : status === 'bad'
-                      ? 'text-dark-pink'
-                      : 'text-dark-black'
+                        ? 'text-dark-pink'
+                        : 'text-dark-black'
                     : 'text-light-black'
                 }`}
               />
@@ -34,10 +34,10 @@ export const DisplayRadioButtonItem = ({ label, item, value }) => {
                   status === 'good'
                     ? faFaceSmileBeam
                     : status === 'usually'
-                    ? faFaceMeh
-                    : faFaceDizzy
+                      ? faFaceMeh
+                      : faFaceDizzy
                 }
-                className="label text-2xl text-light-black"
+                className="label text-xl text-light-black sm:text-2xl"
               />
             )}
           </React.Fragment>

@@ -13,9 +13,9 @@ export const InputRadioButtonItem = ({ label, item, value, setValue }) => {
   }
 
   return (
-    <div className="mx-5 mt-6 flex items-center border-b border-solid border-b-light-black sm:mx-10">
-      <p className="w-24 text-center text-base text-dark-black sm:w-28">{label}</p>
-      <div className="flex grow justify-evenly text-center text-base text-dark-black">
+    <div className="mx-5 mt-3 flex items-center border-b border-solid border-b-light-black sm:mx-10 sm:mt-6">
+      <p className="w-24 text-center text-sm text-dark-black sm:w-28 sm:text-base">{label}</p>
+      <div className="flex grow justify-evenly text-center text-sm text-dark-black sm:text-base">
         {['good', 'usually', 'bad'].map((status) => (
           <React.Fragment key={`care${item}Is${status}`}>
             <input
@@ -38,18 +38,18 @@ export const InputRadioButtonItem = ({ label, item, value, setValue }) => {
                     status === 'good'
                       ? faFaceSmileBeam
                       : status === 'usually'
-                      ? faFaceMeh
-                      : faFaceDizzy
+                        ? faFaceMeh
+                        : faFaceDizzy
                   }
-                  className={`text-2xl ${
+                  className={`text-xl ${
                     value === status
                       ? status === 'good'
                         ? 'text-dark-blue'
                         : status === 'bad'
-                        ? 'text-dark-pink'
-                        : 'text-dark-black'
+                          ? 'text-dark-pink'
+                          : 'text-dark-black'
                       : 'text-light-black'
-                  }`}
+                  }  sm:text-2xl`}
                 />
               ) : (
                 <FontAwesomeIcon
@@ -57,10 +57,10 @@ export const InputRadioButtonItem = ({ label, item, value, setValue }) => {
                     status === 'good'
                       ? faFaceSmileBeam
                       : status === 'usually'
-                      ? faFaceMeh
-                      : faFaceDizzy
+                        ? faFaceMeh
+                        : faFaceDizzy
                   }
-                  className="text-2xl text-light-black"
+                  className="text-xl text-light-black sm:text-2xl"
                 />
               )}
             </label>
