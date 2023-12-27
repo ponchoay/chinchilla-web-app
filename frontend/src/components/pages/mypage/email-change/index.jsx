@@ -53,15 +53,15 @@ export const EmailChangePage = () => {
   }
 
   return (
-    <div className="mx-3 my-28 grid place-content-center place-items-center gap-y-6">
+    <div className="mx-3 my-24 grid place-content-center place-items-center gap-y-4 sm:my-28 sm:gap-y-6">
       <PageTitle pageTitle="メールアドレスの変更" />
-      <h3 className="px-10 text-center text-base text-dark-black">
+      <h3 className="w-80 text-justify text-sm text-dark-black sm:w-96 sm:text-base">
         新しいメールアドレスに認証用のURLを送信します
       </h3>
       <form
         noValidate
         onSubmit={handleSubmit(onSubmit)}
-        className="grid place-content-center place-items-center gap-y-6"
+        className="grid place-content-center place-items-center gap-y-4 sm:gap-y-6"
       >
         <RhfInputForm
           htmlFor="email"
@@ -95,7 +95,6 @@ export const EmailChangePage = () => {
           送信
         </Button>
       </form>
-
       {/* 送信中はローディング画面を表示 */}
       {isSubmitting && <LoadingDots />}
     </div>
