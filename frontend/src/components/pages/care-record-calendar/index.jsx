@@ -16,6 +16,8 @@ import { Calendar } from 'src/components/pages/care-record-calendar/calendar'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHandPointer } from '@fortawesome/free-solid-svg-icons'
 
+import { validateCareMemo } from 'src/validation/care'
+
 import { format } from 'date-fns'
 import ja from 'date-fns/locale/ja'
 
@@ -43,6 +45,9 @@ export const CareRecordCalendarPage = () => {
   const [careTemperature, setCareTemperature] = useState(null)
   const [careHumidity, setCareHumidity] = useState(null)
   const [careMemo, setCareMemo] = useState('')
+
+  // お世話メモのバリデーションメッセージ
+  const [careMemoErrorMessage, setCareMemoErrorMessage] = useState('')
 
   // 選択中のカレンダーの日付の状態管理
   const [selectedDate, setSelectedDate] = useState(null)
@@ -201,6 +206,16 @@ export const CareRecordCalendarPage = () => {
     formData.append('care[careMemo]', careMemo)
     formData.append('care[chinchillaId]', chinchillaId)
     return formData
+  }
+
+  // お世話メモのセット関数
+  const handleCareMemoChange = (e) => {
+    const newText = e.target.value
+
+    // お世話メモの字数確認
+    validateCareMemo(newText, setCareMemoErrorMessage)
+
+    setCareMemo(newText)
   }
 
   // create;お世話の記録を登録
@@ -372,15 +387,19 @@ export const CareRecordCalendarPage = () => {
           />
 
           {/* 登録モード：お世話のメモ */}
-          <CareMemoFormItem careMemo={careMemo} setCareMemo={setCareMemo} />
+          <CareMemoFormItem
+            careMemo={careMemo}
+            onChange={handleCareMemoChange}
+            careMemoErrorMessage={careMemoErrorMessage}
+          />
 
           {/* 登録モード：登録ボタン */}
           <Button
             btnType="submit"
             click={handleCreate}
             disabled={
-              // 「チンチラを選択していない」または「日付を選択していない」または「お世話記録を全て選択していない」場合は登録できない
-              // 「チンチラを選択している」かつ「日付を選択している」かつ「お世話記録を何か選択している」場合のみ登録できる
+              // 「チンチラを選択していない」または「日付を選択していない」または「お世話記録を全て選択していない」または「バリデーションエラーがある」場合は登録できない
+              // 「チンチラを選択している」かつ「日付を選択している」かつ「お世話記録を何か選択している」かつ「バリデーションエラーがない」場合のみ登録できる
               !chinchillaId ||
               !selectedDate ||
               (!careFood &&
@@ -390,7 +409,8 @@ export const CareRecordCalendarPage = () => {
                 !careWeight &&
                 !careTemperature &&
                 !careHumidity &&
-                !careMemo)
+                !careMemo) ||
+              careMemoErrorMessage
                 ? true
                 : false
             }
@@ -474,7 +494,11 @@ export const CareRecordCalendarPage = () => {
               />
 
               {/* 編集モード：お世話のメモ */}
-              <CareMemoFormItem careMemo={careMemo} setCareMemo={setCareMemo} />
+              <CareMemoFormItem
+                careMemo={careMemo}
+                onChange={handleCareMemoChange}
+                careMemoErrorMessage={careMemoErrorMessage}
+              />
 
               {/* 編集モード：保存・戻るボタン */}
               <div>
@@ -493,7 +517,8 @@ export const CareRecordCalendarPage = () => {
                       !careWeight &&
                       !careTemperature &&
                       !careHumidity &&
-                      !careMemo)
+                      !careMemo) ||
+                    careMemoErrorMessage
                       ? true
                       : false
                   }
