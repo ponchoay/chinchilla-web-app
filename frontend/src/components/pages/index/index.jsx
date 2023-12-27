@@ -5,9 +5,9 @@ import { Button } from 'src/components/shared/Button'
 
 export const IndexPage = () => {
   return (
-    <div className="mx-3 my-28 grid place-content-center place-items-center">
+    <div className="mx-3 my-24 grid place-content-center place-items-center sm:my-28">
       <Carousel />
-      <p className="mb-12 mt-8 text-center text-base text-dark-black">
+      <p className="my-8 text-center text-base text-dark-black sm:mb-12">
         「ちらろぐ」は、チンチラのお世話を記録できるサービスです。
         <br />
         <br />
