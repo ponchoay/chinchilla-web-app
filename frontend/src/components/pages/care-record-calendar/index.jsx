@@ -333,7 +333,7 @@ export const CareRecordCalendarPage = () => {
           <NumericFormItem
             label="体重（g）"
             item="careWeight"
-            inputmode="numeric"
+            inputMode="numeric"
             value={careWeight}
             setValue={setCareWeight}
             min={1}
@@ -347,7 +347,7 @@ export const CareRecordCalendarPage = () => {
           <NumericFormItem
             label="気温（℃）"
             item="careTemperature"
-            inputmode="decimal"
+            inputMode="decimal"
             value={careTemperature}
             setValue={setCareTemperature}
             min={1}
@@ -361,7 +361,7 @@ export const CareRecordCalendarPage = () => {
           <NumericFormItem
             label="湿度（%）"
             item="careHumidity"
-            inputmode="numeric"
+            inputMode="numeric"
             value={careHumidity}
             setValue={setCareHumidity}
             min={1}
@@ -435,7 +435,7 @@ export const CareRecordCalendarPage = () => {
               <NumericFormItem
                 label="体重（g）"
                 item="careWeight"
-                inputmode="numeric"
+                inputMode="numeric"
                 value={careWeight}
                 setValue={setCareWeight}
                 min={1}
@@ -449,7 +449,7 @@ export const CareRecordCalendarPage = () => {
               <NumericFormItem
                 label="気温（℃）"
                 item="careTemperature"
-                inputmode="decimal"
+                inputMode="decimal"
                 value={careTemperature}
                 setValue={setCareTemperature}
                 min={1}
@@ -463,7 +463,7 @@ export const CareRecordCalendarPage = () => {
               <NumericFormItem
                 label="湿度（%）"
                 item="careHumidity"
-                inputmode="numeric"
+                inputMode="numeric"
                 value={careHumidity}
                 setValue={setCareHumidity}
                 min={1}
