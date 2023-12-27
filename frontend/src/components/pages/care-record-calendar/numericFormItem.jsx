@@ -6,6 +6,7 @@ import { faAsterisk } from '@fortawesome/free-solid-svg-icons'
 export const NumericFormItem = ({
   label,
   item,
+  inputmode,
   value,
   setValue,
   min,
@@ -25,6 +26,7 @@ export const NumericFormItem = ({
       </label>
       <NumericFormat
         id={item}
+        inputmode={inputmode}
         value={value ? value : ''}
         onValueChange={(values) => {
           // 入力が空(undafined)になる場合はnullをセット
