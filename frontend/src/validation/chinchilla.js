@@ -63,7 +63,7 @@ export const chinchillaProfileSchema = z
     chinchillaSex: z.string().nonempty('性別は必須です'),
     chinchillaBirthday: z.string().nullable(),
     chinchillaMetDay: z.string().nullable(),
-    chinchillaMemo: z.string().max(200, '200文字以下で入力してください')
+    chinchillaMemo: z.string().max(300, '300文字以下で入力してください')
   })
   // 第一引数の条件がfalseの場合に、第二引数のメッセージを表示
   .refine(

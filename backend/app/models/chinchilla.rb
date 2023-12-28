@@ -43,6 +43,6 @@ class Chinchilla < ApplicationRecord
     errors.add(:chinchilla_met_day, 'は誕生日よりも過去の日付に設定できません')
   end
 
-  # chinchilla_memoのバリデーション（200文字以下）
-  validates :chinchilla_memo, length: { maximum: 200 }
+  # chinchilla_memoのバリデーション（500文字以下）
+  validates :chinchilla_memo, length: { maximum: 500 }
 end

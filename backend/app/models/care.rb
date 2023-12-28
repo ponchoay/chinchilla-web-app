@@ -37,8 +37,8 @@ class Care < ApplicationRecord
             numericality: { only_integer: true, greater_than: 0, less_than_or_equal_to: 100 },
             allow_nil: true
 
-  # care_memoのバリデーション（200文字以下）
-  validates :care_memo, length: { maximum: 200 }
+  # care_memoのバリデーション（500文字以下）
+  validates :care_memo, length: { maximum: 500 }
 
   private
 
