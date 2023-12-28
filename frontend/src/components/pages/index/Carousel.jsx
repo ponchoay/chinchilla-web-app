@@ -29,7 +29,7 @@ export const Carousel = () => {
   ]
 
   return (
-    <div className="w-full max-w-screen-sm">
+    <div className="w-[351px] sm:w-[616px]">
       <div className="carousel">
         {carouselItems.map((item) => (
           <React.Fragment key={item.slideId}>
