@@ -30,16 +30,16 @@ export const Carousel = () => {
 
   return (
     <div className="w-[351px] sm:w-[616px]">
-      <div className="carousel">
+      <div className="carousel w-full">
         {carouselItems.map((item) => (
           <React.Fragment key={item.slideId}>
-            <div id={item.slideId} className="carousel-item aspect-[3/2] h-auto w-full ">
+            <div id={item.slideId} className="carousel-item w-full">
               <img
                 src={item.src}
                 width="336"
                 height="224"
                 alt={item.alt}
-                className={`aspect-[3/2] h-auto w-full rounded-lg ${item.addStyle}`}
+                className={` w-full rounded-lg ${item.addStyle}`}
               />
             </div>
           </React.Fragment>
