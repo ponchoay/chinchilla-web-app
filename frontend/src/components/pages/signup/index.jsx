@@ -64,11 +64,14 @@ export const SignUpPage = () => {
     <div className="mx-3 my-24 grid place-content-center place-items-center gap-y-4 sm:my-28 sm:gap-y-6">
       <PageTitle pageTitle="新規登録" />
       <h3 className="w-80 text-justify text-sm text-dark-black sm:w-96 sm:text-base">
-        <Link href="/terms" className="link-hover link text-dark-blue">
+        <Link href="/terms" className="link text-dark-blue duration-100 hover:text-light-blue">
           利用規約
         </Link>
         および
-        <Link href="/privacy-policy" className="link-hover link text-dark-blue">
+        <Link
+          href="/privacy-policy"
+          className="link text-dark-blue duration-100 hover:text-light-blue"
+        >
           プライバシーポリシー
         </Link>
         に同意した上で、以下の「新規登録」ボタンを押してください。
@@ -111,7 +114,10 @@ export const SignUpPage = () => {
         </Button>
       </form>
 
-      <Link href="/signin" className="link-hover link text-sm text-dark-black sm:text-base">
+      <Link
+        href="/signin"
+        className="link text-sm text-dark-black duration-100 hover:text-dark-black/50 sm:text-base"
+      >
         ログインはこちら
       </Link>
 

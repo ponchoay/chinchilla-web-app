@@ -103,10 +103,16 @@ export const SignInPage = () => {
         </Button>
       </form>
 
-      <Link href="/password-reset" className="link-hover link text-sm text-dark-black sm:text-base">
+      <Link
+        href="/password-reset"
+        className="link text-sm text-dark-black duration-100 hover:text-dark-black/50 sm:text-base"
+      >
         パスワードがわからない場合はこちら
       </Link>
-      <Link href="/signup" className="link-hover link text-sm text-dark-black sm:text-base">
+      <Link
+        href="/signup"
+        className="link text-sm text-dark-black duration-100 hover:text-dark-black/50 sm:text-base"
+      >
         新規登録はこちら
       </Link>
 
