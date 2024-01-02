@@ -21,7 +21,10 @@ export const ProcessConfirmedNotice = ({ process }) => {
           ログインページからサービスをご利用いただけます。
         </p>
       </div>
-      <Link href="/signin" className="link-hover link mt-10 text-sm text-dark-black sm:text-base">
+      <Link
+        href="/signin"
+        className="link mt-10 text-sm text-dark-black duration-100 hover:text-dark-black/50 sm:text-base"
+      >
         ログインはこちら
       </Link>
     </>

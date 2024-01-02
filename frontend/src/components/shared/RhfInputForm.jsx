@@ -28,7 +28,10 @@ export const RhfInputForm = ({
         <span className="text-sm text-dark-black sm:text-base">{label}</span>
         {explanation && (
           <span className="label-text-alt text-xs text-dark-black sm:text-sm">
-            <FontAwesomeIcon icon={faAsterisk} className="mb-[1px] mr-1 text-xs text-dark-pink" />
+            <FontAwesomeIcon
+              icon={faAsterisk}
+              className="mb-[1px] mr-1 mt-[3px] text-xs text-dark-pink"
+            />
             {explanation}
           </span>
         )}
