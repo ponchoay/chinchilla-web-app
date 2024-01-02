@@ -66,53 +66,8 @@ https://www.chillalog.com
 ## インフラ構成図
 
 ## ER図
+![ER図](https://github.com/ponchoay/chinchilla-web-app/assets/129176088/bc133f25-2388-41ed-914d-29935aaaba80)
 
-```mermaid
-erDiagram
 
-users {
-	int id PK
-	string provider
-	string uid
-	string encrypted_password
-	string reset_password_token
-	datetime reset_password_sent_at
-	string confirmation_token
-	datetime confirmed_at
-	datetime confirmation_sent_at
-	string unconfirmed_email
-	string email
-	text tokens
-}
-
-chinchillas {
-	int id PK
-	int user_id FK
-	string chinchilla_name
-	string chinchilla_sex
-	date chinchilla_birthday
-	date chinchilla_met_day
-	string chinchilla_memo
-	string chinchilla_image
-}
-
-cares {
-	int id PK
-	int chinchilla_id FK
-	date care_day
-	string care_food
-	string care_toilet
-	string care_bath
-	string care_play
-	int care_weight
-	float care_temperature
-	int care_weight
-	string care_memo
-}
-
-users ||--o{chinchillas: ""
-chinchillas ||--o{cares: ""
-****
-```
 
 ## 画面遷移図
