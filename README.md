@@ -6,6 +6,7 @@
 
 ### サービスURL
 https://www.chillalog.com
+
 レスポンシブ対応済のため、PCだけでなくスマートフォンやタブレットでも快適にご利用いただけます。
 
 ### 開発背景
@@ -64,10 +65,9 @@ https://www.chillalog.com
   - iOS: Google Chrome / Safari
 
 ## インフラ構成図
+![インフラ構成図](https://github.com/ponchoay/chinchilla-web-app/assets/129176088/a2ed4ea1-e0d3-4b6a-9e68-d7fb7bbe6863)
 
 ## ER図
 ![ER図](https://github.com/ponchoay/chinchilla-web-app/assets/129176088/bc133f25-2388-41ed-914d-29935aaaba80)
-
-
 
 ## 画面遷移図
