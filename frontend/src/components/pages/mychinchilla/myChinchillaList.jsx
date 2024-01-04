@@ -1,8 +1,10 @@
 import { useContext } from 'react'
 import Link from 'next/link'
+import { useMyChinchillas } from 'src/lib/api/chinchilla'
 import { SelectedChinchillaIdContext } from 'src/contexts/chinchilla'
 
-export const MyChinchillaList = ({ chinchillas }) => {
+export const MyChinchillaList = () => {
+  const { chinchillas } = useMyChinchillas()
   const { setChinchillaId } = useContext(SelectedChinchillaIdContext)
 
   return (

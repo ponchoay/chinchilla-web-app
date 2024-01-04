@@ -19,7 +19,7 @@ export const MyChinchillaPage = () => {
 
       {!isLoading && chinchillas.length === 0 && <NoChinchillaFound />}
 
-      {!isLoading && chinchillas.length !== 0 && <MyChinchillaList chinchillas={chinchillas} />}
+      {!isLoading && chinchillas.length !== 0 && <MyChinchillaList />}
 
       <Link href="/chinchilla-registration">
         <button
