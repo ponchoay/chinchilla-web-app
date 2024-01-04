@@ -1,7 +1,37 @@
 import Cookies from 'js-cookie'
+import useSWR from 'swr'
 import { client } from 'src/lib/api/client'
 
 // 機能&リクエストURL
+
+const fetchWithToken = (url) => {
+  const accessToken = Cookies.get('_access_token')
+  const clientToken = Cookies.get('_client')
+  const uid = Cookies.get('_uid')
+
+  if (!accessToken || !client || !uid) return
+
+  return client
+    .get(url, {
+      headers: {
+        'access-token': accessToken,
+        client: clientToken,
+        uid: uid
+      }
+    })
+    .then((res) => res.data)
+}
+
+// マイチンチラページ用 id, chinchillaName, chinchillaImageを取得
+export const useMyChinchillas = () => {
+  const { data, error, isLoading } = useSWR('/my_chinchillas', fetchWithToken)
+
+  return {
+    chinchillas: data,
+    isLoading,
+    isError: error
+  }
+}
 
 // マイチンチラページ用 id, chinchillaName, chinchillaImageを取得
 export const getMyChinchillas = () => {
