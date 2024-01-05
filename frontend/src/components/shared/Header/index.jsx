@@ -92,7 +92,9 @@ export const Header = () => {
             />
           </div>
         </Link>
-        {isSignedIn && currentUser ? (
+
+        {/* ログイン時 */}
+        {isSignedIn === true && currentUser && (
           <>
             {/* 選択中のチンチラ */}
             <DisplaySelectChinchilla
@@ -123,8 +125,10 @@ export const Header = () => {
               </Link>
             </div>
           </>
-        ) : (
-          // 未ログイン時
+        )}
+
+        {/* 未ログイン時 */}
+        {isSignedIn === false && currentUser === null && (
           <div className="flex h-full items-center">
             {userLinkItems.map((item) => (
               <Link
