@@ -10,5 +10,5 @@ class User < ApplicationRecord
 
   # Chinchillaモデルと関連付け（1対多の関係）
   # 親オブジェクトが削除されたら子オブジェクトも削除
-  has_many :chinchilla, dependent: :destroy
+  has_many :chinchillas, dependent: :destroy
 end
