@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe '/api/v1/chinchillas', type: :request do
   let!(:user) { create(:user) }
+  let!(:other_user) { create(:user) }
 
   # JSONデータの中身を確認するためのkeyの配列
   let(:my_chinchillas_keys) { ['chinchilla_name', 'chinchilla_image'] }
@@ -10,6 +11,11 @@ RSpec.describe '/api/v1/chinchillas', type: :request do
   # ヘルパーモジュールのサインインメソッドを使用
   before do
     @headers = sign_in(user)
+  end
+
+  # 他のユーザー情報用
+  before do
+    @other_headers = sign_in(other_user)
   end
 
   # 無効なヘッダー情報用
@@ -23,6 +29,7 @@ RSpec.describe '/api/v1/chinchillas', type: :request do
 
   describe 'GET /api/v1/my_chinchillas' do
     let!(:chinchilla) { create(:chinchilla, user: user) }
+    let!(:other_chinchilla) { create(:chinchilla, user: other_user) }
 
     context '正しいパラメーターでリクエストしたとき' do
       before do
@@ -37,6 +44,12 @@ RSpec.describe '/api/v1/chinchillas', type: :request do
         json_response = JSON.parse(response.body)
         expect(json_response).to be_an_instance_of(Array)
         expect(json_response.first.keys).to contain_exactly('id', 'chinchilla_name', 'chinchilla_image')
+      end
+
+      it '他のユーザーが作成したレコードは含まれていないこと' do
+        json_response = JSON.parse(response.body)
+        chinchilla_ids = json_response.map { |chinchillas| chinchillas['id'] }
+        expect(chinchilla_ids).not_to include(other_chinchilla.id)
       end
     end
 
@@ -63,6 +76,7 @@ RSpec.describe '/api/v1/chinchillas', type: :request do
 
   describe 'GET /api/v1/chinchillas/:id' do
     let!(:chinchilla) { create(:chinchilla, user: user) }
+    let!(:other_chinchilla) { create(:chinchilla, user: other_user) }
 
     context '正しいパラメーターでリクエストしたとき' do
       before do
@@ -82,6 +96,16 @@ RSpec.describe '/api/v1/chinchillas', type: :request do
         chinchilla_keys.each do |key|
           expect(response.parsed_body).to have_key(key)
         end
+      end
+    end
+
+    context 'ログイン中の他のユーザーがリクエストしたとき' do
+      before do
+        get "/api/v1/chinchillas/#{chinchilla.id}", headers: @other_headers
+      end
+
+      it 'ステータスコード404が返ってくること' do
+        expect(response).to have_http_status(:not_found)
       end
     end
 
@@ -212,6 +236,21 @@ RSpec.describe '/api/v1/chinchillas', type: :request do
       end
     end
 
+    context 'ログイン中の他のユーザーがリクエストしたとき' do
+      before do
+        put "/api/v1/chinchillas/#{chinchilla.id}", params: valid_update_params, headers: @other_headers
+      end
+
+      it 'リクエストがあったレコードが更新されていないこと' do
+        chinchilla.reload
+        expect(chinchilla.chinchilla_memo).not_to eq('アップデート')
+      end
+
+      it 'ステータスコード404が返ってくること' do
+        expect(response).to have_http_status(:not_found)
+      end
+    end
+
     context '非ログイン状態のユーザーがリクエストしたとき' do
       before do
         put "/api/v1/chinchillas/#{chinchilla.id}"
@@ -246,6 +285,19 @@ RSpec.describe '/api/v1/chinchillas', type: :request do
       it 'ステータスコード204が返ってくること' do
         delete "/api/v1/chinchillas/#{chinchilla.id}", headers: @headers
         expect(response).to have_http_status(:no_content)
+      end
+    end
+
+    context 'ログイン中の他のユーザーがリクエストしたとき' do
+      it 'データベースのレコードが削除されないこと' do
+        expect {
+          delete "/api/v1/chinchillas/#{chinchilla.id}"
+        }.not_to change(Chinchilla, :count)
+      end
+
+      it 'ステータスコード404が返ってくること' do
+        delete "/api/v1/chinchillas/#{chinchilla.id}", headers: @other_headers
+        expect(response).to have_http_status(:not_found)
       end
     end
 
