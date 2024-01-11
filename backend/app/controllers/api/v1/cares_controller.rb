@@ -28,7 +28,7 @@ class Api::V1::CaresController < ApplicationController
       render json: care, status: :created
     else
       # エラー文を取得し、ステータス422を返す
-      render json: care.errors, status: :unprocessable_entity
+      render json: { errors: ['お世話の記録の登録に失敗しました'] }, status: :unprocessable_entity
     end
   end
 
@@ -40,7 +40,7 @@ class Api::V1::CaresController < ApplicationController
       render json: care, status: :ok
     else
       # エラー文を取得し、ステータス422を返す
-      render json: care.errors, status: :unprocessable_entity
+      render json: { errors: ['お世話の記録の更新に失敗しました'] }, status: :unprocessable_entity
     end
   end
 
