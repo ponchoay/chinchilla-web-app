@@ -109,6 +109,16 @@ RSpec.describe '/api/v1/chinchillas', type: :request do
       end
     end
 
+    context '指定したレコードが存在しないとき' do
+      before do
+        get '/api/v1/chinchillas/0', headers: @headers
+      end
+
+      it 'ステータスコード404が返ってくること' do
+        expect(response).to have_http_status(:not_found)
+      end
+    end
+
     context '非ログイン状態のユーザーがリクエストしたとき' do
       before do
         get "/api/v1/chinchillas/#{chinchilla.id}"
@@ -236,6 +246,16 @@ RSpec.describe '/api/v1/chinchillas', type: :request do
       end
     end
 
+    context '指定したレコードが存在しないとき' do
+      before do
+        put '/api/v1/chinchillas/0', params: invalid_update_params, headers: @headers
+      end
+
+      it 'ステータスコード404が返ってくること' do
+        expect(response).to have_http_status(:not_found)
+      end
+    end
+
     context 'ログイン中の他のユーザーがリクエストしたとき' do
       before do
         put "/api/v1/chinchillas/#{chinchilla.id}", params: valid_update_params, headers: @other_headers
@@ -285,6 +305,16 @@ RSpec.describe '/api/v1/chinchillas', type: :request do
       it 'ステータスコード204が返ってくること' do
         delete "/api/v1/chinchillas/#{chinchilla.id}", headers: @headers
         expect(response).to have_http_status(:no_content)
+      end
+    end
+
+    context '指定したレコードが存在しないとき' do
+      before do
+        delete '/api/v1/chinchillas/0', headers: @headers
+      end
+
+      it 'ステータスコード404が返ってくること' do
+        expect(response).to have_http_status(:not_found)
       end
     end
 
