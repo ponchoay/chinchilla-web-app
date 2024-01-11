@@ -42,7 +42,8 @@ RSpec.describe Care, type: :model do
 
     context '同じのチンチラに同じcare_dayを登録したとき' do
       before { care.chinchilla_id = 1 }
-      let(:care_with_same_day) { build(:care, care_day: care.care_day, chinchilla_id: 1 ) }
+
+      let(:care_with_same_day) { build(:care, care_day: care.care_day, chinchilla_id: 1) }
 
       it '無効であること' do
         care.save
@@ -75,7 +76,7 @@ RSpec.describe Care, type: :model do
     end
 
     context 'care_weightが10000であるとき' do
-      before { care.care_weight = 10000 }
+      before { care.care_weight = 10_000 }
 
       it '無効であること' do
         expect(care).to be_invalid

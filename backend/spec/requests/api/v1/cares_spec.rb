@@ -5,16 +5,16 @@ RSpec.describe '/api/v1/cares', type: :request do
   let!(:chinchilla) { create(:chinchilla, user: user) }
 
   # JSONデータの中身を確認するためのkeyの配列
-  let(:my_chinchillas_keys) { ['chinchilla_name', 'chinchilla_image'] }
-  let(:chinchilla_keys) { ['chinchilla_name', 'chinchilla_sex', 'chinchilla_birthday', 'chinchilla_met_day', 'chinchilla_memo', 'chinchilla_image'] }
-
-  # ヘルパーモジュールのサインインメソッドを使用
-  before do
-    @headers = sign_in(user)
+  let(:my_chinchillas_keys) { %w[chinchilla_name chinchilla_image] }
+  let(:chinchilla_keys) do
+    %w[chinchilla_name chinchilla_sex chinchilla_birthday chinchilla_met_day chinchilla_memo chinchilla_image]
   end
 
-  # 無効なヘッダー情報用
   before do
+    # ヘルパーモジュールのサインインメソッドを使用
+    @headers = sign_in(user)
+
+    # 無効なヘッダー情報用
     @error_headers = {
       'uid' => 'error@example.com',
       'client' => 'error_client',
@@ -41,8 +41,7 @@ RSpec.describe '/api/v1/cares', type: :request do
         expect(json_response.first.keys).to contain_exactly('id', 'care_day', 'care_food', 'care_toilet', 'care_bath',
                                                             'care_play', 'care_weight', 'care_temperature',
                                                             'care_humidity', 'care_memo', 'care_image1', 'care_image2',
-                                                            'care_image3' , 'chinchilla_id', 'created_at', 'updated_at'
-                                                            )
+                                                            'care_image3', 'chinchilla_id', 'created_at', 'updated_at')
       end
     end
 
@@ -69,9 +68,9 @@ RSpec.describe '/api/v1/cares', type: :request do
 
   describe 'GET /api/v1/weight_cares' do
     let!(:care1) { create(:care, chinchilla: chinchilla, care_day: 1.day.ago, care_weight: 500) }
-    let!(:care2) { create(:care, chinchilla: chinchilla, care_day: 10.day.ago, care_weight: 550) }
-    let!(:care3) { create(:care, chinchilla: chinchilla, care_day: 5.day.ago, care_weight: 450) }
-    let!(:care4) { create(:care, chinchilla: chinchilla, care_day: 20.day.ago, care_weight: 400) }
+    let!(:care2) { create(:care, chinchilla: chinchilla, care_day: 10.days.ago, care_weight: 550) }
+    let!(:care3) { create(:care, chinchilla: chinchilla, care_day: 5.days.ago, care_weight: 450) }
+    let!(:care4) { create(:care, chinchilla: chinchilla, care_day: 20.days.ago, care_weight: 400) }
 
     context '正しいパラメーターでリクエストしたとき' do
       before do
@@ -91,7 +90,7 @@ RSpec.describe '/api/v1/cares', type: :request do
       it '配列の並び順がcare_dayの昇順であること' do
         json_response = JSON.parse(response.body)
         expect(json_response.map { |care| care['care_day'] })
-        .to eq([care4, care2, care3, care1].map { |care| care.care_day.to_s } )
+          .to eq([care4, care2, care3, care1].map { |care| care.care_day.to_s })
       end
     end
 
@@ -123,9 +122,9 @@ RSpec.describe '/api/v1/cares', type: :request do
 
     context '正しいパラメーターでリクエストしたとき' do
       it 'データベースにレコードが追加されること' do
-        expect {
+        expect do
           post '/api/v1/cares', params: valid_params, headers: @headers
-        }.to change(Care, :count).by(1)
+        end.to change(Care, :count).by(1)
       end
 
       it 'ステータスコード201が返ってくること' do
@@ -136,10 +135,10 @@ RSpec.describe '/api/v1/cares', type: :request do
 
     context 'care_dayを無効な値でリクエストしたとき' do
       it 'データベースにレコードが追加されないこと' do
-        expect {
+        expect do
           post '/api/v1/cares', params: invalid_care_day_params, headers: @headers
-        }.not_to change(Care, :count)
-    end
+        end.not_to change(Care, :count)
+      end
 
       it 'ステータスコード422が返ってくること' do
         post '/api/v1/cares', params: invalid_care_day_params, headers: @headers
@@ -149,10 +148,10 @@ RSpec.describe '/api/v1/cares', type: :request do
 
     context 'care_foodを無効な値でリクエストしたとき' do
       it 'データベースにレコードが追加されないこと' do
-        expect {
+        expect do
           post '/api/v1/cares', params: invalid_care_food_params, headers: @headers
-        }.not_to change(Care, :count)
-    end
+        end.not_to change(Care, :count)
+      end
 
       it 'ステータスコード422が返ってくること' do
         post '/api/v1/cares', params: invalid_care_food_params, headers: @headers
@@ -162,9 +161,9 @@ RSpec.describe '/api/v1/cares', type: :request do
 
     context '非ログイン状態のユーザーがリクエストしたとき' do
       it 'データベースにレコードが追加されないこと' do
-          expect {
-            post '/api/v1/cares', params: valid_params
-          }.not_to change(Care, :count)
+        expect do
+          post '/api/v1/cares', params: valid_params
+        end.not_to change(Care, :count)
       end
 
       it 'ステータスコード401が返ってくること' do
@@ -175,9 +174,9 @@ RSpec.describe '/api/v1/cares', type: :request do
 
     context '誤ったトークン情報でリクエストしたとき' do
       it 'データベースにレコードが追加されないこと' do
-          expect {
-            post '/api/v1/cares', params: valid_params, headers: @error_headers
-          }.not_to change(Care, :count)
+        expect do
+          post '/api/v1/cares', params: valid_params, headers: @error_headers
+        end.not_to change(Care, :count)
       end
 
       it 'ステータスコード401が返ってくること' do
@@ -248,9 +247,9 @@ RSpec.describe '/api/v1/cares', type: :request do
 
     context '正しいパラメーターでリクエストしたとき' do
       it 'データベースのレコードが削除されること' do
-        expect {
-        delete "/api/v1/cares/#{care.id}", headers: @headers
-        }.to change(Care, :count).by(-1)
+        expect do
+          delete "/api/v1/cares/#{care.id}", headers: @headers
+        end.to change(Care, :count).by(-1)
       end
 
       it 'ステータスコード204が返ってくること' do
@@ -261,9 +260,9 @@ RSpec.describe '/api/v1/cares', type: :request do
 
     context '非ログイン状態のユーザーがリクエストしたとき' do
       it 'データベースのレコードが削除されないこと' do
-        expect {
-        delete "/api/v1/cares/#{care.id}"
-        }.not_to change(Care, :count)
+        expect do
+          delete "/api/v1/cares/#{care.id}"
+        end.not_to change(Care, :count)
       end
 
       it 'ステータスコード401が返ってくること' do
@@ -274,9 +273,9 @@ RSpec.describe '/api/v1/cares', type: :request do
 
     context '誤ったトークン情報でリクエストしたとき' do
       it 'データベースのレコードが削除されないこと' do
-        expect {
-        delete "/api/v1/cares/#{care.id}", headers: @error_headers
-        }.not_to change(Care, :count)
+        expect do
+          delete "/api/v1/cares/#{care.id}", headers: @error_headers
+        end.not_to change(Care, :count)
       end
 
       it 'ステータスコード401が返ってくること' do

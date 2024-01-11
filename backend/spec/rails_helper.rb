@@ -74,5 +74,4 @@ RSpec.configure do |config|
 
   # devise_token_auth用の自作ヘルパーメソッド
   config.include RequestHelper, type: :request
-
 end

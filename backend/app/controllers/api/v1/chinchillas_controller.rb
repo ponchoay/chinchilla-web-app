@@ -3,7 +3,7 @@ class Api::V1::ChinchillasController < ApplicationController
   before_action :authenticate_api_v1_user!
 
   # ログイン中のユーザー所有のデータか確認
-  before_action :set_chinchilla, only: [:show, :update, :destroy]
+  before_action :set_chinchilla, only: %i[show update destroy]
 
   # ステータスコード404の共通処理
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
