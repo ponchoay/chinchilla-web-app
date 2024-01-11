@@ -2,10 +2,13 @@ class Api::V1::CaresController < ApplicationController
   # ログイン状態の確認
   before_action :authenticate_api_v1_user!
 
+  # ステータスコード404の共通処理
+  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+
   # お世話記録 一覧
   def all_cares
     cares = Care.where(chinchilla_id: params[:chinchilla_id])
-    render json: cares
+    render json: cares, status: :ok
   end
 
   # 体重 一覧（nullを除いて日付の古い順）
@@ -13,7 +16,7 @@ class Api::V1::CaresController < ApplicationController
     cares = Care.where(chinchilla_id: params[:chinchilla_id])
                 .where.not(care_weight: nil)
                 .order(:care_day)
-    render json: cares.as_json(only: %w[care_day care_weight])
+    render json: cares.as_json(only: %w[care_day care_weight]), status: :ok
   end
 
   # お世話記録 作成
@@ -45,6 +48,7 @@ class Api::V1::CaresController < ApplicationController
   def destroy
     care = Care.find(params[:id])
     care.destroy
+    head :no_content
   end
 
   private
@@ -65,5 +69,9 @@ class Api::V1::CaresController < ApplicationController
       :care_temperature, :care_humidity, :care_memo,
       :care_image1, :care_image2, :care_image3
     )
+  end
+
+  def record_not_found
+    render json: { errors: ['指定されたお世話の記録が見つかりませんでした'] }, status: :not_found
   end
 end
