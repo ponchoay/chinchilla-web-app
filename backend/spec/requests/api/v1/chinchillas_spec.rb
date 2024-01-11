@@ -163,7 +163,7 @@ RSpec.describe '/api/v1/chinchillas', type: :request do
         expect {
           post '/api/v1/chinchillas', params: invalid_chinchilla_name_params, headers: @headers
         }.not_to change(Chinchilla, :count)
-    end
+      end
 
       it 'ステータスコード422が返ってくること' do
         post '/api/v1/chinchillas', params: invalid_chinchilla_name_params, headers: @headers
@@ -176,7 +176,7 @@ RSpec.describe '/api/v1/chinchillas', type: :request do
         expect {
           post '/api/v1/chinchillas', params: invalid_chinchilla_sex_params, headers: @headers
         }.not_to change(Chinchilla, :count)
-    end
+      end
 
       it 'ステータスコード422が返ってくること' do
         post '/api/v1/chinchillas', params: invalid_chinchilla_sex_params, headers: @headers
@@ -186,9 +186,9 @@ RSpec.describe '/api/v1/chinchillas', type: :request do
 
     context '非ログイン状態のユーザーがリクエストしたとき' do
       it 'データベースにレコードが追加されないこと' do
-          expect {
-            post '/api/v1/chinchillas', params: valid_params
-          }.not_to change(Chinchilla, :count)
+        expect {
+          post '/api/v1/chinchillas', params: valid_params
+        }.not_to change(Chinchilla, :count)
       end
 
       it 'ステータスコード401が返ってくること' do
@@ -199,9 +199,9 @@ RSpec.describe '/api/v1/chinchillas', type: :request do
 
     context '誤ったトークン情報でリクエストしたとき' do
       it 'データベースにレコードが追加されないこと' do
-          expect {
-            post '/api/v1/chinchillas', params: valid_params, headers: @error_headers
-          }.not_to change(Chinchilla, :count)
+        expect {
+          post '/api/v1/chinchillas', params: valid_params, headers: @error_headers
+        }.not_to change(Chinchilla, :count)
       end
 
       it 'ステータスコード401が返ってくること' do
@@ -298,7 +298,7 @@ RSpec.describe '/api/v1/chinchillas', type: :request do
     context '正しいパラメーターでリクエストしたとき' do
       it 'データベースのレコードが削除されること' do
         expect {
-        delete "/api/v1/chinchillas/#{chinchilla.id}", headers: @headers
+          delete "/api/v1/chinchillas/#{chinchilla.id}", headers: @headers
         }.to change(Chinchilla, :count).by(-1)
       end
 
@@ -334,7 +334,7 @@ RSpec.describe '/api/v1/chinchillas', type: :request do
     context '非ログイン状態のユーザーがリクエストしたとき' do
       it 'データベースのレコードが削除されないこと' do
         expect {
-        delete "/api/v1/chinchillas/#{chinchilla.id}"
+          delete "/api/v1/chinchillas/#{chinchilla.id}"
         }.not_to change(Chinchilla, :count)
       end
 
@@ -347,7 +347,7 @@ RSpec.describe '/api/v1/chinchillas', type: :request do
     context '誤ったトークン情報でリクエストしたとき' do
       it 'データベースのレコードが削除されないこと' do
         expect {
-        delete "/api/v1/chinchillas/#{chinchilla.id}", headers: @error_headers
+          delete "/api/v1/chinchillas/#{chinchilla.id}", headers: @error_headers
         }.not_to change(Chinchilla, :count)
       end
 
