@@ -253,8 +253,9 @@ RSpec.describe '/api/v1/cares', type: :request do
         }.to change(Care, :count).by(-1)
       end
 
-      it 'ステータスコード200が返ってくること' do
-        expect(response).to have_http_status(:ok)
+      it 'ステータスコード204が返ってくること' do
+        delete "/api/v1/cares/#{care.id}", headers: @headers
+        expect(response).to have_http_status(:no_content)
       end
     end
 
