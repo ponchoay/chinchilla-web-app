@@ -273,7 +273,12 @@ RSpec.describe '/api/v1/chinchillas', type: :request do
 
     context '非ログイン状態のユーザーがリクエストしたとき' do
       before do
-        put "/api/v1/chinchillas/#{chinchilla.id}"
+        put "/api/v1/chinchillas/#{chinchilla.id}", params: valid_update_params
+      end
+
+      it 'リクエストがあったレコードが更新されていないこと' do
+        chinchilla.reload
+        expect(chinchilla.chinchilla_memo).not_to eq('アップデート')
       end
 
       it 'ステータスコード401が返ってくること' do
@@ -283,7 +288,12 @@ RSpec.describe '/api/v1/chinchillas', type: :request do
 
     context '誤ったトークン情報でリクエストしたとき' do
       before do
-        put "/api/v1/chinchillas/#{chinchilla.id}", headers: @error_headers
+        put "/api/v1/chinchillas/#{chinchilla.id}", params: valid_update_params, headers: @error_headers
+      end
+
+      it 'リクエストがあったレコードが更新されていないこと' do
+        chinchilla.reload
+        expect(chinchilla.chinchilla_memo).not_to eq('アップデート')
       end
 
       it 'ステータスコード401が返ってくること' do
