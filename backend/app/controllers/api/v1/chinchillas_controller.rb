@@ -27,8 +27,8 @@ class Api::V1::ChinchillasController < ApplicationController
       # 成功した場合、ステータス201を返す
       render json: chinchilla, status: :created
     else
-      # エラー文を取得し、ステータス422を返す
-      render json: chinchilla.errors, status: :unprocessable_entity
+      # エラー文とステータス422を返す
+      render json: { errors: ['チンチラの登録に失敗しました'] }, status: :unprocessable_entity
     end
   end
 
@@ -39,8 +39,8 @@ class Api::V1::ChinchillasController < ApplicationController
       # 成功した場合、ステータス200を返す
       render json: chinchilla, status: :ok
     else
-      # エラー文を取得し、ステータス422を返す
-      render json: chinchilla.errors, status: :unprocessable_entity
+      # エラー文とステータス422を返す
+      render json: { errors: ['チンチラの更新に失敗しました'] }, status: :unprocessable_entity
     end
   end
 
