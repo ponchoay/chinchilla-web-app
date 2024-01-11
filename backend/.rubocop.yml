@@ -6,10 +6,14 @@ inherit_from: .rubocop_todo.yml
 require:
   - rubocop-performance
   - rubocop-rails
+  - rubocop-rspec
 
 AllCops:
   # 新ルールを無効化
   NewCops: disable
+
+  # バージョン指定
+  TargetRubyVersion: 3.1.1
 
   # 対象外
   Exclude:
@@ -88,18 +92,54 @@ Metrics/CyclomaticComplexity:
 
 # 1行の文字数
 Layout/LineLength:
-  Max: 100
+  Max: 200
 
 # メソッドの行数
 Metrics/MethodLength:
   Max: 20
+  Exclude:
+    - 'spec/**/*'
+    - 'config/**/*'
 
 # ブロックの行数
 Metrics/BlockLength:
-Max: 100
+  Exclude:
+    - 'spec/**/*'
+    - 'config/**/*'
+    - 'app/views/**/*'
 
 ##################### その他 ##################################
 
 # 日付のタイムゾーンの未設定を許可
 Rails/Date:
+  Enabled: false
+
+##################### Rspec関連 ##################################
+
+# プレフィックスの強制
+RSpec/ContextWording:
+  Enabled: false
+
+# 行数
+RSpec/ExampleLength:
+  Enabled: false
+
+# インスタンス変数を許可
+RSpec/InstanceVariable:
+  Enabled: false
+
+# let!を許可
+RSpec/LetSetup:
+  Enabled: false
+
+# itに対して複数の期待値を許可
+RSpec/MultipleExpectations:
+  Enabled: false
+
+# let & subjectの複数呼び出しを許可
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
+
+# subject単独使用を許可
+RSpec/NamedSubject:
   Enabled: false
