@@ -2,6 +2,9 @@ class Api::V1::ChinchillasController < ApplicationController
   # ログイン状態の確認
   before_action :authenticate_api_v1_user!
 
+  # ログイン中のユーザー所有のデータか確認
+  before_action :set_chinchilla, only: [:show, :update, :destroy]
+
   # ステータスコード404の共通処理
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
@@ -14,8 +17,7 @@ class Api::V1::ChinchillasController < ApplicationController
 
   # チンチラ個別プロフィール
   def show
-    chinchilla = Chinchilla.find(params[:id])
-    render json: chinchilla, status: :ok
+    render json: @chinchilla, status: :ok
   end
 
   # チンチラプロフィール 作成
@@ -34,10 +36,9 @@ class Api::V1::ChinchillasController < ApplicationController
 
   # チンチラプロフィール 更新
   def update
-    chinchilla = Chinchilla.find(params[:id])
-    if chinchilla.update(chinchilla_params)
+    if @chinchilla.update(chinchilla_params)
       # 成功した場合、ステータス200を返す
-      render json: chinchilla, status: :ok
+      render json: @chinchilla, status: :ok
     else
       # エラー文とステータス422を返す
       render json: { errors: ['チンチラの更新に失敗しました'] }, status: :unprocessable_entity
@@ -46,8 +47,7 @@ class Api::V1::ChinchillasController < ApplicationController
 
   # チンチラプロフィール 削除
   def destroy
-    chinchilla = Chinchilla.find(params[:id])
-    chinchilla.destroy
+    @chinchilla.destroy
     head :no_content
   end
 
@@ -58,6 +58,11 @@ class Api::V1::ChinchillasController < ApplicationController
       :chinchilla_name, :chinchilla_sex, :chinchilla_birthday,
       :chinchilla_met_day, :chinchilla_memo, :chinchilla_image
     )
+  end
+
+  def set_chinchilla
+    @chinchilla = current_api_v1_user.chinchillas.find_by(id: params[:id])
+    record_not_found unless @chinchilla
   end
 
   def record_not_found
