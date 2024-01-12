@@ -45,6 +45,22 @@ RSpec.describe '/api/v1/cares', type: :request do
       end
     end
 
+    context '指定したchinchilla_idが存在しないとき' do
+      before do
+        get '/api/v1/all_cares?chinchilla_id=0', headers: @headers
+      end
+
+      it 'ステータスコード200が返ってくること' do
+        expect(response).to have_http_status(:ok)
+      end
+
+      it '配列が空であること' do
+        json_response = JSON.parse(response.body)
+        expect(json_response).to be_an_instance_of(Array)
+        expect(json_response).to be_empty
+      end
+    end
+
     context '非ログイン状態のユーザーがリクエストしたとき' do
       before do
         get "/api/v1/all_cares?chinchilla_id=#{chinchilla.id}"
@@ -91,6 +107,22 @@ RSpec.describe '/api/v1/cares', type: :request do
         json_response = JSON.parse(response.body)
         expect(json_response.map { |care| care['care_day'] })
           .to eq([care4, care2, care3, care1].map { |care| care.care_day.to_s })
+      end
+    end
+
+    context '指定したchinchilla_idが存在しないとき' do
+      before do
+        get '/api/v1/weight_cares?chinchilla_id=0', headers: @headers
+      end
+
+      it 'ステータスコード200が返ってくること' do
+        expect(response).to have_http_status(:ok)
+      end
+
+      it '配列が空であること' do
+        json_response = JSON.parse(response.body)
+        expect(json_response).to be_an_instance_of(Array)
+        expect(json_response).to be_empty
       end
     end
 
