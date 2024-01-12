@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe '/api/v1/chinchillas', type: :request do
   let!(:user) { create(:user) }
   let!(:other_user) { create(:user) }
+  let!(:no_chinchilla_user) { create(:user) }
 
   # JSONデータの中身を確認するためのkeyの配列
   let(:my_chinchillas_keys) { %w[chinchilla_name chinchilla_image] }
@@ -16,6 +17,7 @@ RSpec.describe '/api/v1/chinchillas', type: :request do
 
     # 他のユーザー情報用
     @other_headers = sign_in(other_user)
+    @no_chinchilla_headers = sign_in(no_chinchilla_user)
 
     # 無効なヘッダー情報用
     @error_headers = {
@@ -48,6 +50,22 @@ RSpec.describe '/api/v1/chinchillas', type: :request do
         json_response = JSON.parse(response.body)
         chinchilla_ids = json_response.map { |chinchillas| chinchillas['id'] }
         expect(chinchilla_ids).not_to include(other_chinchilla.id)
+      end
+    end
+
+    context 'レコードが存在しないとき' do
+      before do
+        get '/api/v1/my_chinchillas', headers: @no_chinchilla_headers
+      end
+
+      it 'ステータスコード200が返ってくること' do
+        expect(response).to have_http_status(:ok)
+      end
+
+      it '配列が空であること' do
+        json_response = JSON.parse(response.body)
+        expect(json_response).to be_an_instance_of(Array)
+        expect(json_response).to be_empty
       end
     end
 
@@ -97,9 +115,9 @@ RSpec.describe '/api/v1/chinchillas', type: :request do
       end
     end
 
-    context 'ログイン中の他のユーザーがリクエストしたとき' do
+    context '指定したレコードが存在しないとき' do
       before do
-        get "/api/v1/chinchillas/#{chinchilla.id}", headers: @other_headers
+        get '/api/v1/chinchillas/0', headers: @headers
       end
 
       it 'ステータスコード404が返ってくること' do
@@ -107,9 +125,9 @@ RSpec.describe '/api/v1/chinchillas', type: :request do
       end
     end
 
-    context '指定したレコードが存在しないとき' do
+    context 'ログイン中の他のユーザーがリクエストしたとき' do
       before do
-        get '/api/v1/chinchillas/0', headers: @headers
+        get "/api/v1/chinchillas/#{chinchilla.id}", headers: @other_headers
       end
 
       it 'ステータスコード404が返ってくること' do
@@ -250,7 +268,7 @@ RSpec.describe '/api/v1/chinchillas', type: :request do
 
     context '指定したレコードが存在しないとき' do
       before do
-        put '/api/v1/chinchillas/0', params: invalid_update_params, headers: @headers
+        put '/api/v1/chinchillas/0', params: valid_update_params, headers: @headers
       end
 
       it 'ステータスコード404が返ってくること' do
@@ -333,7 +351,7 @@ RSpec.describe '/api/v1/chinchillas', type: :request do
     context 'ログイン中の他のユーザーがリクエストしたとき' do
       it 'データベースのレコードが削除されないこと' do
         expect do
-          delete "/api/v1/chinchillas/#{chinchilla.id}"
+          delete "/api/v1/chinchillas/#{chinchilla.id}", headers: @otheer_headers
         end.not_to change(Chinchilla, :count)
       end
 
