@@ -184,8 +184,8 @@ RSpec.describe '/api/v1/cares', type: :request do
 
   describe 'POST /api/v1/cares' do
     let(:valid_params) { { care: attributes_for(:care, chinchilla_id: chinchilla.id) } }
-    let(:invalid_care_day_params) { { care: attributes_for(:care, care_day: '') } }
-    let(:invalid_care_food_params) { { care: attributes_for(:care, care_food: '普通') } }
+    let(:invalid_care_day_params) { { care: attributes_for(:care, care_day: '', chinchilla_id: chinchilla.id) } }
+    let(:invalid_care_food_params) { { care: attributes_for(:care, care_food: '普通', chinchilla_id: chinchilla.id) } }
 
     context '正しいパラメーターでリクエストしたとき' do
       it 'データベースにレコードが追加されること' do
