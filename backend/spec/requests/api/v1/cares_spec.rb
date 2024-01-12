@@ -77,6 +77,16 @@ RSpec.describe '/api/v1/cares', type: :request do
       end
     end
 
+    context '指定したchinchilla_idが存在しないとき' do
+      before do
+        get '/api/v1/all_cares?chinchilla_id=0', headers: @headers
+      end
+
+      it 'ステータスコード404が返ってくること' do
+        expect(response).to have_http_status(:not_found)
+      end
+    end
+
     context 'ログイン中の他のユーザーがリクエストしたとき' do
       before do
         get "/api/v1/all_cares?chinchilla_id=#{chinchilla.id}", headers: @other_headers
@@ -156,6 +166,16 @@ RSpec.describe '/api/v1/cares', type: :request do
         json_response = JSON.parse(response.body)
         expect(json_response).to be_an_instance_of(Array)
         expect(json_response).to be_empty
+      end
+    end
+
+    context '指定したchinchilla_idが存在しないとき' do
+      before do
+        get '/api/v1/weight_cares?chinchilla_id=0', headers: @headers
+      end
+
+      it 'ステータスコード404が返ってくること' do
+        expect(response).to have_http_status(:not_found)
       end
     end
 
