@@ -4,6 +4,7 @@ RSpec.describe '/api/v1/cares', type: :request do
   # メインユーザー
   let!(:user) { create(:user) }
   let!(:chinchilla) { create(:chinchilla, user: user) }
+  let!(:no_care_chinchilla) { create(:chinchilla, user: user) }
 
   # 他のユーザー
   let!(:other_user) { create(:user) }
@@ -60,9 +61,9 @@ RSpec.describe '/api/v1/cares', type: :request do
       end
     end
 
-    context '指定したchinchilla_idが存在しないとき' do
+    context 'レコードが存在しないとき' do
       before do
-        get '/api/v1/all_cares?chinchilla_id=0', headers: @headers
+        get "/api/v1/all_cares?chinchilla_id=#{no_care_chinchilla.id}", headers: @headers
       end
 
       it 'ステータスコード200が返ってくること' do
@@ -142,14 +143,21 @@ RSpec.describe '/api/v1/cares', type: :request do
       end
     end
 
-    context '指定したchinchilla_idが存在しないとき' do
+    context 'レコードが存在しないとき' do
       before do
-        get '/api/v1/weight_cares?chinchilla_id=0', headers: @headers
+        get "/api/v1/all_cares?chinchilla_id=#{no_care_chinchilla.id}", headers: @headers
       end
 
       it 'ステータスコード200が返ってくること' do
         expect(response).to have_http_status(:ok)
       end
+
+      it '配列が空であること' do
+        json_response = JSON.parse(response.body)
+        expect(json_response).to be_an_instance_of(Array)
+        expect(json_response).to be_empty
+      end
+    end
 
     context 'ログイン中の他のユーザーがリクエストしたとき' do
       before do
