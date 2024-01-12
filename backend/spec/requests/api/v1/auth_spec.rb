@@ -224,4 +224,45 @@ RSpec.describe '/api/v1/auth', type: :request do
     end
   end
 
+  describe 'POST /api/v1/auth/password' do
+    let(:password_reset_redirect_url) { 'http://localhost:3010' }
+
+    context '正しいパラメーターでリクエストしたとき' do
+      before do
+        post '/api/v1/auth/password', params: { email: user.email, redirect_url: password_reset_redirect_url }
+      end
+
+      it 'ステータスコード200が返ってくること' do
+        expect(response).to have_http_status(:ok)
+      end
+
+      it '指定されたメールアドレスに認証用のメールが送信されること' do
+        mail = ActionMailer::Base.deliveries.last
+        expect(ActionMailer::Base.deliveries.count).to eq(1)
+        expect(mail.to).to include(user.email)
+      end
+
+      it '送信したconfirm_success_urlがメールのリダイレクトURLと一致していること' do
+        mail = ActionMailer::Base.deliveries.last
+        expect(mail['redirect-url'].value).to eq(password_reset_redirect_url)
+      end
+
+      it 'メールのボディに認証トークンが含まれること' do
+        mail = ActionMailer::Base.deliveries.last
+        expect(mail.body).to include('reset_password_token')
+      end
+    end
+
+    context '誤ったメールアドレスでリクエストしたとき' do
+      let!(:error_email) { 'error@example.com' }
+
+      before do
+        post '/api/v1/auth/password', params: { email: error_email, redirect_url: password_reset_redirect_url }
+      end
+
+      it 'ステータスコード404が返ってくること' do
+        expect(response).to have_http_status(:not_found)
+      end
+    end
+  end
 end
