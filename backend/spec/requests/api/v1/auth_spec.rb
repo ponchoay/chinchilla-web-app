@@ -196,4 +196,32 @@ RSpec.describe '/api/v1/auth', type: :request do
     end
   end
 
+  describe 'DELETE /api/v1/auth' do
+    context '正しいパラメータでリクエストしたとき' do
+      it 'データベースのレコードが削除されること' do
+        expect do
+          delete '/api/v1/auth', headers: @headers
+        end.to change(User, :count).by(-1)
+      end
+
+      it 'ステータスコード200が返ってくること' do
+        delete '/api/v1/auth', headers: @headers
+        expect(response).to have_http_status(:ok)
+      end
+    end
+
+    context '誤ったトークンパラメーターでリクエストしたとき' do
+      it 'データベースのレコードが削除されないこと' do
+        expect do
+          delete '/api/v1/auth', headers: @error_headers
+        end.not_to change(User, :count)
+      end
+
+      it 'ステータスコード404が返ってくること' do
+        delete '/api/v1/auth', headers: @error_headers
+        expect(response).to have_http_status(:not_found)
+      end
+    end
+  end
+
 end
