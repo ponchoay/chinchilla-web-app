@@ -11,6 +11,13 @@ RSpec.describe '/api/v1/auth', type: :request do
   before do
     # ヘルパーモジュールのサインインメソッドを使用
     @headers = sign_in(user)
+
+    # 無効なヘッダー情報用
+    @error_headers = {
+      'uid' => 'error@example.com',
+      'client' => 'error_client',
+      'access-token' => 'error_access_token'
+    }
   end
 
   describe 'POST /api/v1/auth' do
@@ -97,6 +104,44 @@ RSpec.describe '/api/v1/auth', type: :request do
         header_keys.each do |key|
           expect(response.header).not_to have_key(key)
         end
+      end
+    end
+  end
+
+  describe 'DELETE /api/v1/auth/sign_out' do
+    context '正しいパラメーターでサインアウトしたとき' do
+      before do
+        delete '/api/v1/auth/sign_out', headers: @headers
+      end
+
+      it 'ステータスコード200が返ってくること' do
+        expect(response).to have_http_status(:ok)
+      end
+
+      it 'レスポンスヘッダーにトークン情報がないこと' do
+        header_keys.each do |key|
+          expect(response.header).not_to have_key(key)
+        end
+      end
+
+      it 'トークンが無効化されていること' do
+        get '/api/v1/auth/validate_token', headers: @headers
+        expect(response).to have_http_status(:unauthorized)
+      end
+    end
+
+    context '誤ったトークン情報でサインアウトしたとき' do
+      before do
+        delete '/api/v1/auth/sign_out', headers: @error_headers
+      end
+
+      it 'ステータスコード404が返ってくること' do
+        expect(response).to have_http_status(:not_found)
+      end
+
+      it 'トークンが有効化されていること' do
+        get '/api/v1/auth/validate_token', headers: @headers
+        expect(response).to have_http_status(:ok)
       end
     end
   end
