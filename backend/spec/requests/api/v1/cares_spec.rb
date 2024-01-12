@@ -221,6 +221,16 @@ RSpec.describe '/api/v1/cares', type: :request do
       end
     end
 
+    context '指定したレコードが存在しないとき' do
+      before do
+        put '/api/v1/cares/0', params: valid_update_params, headers: @headers
+      end
+
+      it 'ステータスコード404が返ってくること' do
+        expect(response).to have_http_status(:not_found)
+      end
+    end
+
     context '非ログイン状態のユーザーがリクエストしたとき' do
       before do
         put "/api/v1/cares/#{care.id}", params: valid_update_params
@@ -265,6 +275,16 @@ RSpec.describe '/api/v1/cares', type: :request do
       it 'ステータスコード204が返ってくること' do
         delete "/api/v1/cares/#{care.id}", headers: @headers
         expect(response).to have_http_status(:no_content)
+      end
+    end
+
+    context '指定したレコードが存在しないとき' do
+      before do
+        delete '/api/v1/cares/0', headers: @headers
+      end
+
+      it 'ステータスコード404が返ってくること' do
+        expect(response).to have_http_status(:not_found)
       end
     end
 
