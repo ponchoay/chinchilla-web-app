@@ -145,4 +145,55 @@ RSpec.describe '/api/v1/auth', type: :request do
       end
     end
   end
+
+  describe 'PUT /api/v1/auth' do
+    let!(:valid_params) { 'new_password' }
+    let!(:invalid_params) { 'short' }
+
+    context '正しいパラメーターでリクエストしたとき' do
+      before do
+        put '/api/v1/auth', params: { registration: { current_password: user.password, password: valid_params } }, headers: @headers
+      end
+
+      it 'ユーザーの情報が正しく更新されていること' do
+        user.reload
+        expect(user).to be_valid_password(valid_params)
+      end
+
+      it 'HTTPステータスが200であること' do
+        expect(response).to have_http_status(:ok)
+      end
+    end
+
+    context '不正なパラメーターでリクエストしたとき' do
+      before do
+        put '/api/v1/auth', params: { registration: { current_password: user.password, password: invalid_params } }, headers: @headers
+      end
+
+      it 'ユーザーの情報が更新されていないこと' do
+        user.reload
+        expect(user).not_to be_valid_password(invalid_params)
+      end
+
+      it 'HTTPステータスが422であること' do
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
+    end
+
+    context '誤ったトークン情報でリクエストしたとき' do
+      before do
+        put '/api/v1/auth', params: { registration: { current_password: user.password, password: valid_params } }, headers: @error_headers
+      end
+
+      it 'ユーザーの情報が更新されていないこと' do
+        user.reload
+        expect(user).not_to be_valid_password(valid_params)
+      end
+
+      it 'ステータスコード404が返ってくること' do
+        expect(response).to have_http_status(:not_found)
+      end
+    end
+  end
+
 end
