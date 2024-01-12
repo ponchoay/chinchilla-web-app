@@ -268,7 +268,7 @@ RSpec.describe '/api/v1/chinchillas', type: :request do
 
     context '指定したレコードが存在しないとき' do
       before do
-        put '/api/v1/chinchillas/0', params: invalid_update_params, headers: @headers
+        put '/api/v1/chinchillas/0', params: valid_update_params, headers: @headers
       end
 
       it 'ステータスコード404が返ってくること' do
@@ -351,7 +351,7 @@ RSpec.describe '/api/v1/chinchillas', type: :request do
     context 'ログイン中の他のユーザーがリクエストしたとき' do
       it 'データベースのレコードが削除されないこと' do
         expect do
-          delete "/api/v1/chinchillas/#{chinchilla.id}"
+          delete "/api/v1/chinchillas/#{chinchilla.id}", headers: @otheer_headers
         end.not_to change(Chinchilla, :count)
       end
 
