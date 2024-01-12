@@ -115,9 +115,9 @@ RSpec.describe '/api/v1/chinchillas', type: :request do
       end
     end
 
-    context 'ログイン中の他のユーザーがリクエストしたとき' do
+    context '指定したレコードが存在しないとき' do
       before do
-        get "/api/v1/chinchillas/#{chinchilla.id}", headers: @other_headers
+        get '/api/v1/chinchillas/0', headers: @headers
       end
 
       it 'ステータスコード404が返ってくること' do
@@ -125,9 +125,9 @@ RSpec.describe '/api/v1/chinchillas', type: :request do
       end
     end
 
-    context '指定したレコードが存在しないとき' do
+    context 'ログイン中の他のユーザーがリクエストしたとき' do
       before do
-        get '/api/v1/chinchillas/0', headers: @headers
+        get "/api/v1/chinchillas/#{chinchilla.id}", headers: @other_headers
       end
 
       it 'ステータスコード404が返ってくること' do
