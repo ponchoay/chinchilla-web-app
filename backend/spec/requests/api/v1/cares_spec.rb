@@ -1,8 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe '/api/v1/cares', type: :request do
+  # メインユーザー
   let!(:user) { create(:user) }
   let!(:chinchilla) { create(:chinchilla, user: user) }
+
+  # 他のユーザー
+  let!(:other_user) { create(:user) }
+  let!(:other_chinchilla) { create(:chinchilla, user: other_user) }
 
   # JSONデータの中身を確認するためのkeyの配列
   let(:my_chinchillas_keys) { %w[chinchilla_name chinchilla_image] }
@@ -14,6 +19,9 @@ RSpec.describe '/api/v1/cares', type: :request do
     # ヘルパーモジュールのサインインメソッドを使用
     @headers = sign_in(user)
 
+    # 他のユーザー情報用
+    @other_headers = sign_in(other_user)
+
     # 無効なヘッダー情報用
     @error_headers = {
       'uid' => 'error@example.com',
@@ -24,6 +32,7 @@ RSpec.describe '/api/v1/cares', type: :request do
 
   describe 'GET /api/v1/all_cares' do
     let!(:care) { create(:care, chinchilla: chinchilla) }
+    let!(:other_care) { create(:care, chinchilla: other_chinchilla) }
 
     context '正しいパラメーターでリクエストしたとき' do
       before do
@@ -43,6 +52,12 @@ RSpec.describe '/api/v1/cares', type: :request do
                                                             'care_humidity', 'care_memo', 'care_image1', 'care_image2',
                                                             'care_image3', 'chinchilla_id', 'created_at', 'updated_at')
       end
+
+      it '他のユーザーが作成したレコードは含まれていないこと' do
+        json_response = JSON.parse(response.body)
+        care_ids = json_response.map { |cares| cares['id'] }
+        expect(care_ids).not_to include(other_care.id)
+      end
     end
 
     context '指定したchinchilla_idが存在しないとき' do
@@ -58,6 +73,16 @@ RSpec.describe '/api/v1/cares', type: :request do
         json_response = JSON.parse(response.body)
         expect(json_response).to be_an_instance_of(Array)
         expect(json_response).to be_empty
+      end
+    end
+
+    context 'ログイン中の他のユーザーがリクエストしたとき' do
+      before do
+        get "/api/v1/all_cares?chinchilla_id=#{chinchilla.id}", headers: @other_headers
+      end
+
+      it 'ステータスコード404が返ってくること' do
+        expect(response).to have_http_status(:not_found)
       end
     end
 
@@ -83,6 +108,7 @@ RSpec.describe '/api/v1/cares', type: :request do
   end
 
   describe 'GET /api/v1/weight_cares' do
+    let!(:other_care) { create(:care, chinchilla: other_chinchilla) }
     let!(:care1) { create(:care, chinchilla: chinchilla, care_day: 1.day.ago, care_weight: 500) }
     let!(:care2) { create(:care, chinchilla: chinchilla, care_day: 10.days.ago, care_weight: 550) }
     let!(:care3) { create(:care, chinchilla: chinchilla, care_day: 5.days.ago, care_weight: 450) }
@@ -103,6 +129,12 @@ RSpec.describe '/api/v1/cares', type: :request do
         expect(json_response.first.keys).to contain_exactly('care_day', 'care_weight')
       end
 
+      it '他のユーザーが作成したレコードは含まれていないこと' do
+        json_response = JSON.parse(response.body)
+        care_ids = json_response.map { |cares| cares['id'] }
+        expect(care_ids).not_to include(other_care.id)
+      end
+
       it '配列の並び順がcare_dayの昇順であること' do
         json_response = JSON.parse(response.body)
         expect(json_response.map { |care| care['care_day'] })
@@ -119,10 +151,13 @@ RSpec.describe '/api/v1/cares', type: :request do
         expect(response).to have_http_status(:ok)
       end
 
-      it '配列が空であること' do
-        json_response = JSON.parse(response.body)
-        expect(json_response).to be_an_instance_of(Array)
-        expect(json_response).to be_empty
+    context 'ログイン中の他のユーザーがリクエストしたとき' do
+      before do
+        get "/api/v1/weight_cares?chinchilla_id=#{chinchilla.id}", headers: @other_headers
+      end
+
+      it 'ステータスコード404が返ってくること' do
+        expect(response).to have_http_status(:not_found)
       end
     end
 
@@ -188,6 +223,19 @@ RSpec.describe '/api/v1/cares', type: :request do
       it 'ステータスコード422が返ってくること' do
         post '/api/v1/cares', params: invalid_care_food_params, headers: @headers
         expect(response).to have_http_status(:unprocessable_entity)
+      end
+    end
+
+    context 'ログイン中の他のユーザーがリクエストしたとき' do
+      it 'データベースにレコードが追加されないこと' do
+        expect do
+          post '/api/v1/cares', params: valid_params, headers: @other_headers
+        end.not_to change(Care, :count)
+      end
+
+      it 'ステータスコード404が返ってくること' do
+        post '/api/v1/cares', params: valid_params, headers: @other_headers
+        expect(response).to have_http_status(:not_found)
       end
     end
 
@@ -263,6 +311,21 @@ RSpec.describe '/api/v1/cares', type: :request do
       end
     end
 
+    context 'ログイン中の他のユーザーがリクエストしたとき' do
+      before do
+        put "/api/v1/cares/#{care.id}", params: valid_update_params, headers: @other_headers
+      end
+
+      it 'リクエストがあったレコードが更新されていないこと' do
+        care.reload
+        expect(care.care_memo).not_to eq('アップデート')
+      end
+
+      it 'ステータスコード404が返ってくること' do
+        expect(response).to have_http_status(:not_found)
+      end
+    end
+
     context '非ログイン状態のユーザーがリクエストしたとき' do
       before do
         put "/api/v1/cares/#{care.id}", params: valid_update_params
@@ -316,6 +379,19 @@ RSpec.describe '/api/v1/cares', type: :request do
       end
 
       it 'ステータスコード404が返ってくること' do
+        expect(response).to have_http_status(:not_found)
+      end
+    end
+
+    context 'ログイン中の他のユーザーがリクエストしたとき' do
+      it 'データベースのレコードが削除されないこと' do
+        expect do
+          delete "/api/v1/cares/#{care.id}", headers: @other_headers
+        end.not_to change(Care, :count)
+      end
+
+      it 'ステータスコード404が返ってくること' do
+        delete "/api/v1/cares/#{care.id}", headers: @other_headers
         expect(response).to have_http_status(:not_found)
       end
     end
