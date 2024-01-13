@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import { Carousel } from 'src/components/pages/index/Carousel'
-
 import { Button } from 'src/components/shared/Button'
 
 export const IndexPage = () => {
@@ -17,10 +16,14 @@ export const IndexPage = () => {
       </p>
       <div>
         <Link href="/signup">
-          <Button addStyle="btn-primary mx-3 h-14 w-32">新規登録</Button>
+          <Button addStyle="btn-primary mx-3 h-14 w-32" btnType="button">
+            新規登録
+          </Button>
         </Link>
         <Link href="/signin">
-          <Button addStyle="btn-secondary mx-3 h-14 w-32">ログイン</Button>
+          <Button addStyle="btn-secondary mx-3 h-14 w-32" btnType="button">
+            ログイン
+          </Button>
         </Link>
       </div>
     </div>
