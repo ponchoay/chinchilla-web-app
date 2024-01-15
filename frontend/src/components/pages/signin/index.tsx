@@ -17,11 +17,11 @@ import { LoadingDots } from 'src/components/shared/LoadingDots'
 
 import { debugLog } from 'src/lib/debug/debugLog'
 
-import type { AuthContextType, SignInType } from 'src/types/auth'
+import type { SignInType } from 'src/types/auth'
 
 export const SignInPage = () => {
   const router = useRouter()
-  const { setIsSignedIn, setCurrentUser } = useContext<AuthContextType>(AuthContext)
+  const { setIsSignedIn, setCurrentUser } = useContext(AuthContext)
 
   const {
     handleSubmit,
