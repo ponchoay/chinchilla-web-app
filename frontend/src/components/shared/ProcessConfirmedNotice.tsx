@@ -3,7 +3,9 @@ import Link from 'next/link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
 
-export const ProcessConfirmedNotice = ({ process }) => {
+type Props = { process: string }
+
+export const ProcessConfirmedNotice = ({ process }: Props) => {
   return (
     <>
       <div className="mt-8 w-80 rounded-xl bg-ligth-white p-8 sm:w-[500px] sm:p-10">
