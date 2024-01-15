@@ -2,6 +2,7 @@ import { useContext } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import Cookies from 'js-cookie'
+import { AxiosError } from 'axios'
 import { signIn } from 'src/lib/api/auth'
 import { AuthContext } from 'src/contexts/auth'
 
@@ -16,21 +17,23 @@ import { LoadingDots } from 'src/components/shared/LoadingDots'
 
 import { debugLog } from 'src/lib/debug/debugLog'
 
+import type { AuthContextType, SignInType } from 'src/types/auth'
+
 export const SignInPage = () => {
   const router = useRouter()
-  const { setIsSignedIn, setCurrentUser } = useContext(AuthContext)
+  const { setIsSignedIn, setCurrentUser } = useContext<AuthContextType>(AuthContext)
 
   const {
     handleSubmit,
     control,
     formState: { dirtyFields, isSubmitting }
-  } = useForm({
+  } = useForm<SignInType>({
     defaultValues: { email: '', password: '' },
     resolver: zodResolver(userSchema)
   })
 
   // ログイン機能
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: SignInType) => {
     const params = { email: data.email, password: data.password }
     try {
       const res = await signIn(params)
@@ -52,11 +55,13 @@ export const SignInPage = () => {
         debugLog('ログイン:', '失敗')
       }
     } catch (err) {
-      debugLog('エラー:', err)
-      debugLog('内容:', err.response.data)
+      const error = err as AxiosError
+      if (error && error.response) {
+        debugLog('内容:', error.response.data)
+      }
 
       // ログインに失敗した場合
-      if (err.response.status === 401) {
+      if (error && error.response && error.response.status === 401) {
         alert('ログインに失敗しました')
       }
     }
@@ -73,12 +78,14 @@ export const SignInPage = () => {
         <RhfInputForm
           htmlFor="email"
           label="メールアドレス"
+          explanation={null}
           id="email"
           type="email"
           autoComplete="email webauthn"
           name="email"
           control={control}
           placeholder="your@email.com"
+          passwordForm={false}
         />
 
         <RhfInputForm
