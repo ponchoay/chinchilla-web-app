@@ -25,7 +25,7 @@ export const DeactivatePage = () => {
       debugLog('レスポンス', res)
 
       // ステータス200 OK
-      if (res.status === 200) {
+      if (res && res.status === 200) {
         // 削除に成功した場合は各Cookieを削除
         Cookies.remove('_access_token')
         Cookies.remove('_client')
