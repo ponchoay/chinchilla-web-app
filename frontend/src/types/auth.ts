@@ -1,7 +1,12 @@
 // APIに渡すパラメータ
-export type SignUpType = { email: string; password: string; confirmSuccessUrl: string }
+// envファイルを読み込むと型がstring | undefinedになるので、undefinedを許容する
+export type SignUpType = { email: string; password: string; confirmSuccessUrl: string | undefined }
 export type SignInType = { email: string; password: string }
-export type UpdateEmailType = { email: string; password: string; confirmSuccessUrl: string }
+export type UpdateEmailType = {
+  email: string
+  password: string
+  confirmSuccessUrl: string | undefined
+}
 export type UpdatePasswordType = { currentPassword: string; password: string }
 export type SendResetPasswordEmailType = { email: string }
 export type ResetPasswordType = { password: string; passwordConfirmation: string }
