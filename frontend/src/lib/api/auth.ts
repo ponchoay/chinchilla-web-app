@@ -1,15 +1,24 @@
 import Cookies from 'js-cookie'
 import { client } from 'src/lib/api/client'
 
+import type {
+  SignUpType,
+  SignInType,
+  UpdateEmailType,
+  UpdatePasswordType,
+  SendResetPasswordEmailType,
+  ResetPasswordType
+} from 'src/types/auth'
+
 // 機能&リクエストURL
 
 // 新規登録 /auth
-export const signUp = (params) => {
+export const signUp = (params: SignUpType) => {
   return client.post('auth', params)
 }
 
 // ログイン /auth/sign_in
-export const signIn = (params) => {
+export const signIn = (params: SignInType) => {
   return client.post('auth/sign_in', params)
 }
 
@@ -36,8 +45,8 @@ export const getCurrentUser = () => {
   })
 }
 
-// パスワードの変更 /auth
-export const updateEmail = (params) => {
+// メールアドレスの変更 /auth
+export const updateEmail = (params: UpdateEmailType) => {
   if (!Cookies.get('_access_token') || !Cookies.get('_client') || !Cookies.get('_uid')) return
   return client.put('auth', params, {
     headers: {
@@ -49,7 +58,7 @@ export const updateEmail = (params) => {
 }
 
 // パスワードの変更 /auth
-export const updatePassword = (params) => {
+export const updatePassword = (params: UpdatePasswordType) => {
   if (!Cookies.get('_access_token') || !Cookies.get('_client') || !Cookies.get('_uid')) return
   return client.put('auth', params, {
     headers: {
@@ -61,12 +70,12 @@ export const updatePassword = (params) => {
 }
 
 // パスワードリセット用のメール送信 /auth/password
-export const sendResetPasswordMail = (params) => {
+export const sendResetPasswordEmail = (params: SendResetPasswordEmailType) => {
   return client.post('auth/password', params)
 }
 
 // パスワードの再設定 /auth/password
-export const resetPassword = (params) => {
+export const resetPassword = (params: ResetPasswordType) => {
   const urlParams = new URLSearchParams(window.location.search)
   const accessToken = urlParams.get('access-token')
   const clientParam = urlParams.get('client') // clientは使えないので、一旦clientParamに
