@@ -1,11 +1,12 @@
 import { useContext } from 'react'
 import { useRouter } from 'next/router'
+import { AxiosError } from 'axios'
 import { updateEmail } from 'src/lib/api/auth'
 import { AuthContext } from 'src/contexts/auth'
 
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { userSchema } from 'src/validation/auth'
+import { updateEmailSchema } from 'src/validation/auth'
 
 import { PageTitle } from 'src/components/shared/PageTittle'
 import { RhfInputForm } from 'src/components/shared/RhfInputForm'
@@ -13,6 +14,8 @@ import { Button } from 'src/components/shared/Button'
 import { LoadingDots } from 'src/components/shared/LoadingDots'
 
 import { debugLog } from 'src/lib/debug/debugLog'
+
+import type { UpdateEmailType } from 'src/types/auth'
 
 export const EmailChangePage = () => {
   const router = useRouter()
@@ -23,16 +26,16 @@ export const EmailChangePage = () => {
     handleSubmit,
     control,
     formState: { dirtyFields, isSubmitting }
-  } = useForm({
-    defaultValues: { email: '', password: '' },
-    resolver: zodResolver(userSchema)
+  } = useForm<UpdateEmailType>({
+    defaultValues: { email: '', currentPassword: '' },
+    resolver: zodResolver(updateEmailSchema)
   })
 
   // メールアドレス変更機能
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: UpdateEmailType) => {
     const params = {
       email: data.email,
-      currentPassword: data.password,
+      currentPassword: data.currentPassword,
       confirmSuccessUrl: confirmSuccessUrl
     }
     try {
@@ -40,14 +43,16 @@ export const EmailChangePage = () => {
       debugLog('レスポンス', res)
 
       // ステータス200 OK
-      if (res.status === 200) {
+      if (res && res.status === 200) {
         setProcessUser(params.email)
         router.push('/mypage/email-change/email-confirmation-sent')
         debugLog('メールアドレス変更:', '成功')
       }
     } catch (err) {
-      debugLog('エラー:', err)
-      debugLog('内容:', err.response.data)
+      const error = err as AxiosError
+      if (error && error.response) {
+        debugLog('内容:', error.response.data)
+      }
       alert('メールアドレスの変更に失敗しました')
     }
   }
@@ -66,22 +71,24 @@ export const EmailChangePage = () => {
         <RhfInputForm
           htmlFor="email"
           label="新しいメールアドレス"
+          explanation={null}
           id="email"
           type="email"
           autoComplete="email webauthn"
           name="email"
           control={control}
           placeholder="your@email.com"
+          passwordForm={false}
         />
 
         <RhfInputForm
-          htmlFor="password"
+          htmlFor="currentPassword"
           label="現在のパスワード"
           explanation="6文字以上の半角英数字"
-          id="password"
+          id="currentPassword"
           type="password"
           autoComplete="current-password webauthn"
-          name="password"
+          name="currentPassword"
           control={control}
           placeholder="password"
           passwordForm={true}
@@ -89,7 +96,7 @@ export const EmailChangePage = () => {
 
         <Button
           btnType="submit"
-          disabled={!dirtyFields.email || !dirtyFields.password || isSubmitting}
+          disabled={!dirtyFields.email || !dirtyFields.currentPassword || isSubmitting}
           addStyle="btn-primary h-14 w-32"
         >
           送信

@@ -4,7 +4,7 @@ export type SignUpType = { email: string; password: string; confirmSuccessUrl: s
 export type SignInType = { email: string; password: string }
 export type UpdateEmailType = {
   email: string
-  password: string
+  currentPassword: string
   confirmSuccessUrl: string | undefined
 }
 export type UpdatePasswordType = { currentPassword: string; password: string }
