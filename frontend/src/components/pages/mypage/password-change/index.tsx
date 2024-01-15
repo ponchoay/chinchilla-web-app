@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router'
+import { AxiosError } from 'axios'
 import { updatePassword } from 'src/lib/api/auth'
 
 import { useForm } from 'react-hook-form'
@@ -11,6 +12,8 @@ import { Button } from 'src/components/shared/Button'
 
 import { debugLog } from 'src/lib/debug/debugLog'
 
+import type { UpdatePasswordType } from 'src/types/auth'
+
 export const PasswordChangePage = () => {
   const router = useRouter()
 
@@ -18,28 +21,29 @@ export const PasswordChangePage = () => {
     handleSubmit,
     control,
     formState: { dirtyFields, isSubmitting }
-  } = useForm({
-    defaultValues: { currentPassword: '', newPassword: '' },
+  } = useForm<UpdatePasswordType>({
+    defaultValues: { currentPassword: '', password: '' },
     resolver: zodResolver(passwordChangeSchema)
   })
 
   // パスワード変更機能
-  const onSubmit = async (data) => {
-    const params = { currentPassword: data.currentPassword, password: data.newPassword }
+  const onSubmit = async (data: UpdatePasswordType) => {
+    const params = { currentPassword: data.currentPassword, password: data.password }
     try {
       const res = await updatePassword(params)
       debugLog('レスポンス', res)
 
       // パスワードの変更が成功した場合
-      if (res.status === 200) {
+      if (res && res.status === 200) {
         alert('パスワードの変更に成功しました')
         router.push('/mypage')
       }
     } catch (err) {
+      const error = err as AxiosError
       debugLog('エラー:', err)
 
       // パスワードの変更に失敗した場合
-      if (err.response.status === 422) {
+      if (error && error.response && error.response.status === 422) {
         alert('パスワードが間違っています')
       }
     }
@@ -60,6 +64,7 @@ export const PasswordChangePage = () => {
         <RhfInputForm
           htmlFor="currentPassword"
           label="現在のパスワード"
+          explanation={null}
           id="currentPassword"
           type="password"
           autoComplete="current-password webauthn"
@@ -71,12 +76,13 @@ export const PasswordChangePage = () => {
 
         {/* 新しいパスワード */}
         <RhfInputForm
-          htmlFor="newPassword"
+          htmlFor="password"
           label="新しいパスワード"
-          id="newPassword"
+          explanation={null}
+          id="password"
           type="password"
           autoComplete="current-password webauthn"
-          name="newPassword"
+          name="password"
           control={control}
           placeholder="newPassword"
           passwordForm={true}
@@ -85,7 +91,7 @@ export const PasswordChangePage = () => {
         {/* 保存 */}
         <Button
           btnType="submit"
-          disabled={!dirtyFields.currentPassword || !dirtyFields.newPassword || isSubmitting}
+          disabled={!dirtyFields.currentPassword || !dirtyFields.password || isSubmitting}
           addStyle="btn-primary h-14 w-32"
         >
           保存

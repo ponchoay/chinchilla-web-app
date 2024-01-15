@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router'
+import { AxiosError } from 'axios'
 import { resetPassword } from 'src/lib/api/auth'
 
 import { useForm } from 'react-hook-form'
@@ -12,6 +13,8 @@ import { LoadingDots } from 'src/components/shared/LoadingDots'
 
 import { debugLog } from 'src/lib/debug/debugLog'
 
+import type { ResetPasswordType } from 'src/types/auth'
+
 export const PasswordResetResetPage = () => {
   const router = useRouter()
 
@@ -19,13 +22,13 @@ export const PasswordResetResetPage = () => {
     handleSubmit,
     control,
     formState: { dirtyFields, isSubmitting }
-  } = useForm({
+  } = useForm<ResetPasswordType>({
     defaultValues: { password: '' },
     resolver: zodResolver(resetPasswordSchema)
   })
 
   // パスワード変更機能
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: ResetPasswordType) => {
     const params = { password: data.password, passwordConfirmation: data.password }
     try {
       const res = await resetPassword(params)
@@ -39,11 +42,13 @@ export const PasswordResetResetPage = () => {
         debugLog('パスワード再設定:', '失敗')
       }
     } catch (err) {
-      debugLog('エラー:', err)
-      debugLog('内容:', err.response.data)
+      const error = err as AxiosError
+      if (error && error.response) {
+        debugLog('内容:', error.response.data)
+      }
 
       // パスワードの変更に失敗した場合
-      if (err.response.status === 401) {
+      if (error && error.response && error.response.status === 401) {
         alert('パスワードの再設定に失敗しました')
       }
     }
@@ -61,6 +66,7 @@ export const PasswordResetResetPage = () => {
         <RhfInputForm
           htmlFor="password"
           label="新しいパスワード"
+          explanation={null}
           id="password"
           type="password"
           autoComplete="current-password webauthn"
