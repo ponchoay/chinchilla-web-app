@@ -8,7 +8,7 @@ export type UpdateEmailType = {
   confirmSuccessUrl: string | undefined
 }
 export type UpdatePasswordType = { currentPassword: string; password: string }
-export type SendResetPasswordEmailType = { email: string }
+export type SendResetPasswordEmailType = { email: string; redirectUrl: string | undefined }
 export type ResetPasswordType = { password: string; passwordConfirmation: string }
 
 // ログイン・手続き中ユーザーの状態管理(グローバル)
