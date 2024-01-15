@@ -6,7 +6,9 @@ import { PageTitle } from 'src/components/shared/PageTittle'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 
-export const EmailConfirmationSentNotice = ({ subject, process }) => {
+type Props = { subject: string; process: string }
+
+export const EmailConfirmationSentNotice = ({ subject, process }: Props) => {
   const { processUser } = useContext(AuthContext)
 
   return (

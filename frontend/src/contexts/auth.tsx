@@ -1,15 +1,20 @@
-import { useState, useEffect, createContext } from 'react'
+import { useState, useEffect, createContext, ReactNode } from 'react'
 import { getCurrentUser } from 'src/lib/api/auth'
 import { debugLog } from 'src/lib/debug/debugLog'
 
+import type { AuthContextType } from 'src/types/auth'
+import { defaultAuthContextValue } from 'src/types/auth'
+
+type Props = { children: ReactNode }
+
 // グローバルで扱うためにエクスポートする
-export const AuthContext = createContext({})
+export const AuthContext = createContext<AuthContextType>(defaultAuthContextValue)
 
 //_app.jsにエクスポートして、全体の親にする
-export const AuthProvider = ({ children }) => {
-  const [isSignedIn, setIsSignedIn] = useState(undefined)
-  const [currentUser, setCurrentUser] = useState(undefined)
-  const [processUser, setProcessUser] = useState(undefined)
+export const AuthProvider = ({ children }: Props) => {
+  const [isSignedIn, setIsSignedIn] = useState<boolean | undefined>(undefined)
+  const [currentUser, setCurrentUser] = useState<string | null | undefined>(undefined)
+  const [processUser, setProcessUser] = useState<string | null | undefined>(undefined)
   const value = {
     isSignedIn,
     setIsSignedIn,

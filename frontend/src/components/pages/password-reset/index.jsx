@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { useRouter } from 'next/router'
-import { sendResetPasswordMail } from 'src/lib/api/auth'
+import { sendResetPasswordEmail } from 'src/lib/api/auth'
 import { AuthContext } from 'src/contexts/auth'
 
 import { useForm } from 'react-hook-form'
@@ -32,7 +32,7 @@ export const PasswordResetPage = () => {
   const onSubmit = async (data) => {
     const params = { email: data.email, redirectUrl: redirectUrl }
     try {
-      const res = await sendResetPasswordMail(params)
+      const res = await sendResetPasswordEmail(params)
       debugLog('レスポンス', res)
 
       // ステータス200 OK

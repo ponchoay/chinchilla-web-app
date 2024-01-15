@@ -1,7 +1,10 @@
+import { ReactNode } from 'react'
 import { Header } from 'src/components/shared/Header'
 import { Footer } from 'src/components/shared/Footer'
 
-export const Layout = ({ children }) => {
+type Props = { children: ReactNode }
+
+export const Layout = ({ children }: Props) => {
   return (
     <>
       <Header />

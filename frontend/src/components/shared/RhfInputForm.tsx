@@ -1,22 +1,27 @@
-import { useController } from 'react-hook-form'
+import { useController, FieldValues, UseControllerProps } from 'react-hook-form'
 
 import { useTogglePassword } from 'src/hooks/useTogglePassword'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAsterisk, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 
-export const RhfInputForm = ({
-  htmlFor,
-  label,
-  explanation,
-  id,
-  type,
-  autoComplete,
-  name,
-  control,
-  placeholder,
-  passwordForm
-}) => {
+import type { rhfInputFormType } from 'src/types/rhfInputForm'
+
+type InputItemComponentProps<T extends FieldValues> = UseControllerProps<T> & rhfInputFormType
+
+export const RhfInputForm = <T extends FieldValues>(props: InputItemComponentProps<T>) => {
+  const {
+    htmlFor,
+    label,
+    explanation,
+    id,
+    type,
+    autoComplete,
+    name,
+    control,
+    placeholder,
+    passwordForm
+  } = props
   const { field, fieldState } = useController({ name, control })
   const { error } = fieldState
 
