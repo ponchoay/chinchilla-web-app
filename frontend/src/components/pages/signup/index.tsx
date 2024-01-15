@@ -1,6 +1,7 @@
 import { useContext } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { AxiosError } from 'axios'
 import { signUp } from 'src/lib/api/auth'
 import { AuthContext } from 'src/contexts/auth'
 
@@ -15,6 +16,8 @@ import { LoadingDots } from 'src/components/shared/LoadingDots'
 
 import { debugLog } from 'src/lib/debug/debugLog'
 
+import type { SignUpType } from 'src/types/auth'
+
 export const SignUpPage = () => {
   const router = useRouter()
   const { setProcessUser } = useContext(AuthContext)
@@ -24,13 +27,13 @@ export const SignUpPage = () => {
     handleSubmit,
     control,
     formState: { dirtyFields, isSubmitting }
-  } = useForm({
+  } = useForm<SignUpType>({
     defaultValues: { email: '', password: '' },
     resolver: zodResolver(userSchema)
   })
 
   // 新規登録機能
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: SignUpType) => {
     const params = {
       email: data.email,
       password: data.password,
@@ -50,11 +53,13 @@ export const SignUpPage = () => {
         debugLog('新規登録:', '失敗')
       }
     } catch (err) {
-      debugLog('エラー:', err)
-      debugLog('内容:', err.response.data)
+      const error = err as AxiosError
+      if (error && error.response) {
+        debugLog('内容:', error.response.data)
+      }
 
       // 新規登録に失敗した場合
-      if (err.response.status === 422) {
+      if (error && error.response && error.response.status === 422) {
         alert('新規登録に失敗しました')
       }
     }
@@ -84,12 +89,14 @@ export const SignUpPage = () => {
         <RhfInputForm
           htmlFor="email"
           label="メールアドレス"
+          explanation={null}
           id="email"
           type="email"
           autoComplete="email webauthn"
           name="email"
           control={control}
           placeholder="your@email.com"
+          passwordForm={false}
         />
 
         <RhfInputForm
