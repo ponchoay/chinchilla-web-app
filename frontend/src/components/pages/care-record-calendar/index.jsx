@@ -300,7 +300,6 @@ export const CareRecordCalendarPage = () => {
   return (
     <div className="mx-3 my-24 grid place-content-center place-items-center gap-y-4 sm:my-28 sm:gap-y-6">
       <PageTitle pageTitle="お世話の記録" />
-
       {/* カレンダー */}
       <Calendar
         selected={selectedDate}
@@ -309,12 +308,24 @@ export const CareRecordCalendarPage = () => {
         allCares={allCares}
       />
 
-      {careId === 0 && !selectedDate ? (
+      {/* チンチラ未選択 */}
+      {chinchillaId === 0 && (
+        <p className="text-sm text-dark-black sm:text-base">
+          <FontAwesomeIcon icon={faHandPointer} className="mr-1 text-dark-blue" />
+          チンチラを選択してください
+        </p>
+      )}
+
+      {/* 日付未選択 */}
+      {!selectedDate && (
         <p className="text-sm text-dark-black sm:text-base">
           <FontAwesomeIcon icon={faHandPointer} className="mr-1 text-dark-blue" />
           カレンダーから日付を選択してください
         </p>
-      ) : careId === 0 && selectedDate ? (
+      )}
+
+      {/* 登録モード */}
+      {careId === 0 && selectedDate && chinchillaId && (
         <>
           {/* 登録モード：お世話の記録 */}
           <div className="h-[215px] w-80 rounded-xl border border-solid border-dark-blue bg-ligth-white sm:h-[300px] sm:w-[500px]">
@@ -419,201 +430,196 @@ export const CareRecordCalendarPage = () => {
             登録
           </Button>
         </>
-      ) : (
+      )}
+
+      {/* 表示モード */}
+      {careId !== 0 && selectedDate && chinchillaId && isEditing === false && (
         <>
-          {isEditing ? (
-            <>
-              {/* 編集モード：お世話の記録 */}
-              <div className="h-[215px] w-80 rounded-xl border border-solid border-dark-blue bg-ligth-white sm:h-[300px] sm:w-[500px]">
-                <InputRadioButtonItem
-                  label="食事"
-                  item="Food"
-                  value={careFood}
-                  setValue={setCareFood}
-                />
-                <InputRadioButtonItem
-                  label="トイレ"
-                  item="Toilet"
-                  value={careToilet}
-                  setValue={setCareToilet}
-                />
-                <InputRadioButtonItem
-                  label="砂浴び"
-                  item="Bath"
-                  value={careBath}
-                  setValue={setCareBath}
-                />
-                <InputRadioButtonItem
-                  label="部屋んぽ"
-                  item="Play"
-                  value={carePlay}
-                  setValue={setCarePlay}
-                />
+          {/* 表示モード：お世話の記録 */}
+          <div className="h-[300px] w-80 rounded-xl bg-ligth-white sm:h-[400px]  sm:w-[500px]">
+            <DisplayRadioButtonItem label="食事" item="careFood" value={careFood} />
+            <DisplayRadioButtonItem label="トイレ" item="careToilet" value={careToilet} />
+            <DisplayRadioButtonItem label="砂浴び" item="careBath" value={careBath} />
+            <DisplayRadioButtonItem label="部屋んぽ" item="carePlay" value={carePlay} />
+
+            {/* 表示モード：体重 */}
+            <div className="mx-5 mt-3 flex items-center border-b border-solid border-b-light-black pb-2 sm:mx-10 sm:mt-5">
+              <p className="w-28 text-center text-sm text-dark-black sm:text-base">体重</p>
+              <div className="flex grow justify-evenly text-center">
+                {careWeight && (
+                  <p className="text-center text-sm text-dark-black sm:text-base">{careWeight}g</p>
+                )}
               </div>
+            </div>
 
-              {/* 編集モード：体重 */}
-              <NumericFormItem
-                label="体重（g）"
-                item="careWeight"
-                inputMode="numeric"
-                value={careWeight}
-                setValue={setCareWeight}
-                min={1}
-                max={9999}
-                placeholder="500"
-                decimalScale={0}
-                suffix="g"
-              />
-
-              {/* 編集モード：気温 */}
-              <NumericFormItem
-                label="気温（℃）"
-                item="careTemperature"
-                inputMode="decimal"
-                value={careTemperature}
-                setValue={setCareTemperature}
-                min={1}
-                max={100}
-                placeholder="21.5"
-                decimalScale={1}
-                suffix="℃"
-              />
-
-              {/* 編集モード：湿度 */}
-              <NumericFormItem
-                label="湿度（%）"
-                item="careHumidity"
-                inputMode="numeric"
-                value={careHumidity}
-                setValue={setCareHumidity}
-                min={1}
-                max={100}
-                placeholder="40"
-                decimalScale={0}
-                suffix="%"
-              />
-
-              {/* 編集モード：お世話のメモ */}
-              <CareMemoFormItem
-                careMemo={careMemo}
-                onChange={handleCareMemoChange}
-                careMemoErrorMessage={careMemoErrorMessage}
-              />
-
-              {/* 編集モード：保存・戻るボタン */}
-              <div>
-                <Button
-                  btnType="submit"
-                  click={handleUpdate}
-                  disabled={
-                    // 「チンチラを選択していない」または「日付を選択していない」または「お世話記録を全て選択していない」場合は登録できない
-                    // 「チンチラを選択している」かつ「日付を選択している」かつ「お世話記録を何か選択している」場合のみ登録できる
-                    !chinchillaId ||
-                    !selectedDate ||
-                    (!careFood &&
-                      !careToilet &&
-                      !careBath &&
-                      !carePlay &&
-                      !careWeight &&
-                      !careTemperature &&
-                      !careHumidity &&
-                      !careMemo) ||
-                    careMemoErrorMessage
-                      ? true
-                      : false
-                  }
-                  addStyle="btn-primary mx-3 h-14 w-32"
-                >
-                  保存
-                </Button>
-                <Button
-                  btnType="button"
-                  click={() => {
-                    setIsEditing(false)
-                    setHeaderDisabled(false)
-                    handleReset()
-                  }}
-                  addStyle="btn-secondary mx-3 h-14 w-32"
-                >
-                  戻る
-                </Button>
-              </div>
-            </>
-          ) : (
-            <>
-              {/* 表示モード：お世話の記録 */}
-              <div className="h-[300px] w-80 rounded-xl bg-ligth-white sm:h-[400px]  sm:w-[500px]">
-                <DisplayRadioButtonItem label="食事" item="careFood" value={careFood} />
-                <DisplayRadioButtonItem label="トイレ" item="careToilet" value={careToilet} />
-                <DisplayRadioButtonItem label="砂浴び" item="careBath" value={careBath} />
-                <DisplayRadioButtonItem label="部屋んぽ" item="carePlay" value={carePlay} />
-
-                {/* 表示モード：体重 */}
-                <div className="mx-5 mt-3 flex items-center border-b border-solid border-b-light-black pb-2 sm:mx-10 sm:mt-5">
-                  <p className="w-28 text-center text-sm text-dark-black sm:text-base">体重</p>
-                  <div className="flex grow justify-evenly text-center">
-                    {careWeight && (
-                      <p className="text-center text-sm text-dark-black sm:text-base">
-                        {careWeight}g
-                      </p>
-                    )}
-                  </div>
-                </div>
-
-                {/* 表示モード：気温・湿度 */}
-                <div className="mx-5 mt-3 flex items-center border-b border-solid border-b-light-black pb-2 sm:mx-10 sm:mt-5">
-                  <p className="w-28 text-center text-sm text-dark-black sm:text-base">
-                    気温・湿度
+            {/* 表示モード：気温・湿度 */}
+            <div className="mx-5 mt-3 flex items-center border-b border-solid border-b-light-black pb-2 sm:mx-10 sm:mt-5">
+              <p className="w-28 text-center text-sm text-dark-black sm:text-base">気温・湿度</p>
+              <div className="flex grow justify-evenly text-center">
+                {careTemperature && (
+                  <p className="text-center text-sm text-dark-black sm:text-base">
+                    {careTemperature}℃
                   </p>
-                  <div className="flex grow justify-evenly text-center">
-                    {careTemperature && (
-                      <p className="text-center text-sm text-dark-black sm:text-base">
-                        {careTemperature}℃
-                      </p>
-                    )}
-                    {careHumidity && (
-                      <p className="text-center text-sm text-dark-black sm:text-base">
-                        {careHumidity}%
-                      </p>
-                    )}
-                  </div>
-                </div>
+                )}
+                {careHumidity && (
+                  <p className="text-center text-sm text-dark-black sm:text-base">
+                    {careHumidity}%
+                  </p>
+                )}
               </div>
+            </div>
+          </div>
 
-              {/* 表示モード：お世話のメモ */}
-              <DisplayMemo contents={careMemo} />
+          {/* 表示モード：お世話のメモ */}
+          <DisplayMemo contents={careMemo} />
 
-              {/* 表示モード：編集・削除ボタン */}
-              <div>
-                <Button
-                  btnType="button"
-                  click={() => {
-                    setIsEditing(true)
-                    setHeaderDisabled(true)
-                  }}
-                  disabled={!chinchillaId || !careId ? true : false}
-                  addStyle="btn-primary mx-3 h-14 w-32"
-                >
-                  編集
-                </Button>
-                <Button
-                  btnType="submit"
-                  click={() => setIsModalOpen(true)}
-                  addStyle="btn-secondary mx-3 h-14 w-32"
-                >
-                  削除
-                </Button>
-              </div>
+          {/* 表示モード：編集・削除ボタン */}
+          <div>
+            <Button
+              btnType="button"
+              click={() => {
+                setIsEditing(true)
+                setHeaderDisabled(true)
+              }}
+              disabled={!chinchillaId || !careId ? true : false}
+              addStyle="btn-primary mx-3 h-14 w-32"
+            >
+              編集
+            </Button>
+            <Button
+              btnType="submit"
+              click={() => setIsModalOpen(true)}
+              addStyle="btn-secondary mx-3 h-14 w-32"
+            >
+              削除
+            </Button>
+          </div>
 
-              {/* 削除確認モーダル */}
-              {isModalOpen && (
-                <DeleteConfirmationModal
-                  setIsModalOpen={setIsModalOpen}
-                  handleDelete={handleDelete}
-                />
-              )}
-            </>
+          {/* 削除確認モーダル */}
+          {isModalOpen && (
+            <DeleteConfirmationModal setIsModalOpen={setIsModalOpen} handleDelete={handleDelete} />
           )}
+        </>
+      )}
+
+      {/* 編集モード */}
+      {careId !== 0 && selectedDate && chinchillaId && isEditing === true && (
+        <>
+          {/* 編集モード：お世話の記録 */}
+          <div className="h-[215px] w-80 rounded-xl border border-solid border-dark-blue bg-ligth-white sm:h-[300px] sm:w-[500px]">
+            <InputRadioButtonItem
+              label="食事"
+              item="Food"
+              value={careFood}
+              setValue={setCareFood}
+            />
+            <InputRadioButtonItem
+              label="トイレ"
+              item="Toilet"
+              value={careToilet}
+              setValue={setCareToilet}
+            />
+            <InputRadioButtonItem
+              label="砂浴び"
+              item="Bath"
+              value={careBath}
+              setValue={setCareBath}
+            />
+            <InputRadioButtonItem
+              label="部屋んぽ"
+              item="Play"
+              value={carePlay}
+              setValue={setCarePlay}
+            />
+          </div>
+
+          {/* 編集モード：体重 */}
+          <NumericFormItem
+            label="体重（g）"
+            item="careWeight"
+            inputMode="numeric"
+            value={careWeight}
+            setValue={setCareWeight}
+            min={1}
+            max={9999}
+            placeholder="500"
+            decimalScale={0}
+            suffix="g"
+          />
+
+          {/* 編集モード：気温 */}
+          <NumericFormItem
+            label="気温（℃）"
+            item="careTemperature"
+            inputMode="decimal"
+            value={careTemperature}
+            setValue={setCareTemperature}
+            min={1}
+            max={100}
+            placeholder="21.5"
+            decimalScale={1}
+            suffix="℃"
+          />
+
+          {/* 編集モード：湿度 */}
+          <NumericFormItem
+            label="湿度（%）"
+            item="careHumidity"
+            inputMode="numeric"
+            value={careHumidity}
+            setValue={setCareHumidity}
+            min={1}
+            max={100}
+            placeholder="40"
+            decimalScale={0}
+            suffix="%"
+          />
+
+          {/* 編集モード：お世話のメモ */}
+          <CareMemoFormItem
+            careMemo={careMemo}
+            onChange={handleCareMemoChange}
+            careMemoErrorMessage={careMemoErrorMessage}
+          />
+
+          {/* 編集モード：保存・戻るボタン */}
+          <div>
+            <Button
+              btnType="submit"
+              click={handleUpdate}
+              disabled={
+                // 「チンチラを選択していない」または「日付を選択していない」または「お世話記録を全て選択していない」場合は登録できない
+                // 「チンチラを選択している」かつ「日付を選択している」かつ「お世話記録を何か選択している」場合のみ登録できる
+                !chinchillaId ||
+                !selectedDate ||
+                (!careFood &&
+                  !careToilet &&
+                  !careBath &&
+                  !carePlay &&
+                  !careWeight &&
+                  !careTemperature &&
+                  !careHumidity &&
+                  !careMemo) ||
+                careMemoErrorMessage
+                  ? true
+                  : false
+              }
+              addStyle="btn-primary mx-3 h-14 w-32"
+            >
+              保存
+            </Button>
+            <Button
+              btnType="button"
+              click={() => {
+                setIsEditing(false)
+                setHeaderDisabled(false)
+                handleReset()
+              }}
+              addStyle="btn-secondary mx-3 h-14 w-32"
+            >
+              戻る
+            </Button>
+          </div>
         </>
       )}
     </div>
