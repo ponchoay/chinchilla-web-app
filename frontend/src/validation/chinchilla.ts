@@ -2,15 +2,15 @@ import { z } from 'zod'
 import { utcToZonedTime, format } from 'date-fns-tz'
 
 // 日本のタイムゾーンを取得
-const toJST = (date) => utcToZonedTime(date, 'Asia/Tokyo')
+const toJST = (date: Date) => utcToZonedTime(date, 'Asia/Tokyo')
 
 export const chinchillaRegistrationSchema = z
   .object({
     chinchillaName: z
       .string()
-      .nonempty('名前は必須です')
+      .min(1, '名前は必須です')
       .max(10, '名前は10文字以下で入力してください'),
-    chinchillaSex: z.string().nonempty('性別は必須です'),
+    chinchillaSex: z.string().min(1, '性別は必須です'),
     chinchillaBirthday: z.string().nullable(),
     chinchillaMetDay: z.string().nullable()
   })
@@ -58,9 +58,9 @@ export const chinchillaProfileSchema = z
   .object({
     chinchillaName: z
       .string()
-      .nonempty('名前は必須です')
+      .min(1, '名前は必須です')
       .max(10, '名前は10文字以下で入力してください'),
-    chinchillaSex: z.string().nonempty('性別は必須です'),
+    chinchillaSex: z.string().min(1, '性別は必須です'),
     chinchillaBirthday: z.string().nullable(),
     chinchillaMetDay: z.string().nullable(),
     chinchillaMemo: z.string().max(300, '300文字以下で入力してください')

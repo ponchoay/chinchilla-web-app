@@ -3,6 +3,8 @@ import Link from 'next/link'
 import { useMyChinchillas } from 'src/lib/api/chinchilla'
 import { SelectedChinchillaIdContext } from 'src/contexts/chinchilla'
 
+import type { MyChinchilla } from 'src/types/chinchilla'
+
 export const MyChinchillaList = () => {
   const { chinchillas } = useMyChinchillas()
   const { setChinchillaId } = useContext(SelectedChinchillaIdContext)
@@ -14,7 +16,7 @@ export const MyChinchillaList = () => {
           chinchillas.length === 1 ? 'place-items-center' : 'gap-y-10 sm:grid-cols-2 sm:gap-x-20'
         }`}
       >
-        {chinchillas.map((chinchilla) => (
+        {chinchillas.map((chinchilla: MyChinchilla) => (
           <div key={chinchilla.id}>
             <Link
               href="/mychinchilla/chinchilla-profile"

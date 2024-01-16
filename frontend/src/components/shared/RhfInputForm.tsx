@@ -5,9 +5,9 @@ import { useTogglePassword } from 'src/hooks/useTogglePassword'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAsterisk, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 
-import type { rhfInputFormType } from 'src/types/rhfInputForm'
+import type { RhfInputFormType } from 'src/types/rhf'
 
-type InputItemComponentProps<T extends FieldValues> = UseControllerProps<T> & rhfInputFormType
+type InputItemComponentProps<T extends FieldValues> = UseControllerProps<T> & RhfInputFormType
 
 export const RhfInputForm = <T extends FieldValues>(props: InputItemComponentProps<T>) => {
   const {

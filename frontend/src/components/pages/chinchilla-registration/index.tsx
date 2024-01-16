@@ -16,20 +16,22 @@ import { faCirclePlus } from '@fortawesome/free-solid-svg-icons'
 
 import { debugLog } from 'src/lib/debug/debugLog'
 
+import type { RhfCreateChinchillaType } from 'src/types/chinchilla'
+
 export const ChinchillaRegistrationPage = () => {
   const router = useRouter()
 
   // 選択中のチンチラの状態管理（グローバル）
   const { setChinchillaId, setHeaderName, setHeaderImage } = useContext(SelectedChinchillaIdContext)
 
-  const [chinchillaImage, setChinchillaImage] = useState('')
-  const chinchillaMemo = ''
+  const [chinchillaImage, setChinchillaImage] = useState<File | null>(null)
+  const chinchillaMemo: string = ''
 
   const {
     handleSubmit,
     control,
     formState: { dirtyFields, isSubmitting }
-  } = useForm({
+  } = useForm<RhfCreateChinchillaType>({
     defaultValues: {
       chinchillaName: '',
       chinchillaSex: '',
@@ -43,7 +45,7 @@ export const ChinchillaRegistrationPage = () => {
   const [previewImage, setPreviewImage] = useState('')
 
   // ページ上に表示されないinput用
-  const imageInputRef = useRef('')
+  const imageInputRef = useRef<HTMLInputElement>(null)
 
   // 隠れたinputをクリックイベントで画像を選択可能にする
   const handleClickChangeImage = useCallback(() => {
@@ -52,7 +54,7 @@ export const ChinchillaRegistrationPage = () => {
   }, [])
 
   // 選択した画像を表示
-  const handleUpload = useCallback((e) => {
+  const handleUpload = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return
     const file = e.target.files[0]
     debugLog('選択中のファイル:', file)
@@ -68,9 +70,13 @@ export const ChinchillaRegistrationPage = () => {
   }, [])
 
   // FormData形式でデータを作成
-  const createFormData = (data) => {
+  const createFormData = (data: RhfCreateChinchillaType) => {
     const formData = new FormData()
-    formData.append('chinchilla[chinchillaImage]', chinchillaImage)
+
+    // chinchillaImageがnullでないことを確認
+    if (chinchillaImage) {
+      formData.append('chinchilla[chinchillaImage]', chinchillaImage)
+    }
     formData.append('chinchilla[chinchillaName]', data.chinchillaName)
     formData.append('chinchilla[chinchillaSex]', data.chinchillaSex)
     formData.append('chinchilla[chinchillaBirthday]', data.chinchillaBirthday)
@@ -80,14 +86,14 @@ export const ChinchillaRegistrationPage = () => {
   }
 
   // チンチラプロフィール作成機能
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: RhfCreateChinchillaType) => {
     const params = createFormData(data)
     try {
       const res = await createChinchilla(params)
       debugLog('レスポンス', res)
 
       // ステータス201 Created
-      if (res.status === 201) {
+      if (res && res.status === 201) {
         setChinchillaId(res.data.id)
         setHeaderName(res.data.chinchillaName)
         setHeaderImage(res.data.chinchillaImage)
@@ -139,9 +145,11 @@ export const ChinchillaRegistrationPage = () => {
           explanation="必須入力"
           id="chinchillaName"
           type="text"
+          autoComplete={undefined}
           name="chinchillaName"
           control={control}
           placeholder="チンチラの名前"
+          passwordForm={false}
         />
 
         {/* 性別 */}
@@ -151,24 +159,32 @@ export const ChinchillaRegistrationPage = () => {
         <RhfInputForm
           htmlFor="chinchillaBirthday"
           label="誕生日"
+          explanation={null}
           id="chinchillaBirthday"
           type="date"
+          autoComplete={undefined}
           name="chinchillaBirthday"
           control={control}
+          placeholder={undefined}
+          passwordForm={false}
         />
 
         {/* お迎え日 */}
         <RhfInputForm
           htmlFor="chinchillaMetDay"
           label="お迎え日"
+          explanation={null}
           id="chinchillaMetDay"
           type="date"
+          autoComplete={undefined}
           name="chinchillaMetDay"
           control={control}
+          placeholder={undefined}
+          passwordForm={false}
         />
 
         <Button
-          type="submit"
+          btnType="submit"
           disabled={!dirtyFields.chinchillaName || !dirtyFields.chinchillaSex || isSubmitting}
           addStyle="btn-primary h-14 w-32"
         >

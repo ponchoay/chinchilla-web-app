@@ -1,10 +1,18 @@
 import React from 'react'
-import { useController } from 'react-hook-form'
+import { useController, FieldValues, UseControllerProps } from 'react-hook-form'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAsterisk } from '@fortawesome/free-solid-svg-icons'
 
-export const RhfInputChinchillaSexRadioForm = ({ name, control }) => {
+import type { RhfRadioButtonType } from 'src/types/rhf'
+
+type RadioButtonItemComponentProps<T extends FieldValues> = UseControllerProps<T> &
+  RhfRadioButtonType
+
+export const RhfInputChinchillaSexRadioForm = <T extends FieldValues>(
+  props: RadioButtonItemComponentProps<T>
+) => {
+  const { name, control } = props
   const { field, fieldState } = useController({ name, control })
   const { error } = fieldState
 
