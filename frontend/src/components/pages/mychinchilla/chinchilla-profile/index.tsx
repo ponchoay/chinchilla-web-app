@@ -39,7 +39,6 @@ export const ChinchillaProfilePage = () => {
     useContext(SelectedChinchillaIdContext)
 
   const { chinchillaProfile, isLoading, isError } = useChinchillaProfile(chinchillaId)
-  console.log('chinchillaProfile', chinchillaProfile)
 
   // 編集モードの状態管理
   const [isEditing, setIsEditing] = useState(false)
