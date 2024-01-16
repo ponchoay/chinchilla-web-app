@@ -4,7 +4,7 @@ import { useMyChinchillas } from 'src/lib/api/chinchilla'
 import { PageTitle } from 'src/components/shared/PageTittle'
 import { LoadingDots } from 'src/components/shared/LoadingDots'
 import { NoChinchillaFound } from 'src/components/pages/mychinchilla/noChinchillaFound'
-import { MyChinchillaList } from 'src/components/pages/mychinchilla/myChinchillaList'
+import { MyChinchillaList} from 'src/components/pages/mychinchilla/myChinchillaList'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'

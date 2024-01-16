@@ -1,3 +1,10 @@
+// マイチンチラ用
+export type MyChinchilla = {
+  id: number
+  chinchillaImage: { url: string }
+  chinchillaName: string
+}
+
 // Create時にRHFで受け取るもの(Image, Memo以外)
 export type RhfCreateChinchillaType = {
   chinchillaName: string
