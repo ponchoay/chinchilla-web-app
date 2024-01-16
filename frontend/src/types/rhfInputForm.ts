@@ -1,4 +1,4 @@
-export type rhfInputFormType = {
+export type RhfInputFormType = {
   htmlFor: string
   label: string
   explanation: string | null
