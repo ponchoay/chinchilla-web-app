@@ -60,7 +60,7 @@ export const MyPagePage = () => {
         setProcessUser(null)
         setChinchillaId(0)
         setHeaderName('')
-        setHeaderImage('')
+        setHeaderImage({ url: '' })
         debugLog('ログアウト:', '成功')
       } else {
         debugLog('ログアウト:', '失敗')
