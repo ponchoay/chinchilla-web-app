@@ -1,5 +1,5 @@
 // マイチンチラ用
-export type MyChinchilla = {
+export type MyChinchillaType = {
   id: number
   chinchillaImage: { url: string }
   chinchillaName: string

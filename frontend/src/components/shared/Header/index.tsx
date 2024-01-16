@@ -13,10 +13,10 @@ import { faCircleUser } from '@fortawesome/free-solid-svg-icons'
 
 import { debugLog } from 'src/lib/debug/debugLog'
 
-import type { MyChinchilla } from 'src/types/chinchilla'
+import type { MyChinchillaType } from 'src/types/chinchilla'
 
 export const Header = () => {
-  const [allChinchillas, setAllChinchillas] = useState<MyChinchilla[]>([])
+  const [allChinchillas, setAllChinchillas] = useState<MyChinchillaType[]>([])
 
   //ログインユーザーの状態管理（グローバル）
   const { isSignedIn, currentUser } = useContext(AuthContext)
@@ -51,7 +51,7 @@ export const Header = () => {
   // チンチラを選択
   const handleSelectChinchilla = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedChinchilla = allChinchillas.filter(
-      (chinchilla: MyChinchilla) => chinchilla.id === Number(e.target.value)
+      (chinchilla: MyChinchillaType) => chinchilla.id === Number(e.target.value)
     )
     debugLog('選択中のチンチラ:', selectedChinchilla)
 

@@ -1,13 +1,13 @@
 import { Dispatch, SetStateAction } from 'react'
 import { Button } from 'src/components/shared/Button'
 
-import type { MyChinchilla } from 'src/types/chinchilla'
+import type { MyChinchillaType } from 'src/types/chinchilla'
 
 type Props = {
   chinchillaId: number
   handleSelectChinchilla: (e: React.ChangeEvent<HTMLSelectElement>) => void
   headerDisabled: boolean
-  allChinchillas: MyChinchilla[]
+  allChinchillas: MyChinchillaType[]
   setIsModalOpen: Dispatch<SetStateAction<boolean>>
 }
 
