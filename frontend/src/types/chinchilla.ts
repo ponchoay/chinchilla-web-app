@@ -17,7 +17,7 @@ export type RhfCreateChinchillaType = {
 export type ChinchillaContextType = {
   chinchillaId: number
   setChinchillaId: (chinchillaId: number) => void
-  headerName: string
+  headerName: string | undefined
   setHeaderName: (headerName: string) => void
   headerImage: { url: string }
   setHeaderImage: (headerImage: { url: string }) => void
@@ -28,7 +28,7 @@ export type ChinchillaContextType = {
 export const defaultChinchillaContextValue = {
   chinchillaId: 0,
   setChinchillaId: () => {},
-  headerName: '',
+  headerName: undefined,
   setHeaderName: () => {},
   headerImage: { url: '' },
   setHeaderImage: () => {},

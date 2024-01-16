@@ -96,7 +96,7 @@ export const Header = () => {
               width="100"
               height="48"
               alt="サービス名"
-              className={` my-2 ml-2 ${isSignedIn && currentUser && 'hidden sm:block'}`}
+              className={`my-2 ml-2 ${isSignedIn === true && currentUser && 'hidden sm:block'}`}
             />
           </div>
         </Link>
