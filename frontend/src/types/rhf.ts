@@ -10,3 +10,4 @@ export type RhfInputFormType = {
   passwordForm: boolean
 }
 
+export type RhfRadioButtonType = { name: string }
