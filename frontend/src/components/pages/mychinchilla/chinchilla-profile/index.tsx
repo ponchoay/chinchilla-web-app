@@ -60,8 +60,8 @@ export const ChinchillaProfilePage = () => {
     resolver: zodResolver(chinchillaProfileSchema)
   })
 
-  // プレビュー用
-  const [previewImage, setPreviewImage] = useState('')
+  // プレビューURL用
+  const [previewImage, setPreviewImage] = useState<string>('')
 
   // ページ上に表示されないinput用
   const imageInputRef = useRef<HTMLInputElement>(null)
