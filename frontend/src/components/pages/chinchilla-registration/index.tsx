@@ -24,7 +24,7 @@ export const ChinchillaRegistrationPage = () => {
   // 選択中のチンチラの状態管理（グローバル）
   const { setChinchillaId, setHeaderName, setHeaderImage } = useContext(SelectedChinchillaIdContext)
 
-  const [chinchillaImage, setChinchillaImage] = useState<File | null>(null)
+  const [chinchillaImageFile, setChinchillaImageFile] = useState<File | null>(null)
   const chinchillaMemo: string = ''
 
   const {
@@ -66,16 +66,16 @@ export const ChinchillaRegistrationPage = () => {
     e.currentTarget.value = ''
 
     // データ更新用
-    setChinchillaImage(file)
+    setChinchillaImageFile(file)
   }, [])
 
   // FormData形式でデータを作成
   const createFormData = (data: RhfCreateChinchillaType) => {
     const formData = new FormData()
 
-    // chinchillaImageがnullでないことを確認
-    if (chinchillaImage) {
-      formData.append('chinchilla[chinchillaImage]', chinchillaImage)
+    // chinchillaImageFileがnullでないことを確認
+    if (chinchillaImageFile) {
+      formData.append('chinchilla[chinchillaImage]', chinchillaImageFile)
     }
     formData.append('chinchilla[chinchillaName]', data.chinchillaName)
     formData.append('chinchilla[chinchillaSex]', data.chinchillaSex)
