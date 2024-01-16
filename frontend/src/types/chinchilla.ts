@@ -1,3 +1,11 @@
+// Create時にRHFで受け取るもの(Image, Memo以外)
+export type RhfCreateChinchillaType = {
+  chinchillaName: string
+  chinchillaSex: string
+  chinchillaBirthday: string
+  chinchillaMetDay: string
+}
+
 // チンチラの状態管理(グローバル)
 export type ChinchillaContextType = {
   chinchillaId: number
