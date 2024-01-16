@@ -4,8 +4,8 @@ export type rhfInputFormType = {
   explanation: string | null
   id: string
   type: string
-  autoComplete: string | null
+  autoComplete: string | undefined
   name: string
-  placeholder: string | null
+  placeholder: string | undefined
   passwordForm: boolean
 }

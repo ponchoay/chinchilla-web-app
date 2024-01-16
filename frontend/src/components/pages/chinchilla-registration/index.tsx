@@ -145,7 +145,7 @@ export const ChinchillaRegistrationPage = () => {
           explanation="必須入力"
           id="chinchillaName"
           type="text"
-          autoComplete={null}
+          autoComplete={undefined}
           name="chinchillaName"
           control={control}
           placeholder="チンチラの名前"
@@ -162,10 +162,10 @@ export const ChinchillaRegistrationPage = () => {
           explanation={null}
           id="chinchillaBirthday"
           type="date"
-          autoComplete={null}
+          autoComplete={undefined}
           name="chinchillaBirthday"
           control={control}
-          placeholder={null}
+          placeholder={undefined}
           passwordForm={false}
         />
 
@@ -176,10 +176,10 @@ export const ChinchillaRegistrationPage = () => {
           explanation={null}
           id="chinchillaMetDay"
           type="date"
-          autoComplete={null}
+          autoComplete={undefined}
           name="chinchillaMetDay"
           control={control}
-          placeholder={null}
+          placeholder={undefined}
           passwordForm={false}
         />
 
