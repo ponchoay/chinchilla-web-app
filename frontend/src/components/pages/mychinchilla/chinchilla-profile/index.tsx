@@ -186,7 +186,7 @@ export const ChinchillaProfilePage = () => {
         }`}
       >
         {/* 表示モード */}
-        {!isLoading && !isError && isEditing === false && (
+        {!isLoading && !isError && chinchillaProfile && isEditing === false && (
           <>
             {/* 画像 */}
             <div className="w-36 sm:w-48">
@@ -269,7 +269,7 @@ export const ChinchillaProfilePage = () => {
         )}
 
         {/* 編集モード */}
-        {!isLoading && !isError && isEditing === true && (
+        {!isLoading && !isError && chinchillaProfile && isEditing === true && (
           <>
             {/* 画像 */}
             <div className="relative">
