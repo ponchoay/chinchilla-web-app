@@ -46,15 +46,14 @@ export const getMyChinchillas = () => {
 }
 
 // チンチラプロフィール用
-export const getChinchilla = (chinchillaId: number) => {
-  if (!Cookies.get('_access_token') || !Cookies.get('_client') || !Cookies.get('_uid')) return
-  return client.get(`/chinchillas/${chinchillaId}`, {
-    headers: {
-      'access-token': Cookies.get('_access_token'),
-      client: Cookies.get('_client'),
-      uid: Cookies.get('_uid')
-    }
-  })
+export const useChinchillaProfile = (chinchillaId: number) => {
+  const { data, error, isLoading } = useSWR(`/chinchillas/${chinchillaId}`, fetchWithToken)
+
+  return {
+    chinchillaProfile: data,
+    isLoading,
+    isError: error
+  }
 }
 
 // チンチラプロフィール作成
