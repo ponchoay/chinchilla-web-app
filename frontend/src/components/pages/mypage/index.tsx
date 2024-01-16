@@ -55,11 +55,11 @@ export const MyPagePage = () => {
         Cookies.remove('_uid')
 
         router.push('/signin')
-        setIsSignedIn(false)
-        setCurrentUser(null)
-        setProcessUser(null)
+        setIsSignedIn(undefined)
+        setCurrentUser(undefined)
+        setProcessUser(undefined)
         setChinchillaId(0)
-        setHeaderName('')
+        setHeaderName(undefined)
         setHeaderImage({ url: '' })
         debugLog('ログアウト:', '成功')
       } else {
