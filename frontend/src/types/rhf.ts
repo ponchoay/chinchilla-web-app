@@ -9,3 +9,4 @@ export type RhfInputFormType = {
   placeholder: string | undefined
   passwordForm: boolean
 }
+
