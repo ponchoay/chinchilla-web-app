@@ -1,6 +1,14 @@
+import { Dispatch, SetStateAction } from 'react'
 import { Button } from 'src/components/shared/Button'
 
-export const DeleteConfirmationModal = ({ setIsModalOpen, handleDelete }) => {
+type Props = {
+  setIsModalOpen: Dispatch<SetStateAction<boolean>>
+  handleDelete: (e: React.MouseEvent<HTMLButtonElement>) => Promise<void>
+}
+
+export const DeleteConfirmationModal = (props: Props) => {
+  const { setIsModalOpen, handleDelete } = props
+
   return (
     <>
       {/* 削除確認モーダル */}
@@ -9,13 +17,13 @@ export const DeleteConfirmationModal = ({ setIsModalOpen, handleDelete }) => {
           <p className="text-lg text-dark-black">本当に削除しますか？</p>
           <div className="mt-8 flex">
             <Button
-              type="button"
+              btnType="button"
               click={() => setIsModalOpen(false)}
               addStyle="btn-ghost bg-gray-200 w-32 h-14 mr-5"
             >
               キャンセル
             </Button>
-            <Button type="submit" click={handleDelete} addStyle="btn-secondary h-14 w-32">
+            <Button btnType="submit" click={handleDelete} addStyle="btn-secondary h-14 w-32">
               削除
             </Button>
           </div>

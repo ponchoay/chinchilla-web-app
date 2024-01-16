@@ -1,12 +1,20 @@
+import { Dispatch, SetStateAction } from 'react'
 import { Button } from 'src/components/shared/Button'
 
-export const SelectChinchillaModal = ({
-  chinchillaId,
-  handleSelectChinchilla,
-  headerDisabled,
-  allChinchillas,
-  setIsModalOpen
-}) => {
+import type { MyChinchillaType } from 'src/types/chinchilla'
+
+type Props = {
+  chinchillaId: number
+  handleSelectChinchilla: (e: React.ChangeEvent<HTMLSelectElement>) => void
+  headerDisabled: boolean
+  allChinchillas: MyChinchillaType[]
+  setIsModalOpen: Dispatch<SetStateAction<boolean>>
+}
+
+export const SelectChinchillaModal = (props: Props) => {
+  const { chinchillaId, handleSelectChinchilla, headerDisabled, allChinchillas, setIsModalOpen } =
+    props
+
   return (
     <div className="fixed inset-0 flex h-full w-full items-center justify-center  bg-gray-400/50">
       <div className="z-10 grid w-11/12  max-w-lg place-content-center place-items-center rounded-lg bg-ligth-white px-5 py-10">
@@ -33,7 +41,7 @@ export const SelectChinchillaModal = ({
         </div>
 
         <Button
-          type="button"
+          btnType="button"
           click={() => setIsModalOpen(false)}
           addStyle="btn-ghost bg-gray-200 w-32 h-14 mt-8 py-3"
         >

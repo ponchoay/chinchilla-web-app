@@ -11,3 +11,10 @@ export type RhfInputFormType = {
 }
 
 export type RhfRadioButtonType = { name: string }
+
+export type RhfTextareaFormType = {
+  htmlFor: string
+  label: string
+  id: string
+  name: string
+}

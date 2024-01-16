@@ -1,7 +1,11 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFilePen } from '@fortawesome/free-solid-svg-icons'
 
-export const DisplayMemo = ({ contents }) => {
+type Props = { contents: string }
+
+export const DisplayMemo = (props: Props) => {
+  const { contents } = props
+
   return (
     <div>
       <div className="flex px-1 py-2">

@@ -1,9 +1,14 @@
-import { useController } from 'react-hook-form'
+import { useController, FieldValues, UseControllerProps } from 'react-hook-form'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFilePen } from '@fortawesome/free-solid-svg-icons'
 
-export const RhfTextareaForm = ({ htmlFor, label, id, name, control }) => {
+import type { RhfTextareaFormType } from 'src/types/rhf'
+
+type TextareaItemComponentProps<T extends FieldValues> = UseControllerProps<T> & RhfTextareaFormType
+
+export const RhfTextareaForm = <T extends FieldValues>(props: TextareaItemComponentProps<T>) => {
+  const { htmlFor, label, id, name, control } = props
   const { field, fieldState } = useController({ name, control })
   const { error } = fieldState
 
