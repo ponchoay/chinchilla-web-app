@@ -4,7 +4,7 @@ import { client } from 'src/lib/api/client'
 
 // 機能&リクエストURL
 
-const fetchWithToken = (url) => {
+const fetchWithToken = (url: string) => {
   const accessToken = Cookies.get('_access_token')
   const clientToken = Cookies.get('_client')
   const uid = Cookies.get('_uid')
@@ -46,7 +46,7 @@ export const getMyChinchillas = () => {
 }
 
 // チンチラプロフィール用
-export const getChinchilla = (chinchillaId) => {
+export const getChinchilla = (chinchillaId: number) => {
   if (!Cookies.get('_access_token') || !Cookies.get('_client') || !Cookies.get('_uid')) return
   return client.get(`/chinchillas/${chinchillaId}`, {
     headers: {
@@ -58,7 +58,7 @@ export const getChinchilla = (chinchillaId) => {
 }
 
 // チンチラプロフィール作成
-export const createChinchilla = (params) => {
+export const createChinchilla = (params: FormData) => {
   if (!Cookies.get('_access_token') || !Cookies.get('_client') || !Cookies.get('_uid')) return
   return client.post('/chinchillas', params, {
     headers: {
@@ -71,7 +71,7 @@ export const createChinchilla = (params) => {
 }
 
 // チンチラプロフィール更新
-export const updateChinchilla = ({ chinchillaId, params }) => {
+export const updateChinchilla = (chinchillaId: number, params: FormData) => {
   if (!Cookies.get('_access_token') || !Cookies.get('_client') || !Cookies.get('_uid')) return
   return client.put(`/chinchillas/${chinchillaId}`, params, {
     headers: {
@@ -84,7 +84,7 @@ export const updateChinchilla = ({ chinchillaId, params }) => {
 }
 
 // チンチラプロフィール削除
-export const deleteChinchilla = (chinchillaId) => {
+export const deleteChinchilla = (chinchillaId: number) => {
   if (!Cookies.get('_access_token') || !Cookies.get('_client') || !Cookies.get('_uid')) return
   return client.delete(`/chinchillas/${chinchillaId}`, {
     headers: {
