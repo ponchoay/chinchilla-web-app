@@ -7,7 +7,7 @@ import type { MyChinchillaType } from 'src/types/chinchilla'
 
 export const MyChinchillaList = () => {
   const { chinchillas } = useMyChinchillas()
-  const { setChinchillaId } = useContext(SelectedChinchillaIdContext)
+  const { setChinchillaId, setHeaderName, setHeaderImage } = useContext(SelectedChinchillaIdContext)
 
   return (
     <>
@@ -20,7 +20,11 @@ export const MyChinchillaList = () => {
           <div key={chinchilla.id}>
             <Link
               href="/mychinchilla/chinchilla-profile"
-              onClick={() => setChinchillaId(chinchilla.id)}
+              onClick={() => {
+                setChinchillaId(chinchilla.id)
+                setHeaderName(chinchilla.chinchillaName)
+                setHeaderImage(chinchilla.chinchillaImage)
+              }}
               className="text-center"
             >
               <div>

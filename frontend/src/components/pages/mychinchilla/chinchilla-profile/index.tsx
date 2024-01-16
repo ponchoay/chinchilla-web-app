@@ -140,6 +140,8 @@ export const ChinchillaProfilePage = () => {
         setPreviewImage('')
         setChinchillaImageFile(null)
         reset()
+        setHeaderName(res.data.chinchillaName)
+        setHeaderImage(res.data.chinchillaImage)
         mutate(`/chinchillas/${chinchillaId}`)
         debugLog('チンチラプロフィール更新:', '成功')
       } else {
