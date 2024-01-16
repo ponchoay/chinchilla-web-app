@@ -47,7 +47,10 @@ export const getMyChinchillas = () => {
 
 // チンチラプロフィール用
 export const useChinchillaProfile = (chinchillaId: number) => {
-  const { data, error, isLoading } = useSWR(`/chinchillas/${chinchillaId}`, fetchWithToken)
+  const { data, error, isLoading } = useSWR(
+    chinchillaId !== 0 ? `/chinchillas/${chinchillaId}` : null,
+    fetchWithToken
+  )
 
   return {
     chinchillaProfile: data,

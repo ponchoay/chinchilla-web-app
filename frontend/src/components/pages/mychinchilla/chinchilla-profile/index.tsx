@@ -39,7 +39,6 @@ export const ChinchillaProfilePage = () => {
     useContext(SelectedChinchillaIdContext)
 
   const { chinchillaProfile, isLoading, isError } = useChinchillaProfile(chinchillaId)
-  console.log('chinchillaProfile', chinchillaProfile)
 
   // 編集モードの状態管理
   const [isEditing, setIsEditing] = useState(false)
@@ -61,8 +60,8 @@ export const ChinchillaProfilePage = () => {
     resolver: zodResolver(chinchillaProfileSchema)
   })
 
-  // プレビュー用
-  const [previewImage, setPreviewImage] = useState('')
+  // プレビューURL用
+  const [previewImage, setPreviewImage] = useState<string>('')
 
   // ページ上に表示されないinput用
   const imageInputRef = useRef<HTMLInputElement>(null)
@@ -141,6 +140,8 @@ export const ChinchillaProfilePage = () => {
         setPreviewImage('')
         setChinchillaImageFile(null)
         reset()
+        setHeaderName(res.data.chinchillaName)
+        setHeaderImage(res.data.chinchillaImage)
         mutate(`/chinchillas/${chinchillaId}`)
         debugLog('チンチラプロフィール更新:', '成功')
       } else {
@@ -185,7 +186,7 @@ export const ChinchillaProfilePage = () => {
         }`}
       >
         {/* 表示モード */}
-        {!isLoading && !isError && isEditing === false && (
+        {!isLoading && !isError && chinchillaProfile && isEditing === false && (
           <>
             {/* 画像 */}
             <div className="w-36 sm:w-48">
@@ -268,7 +269,7 @@ export const ChinchillaProfilePage = () => {
         )}
 
         {/* 編集モード */}
-        {!isLoading && !isError && isEditing === true && (
+        {!isLoading && !isError && chinchillaProfile && isEditing === true && (
           <>
             {/* 画像 */}
             <div className="relative">

@@ -24,7 +24,9 @@ export const ChinchillaRegistrationPage = () => {
   // 選択中のチンチラの状態管理（グローバル）
   const { setChinchillaId, setHeaderName, setHeaderImage } = useContext(SelectedChinchillaIdContext)
 
+  // 送信用画像データの状態管理
   const [chinchillaImageFile, setChinchillaImageFile] = useState<File | null>(null)
+
   const chinchillaMemo: string = ''
 
   const {
@@ -41,8 +43,8 @@ export const ChinchillaRegistrationPage = () => {
     resolver: zodResolver(chinchillaRegistrationSchema)
   })
 
-  // プレビュー用
-  const [previewImage, setPreviewImage] = useState('')
+  // プレビューURL用
+  const [previewImage, setPreviewImage] = useState<string>('')
 
   // ページ上に表示されないinput用
   const imageInputRef = useRef<HTMLInputElement>(null)
