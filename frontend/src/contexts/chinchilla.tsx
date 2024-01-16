@@ -14,7 +14,7 @@ export const SelectedChinchillaIdContext = createContext<ChinchillaContextType>(
 export const ChinchillaProvider = ({ children }: Props) => {
   const [chinchillaId, setChinchillaId] = useState<number>(0)
   const [headerName, setHeaderName] = useState<string>('')
-  const [headerImage, setHeaderImage] = useState<string>('')
+  const [headerImage, setHeaderImage] = useState<{ url: string }>({ url: '' })
   const [headerDisabled, setHeaderDisabled] = useState<boolean>(false)
 
   const value = {

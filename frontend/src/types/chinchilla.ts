@@ -19,8 +19,8 @@ export type ChinchillaContextType = {
   setChinchillaId: (chinchillaId: number) => void
   headerName: string
   setHeaderName: (headerName: string) => void
-  headerImage: string
-  setHeaderImage: (headerImage: string) => void
+  headerImage: { url: string }
+  setHeaderImage: (headerImage: { url: string }) => void
   headerDisabled: boolean
   setHeaderDisabled: (headerDisabled: boolean) => void
 }
@@ -30,7 +30,7 @@ export const defaultChinchillaContextValue = {
   setChinchillaId: () => {},
   headerName: '',
   setHeaderName: () => {},
-  headerImage: '',
+  headerImage: { url: '' },
   setHeaderImage: () => {},
   headerDisabled: false,
   setHeaderDisabled: () => {}

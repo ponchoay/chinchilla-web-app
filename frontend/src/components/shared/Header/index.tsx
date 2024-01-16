@@ -1,5 +1,6 @@
 import { useContext, useState, useEffect } from 'react'
 import Link from 'next/link'
+import { AxiosResponse } from 'axios'
 import { AuthContext } from 'src/contexts/auth'
 import { SelectedChinchillaIdContext } from 'src/contexts/chinchilla'
 import { getMyChinchillas } from 'src/lib/api/chinchilla'
@@ -12,8 +13,10 @@ import { faCircleUser } from '@fortawesome/free-solid-svg-icons'
 
 import { debugLog } from 'src/lib/debug/debugLog'
 
+import type { MyChinchilla } from 'src/types/chinchilla'
+
 export const Header = () => {
-  const [allChinchillas, setAllChinchillas] = useState([])
+  const [allChinchillas, setAllChinchillas] = useState<MyChinchilla[]>([])
 
   //ログインユーザーの状態管理（グローバル）
   const { isSignedIn, currentUser } = useContext(AuthContext)
@@ -39,28 +42,33 @@ export const Header = () => {
 
   // モーダルを開いた時に全てのチンチラのデータを取得
   const handleFetch = async () => {
-    const res = await getMyChinchillas()
+    const response = await getMyChinchillas()
+    const res = response as AxiosResponse
     debugLog('マイチンチラ:', res.data)
     setAllChinchillas(res.data)
   }
 
   // チンチラを選択
-  const handleSelectChinchilla = (e) => {
+  const handleSelectChinchilla = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedChinchilla = allChinchillas.filter(
-      (chinchilla) => chinchilla.id === Number(e.target.value)
+      (chinchilla: MyChinchilla) => chinchilla.id === Number(e.target.value)
     )
     debugLog('選択中のチンチラ:', selectedChinchilla)
-    setChinchillaId(selectedChinchilla[0].id)
-    setHeaderName(selectedChinchilla[0].chinchillaName)
-    setHeaderImage(selectedChinchilla[0].chinchillaImage)
-    setIsModalOpen(false)
+
+    if (selectedChinchilla.length > 0) {
+      setChinchillaId(selectedChinchilla[0].id)
+      setHeaderName(selectedChinchilla[0].chinchillaName)
+      setHeaderImage(selectedChinchilla[0].chinchillaImage)
+      setIsModalOpen(false)
+    }
   }
 
   // チンチラが登録されている場合は、先頭のチンチラをセット
   const fetch = async () => {
     if (currentUser) {
       try {
-        const res = await getMyChinchillas()
+        const response = await getMyChinchillas()
+        const res = response as AxiosResponse
         if (res.data.length !== 0) {
           setChinchillaId(res.data[0].id)
           setHeaderName(res.data[0].chinchillaName)
