@@ -428,6 +428,14 @@ export const CareRecordCalendarPage = () => {
               click={() => {
                 setIsEditing(true)
                 setHeaderDisabled(true)
+                setCareFood(displayCare.careFood)
+                setCareToilet(displayCare.careToilet)
+                setCareBath(displayCare.careBath)
+                setCarePlay(displayCare.carePlay)
+                setCareWeight(displayCare.careWeight)
+                setCareTemperature(displayCare.careTemperature)
+                setCareHumidity(displayCare.careHumidity)
+                setCareMemo(displayCare.careMemo)
               }}
               disabled={!chinchillaId || !displayCare.id ? true : false}
               addStyle="btn-primary mx-3 h-14 w-32"
