@@ -3,7 +3,7 @@ import * as React from 'react'
 import { DayPicker } from 'react-day-picker'
 import ja from 'date-fns/locale/ja'
 
-import { cn } from 'src/lib/utils'
+import { cn } from 'src/lib/shadcn/utils'
 import { buttonVariants } from 'src/components/pages/care-record-calendar/button'
 
 function Calendar({ allCares, className, classNames, showOutsideDays = true, ...props }) {
@@ -83,10 +83,12 @@ function Calendar({ allCares, className, classNames, showOutsideDays = true, ...
 
         ...classNames
       }}
-      components={{
-        // IconLeft: ({ ...props }) => <ChevronLeft className="h-4 w-4" />,
-        // IconRight: ({ ...props }) => <ChevronRight className="h-4 w-4" />
-      }}
+      components={
+        {
+          // IconLeft: ({ ...props }) => <ChevronLeft className="h-4 w-4" />,
+          // IconRight: ({ ...props }) => <ChevronRight className="h-4 w-4" />
+        }
+      }
       {...props}
     />
   )
