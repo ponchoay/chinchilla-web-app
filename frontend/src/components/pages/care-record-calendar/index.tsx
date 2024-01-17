@@ -415,8 +415,6 @@ export const CareRecordCalendarPage = () => {
             careMemoErrorMessage={careMemoErrorMessage}
           />
 
-          <input type="number" inputMode="numeric" />
-
           {/* 登録モード：登録ボタン */}
           <Button
             btnType="submit"
