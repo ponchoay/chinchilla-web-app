@@ -4,7 +4,7 @@ import { client } from 'src/lib/api/client'
 // 機能&リクエストURL
 
 // お世話記録 一覧(全部)
-export const getAllCares = (selectedChinchillaId) => {
+export const getAllCares = (selectedChinchillaId: number) => {
   if (!Cookies.get('_access_token') || !Cookies.get('_client') || !Cookies.get('_uid')) return
   return client.get(`/all_cares?chinchilla_id=${selectedChinchillaId}`, {
     headers: {
@@ -16,7 +16,7 @@ export const getAllCares = (selectedChinchillaId) => {
 }
 
 // 体重 一覧
-export const getWeightCares = (selectedChinchillaId) => {
+export const getWeightCares = (selectedChinchillaId: number) => {
   if (!Cookies.get('_access_token') || !Cookies.get('_client') || !Cookies.get('_uid')) return
   return client.get(`/weight_cares?chinchilla_id=${selectedChinchillaId}`, {
     headers: {
@@ -28,7 +28,7 @@ export const getWeightCares = (selectedChinchillaId) => {
 }
 
 // お世話記録 作成
-export const createCare = (params) => {
+export const createCare = (params: FormData) => {
   if (!Cookies.get('_access_token') || !Cookies.get('_client') || !Cookies.get('_uid')) return
   return client.post('/cares', params, {
     headers: {
@@ -41,7 +41,7 @@ export const createCare = (params) => {
 }
 
 // お世話記録更新
-export const updateCare = ({ careId, params }) => {
+export const updateCare = (careId: number, params: FormData) => {
   if (!Cookies.get('_access_token') || !Cookies.get('_client') || !Cookies.get('_uid')) return
   return client.put(`/cares/${careId}`, params, {
     headers: {
@@ -54,7 +54,7 @@ export const updateCare = ({ careId, params }) => {
 }
 
 // お世話記録 削除
-export const deleteCare = (careId) => {
+export const deleteCare = (careId: number) => {
   if (!Cookies.get('_access_token') || !Cookies.get('_client') || !Cookies.get('_uid')) return
   return client.delete(`/cares/${careId}`, {
     headers: {

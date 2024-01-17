@@ -1,20 +1,26 @@
+import { Dispatch, SetStateAction } from 'react'
 import { NumericFormat } from 'react-number-format'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAsterisk } from '@fortawesome/free-solid-svg-icons'
 
-export const NumericFormItem = ({
-  label,
-  item,
-  inputMode,
-  value,
-  setValue,
-  min,
-  max,
-  placeholder,
-  decimalScale,
-  suffix
-}) => {
+type Props = {
+  label: string
+  item: string
+  inputMode: 'decimal' | 'numeric'
+  value: number | null
+  setValue: Dispatch<SetStateAction<number | null>>
+  min: number
+  max: number
+  placeholder: string
+  decimalScale: number
+  suffix: string
+}
+
+export const NumericFormItem = (props: Props) => {
+  const { label, item, inputMode, value, setValue, min, max, placeholder, decimalScale, suffix } =
+    props
+
   return (
     <div className="form-control w-80 sm:w-96">
       <label htmlFor={item} className="label">
