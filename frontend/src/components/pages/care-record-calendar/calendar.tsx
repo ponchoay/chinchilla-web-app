@@ -6,9 +6,24 @@ import ja from 'date-fns/locale/ja'
 import { cn } from 'src/lib/shadcn/utils'
 import { buttonVariants } from 'src/components/pages/care-record-calendar/button'
 
-function Calendar({ allCares, className, classNames, showOutsideDays = true, ...props }) {
+import type { AllCaresType } from 'src/types/care'
+
+export type CalendarProps = React.ComponentProps<typeof DayPicker>
+
+// ライブラリから提供される型に追加
+type ExtendedCalendarProps = CalendarProps & {
+  allCares: AllCaresType[]
+}
+
+function Calendar({
+  allCares,
+  className,
+  classNames,
+  showOutsideDays = true,
+  ...props
+}: ExtendedCalendarProps) {
   // 選択したチンチラのお世話記録の一覧を取得
-  const careDays = allCares.map((care) => new Date(care.careDay))
+  const careDays = allCares.map((care: AllCaresType) => new Date(care.careDay))
 
   return (
     <DayPicker
@@ -16,8 +31,6 @@ function Calendar({ allCares, className, classNames, showOutsideDays = true, ...
       showOutsideDays={showOutsideDays}
       // 日本語化
       locale={ja}
-      // 1日のみ選択可能
-      mode="single"
       // カスタマイズ
       modifiers={{
         hasCare: careDays
