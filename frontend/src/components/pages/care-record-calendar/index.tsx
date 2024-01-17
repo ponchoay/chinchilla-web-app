@@ -87,22 +87,7 @@ export const CareRecordCalendarPage = () => {
     setHeaderDisabled(false)
 
     // すでに選択されている日付を再度クリックした場合、選択状態を解除
-    if (selectedDate && isSameDay(selectedDate, date)) {
-      // setCareId(0)
-      // setSelectedDate(null)
-      // setCareFood('')
-      // setCareToilet('')
-      // setCareBath('')
-      // setCarePlay('')
-      // setCareWeight(null)
-      // setCareTemperature(null)
-      // setCareHumidity(null)
-      // setCareMemo('')
-      return
-    }
-
-    // チンチラを選択していない場合又はお世話記録を登録していないチンチラを選択した場合
-    if (allCares.length === 0) return
+    if (selectedDate && isSameDay(selectedDate, date)) return
 
     // カレンダーで選択した日付と一致するお世話の記録をselectedCareに格納
     const selectedCare = allCares.filter(
@@ -111,6 +96,7 @@ export const CareRecordCalendarPage = () => {
     // お世話の記録がない場合
     if (selectedCare.length === 0) {
       setDisplayCare(undefined)
+      resetCareForm()
     } else {
       // お世話の記録がある場合
       setDisplayCare(selectedCare[0])
