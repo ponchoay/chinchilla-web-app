@@ -139,25 +139,6 @@ export const CareRecordCalendarPage = () => {
     }
   }
 
-  // 編集モードを解除した際に、もう一度お世話の記録を表示
-  const handleReset = () => {
-    if (selectedDate === undefined) return
-
-    const resetedCare = allCares.filter(
-      (care: CareType) =>
-        care.careDay === format(new Date(selectedDate), 'yyyy-MM-dd', { locale: ja })
-    )
-    debugLog('選択中のお世話:', resetedCare)
-    setCareFood(resetedCare[0].careFood)
-    setCareToilet(resetedCare[0].careToilet)
-    setCareBath(resetedCare[0].careBath)
-    setCarePlay(resetedCare[0].carePlay)
-    setCareWeight(resetedCare[0].careWeight)
-    setCareTemperature(resetedCare[0].careTemperature)
-    setCareHumidity(resetedCare[0].careHumidity)
-    setCareMemo(resetedCare[0].careMemo)
-  }
-
   // お世話メモのセット関数
   const handleCareMemoChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const newText = e.target.value
@@ -580,7 +561,6 @@ export const CareRecordCalendarPage = () => {
               click={() => {
                 setIsEditing(false)
                 setHeaderDisabled(false)
-                handleReset()
               }}
               addStyle="btn-secondary mx-3 h-14 w-32"
             >
