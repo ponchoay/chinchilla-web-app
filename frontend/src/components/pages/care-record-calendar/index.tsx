@@ -256,7 +256,7 @@ export const CareRecordCalendarPage = () => {
       )}
 
       {/* 日付未選択 */}
-      {!selectedDate && (
+      {chinchillaId !== 0 && !selectedDate && (
         <p className="text-sm text-dark-black sm:text-base">
           <FontAwesomeIcon icon={faHandPointer} className="mr-1 text-dark-blue" />
           カレンダーから日付を選択してください
@@ -264,7 +264,7 @@ export const CareRecordCalendarPage = () => {
       )}
 
       {/* 登録モード */}
-      {chinchillaId && selectedDate && displayCare === undefined && isEditing === false && (
+      {chinchillaId !== 0 && selectedDate && displayCare === undefined && isEditing === false && (
         <>
           {/* 登録モード：お世話の記録 */}
           <div className="h-[215px] w-80 rounded-xl border border-solid border-dark-blue bg-ligth-white sm:h-[300px] sm:w-[500px]">
@@ -372,7 +372,7 @@ export const CareRecordCalendarPage = () => {
       )}
 
       {/* 表示モード */}
-      {chinchillaId && selectedDate && displayCare !== undefined && isEditing === false && (
+      {chinchillaId !== 0 && selectedDate && displayCare !== undefined && isEditing === false && (
         <>
           {/* 表示モード：お世話の記録 */}
           <div className="h-[300px] w-80 rounded-xl bg-ligth-white sm:h-[400px]  sm:w-[500px]">
@@ -456,7 +456,7 @@ export const CareRecordCalendarPage = () => {
       )}
 
       {/* 編集モード */}
-      {chinchillaId && selectedDate && displayCare !== undefined && isEditing === true && (
+      {chinchillaId !== 0 && selectedDate && displayCare !== undefined && isEditing === true && (
         <>
           {/* 編集モード：お世話の記録 */}
           <div className="h-[215px] w-80 rounded-xl border border-solid border-dark-blue bg-ligth-white sm:h-[300px] sm:w-[500px]">
