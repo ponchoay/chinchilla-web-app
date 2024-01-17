@@ -33,7 +33,6 @@ export const CareRecordCalendarPage = () => {
 
   // 選択中のチンチラの全てのお世話記録
   const { allCares } = useAllCares(chinchillaId)
-  console.log('allCares:', allCares)
 
   // 編集モードの状態管理
   const [isEditing, setIsEditing] = useState(false)
@@ -53,7 +52,6 @@ export const CareRecordCalendarPage = () => {
 
   // 表示用の状態管理(中身が空か1つの配列)
   const [displayCare, setDisplayCare] = useState<CareType | undefined>(undefined)
-  console.log('displayCare:', displayCare)
 
   // お世話メモのバリデーションメッセージ
   const [careMemoErrorMessage, setCareMemoErrorMessage] = useState('')
