@@ -1,4 +1,4 @@
-export type AllCaresType = {
+export type CareType = {
   id: number
   careDay: string
   careFood: string
