@@ -121,7 +121,7 @@ export const CareRecordCalendarPage = () => {
       mutate(`/all_cares?chinchilla_id=${chinchillaId}`) // お世話記録を再取得
       setDisplayCare(undefined) // 選択中のお世話記録表示をリセット
       resetCareForm() // 入力フォームをリセット
-      setIsModalOpen(false) // 編集モードを解除
+      setIsModalOpen(false) // モーダルを閉じる
     } catch (err) {
       debugLog('エラー:', err)
     }
@@ -161,14 +161,9 @@ export const CareRecordCalendarPage = () => {
 
       // ステータス201 Created
       if (createCareRes.status === 201) {
-        // お世話記録を再取得
-        mutate(`/all_cares?chinchilla_id=${chinchillaId}`)
-
-        // お世話の記録を表示
-        setDisplayCare(createCareRes.data)
-
-        // 入力フォームをリセット
-        resetCareForm()
+        mutate(`/all_cares?chinchilla_id=${chinchillaId}`) // お世話記録を再取得
+        setDisplayCare(createCareRes.data) // お世話の記録を表示
+        resetCareForm() // 入力フォームをリセット
 
         debugLog('お世話記録作成:', '成功')
       } else {
@@ -203,14 +198,9 @@ export const CareRecordCalendarPage = () => {
 
       // ステータス200 ok
       if (updateCareRes.status === 200) {
-        // お世話記録を再取得
-        mutate(`/all_cares?chinchilla_id=${chinchillaId}`)
-
-        // お世話の記録を表示
-        setDisplayCare(updateCareRes.data)
-
-        // 入力フォームをリセット
-        resetCareForm()
+        mutate(`/all_cares?chinchilla_id=${chinchillaId}`) // お世話記録を再取得
+        setDisplayCare(updateCareRes.data) // お世話の記録を表示
+        resetCareForm() // 入力フォームをリセット
 
         // 編集モードを解除
         setIsEditing(false)
