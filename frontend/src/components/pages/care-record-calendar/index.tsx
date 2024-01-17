@@ -311,6 +311,8 @@ export const CareRecordCalendarPage = () => {
       <PageTitle pageTitle="お世話の記録" />
       {/* カレンダー */}
       <Calendar
+        // 1日のみ選択可能
+        mode="single"
         selected={selectedDate}
         onSelect={setSelectedDate}
         onDayClick={handleSelectedCare}
@@ -412,8 +414,6 @@ export const CareRecordCalendarPage = () => {
             handleCareMemoChange={handleCareMemoChange}
             careMemoErrorMessage={careMemoErrorMessage}
           />
-
-          <input type="number" inputMode="numeric" />
 
           {/* 登録モード：登録ボタン */}
           <Button
