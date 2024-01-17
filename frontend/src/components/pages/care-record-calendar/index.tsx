@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext } from 'react'
+import { AxiosResponse } from 'axios'
 
 import { getAllCares, createCare, deleteCare, updateCare } from 'src/lib/api/care'
 import { SelectedChinchillaIdContext } from 'src/contexts/chinchilla'
@@ -23,8 +24,10 @@ import ja from 'date-fns/locale/ja'
 
 import { debugLog } from 'src/lib/debug/debugLog'
 
+import type { AllCaresType } from 'src/types/care'
+
 export const CareRecordCalendarPage = () => {
-  const [allCares, setAllCares] = useState([])
+  const [allCares, setAllCares] = useState<AllCaresType[]>([])
   const [careId, setCareId] = useState(0)
 
   // 選択中のチンチラの状態管理（グローバル）
@@ -41,9 +44,9 @@ export const CareRecordCalendarPage = () => {
   const [careToilet, setCareToilet] = useState('')
   const [careBath, setCareBath] = useState('')
   const [carePlay, setCarePlay] = useState('')
-  const [careWeight, setCareWeight] = useState(null)
-  const [careTemperature, setCareTemperature] = useState(null)
-  const [careHumidity, setCareHumidity] = useState(null)
+  const [careWeight, setCareWeight] = useState<number | null>(null)
+  const [careTemperature, setCareTemperature] = useState<number | null>(null)
+  const [careHumidity, setCareHumidity] = useState<number | null>(null)
   const [careMemo, setCareMemo] = useState('')
 
   // お世話メモのバリデーションメッセージ
@@ -56,7 +59,8 @@ export const CareRecordCalendarPage = () => {
   const fetch = async () => {
     try {
       if (chinchillaId) {
-        const res = await getAllCares(chinchillaId)
+        const response = await getAllCares(chinchillaId)
+        const res = response as AxiosResponse
         debugLog('お世話記録一覧:', res.data)
         setAllCares(res.data)
 
@@ -83,9 +87,9 @@ export const CareRecordCalendarPage = () => {
   }, [chinchillaId])
 
   // 選択した日付のお世話の記録を表示
-  const handleSelectedCare = (date) => {
+  const handleSelectedCare = (date: Date) => {
     // 2つの日付を比較する関数を定義
-    const isSameDay = (date1, date2) => {
+    const isSameDay = (date1: Date, date2: Date) => {
       return (
         format(date1, 'yyyy-MM-dd', { locale: ja }) === format(date2, 'yyyy-MM-dd', { locale: ja })
       )
@@ -146,7 +150,7 @@ export const CareRecordCalendarPage = () => {
   }
 
   // お世話の記録を削除
-  const handleDelete = async (e) => {
+  const handleDelete = async (e: React.MouseEvent<HTMLButtonElement>) => {
     if (!careId) {
       alert('お世話を選択してください')
       return
@@ -155,6 +159,9 @@ export const CareRecordCalendarPage = () => {
     try {
       const deleteCareRes = await deleteCare(careId)
       const getAllCaresRes = await getAllCares(chinchillaId)
+
+      if (!deleteCareRes || !getAllCaresRes) return
+
       debugLog('削除レス:', deleteCareRes)
       debugLog('お世話一覧:', getAllCaresRes.data)
 
@@ -209,7 +216,7 @@ export const CareRecordCalendarPage = () => {
   }
 
   // お世話メモのセット関数
-  const handleCareMemoChange = (e) => {
+  const handleCareMemoChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const newText = e.target.value
 
     // お世話メモの字数確認
@@ -219,12 +226,13 @@ export const CareRecordCalendarPage = () => {
   }
 
   // create;お世話の記録を登録
-  const handleCreate = async (e) => {
+  const handleCreate = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
     const params = createFormData()
     try {
-      const createCareRes = await createCare(params)
-      const getAllCaresRes = await getAllCares(chinchillaId)
+      const createCareRes = (await createCare(params)) as AxiosResponse
+      const getAllCaresRes = (await getAllCares(chinchillaId)) as AxiosResponse
+
       debugLog('作成レス:', createCareRes)
       debugLog('お世話一覧:', getAllCaresRes.data)
 
@@ -234,7 +242,8 @@ export const CareRecordCalendarPage = () => {
 
         // 作成後にお世話の記録を表示
         const resetedCare = getAllCaresRes.data.filter(
-          (care) => care.careDay === format(new Date(selectedDate), 'yyyy-MM-dd', { locale: ja })
+          (care: AllCaresType) =>
+            care.careDay === format(new Date(selectedDate), 'yyyy-MM-dd', { locale: ja })
         )
         debugLog('選択中のお世話:', resetedCare)
         setCareId(resetedCare[0].id)
@@ -271,15 +280,15 @@ export const CareRecordCalendarPage = () => {
   }
 
   // update:お世話の記録を更新
-  const handleUpdate = async (event) => {
-    event.preventDefault()
+  const handleUpdate = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault()
     const params = updateFormData()
     try {
-      const updateCareRes = await updateCare({
+      const updateCareRes = (await updateCare({
         careId,
         params
-      })
-      const getAllCaresRes = await getAllCares(chinchillaId)
+      })) as AxiosResponse
+      const getAllCaresRes = (await getAllCares(chinchillaId)) as AxiosResponse
       debugLog('更新レス:', updateCareRes)
       debugLog('お世話一覧:', getAllCaresRes.data)
 
@@ -400,9 +409,11 @@ export const CareRecordCalendarPage = () => {
           {/* 登録モード：お世話のメモ */}
           <CareMemoFormItem
             careMemo={careMemo}
-            onChange={handleCareMemoChange}
+            handleCareMemoChange={handleCareMemoChange}
             careMemoErrorMessage={careMemoErrorMessage}
           />
+
+          <input type="number" inputMode="numeric" />
 
           {/* 登録モード：登録ボタン */}
           <Button
@@ -578,7 +589,7 @@ export const CareRecordCalendarPage = () => {
           {/* 編集モード：お世話のメモ */}
           <CareMemoFormItem
             careMemo={careMemo}
-            onChange={handleCareMemoChange}
+            handleCareMemoChange={handleCareMemoChange}
             careMemoErrorMessage={careMemoErrorMessage}
           />
 
