@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import { AxiosResponse } from 'axios'
 import { mutate } from 'swr'
 
@@ -224,6 +224,16 @@ export const CareRecordCalendarPage = () => {
       debugLog('エラー:', err)
     }
   }
+
+  // 選択中のチンチラが変わるタイミングで状態管理をリセット
+  useEffect(() => {
+    setIsEditing(false)
+    setIsModalOpen(false)
+    resetCareForm()
+    setDisplayCare(undefined)
+    setCareMemoErrorMessage('')
+    setSelectedDate(undefined)
+  }, [chinchillaId])
 
   return (
     <div className="mx-3 my-24 grid place-content-center place-items-center gap-y-4 sm:my-28 sm:gap-y-6">
