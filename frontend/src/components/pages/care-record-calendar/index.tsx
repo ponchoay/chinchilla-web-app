@@ -96,12 +96,14 @@ export const CareRecordCalendarPage = () => {
     if (selectedCare.length === 1) {
       setDisplayCare(selectedCare[0])
       resetCareForm()
+      setCareMemoErrorMessage('')
     }
 
     // お世話の記録がない場合
     if (selectedCare.length === 0) {
       setDisplayCare(undefined)
       resetCareForm()
+      setCareMemoErrorMessage('')
     }
 
     debugLog('選択中のお世話:', selectedCare)
@@ -568,6 +570,8 @@ export const CareRecordCalendarPage = () => {
               click={() => {
                 setIsEditing(false)
                 setHeaderDisabled(false)
+                resetCareForm()
+                setCareMemoErrorMessage('')
               }}
               addStyle="btn-secondary mx-3 h-14 w-32"
             >
