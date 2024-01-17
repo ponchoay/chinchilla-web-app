@@ -1,4 +1,9 @@
 import * as React from 'react'
+import { useContext } from 'react'
+
+import { useAllCares } from 'src/lib/api/care'
+import { SelectedChinchillaIdContext } from 'src/contexts/chinchilla'
+
 // import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { DayPicker } from 'react-day-picker'
 import ja from 'date-fns/locale/ja'
@@ -6,24 +11,19 @@ import ja from 'date-fns/locale/ja'
 import { cn } from 'src/lib/shadcn/utils'
 import { buttonVariants } from 'src/components/pages/care-record-calendar/button'
 
-import type { AllCaresType } from 'src/types/care'
+import type { CareType } from 'src/types/care'
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker>
 
-// ライブラリから提供される型に追加
-type ExtendedCalendarProps = CalendarProps & {
-  allCares: AllCaresType[]
-}
+function Calendar({ className, classNames, showOutsideDays = true, ...props }: CalendarProps) {
+  // 選択中のチンチラの状態管理（グローバル）
+  const { chinchillaId } = useContext(SelectedChinchillaIdContext)
 
-function Calendar({
-  allCares,
-  className,
-  classNames,
-  showOutsideDays = true,
-  ...props
-}: ExtendedCalendarProps) {
+  // 選択中のチンチラの全てのお世話記録
+  const { allCares } = useAllCares(chinchillaId)
+
   // 選択したチンチラのお世話記録の一覧を取得
-  const careDays = allCares.map((care: AllCaresType) => new Date(care.careDay))
+  const careDays = allCares?.map((care: CareType) => new Date(care.careDay))
 
   return (
     <DayPicker
