@@ -1,10 +1,23 @@
-import React from 'react'
+import React, { Dispatch, SetStateAction } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFaceSmileBeam, faFaceDizzy, faFaceMeh } from '@fortawesome/free-solid-svg-icons'
 
-export const InputRadioButtonItem = ({ label, item, value, setValue }) => {
+type Props = {
+  label: string
+  item: string
+  value: string
+  setValue: Dispatch<SetStateAction<string>>
+}
+
+export const InputRadioButtonItem = (props: Props) => {
+  const { label, item, value, setValue } = props
+
   // ラジオボタンの取り消し
-  const handleRadioClick = (setter, currentValue, newValue) => {
+  const handleRadioClick = (
+    setter: Dispatch<SetStateAction<string>>,
+    currentValue: string,
+    newValue: string
+  ) => {
     if (currentValue === newValue) {
       return setter('')
     }

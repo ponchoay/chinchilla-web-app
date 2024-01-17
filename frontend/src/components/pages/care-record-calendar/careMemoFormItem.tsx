@@ -1,7 +1,15 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFilePen } from '@fortawesome/free-solid-svg-icons'
 
-export const CareMemoFormItem = ({ careMemo, onChange, careMemoErrorMessage }) => {
+type Props = {
+  careMemo: string
+  handleCareMemoChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void
+  careMemoErrorMessage: string
+}
+
+export const CareMemoFormItem = (props: Props) => {
+  const { careMemo, handleCareMemoChange, careMemoErrorMessage } = props
+
   return (
     <div className="form-control h-96 w-80 sm:h-[464px] sm:w-[500px]">
       <label htmlFor="careMemo" className="mx-1 my-2 flex">
@@ -15,7 +23,7 @@ export const CareMemoFormItem = ({ careMemo, onChange, careMemoErrorMessage }) =
         id="careMemo"
         placeholder="メモを記入してください。"
         value={careMemo}
-        onChange={onChange}
+        onChange={handleCareMemoChange}
         className="textarea textarea-primary h-80 border-dark-blue bg-ligth-white text-base text-dark-black sm:h-96"
       ></textarea>
       {careMemoErrorMessage && (

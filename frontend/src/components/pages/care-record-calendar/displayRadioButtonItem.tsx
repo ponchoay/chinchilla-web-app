@@ -2,7 +2,11 @@ import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFaceSmileBeam, faFaceDizzy, faFaceMeh } from '@fortawesome/free-solid-svg-icons'
 
-export const DisplayRadioButtonItem = ({ label, item, value }) => {
+type Props = { label: string; item: string; value: string }
+
+export const DisplayRadioButtonItem = (props: Props) => {
+  const { label, item, value } = props
+
   return (
     <div className="mx-5 mt-3 flex items-center border-b border-solid border-b-light-black sm:mx-10 sm:mt-6">
       <p className="w-24 text-center text-sm text-dark-black sm:w-28 sm:text-base">{label}</p>
