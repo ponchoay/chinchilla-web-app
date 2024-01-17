@@ -1,7 +1,8 @@
-import { useState, useEffect, useContext } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import { AxiosResponse } from 'axios'
+import { mutate } from 'swr'
 
-import { getAllCares, createCare, deleteCare, updateCare } from 'src/lib/api/care'
+import { useAllCares, createCare, deleteCare, updateCare } from 'src/lib/api/care'
 import { SelectedChinchillaIdContext } from 'src/contexts/chinchilla'
 
 import { InputRadioButtonItem } from 'src/components/pages/care-record-calendar/inputRadioButtonItem'
@@ -15,7 +16,7 @@ import { Button } from 'src/components/shared/Button'
 import { Calendar } from 'src/components/pages/care-record-calendar/calendar'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHandPointer } from '@fortawesome/free-solid-svg-icons'
+import { faHandPointer, faCalendarXmark } from '@fortawesome/free-solid-svg-icons'
 
 import { validateCareMemo } from 'src/validation/care'
 
@@ -24,14 +25,14 @@ import ja from 'date-fns/locale/ja'
 
 import { debugLog } from 'src/lib/debug/debugLog'
 
-import type { AllCaresType } from 'src/types/care'
+import type { CareType } from 'src/types/care'
 
 export const CareRecordCalendarPage = () => {
-  const [allCares, setAllCares] = useState<AllCaresType[]>([])
-  const [careId, setCareId] = useState(0)
-
   // 選択中のチンチラの状態管理（グローバル）
   const { chinchillaId, setHeaderDisabled } = useContext(SelectedChinchillaIdContext)
+
+  // 選択中のチンチラの全てのお世話記録
+  const { allCares } = useAllCares(chinchillaId)
 
   // 編集モードの状態管理
   const [isEditing, setIsEditing] = useState(false)
@@ -49,42 +50,26 @@ export const CareRecordCalendarPage = () => {
   const [careHumidity, setCareHumidity] = useState<number | null>(null)
   const [careMemo, setCareMemo] = useState('')
 
+  // 表示用の状態管理(中身が空か1つの配列)
+  const [displayCare, setDisplayCare] = useState<CareType | undefined>(undefined)
+
   // お世話メモのバリデーションメッセージ
   const [careMemoErrorMessage, setCareMemoErrorMessage] = useState('')
 
   // 選択中のカレンダーの日付の状態管理
-  const [selectedDate, setSelectedDate] = useState(null)
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined)
 
-  // チンチラを選択中の場合に、お世話の記録を取得
-  const fetch = async () => {
-    try {
-      if (chinchillaId) {
-        const response = await getAllCares(chinchillaId)
-        const res = response as AxiosResponse
-        debugLog('お世話記録一覧:', res.data)
-        setAllCares(res.data)
-
-        // 別のチンチラを選択する際に、画面の表示をリセット
-        setCareId(0)
-        setSelectedDate(null)
-        setCareFood('')
-        setCareToilet('')
-        setCareBath('')
-        setCarePlay('')
-        setCareWeight(null)
-        setCareTemperature(null)
-        setCareHumidity(null)
-        setCareMemo('')
-      }
-    } catch (err) {
-      debugLog('エラー:', err)
-    }
+  // 入力フォームのリセット用関数
+  const resetCareForm = () => {
+    setCareFood('')
+    setCareToilet('')
+    setCareBath('')
+    setCarePlay('')
+    setCareWeight(null)
+    setCareTemperature(null)
+    setCareHumidity(null)
+    setCareMemo('')
   }
-
-  // chinchillaIdの変更を検知してレンダリング
-  useEffect(() => {
-    fetch()
-  }, [chinchillaId])
 
   // 選択した日付のお世話の記録を表示
   const handleSelectedCare = (date: Date) => {
@@ -95,124 +80,53 @@ export const CareRecordCalendarPage = () => {
       )
     }
 
+    // カレンダーで選択した日付と一致するお世話の記録をselectedCareに格納
+    const selectedCare = allCares.filter(
+      (care: CareType) => care.careDay === format(new Date(date), 'yyyy-MM-dd', { locale: ja })
+    )
+
     // 日付を選択した場合は編集モードを解除
     setIsEditing(false)
     setHeaderDisabled(false)
 
     // すでに選択されている日付を再度クリックした場合、選択状態を解除
-    if (selectedDate && isSameDay(selectedDate, date)) {
-      setCareId(0)
-      setSelectedDate(null)
-      setCareFood('')
-      setCareToilet('')
-      setCareBath('')
-      setCarePlay('')
-      setCareWeight(null)
-      setCareTemperature(null)
-      setCareHumidity(null)
-      setCareMemo('')
-      return
+    if (selectedDate && isSameDay(selectedDate, date)) return
+
+    // お世話の記録がある場合
+    if (selectedCare.length === 1) {
+      setDisplayCare(selectedCare[0])
+      resetCareForm()
+      setCareMemoErrorMessage('')
     }
-
-    // チンチラを選択していない場合又はお世話記録を登録していないチンチラを選択した場合
-    if (allCares.length === 0) return
-
-    // カレンダーで選択した日付と一致するお世話の記録をselectedCareに格納
-    const selectedCare = allCares.filter(
-      (care) => care.careDay === format(new Date(date), 'yyyy-MM-dd', { locale: ja })
-    )
-
-    debugLog('選択中のお世話:', selectedCare)
 
     // お世話の記録がない場合
     if (selectedCare.length === 0) {
-      setCareId(0)
-      setCareFood('')
-      setCareToilet('')
-      setCareBath('')
-      setCarePlay('')
-      setCareWeight(null)
-      setCareTemperature(null)
-      setCareHumidity(null)
-      setCareMemo('')
-    } else {
-      // お世話の記録がある場合
-      setCareId(selectedCare[0].id)
-      setCareFood(selectedCare[0].careFood)
-      setCareToilet(selectedCare[0].careToilet)
-      setCareBath(selectedCare[0].careBath)
-      setCarePlay(selectedCare[0].carePlay)
-      setCareWeight(selectedCare[0].careWeight)
-      setCareTemperature(selectedCare[0].careTemperature)
-      setCareHumidity(selectedCare[0].careHumidity)
-      setCareMemo(selectedCare[0].careMemo)
+      setDisplayCare(undefined)
+      resetCareForm()
+      setCareMemoErrorMessage('')
     }
+
+    debugLog('選択中のお世話:', selectedCare)
   }
 
   // お世話の記録を削除
   const handleDelete = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (!careId) {
-      alert('お世話を選択してください')
-      return
-    }
+    if (!chinchillaId || !displayCare) return
     e.preventDefault()
+
+    const careId = displayCare.id
+
     try {
-      const deleteCareRes = await deleteCare(careId)
-      const getAllCaresRes = await getAllCares(chinchillaId)
-
-      if (!deleteCareRes || !getAllCaresRes) return
-
+      const deleteCareRes = (await deleteCare(careId)) as AxiosResponse
       debugLog('削除レス:', deleteCareRes)
-      debugLog('お世話一覧:', getAllCaresRes.data)
 
-      // 削除後、画面の表示をリセット
-      setAllCares(getAllCaresRes.data)
-      setCareId(0)
-      setCareFood('')
-      setCareToilet('')
-      setCareBath('')
-      setCarePlay('')
-      setCareWeight(null)
-      setCareTemperature(null)
-      setCareHumidity(null)
-      setCareMemo('')
-
-      setIsModalOpen(false)
+      mutate(`/all_cares?chinchilla_id=${chinchillaId}`) // お世話記録を再取得
+      setDisplayCare(undefined) // 選択中のお世話記録表示をリセット
+      resetCareForm() // 入力フォームをリセット
+      setIsModalOpen(false) // モーダルを閉じる
     } catch (err) {
       debugLog('エラー:', err)
     }
-  }
-
-  // 編集モードを解除した際に、もう一度お世話の記録を表示
-  const handleReset = () => {
-    const resetedCare = allCares.filter(
-      (care) => care.careDay === format(new Date(selectedDate), 'yyyy-MM-dd', { locale: ja })
-    )
-    debugLog('選択中のお世話:', resetedCare)
-    setCareFood(resetedCare[0].careFood)
-    setCareToilet(resetedCare[0].careToilet)
-    setCareBath(resetedCare[0].careBath)
-    setCarePlay(resetedCare[0].carePlay)
-    setCareWeight(resetedCare[0].careWeight)
-    setCareTemperature(resetedCare[0].careTemperature)
-    setCareHumidity(resetedCare[0].careHumidity)
-    setCareMemo(resetedCare[0].careMemo)
-  }
-
-  // create;FormData形式でデータを作成
-  const createFormData = () => {
-    const formData = new FormData()
-    formData.append('care[careDay]', selectedDate)
-    formData.append('care[careFood]', careFood)
-    formData.append('care[careToilet]', careToilet)
-    formData.append('care[careBath]', careBath)
-    formData.append('care[carePlay]', carePlay)
-    formData.append('care[careWeight]', careWeight === null ? '' : careWeight)
-    formData.append('care[careTemperature]', careTemperature === null ? '' : careTemperature)
-    formData.append('care[careHumidity]', careHumidity === null ? '' : careHumidity)
-    formData.append('care[careMemo]', careMemo)
-    formData.append('care[chinchillaId]', chinchillaId)
-    return formData
   }
 
   // お世話メモのセット関数
@@ -227,34 +141,31 @@ export const CareRecordCalendarPage = () => {
 
   // create;お世話の記録を登録
   const handleCreate = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (!chinchillaId || !selectedDate || displayCare !== undefined || isEditing === true) return
     e.preventDefault()
-    const params = createFormData()
+
+    const params = {
+      careDay: format(new Date(selectedDate), 'yyyy-MM-dd', { locale: ja }),
+      careFood: careFood,
+      careToilet: careToilet,
+      careBath: careBath,
+      carePlay: carePlay,
+      careWeight: careWeight,
+      careTemperature: careTemperature,
+      careHumidity: careHumidity,
+      careMemo: careMemo,
+      chinchillaId: chinchillaId
+    }
+
     try {
       const createCareRes = (await createCare(params)) as AxiosResponse
-      const getAllCaresRes = (await getAllCares(chinchillaId)) as AxiosResponse
-
       debugLog('作成レス:', createCareRes)
-      debugLog('お世話一覧:', getAllCaresRes.data)
 
       // ステータス201 Created
       if (createCareRes.status === 201) {
-        setAllCares(getAllCaresRes.data)
-
-        // 作成後にお世話の記録を表示
-        const resetedCare = getAllCaresRes.data.filter(
-          (care: AllCaresType) =>
-            care.careDay === format(new Date(selectedDate), 'yyyy-MM-dd', { locale: ja })
-        )
-        debugLog('選択中のお世話:', resetedCare)
-        setCareId(resetedCare[0].id)
-        setCareFood(resetedCare[0].careFood)
-        setCareToilet(resetedCare[0].careToilet)
-        setCareBath(resetedCare[0].careBath)
-        setCarePlay(resetedCare[0].carePlay)
-        setCareWeight(resetedCare[0].careWeight)
-        setCareTemperature(resetedCare[0].careTemperature)
-        setCareHumidity(resetedCare[0].careHumidity)
-        setCareMemo(resetedCare[0].careMemo)
+        mutate(`/all_cares?chinchilla_id=${chinchillaId}`) // お世話記録を再取得
+        setDisplayCare(createCareRes.data) // お世話の記録を表示
+        resetCareForm() // 入力フォームをリセット
 
         debugLog('お世話記録作成:', '成功')
       } else {
@@ -265,38 +176,38 @@ export const CareRecordCalendarPage = () => {
     }
   }
 
-  // update:FormData形式でデータを作成
-  const updateFormData = () => {
-    const formData = new FormData()
-    formData.append('care[careFood]', careFood)
-    formData.append('care[careToilet]', careToilet)
-    formData.append('care[careBath]', careBath)
-    formData.append('care[carePlay]', carePlay)
-    formData.append('care[careWeight]', careWeight === null ? '' : careWeight)
-    formData.append('care[careTemperature]', careTemperature === null ? '' : careTemperature)
-    formData.append('care[careHumidity]', careHumidity === null ? '' : careHumidity)
-    formData.append('care[careMemo]', careMemo)
-    return formData
-  }
-
   // update:お世話の記録を更新
   const handleUpdate = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (!chinchillaId || !selectedDate || displayCare === undefined || isEditing === false) return
     e.preventDefault()
-    const params = updateFormData()
+
+    const careId = displayCare.id
+
+    const params = {
+      careFood: careFood,
+      careToilet: careToilet,
+      careBath: careBath,
+      carePlay: carePlay,
+      careWeight: careWeight,
+      careTemperature: careTemperature,
+      careHumidity: careHumidity,
+      careMemo: careMemo
+    }
+
     try {
-      const updateCareRes = (await updateCare({
-        careId,
-        params
-      })) as AxiosResponse
-      const getAllCaresRes = (await getAllCares(chinchillaId)) as AxiosResponse
+      const updateCareRes = (await updateCare(careId, params)) as AxiosResponse
       debugLog('更新レス:', updateCareRes)
-      debugLog('お世話一覧:', getAllCaresRes.data)
 
       // ステータス200 ok
       if (updateCareRes.status === 200) {
-        setAllCares(getAllCaresRes.data)
+        mutate(`/all_cares?chinchilla_id=${chinchillaId}`) // お世話記録を再取得
+        setDisplayCare(updateCareRes.data) // お世話の記録を表示
+        resetCareForm() // 入力フォームをリセット
+
+        // 編集モードを解除
         setIsEditing(false)
         setHeaderDisabled(false)
+
         debugLog('お世話記録更新:', '成功')
       } else {
         alert('お世話記録更新失敗')
@@ -306,29 +217,50 @@ export const CareRecordCalendarPage = () => {
     }
   }
 
+  // 選択中のチンチラが変わるタイミングで状態管理をリセット
+  useEffect(() => {
+    setIsEditing(false)
+    setIsModalOpen(false)
+    resetCareForm()
+    setDisplayCare(undefined)
+    setCareMemoErrorMessage('')
+    setSelectedDate(undefined)
+  }, [chinchillaId])
+
   return (
     <div className="mx-3 my-24 grid place-content-center place-items-center gap-y-4 sm:my-28 sm:gap-y-6">
       <PageTitle pageTitle="お世話の記録" />
-      {/* カレンダー */}
-      <Calendar
-        // 1日のみ選択可能
-        mode="single"
-        selected={selectedDate}
-        onSelect={setSelectedDate}
-        onDayClick={handleSelectedCare}
-        allCares={allCares}
-      />
 
       {/* チンチラ未選択 */}
       {chinchillaId === 0 && (
-        <p className="text-sm text-dark-black sm:text-base">
-          <FontAwesomeIcon icon={faHandPointer} className="mr-1 text-dark-blue" />
-          チンチラを選択してください
-        </p>
+        <div className="mt-8 w-80 rounded-xl bg-ligth-white p-8 sm:w-[500px] sm:p-10">
+          <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-[50%] bg-light-blue sm:h-32 sm:w-32">
+            <FontAwesomeIcon
+              icon={faCalendarXmark}
+              className="text-2xl font-bold text-ligth-white sm:text-5xl"
+            />
+          </div>
+          <p className="mt-5 text-center text-sm text-dark-black sm:mt-10 sm:text-base">
+            チンチラが選択されていません。 <br /> <br />
+            お世話を記録したいチンチラを <br />
+            ヘッダーから選択してください。 <br />
+          </p>
+        </div>
+      )}
+
+      {/* カレンダー */}
+      {chinchillaId !== 0 && (
+        <Calendar
+          // 1日のみ選択可能
+          mode="single"
+          selected={selectedDate}
+          onSelect={setSelectedDate}
+          onDayClick={handleSelectedCare}
+        />
       )}
 
       {/* 日付未選択 */}
-      {!selectedDate && (
+      {chinchillaId !== 0 && !selectedDate && (
         <p className="text-sm text-dark-black sm:text-base">
           <FontAwesomeIcon icon={faHandPointer} className="mr-1 text-dark-blue" />
           カレンダーから日付を選択してください
@@ -336,7 +268,7 @@ export const CareRecordCalendarPage = () => {
       )}
 
       {/* 登録モード */}
-      {careId === 0 && selectedDate && chinchillaId && (
+      {chinchillaId !== 0 && selectedDate && displayCare === undefined && isEditing === false && (
         <>
           {/* 登録モード：お世話の記録 */}
           <div className="h-[215px] w-80 rounded-xl border border-solid border-dark-blue bg-ligth-white sm:h-[300px] sm:w-[500px]">
@@ -444,21 +376,27 @@ export const CareRecordCalendarPage = () => {
       )}
 
       {/* 表示モード */}
-      {careId !== 0 && selectedDate && chinchillaId && isEditing === false && (
+      {chinchillaId !== 0 && selectedDate && displayCare !== undefined && isEditing === false && (
         <>
           {/* 表示モード：お世話の記録 */}
           <div className="h-[300px] w-80 rounded-xl bg-ligth-white sm:h-[400px]  sm:w-[500px]">
-            <DisplayRadioButtonItem label="食事" item="careFood" value={careFood} />
-            <DisplayRadioButtonItem label="トイレ" item="careToilet" value={careToilet} />
-            <DisplayRadioButtonItem label="砂浴び" item="careBath" value={careBath} />
-            <DisplayRadioButtonItem label="部屋んぽ" item="carePlay" value={carePlay} />
+            <DisplayRadioButtonItem label="食事" item="careFood" value={displayCare.careFood} />
+            <DisplayRadioButtonItem
+              label="トイレ"
+              item="careToilet"
+              value={displayCare.careToilet}
+            />
+            <DisplayRadioButtonItem label="砂浴び" item="careBath" value={displayCare.careBath} />
+            <DisplayRadioButtonItem label="部屋んぽ" item="carePlay" value={displayCare.carePlay} />
 
             {/* 表示モード：体重 */}
             <div className="mx-5 mt-3 flex items-center border-b border-solid border-b-light-black pb-2 sm:mx-10 sm:mt-5">
               <p className="w-28 text-center text-sm text-dark-black sm:text-base">体重</p>
               <div className="flex grow justify-evenly text-center">
-                {careWeight && (
-                  <p className="text-center text-sm text-dark-black sm:text-base">{careWeight}g</p>
+                {displayCare.careWeight && (
+                  <p className="text-center text-sm text-dark-black sm:text-base">
+                    {displayCare.careWeight}g
+                  </p>
                 )}
               </div>
             </div>
@@ -467,14 +405,14 @@ export const CareRecordCalendarPage = () => {
             <div className="mx-5 mt-3 flex items-center border-b border-solid border-b-light-black pb-2 sm:mx-10 sm:mt-5">
               <p className="w-28 text-center text-sm text-dark-black sm:text-base">気温・湿度</p>
               <div className="flex grow justify-evenly text-center">
-                {careTemperature && (
+                {displayCare.careTemperature && (
                   <p className="text-center text-sm text-dark-black sm:text-base">
-                    {careTemperature}℃
+                    {displayCare.careTemperature}℃
                   </p>
                 )}
-                {careHumidity && (
+                {displayCare.careHumidity && (
                   <p className="text-center text-sm text-dark-black sm:text-base">
-                    {careHumidity}%
+                    {displayCare.careHumidity}%
                   </p>
                 )}
               </div>
@@ -482,7 +420,7 @@ export const CareRecordCalendarPage = () => {
           </div>
 
           {/* 表示モード：お世話のメモ */}
-          <DisplayMemo contents={careMemo} />
+          <DisplayMemo contents={displayCare.careMemo} />
 
           {/* 表示モード：編集・削除ボタン */}
           <div>
@@ -491,8 +429,16 @@ export const CareRecordCalendarPage = () => {
               click={() => {
                 setIsEditing(true)
                 setHeaderDisabled(true)
+                setCareFood(displayCare.careFood)
+                setCareToilet(displayCare.careToilet)
+                setCareBath(displayCare.careBath)
+                setCarePlay(displayCare.carePlay)
+                setCareWeight(displayCare.careWeight)
+                setCareTemperature(displayCare.careTemperature)
+                setCareHumidity(displayCare.careHumidity)
+                setCareMemo(displayCare.careMemo)
               }}
-              disabled={!chinchillaId || !careId ? true : false}
+              disabled={!chinchillaId || !displayCare.id ? true : false}
               addStyle="btn-primary mx-3 h-14 w-32"
             >
               編集
@@ -514,7 +460,7 @@ export const CareRecordCalendarPage = () => {
       )}
 
       {/* 編集モード */}
-      {careId !== 0 && selectedDate && chinchillaId && isEditing === true && (
+      {chinchillaId !== 0 && selectedDate && displayCare !== undefined && isEditing === true && (
         <>
           {/* 編集モード：お世話の記録 */}
           <div className="h-[215px] w-80 rounded-xl border border-solid border-dark-blue bg-ligth-white sm:h-[300px] sm:w-[500px]">
@@ -624,7 +570,8 @@ export const CareRecordCalendarPage = () => {
               click={() => {
                 setIsEditing(false)
                 setHeaderDisabled(false)
-                handleReset()
+                resetCareForm()
+                setCareMemoErrorMessage('')
               }}
               addStyle="btn-secondary mx-3 h-14 w-32"
             >
