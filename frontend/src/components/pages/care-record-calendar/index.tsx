@@ -80,6 +80,11 @@ export const CareRecordCalendarPage = () => {
       )
     }
 
+    // カレンダーで選択した日付と一致するお世話の記録をselectedCareに格納
+    const selectedCare = allCares.filter(
+      (care: CareType) => care.careDay === format(new Date(date), 'yyyy-MM-dd', { locale: ja })
+    )
+
     // 日付を選択した場合は編集モードを解除
     setIsEditing(false)
     setHeaderDisabled(false)
@@ -87,17 +92,16 @@ export const CareRecordCalendarPage = () => {
     // すでに選択されている日付を再度クリックした場合、選択状態を解除
     if (selectedDate && isSameDay(selectedDate, date)) return
 
-    // カレンダーで選択した日付と一致するお世話の記録をselectedCareに格納
-    const selectedCare = allCares.filter(
-      (care: CareType) => care.careDay === format(new Date(date), 'yyyy-MM-dd', { locale: ja })
-    )
+    // お世話の記録がある場合
+    if (selectedCare.length === 1) {
+      setDisplayCare(selectedCare[0])
+      resetCareForm()
+    }
+
     // お世話の記録がない場合
     if (selectedCare.length === 0) {
       setDisplayCare(undefined)
       resetCareForm()
-    } else {
-      // お世話の記録がある場合
-      setDisplayCare(selectedCare[0])
     }
 
     debugLog('選択中のお世話:', selectedCare)
