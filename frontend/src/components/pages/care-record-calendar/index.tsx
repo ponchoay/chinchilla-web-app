@@ -29,7 +29,7 @@ import type { CareType } from 'src/types/care'
 
 export const CareRecordCalendarPage = () => {
   // 選択中のチンチラの状態管理（グローバル）
-  const { chinchillaId, setHeaderDisabled } = useContext(SelectedChinchillaIdContext)
+  const { chinchillaId, headerName, setHeaderDisabled } = useContext(SelectedChinchillaIdContext)
 
   // 選択中のチンチラの全てのお世話記録
   const { allCares } = useAllCares(chinchillaId)
@@ -232,7 +232,8 @@ export const CareRecordCalendarPage = () => {
       <PageTitle pageTitle="お世話の記録" />
 
       {/* チンチラ未選択 */}
-      {chinchillaId === 0 && (
+      {/* ヘッダーのチンチラセットに合わせて表示 */}
+      {headerName === '' && (
         <div className="mt-8 w-80 rounded-xl bg-ligth-white p-8 sm:w-[500px] sm:p-10">
           <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-[50%] bg-light-blue sm:h-32 sm:w-32">
             <FontAwesomeIcon
