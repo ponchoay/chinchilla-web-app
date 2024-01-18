@@ -17,14 +17,15 @@ https://www.chillalog.com
 ## メイン機能の使い方
 
 ## 使用技術一覧
-フロントエンド: React 18.2.0 / Next.js 13.4.12
+フロントエンド: TypeScript 5.3.3 / React 18.2.0 / Next.js 13.4.12
 - コード解析: ESLint / Markuplint
 - フォーマッター: Prettier
 - CSSライブラリ / フレームワーク: Tailwind CSS / daisyUI / shadcn/ui
-- 主要ライブラリ: Axios / React Hook Form / zod / React number format / date-fns / clsx / Font Awesome / Recharts
+- 主要ライブラリ: SWR / Axios / React Hook Form / zod / React number format / date-fns / clsx / Recharts
 
 バックエンド: Ruby 3.2.2 / Ruby on Rails 7.0.6
 - コード解析 / フォーマッター: Rubocop
+- テストフレームワーク: RSpec
 - 主要ライブラリ: Devise / Devise Token Auth / Carrierwave / fog-aws
 
 インフラ: Vercel / AWS (Route 53 / ACM / ALB / VPC / ECR / ECS Fargate / RDS for MySQL / S3 / SSM)
@@ -51,6 +52,7 @@ https://www.chillalog.com
 
 ### 非ユーザー向け
 システム / インフラ
+- SWRによるキャッシュ管理・サービス全体の高速化
 - Dockerによる開発環境のコンテナ化
 - 独自ドメイン + SSL化
 
