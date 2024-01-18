@@ -45,10 +45,10 @@ export const AuthProvider = ({ children }: Props) => {
     }
   }
 
-  //ログイン状態を監視
+  // 初回レンダリング時にログイン状態をチェック
   useEffect(() => {
     handleGetCurrentUser()
-  }, [setCurrentUser])
+  }, [])
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }

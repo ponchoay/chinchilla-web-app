@@ -1,4 +1,5 @@
 import { useState, useContext, useEffect } from 'react'
+import Link from 'next/link'
 import { AxiosResponse } from 'axios'
 import { mutate } from 'swr'
 
@@ -234,19 +235,30 @@ export const CareRecordCalendarPage = () => {
       {/* チンチラ未選択 */}
       {/* ヘッダーのチンチラセットに合わせて表示 */}
       {headerName === '' && (
-        <div className="mt-8 w-80 rounded-xl bg-ligth-white p-8 sm:w-[500px] sm:p-10">
-          <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-[50%] bg-light-blue sm:h-32 sm:w-32">
-            <FontAwesomeIcon
-              icon={faCalendarXmark}
-              className="text-2xl font-bold text-ligth-white sm:text-5xl"
-            />
+        <>
+          <div className="mt-2 w-80 rounded-xl bg-ligth-white p-8 sm:w-[500px] sm:p-10">
+            <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-[50%] bg-light-blue sm:h-32 sm:w-32">
+              <FontAwesomeIcon
+                icon={faCalendarXmark}
+                className="text-2xl font-bold text-ligth-white sm:text-5xl"
+              />
+            </div>
+            <p className="mt-5 text-center text-sm text-dark-black sm:mt-10 sm:text-base">
+              チンチラが選択されていません。
+              <br />
+              <br />
+              お世話を記録したいチンチラを登録し、
+              <br />
+              ヘッダーから選択してください。
+            </p>
           </div>
-          <p className="mt-5 text-center text-sm text-dark-black sm:mt-10 sm:text-base">
-            チンチラが選択されていません。 <br /> <br />
-            お世話を記録したいチンチラを <br />
-            ヘッダーから選択してください。 <br />
-          </p>
-        </div>
+          <Link
+            href="/chinchilla-registration"
+            className="link mt-10 text-sm text-dark-black duration-100 hover:text-dark-black/50 sm:text-base"
+          >
+            チンチラの登録はこちら
+          </Link>
+        </>
       )}
 
       {/* カレンダー */}
