@@ -74,6 +74,10 @@ export const Header = () => {
           setHeaderName(res.data[0].chinchillaName)
           setHeaderImage(res.data[0].chinchillaImage)
         }
+
+        if (res.data.length === 0) {
+          setHeaderName('')
+        }
       } catch (err) {
         debugLog('エラー:', err)
       }
