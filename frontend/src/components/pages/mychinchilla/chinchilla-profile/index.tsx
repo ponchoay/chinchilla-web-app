@@ -1,6 +1,7 @@
 import React from 'react'
 import { useEffect, useRef, useCallback, useState, useContext } from 'react'
 import { useRouter } from 'next/router'
+import { mutate } from 'swr'
 
 import { useChinchillaProfile, updateChinchilla, deleteChinchilla } from 'src/lib/api/chinchilla'
 import { SelectedChinchillaIdContext } from 'src/contexts/chinchilla'
@@ -27,7 +28,6 @@ import { utcToZonedTime } from 'date-fns-tz'
 import { debugLog } from 'src/lib/debug/debugLog'
 
 import type { RhfUpdateChinchillaType } from 'src/types/chinchilla'
-import { mutate } from 'swr'
 
 export const ChinchillaProfilePage = () => {
   const router = useRouter()
