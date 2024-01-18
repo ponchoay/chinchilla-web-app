@@ -1,5 +1,6 @@
 import dynamic from 'next/dynamic'
 import { useState, useEffect, useContext } from 'react'
+import { AxiosResponse } from 'axios'
 import { getWeightCares } from 'src/lib/api/care'
 import { SelectedChinchillaIdContext } from 'src/contexts/chinchilla'
 
@@ -8,6 +9,12 @@ import { utcToZonedTime } from 'date-fns-tz'
 import { PageTitle } from 'src/components/shared/PageTittle'
 
 import { debugLog } from 'src/lib/debug/debugLog'
+
+import type {
+  GetCareWeightType,
+  ChangeCareDayToDateCareWeightType,
+  ChangeCareDayToNumCareWeightType
+} from 'src/types/care'
 
 export const WeightChartPage = () => {
   // ハイドレーションエラー回避
@@ -20,18 +27,18 @@ export const WeightChartPage = () => {
   // 選択中のチンチラの状態管理（グローバル）
   const { chinchillaId } = useContext(SelectedChinchillaIdContext)
 
-  // 選択中のチンチラの体重記録一覧
-  const [allWeightCares, setAllWeightCares] = useState([])
+  // 選択中のチンチラの体重記録一覧(日付はstring)
+  const [allWeightCares, setAllWeightCares] = useState<GetCareWeightType[]>([])
 
-  // グラフに渡すデータ
-  const [filteredData, setFilteredData] = useState([])
+  // グラフに渡すデータ(日付はミリ秒表示)
+  const [filteredData, setFilteredData] = useState<ChangeCareDayToNumCareWeightType[]>([])
 
   // グラフの表示範囲の状態管理
-  const [timeRange, setTimeRange] = useState('all')
+  const [timeRange, setTimeRange] = useState<string>('all')
 
   // 平均体重・記録の数の状態管理
-  const [averageWeight, setAverageWeight] = useState(null)
-  const [dataCount, setDataCount] = useState(null)
+  const [averageWeight, setAverageWeight] = useState<number | null>(null)
+  const [dataCount, setDataCount] = useState<number | null>(null)
 
   // ラジオボタンの選択肢
   const radioItems = [
@@ -42,19 +49,19 @@ export const WeightChartPage = () => {
   ]
 
   // 日本のタイムゾーンを取得
-  const toJST = (date) => utcToZonedTime(date, 'Asia/Tokyo')
+  const toJST = (date: Date) => utcToZonedTime(date, 'Asia/Tokyo')
 
   // チンチラを選択中の場合に、体重の記録を取得
   const fetch = async () => {
     try {
       if (chinchillaId) {
-        const res = await getWeightCares(chinchillaId)
+        const res = (await getWeightCares(chinchillaId)) as AxiosResponse
         debugLog('体重記録一覧:', res.data)
         setAllWeightCares(res.data)
 
         // 選択中の表示範囲にあわせて初期表示
         // DBの日付をDate型に変換
-        const careWeightDataList = res.data.map((item) => ({
+        const careWeightDataList = res.data.map((item: GetCareWeightType) => ({
           ...item,
           careDay: new Date(item.careDay)
         }))
@@ -62,7 +69,7 @@ export const WeightChartPage = () => {
         // グラフに渡す用にデータ整形
         const newFilteredData = careWeightDataList
           // 選択された時間範囲に基づいてデータをフィルタリング
-          .filter((item) => {
+          .filter((item: GetCareWeightType) => {
             // 現在の日付を日本時間で取得
             const currentJSTDate = toJST(new Date())
 
@@ -107,13 +114,16 @@ export const WeightChartPage = () => {
           })
 
           // フィルタリングしたデータを日付のミリ秒で取得
-          .map((item) => {
+          .map((item: ChangeCareDayToDateCareWeightType) => {
             return { ...item, careDay: item.careDay.getTime() }
           })
 
         // 平均体重を計算
-        const totalWeight = newFilteredData.reduce((acc, data) => acc + data.careWeight, 0)
-        const averageWeight = (totalWeight / newFilteredData.length).toFixed(1) // 小数点第1位まで表示
+        const totalWeight = newFilteredData.reduce(
+          (acc: number, data: ChangeCareDayToNumCareWeightType) => acc + data.careWeight,
+          0
+        )
+        const averageWeight = Number((totalWeight / newFilteredData.length).toFixed(1)) // 小数点第1位まで表示
 
         setFilteredData(newFilteredData)
         setAverageWeight(averageWeight)
@@ -130,9 +140,9 @@ export const WeightChartPage = () => {
   }, [chinchillaId])
 
   // ラジオボタンで表示範囲を変更
-  const handleTimeRangeChange = (range) => {
+  const handleTimeRangeChange = (range: string) => {
     // DBの日付をDate型に変換
-    const careWeightDataList = allWeightCares.map((item) => ({
+    const careWeightDataList = allWeightCares.map((item: GetCareWeightType) => ({
       ...item,
       careDay: new Date(item.careDay)
     }))
@@ -190,8 +200,8 @@ export const WeightChartPage = () => {
       })
 
     // 平均体重を計算
-    const totalWeight = newFilteredData.reduce((acc, data) => acc + data.careWeight, 0)
-    const averageWeight = (totalWeight / newFilteredData.length).toFixed(1) // 小数点第1位まで表示
+    const totalWeight = newFilteredData.reduce((acc: number, data) => acc + data.careWeight, 0)
+    const averageWeight = Number((totalWeight / newFilteredData.length).toFixed(1)) // 小数点第1位まで表示
 
     setFilteredData(newFilteredData)
     setAverageWeight(averageWeight)
@@ -218,7 +228,7 @@ export const WeightChartPage = () => {
             name="options"
             onChange={() => handleTimeRangeChange(item.range)}
             aria-label={item.label}
-            checked={chinchillaId && timeRange === item.range}
+            checked={chinchillaId > 0 && timeRange === item.range}
             className={`btn join-item px-3 sm:px-5 ${
               item.range === 'all' && 'px-[22px] sm:px-[30px]'
             }`}
@@ -231,7 +241,7 @@ export const WeightChartPage = () => {
         <div className="mx-5 mt-3 flex items-center border-b border-solid border-b-light-black pb-2 sm:mx-10 sm:mt-5">
           <p className="w-28 text-center text-sm text-dark-black sm:text-base">平均体重</p>
           <div className="flex grow justify-evenly text-center">
-            {averageWeight > 0 && (
+            {averageWeight !== null && averageWeight > 0 && (
               <p className="text-center text-sm text-dark-black sm:text-base">{averageWeight}g</p>
             )}
           </div>
@@ -239,7 +249,7 @@ export const WeightChartPage = () => {
         <div className="mx-5 mt-5 flex items-center border-b border-solid border-b-light-black pb-2 sm:mx-10">
           <p className="w-28 text-center text-sm text-dark-black sm:text-base">記録の数</p>
           <div className="flex grow justify-evenly text-center">
-            {dataCount > 0 && (
+            {dataCount !== null && dataCount > 0 && (
               <p className="text-center text-sm text-dark-black sm:text-base">{dataCount}日</p>
             )}
           </div>
