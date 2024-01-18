@@ -35,3 +35,7 @@ export type UpdateCareType = {
   careHumidity: number | null
   careMemo: string
 }
+
+export type GetCareWeightType = { careDay: string; careWeight: number }
+export type ChangeCareDayToDateCareWeightType = { careDay: Date; careWeight: number }
+export type ChangeCareDayToNumCareWeightType = { careDay: number; careWeight: number }

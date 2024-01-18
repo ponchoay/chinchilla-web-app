@@ -1,9 +1,15 @@
 import { useState, useEffect } from 'react'
-import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts'
+import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, TooltipProps } from 'recharts'
 
-export const WeightChart = ({ filteredData }) => {
+import type { ChangeCareDayToNumCareWeightType } from 'src/types/care'
+
+type Props = { filteredData: ChangeCareDayToNumCareWeightType[] }
+
+export const WeightChart = (props: Props) => {
+  const { filteredData } = props
+
   // ツールチップの表示形式をカスタマイズ
-  const CustomTooltip = ({ active, payload, label }) => {
+  const CustomTooltip: React.FC<TooltipProps<number, string>> = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
       const date = new Date(label)
       return (
