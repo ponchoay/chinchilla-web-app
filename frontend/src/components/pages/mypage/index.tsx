@@ -15,7 +15,7 @@ import { debugLog } from 'src/lib/debug/debugLog'
 
 export const MyPagePage = () => {
   const router = useRouter()
-  const { setIsSignedIn, setCurrentUser, setProcessUser } = useContext(AuthContext)
+  const { setIsSignedIn, setProcessUser } = useContext(AuthContext)
   const { setChinchillaId, setHeaderName, setHeaderImage } = useContext(SelectedChinchillaIdContext)
 
   // 手続き
@@ -55,11 +55,10 @@ export const MyPagePage = () => {
         Cookies.remove('_uid')
 
         router.push('/signin')
-        setIsSignedIn(undefined)
-        setCurrentUser(undefined)
-        setProcessUser(undefined)
+        setIsSignedIn(false)
+        setProcessUser('')
         setChinchillaId(0)
-        setHeaderName(undefined)
+        setHeaderName('')
         setHeaderImage({ url: '' })
         debugLog('ログアウト:', '成功')
       } else {

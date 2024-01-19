@@ -13,13 +13,10 @@ export const AuthContext = createContext<AuthContextType>(defaultAuthContextValu
 //_app.jsにエクスポートして、全体の親にする
 export const AuthProvider = ({ children }: Props) => {
   const [isSignedIn, setIsSignedIn] = useState<boolean | undefined>(undefined)
-  const [currentUser, setCurrentUser] = useState<string | null | undefined>(undefined)
-  const [processUser, setProcessUser] = useState<string | null | undefined>(undefined)
+  const [processUser, setProcessUser] = useState<string>('')
   const value = {
     isSignedIn,
     setIsSignedIn,
-    currentUser,
-    setCurrentUser,
     processUser,
     setProcessUser
   }
@@ -32,12 +29,10 @@ export const AuthProvider = ({ children }: Props) => {
 
       if (res?.data.isLogin === true) {
         setIsSignedIn(true)
-        setCurrentUser(res?.data.data)
 
         debugLog('ログインユーザー:', res?.data.data)
       } else {
         setIsSignedIn(false)
-        setCurrentUser(null)
         debugLog('ログインユーザー:', 'No current user')
       }
     } catch (err) {

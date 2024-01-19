@@ -21,7 +21,7 @@ import type { SignInType } from 'src/types/auth'
 
 export const SignInPage = () => {
   const router = useRouter()
-  const { setIsSignedIn, setCurrentUser } = useContext(AuthContext)
+  const { setIsSignedIn } = useContext(AuthContext)
 
   const {
     handleSubmit,
@@ -47,9 +47,9 @@ export const SignInPage = () => {
         Cookies.set('_uid', res.headers['uid'])
 
         setIsSignedIn(true)
-        setCurrentUser(res.data.data)
-
         router.push('/mychinchilla')
+
+        debugLog('ログインユーザー:', res.data.data)
         debugLog('ログイン:', '成功')
       } else {
         debugLog('ログイン:', '失敗')

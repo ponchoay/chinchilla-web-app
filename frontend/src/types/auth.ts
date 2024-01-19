@@ -15,17 +15,13 @@ export type ResetPasswordType = { password: string; passwordConfirmation: string
 export type AuthContextType = {
   isSignedIn: boolean | undefined // true: ログイン中, false: 未ログイン. undefined: 未確認
   setIsSignedIn: (isSignedIn: boolean | undefined) => void
-  currentUser: string | null | undefined // string: ユーザー情報, null: 未ログイン, undefined: 未確認
-  setCurrentUser: (currentUser: string | null | undefined) => void
-  processUser: string | null | undefined // string: ユーザー情報, null: 未ログイン, undefined: 未確認
-  setProcessUser: (processUser: string | null | undefined) => void
+  processUser: string
+  setProcessUser: (processUser: string) => void
 }
 
 export const defaultAuthContextValue: AuthContextType = {
   isSignedIn: undefined,
   setIsSignedIn: () => {},
-  currentUser: undefined,
-  setCurrentUser: () => {},
-  processUser: undefined,
+  processUser: '',
   setProcessUser: () => {}
 }
