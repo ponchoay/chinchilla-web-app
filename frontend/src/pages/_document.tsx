@@ -14,6 +14,13 @@ export default function Document() {
         <link rel="manifest" href="/favicons/site.webmanifest" />
         <meta name="description" content={description} />
         <meta name="theme-color" content="#ffffff" />
+
+        <meta property="og:url" content="https://www.chillalog.com/" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="ちらろぐ | チンチラ専用のお世話記録サービス" />
+        <meta property="og:description" content={description} />
+        <meta property="og:site_name" content="ちらろぐ" />
+        <meta property="og:image" content="/images/ogp.png" />
       </Head>
       <body>
         <Main />
