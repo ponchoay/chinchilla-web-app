@@ -53,6 +53,7 @@ https://www.chillalog.com
 ### 非ユーザー向け
 システム / インフラ
 - SWRによるキャッシュ管理・サービス全体の高速化
+- Next.jsのMiddlewareを用いた一元的なアクセスコントロール
 - Dockerによる開発環境のコンテナ化
 - 独自ドメイン + SSL化
 
