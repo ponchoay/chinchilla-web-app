@@ -56,7 +56,7 @@ export const MyPagePage = () => {
 
         router.push('/signin')
         setIsSignedIn(undefined)
-        setProcessUser(undefined)
+        setProcessUser('')
         setChinchillaId(0)
         setHeaderName(undefined)
         setHeaderImage({ url: '' })

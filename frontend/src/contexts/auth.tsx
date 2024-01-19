@@ -13,7 +13,7 @@ export const AuthContext = createContext<AuthContextType>(defaultAuthContextValu
 //_app.jsにエクスポートして、全体の親にする
 export const AuthProvider = ({ children }: Props) => {
   const [isSignedIn, setIsSignedIn] = useState<boolean | undefined>(undefined)
-  const [processUser, setProcessUser] = useState<string | null | undefined>(undefined)
+  const [processUser, setProcessUser] = useState<string>('')
   const value = {
     isSignedIn,
     setIsSignedIn,
