@@ -19,7 +19,7 @@ export const Header = () => {
   const [allChinchillas, setAllChinchillas] = useState<MyChinchillaType[]>([])
 
   //ログインユーザーの状態管理（グローバル）
-  const { isSignedIn, currentUser } = useContext(AuthContext)
+  const { isSignedIn } = useContext(AuthContext)
 
   //選択中のチンチラの状態管理（グローバル）
   const {
@@ -65,7 +65,7 @@ export const Header = () => {
 
   // チンチラが登録されている場合は、先頭のチンチラをセット
   const fetch = async () => {
-    if (currentUser) {
+    if (isSignedIn === true) {
       try {
         const response = await getMyChinchillas()
         const res = response as AxiosResponse
@@ -87,7 +87,7 @@ export const Header = () => {
   // ログイン時に先頭のチンチラをセット
   useEffect(() => {
     fetch()
-  }, [currentUser])
+  }, [isSignedIn])
 
   return (
     <header className="fixed top-0 z-50 h-16 w-full bg-dark-blue">
@@ -100,13 +100,13 @@ export const Header = () => {
               width="100"
               height="48"
               alt="サービス名"
-              className={`my-2 ml-2 ${isSignedIn === true && currentUser && 'hidden sm:block'}`}
+              className={`my-2 ml-2 ${isSignedIn === true && 'hidden sm:block'}`}
             />
           </div>
         </Link>
 
         {/* ログイン時 */}
-        {isSignedIn === true && currentUser && (
+        {isSignedIn === true && (
           <>
             {/* 選択中のチンチラ */}
             <DisplaySelectChinchilla
@@ -140,7 +140,7 @@ export const Header = () => {
         )}
 
         {/* 未ログイン時 */}
-        {isSignedIn === false && currentUser === null && (
+        {isSignedIn === false && (
           <div className="flex h-full items-center">
             {userLinkItems.map((item) => (
               <Link

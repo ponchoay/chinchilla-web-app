@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { AuthContext } from 'src/contexts/auth'
 
 export const Footer = () => {
-  const { isSignedIn, currentUser } = useContext(AuthContext)
+  const { isSignedIn } = useContext(AuthContext)
 
   const navigationBottomItems = [
     { key: 'mychinchilla', link: '/mychinchilla', icon: faHouse },
@@ -16,7 +16,8 @@ export const Footer = () => {
   return (
     <footer className="fixed bottom-0 z-50 h-12 w-full bg-dark-blue sm:h-16">
       <div className="mx-auto flex h-full max-w-screen-md items-center justify-between">
-        {isSignedIn && currentUser ? (
+        {/* ログイン時 */}
+        {isSignedIn === true && (
           <>
             {navigationBottomItems.map((item) => (
               <Link
@@ -31,7 +32,10 @@ export const Footer = () => {
               </Link>
             ))}
           </>
-        ) : (
+        )}
+
+        {/* 未ログイン時 */}
+        {isSignedIn === false && (
           <>
             <div>
               <Link
