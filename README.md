@@ -73,3 +73,4 @@ https://www.chillalog.com
 ![ER図](https://github.com/ponchoay/chinchilla-web-app/assets/129176088/bc133f25-2388-41ed-914d-29935aaaba80)
 
 ## 画面遷移図
+[画面遷移図(figma)](https://www.figma.com/file/Cm1L8lU5WXTJqcbFFbX5du/%E7%94%BB%E9%9D%A2%E9%81%B7%E7%A7%BB%E5%9B%B3-%2F-%E3%81%A1%E3%82%89%E3%82%8D%E3%81%90?type=design&mode=design&t=jePEpb7STl5oCF3v-1)
