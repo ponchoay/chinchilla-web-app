@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { Button } from 'src/components/shared/Button'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
@@ -23,11 +24,10 @@ export const ProcessConfirmedNotice = ({ process }: Props) => {
           ログインページからサービスをご利用いただけます。
         </p>
       </div>
-      <Link
-        href="/signin"
-        className="link mt-10 text-sm text-dark-black duration-100 hover:text-dark-black/50 sm:text-base"
-      >
-        ログインはこちら
+      <Link href="/signin">
+        <Button addStyle="btn-secondary h-14 mt-6" btnType="button">
+          ログインページはこちら
+        </Button>
       </Link>
     </>
   )
