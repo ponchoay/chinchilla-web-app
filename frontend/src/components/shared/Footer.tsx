@@ -37,16 +37,16 @@ export const Footer = () => {
         {/* 未ログイン時 */}
         {isSignedIn === false && (
           <>
-            <div className="my-auto">
+            <div>
               <Link
                 href="/terms"
-                className="px-6 text-xs text-ligth-white transition-colors duration-200 hover:bg-slate-200/50 sm:py-[26px] sm:text-sm"
+                className="px-6 py-[23px] text-xs text-ligth-white transition-colors duration-200 hover:bg-slate-200/50 sm:py-[26px] sm:text-sm"
               >
                 利用規約
               </Link>
               <Link
                 href="/privacy-policy"
-                className="px-2 text-xs text-ligth-white transition-colors duration-200 hover:bg-slate-200/50  sm:py-[26px] sm:text-sm"
+                className="px-2 py-[23px] text-xs text-ligth-white transition-colors duration-200 hover:bg-slate-200/50  sm:py-[26px] sm:text-sm"
               >
                 プライバシーポリシー
               </Link>
