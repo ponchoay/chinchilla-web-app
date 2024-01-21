@@ -17,7 +17,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>ちらろぐ | チンチラ専用のお世話記録サービス
+        <title>ちらろぐ｜チンチラ専用のお世話記録サービス
         </title>
       </Head>
       <style jsx global>{`
