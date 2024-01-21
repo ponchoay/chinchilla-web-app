@@ -51,7 +51,9 @@ export const Footer = () => {
                 プライバシーポリシー
               </Link>
             </div>
-            <p className="my-auto px-4 text-xs text-ligth-white sm:text-sm">© 2023 ponchoay</p>
+            <p className="my-auto px-4 pt-[1px] text-xs text-ligth-white sm:text-sm">
+              © 2023 ponchoay
+            </p>
           </>
         )}
       </div>
