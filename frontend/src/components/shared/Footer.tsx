@@ -14,7 +14,7 @@ export const Footer = () => {
   ]
 
   return (
-    <footer className="fixed bottom-0 z-50 h-12 w-full bg-dark-blue sm:h-16">
+    <footer className="fixed bottom-0 z-50 h-14 w-full bg-dark-blue sm:h-16">
       <div className="mx-auto flex h-full max-w-screen-md items-center justify-between">
         {/* ログイン時 */}
         {isSignedIn === true && (
@@ -37,21 +37,21 @@ export const Footer = () => {
         {/* 未ログイン時 */}
         {isSignedIn === false && (
           <>
-            <div>
+            <div className="my-auto">
               <Link
                 href="/terms"
-                className="px-6 py-[19px] text-xs text-ligth-white transition-colors duration-200 hover:bg-slate-200/50 sm:py-[26px] sm:text-sm"
+                className="px-6 text-xs text-ligth-white transition-colors duration-200 hover:bg-slate-200/50 sm:py-[26px] sm:text-sm"
               >
                 利用規約
               </Link>
               <Link
                 href="/privacy-policy"
-                className="px-2 py-[19px] text-xs text-ligth-white transition-colors duration-200 hover:bg-slate-200/50  sm:py-[26px] sm:text-sm"
+                className="px-2 text-xs text-ligth-white transition-colors duration-200 hover:bg-slate-200/50  sm:py-[26px] sm:text-sm"
               >
                 プライバシーポリシー
               </Link>
             </div>
-            <p className="mt-[1px] px-4 text-xs text-ligth-white sm:text-sm">© 2023 ponchoay</p>
+            <p className="my-auto px-4 text-xs text-ligth-white sm:text-sm">© 2023 ponchoay</p>
           </>
         )}
       </div>
