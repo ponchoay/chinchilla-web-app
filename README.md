@@ -16,6 +16,15 @@ https://www.chillalog.com
 
 ## メイン機能の使い方
 
+| チンチラの登録 | お世話の登録 | 体重のグラフの表示 | 
+| ------------- | ------------- | ------------- |
+| ![チンチラ_登録](https://github.com/ponchoay/chinchilla-web-app/assets/129176088/01c84972-ec03-475e-ae81-41c2a4dc7780) | ![お世話_入力](https://github.com/ponchoay/chinchilla-web-app/assets/129176088/53d1f662-22dd-469c-9b43-548942559494) | ![体重](https://github.com/ponchoay/chinchilla-web-app/assets/129176088/da0debea-6120-4d81-87f7-f6d7f56d0d61)| 
+| 最初に、マイチンチラページからチンチラの登録ページに進み、チンチラのプロフィールを登録します。 | お世話の記録ページでは、カレンダーから日付を選択し各項目を入力すると、お世話の記録を登録することができます。 | 体重ページでは、体重の推移をグラフで確認することができます。表示範囲を変更すると、直近の推移のみを表示することができます。 |
+
+
+
+
+
 ## 使用技術一覧
 フロントエンド: TypeScript 5.3.3 / React 18.2.0 / Next.js 13.4.12
 - コード解析: ESLint / Markuplint
