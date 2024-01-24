@@ -2,6 +2,19 @@
 ![ogp](https://github.com/ponchoay/chinchilla-web-app/assets/129176088/3a4a024c-9503-4a4e-80f0-109cd068ea71)
 
 
+[![TS Badge](https://img.shields.io/badge/TypeScript-v5.3.3-%233178C6?logo=TypeScript)](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-5-3.html)
+[![React Badge](https://img.shields.io/badge/React-v18.2.0-%2361DAFB?logo=react)](https://react.dev/blog/2022/03/29/react-v18)
+[![Next Badge](https://img.shields.io/badge/Next.js-v13.4.12-%23000000?logo=nextdotjs&logoColor=%23000000)](https://nextjs.org/blog/next-13-4)
+[![Ruby Badge](https://img.shields.io/badge/Ruby-v3.2.2-%23CC342D?logo=ruby&logoColor=%23CC342D)](https://www.ruby-lang.org/ja/news/2023/03/30/ruby-3-2-2-released)
+[![Rails Badge](https://img.shields.io/badge/Ruby%20on%20Rails-v7.0.6-%23D30001?logo=rubyonrails&logoColor=%23D30001)](https://rubyonrails.org/2023/6/29/Rails-7-0-6-has-been-released)
+[![Vercel Badge](https://img.shields.io/badge/Vercel-gray?logo=vercel&logoColor=%23000000)](https://vercel.com)
+[![AWS Badge](https://img.shields.io/badge/Amazon%20AWS-gray?logo=amazonaws&logoColor=%23232F3E)](https://aws.amazon.com)
+[![Docker Badge](https://img.shields.io/badge/Docker-gray?logo=docker&logoColor=%232496ED)](https://www.docker.com)
+[![chillalog Badge](https://img.shields.io/badge/Welcome%20to-%E3%81%A1%E3%82%89%E3%82%8D%E3%81%90-7EC2C2)](https://www.chillalog.com)
+
+
+
+
 ## サービス概要
 「ちらろぐ」は、チンチラをこよなく愛する開発者が作った、無料で利用できるチンチラ専用のお世話記録サービスです。
 シンプルなサイトデザインと直感的なUIで、誰でも簡単に毎日のお世話が記録できます。
