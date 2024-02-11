@@ -1,11 +1,8 @@
+import { faCalendarXmark } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Link from 'next/link'
 
-import { faCalendarXmark } from '@fortawesome/free-solid-svg-icons'
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
 import { Button } from 'src/components/shared/Button'
-
 import { PageTitle } from 'src/components/shared/PageTittle'
 
 export const Custom404Page = () => {
