@@ -1,10 +1,9 @@
+import { faPaperPlane } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useContext } from 'react'
-import { AuthContext } from 'src/contexts/auth'
 
 import { PageTitle } from 'src/components/shared/PageTittle'
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPaperPlane } from '@fortawesome/free-solid-svg-icons'
+import { AuthContext } from 'src/contexts/auth'
 
 type Props = { subject: string; process: string }
 

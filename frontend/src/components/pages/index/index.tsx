@@ -1,4 +1,5 @@
 import Link from 'next/link'
+
 import { Carousel } from 'src/components/pages/index/Carousel'
 import { Button } from 'src/components/shared/Button'
 

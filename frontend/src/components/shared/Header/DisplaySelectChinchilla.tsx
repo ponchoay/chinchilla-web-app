@@ -1,6 +1,6 @@
-import { Dispatch, SetStateAction } from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHandPointer } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Dispatch, SetStateAction } from 'react'
 
 type Props = {
   headerName: string | undefined

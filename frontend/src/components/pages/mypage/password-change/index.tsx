@@ -1,16 +1,14 @@
-import { useRouter } from 'next/router'
-import { AxiosError } from 'axios'
-import { updatePassword } from 'src/lib/api/auth'
-
-import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { passwordChangeSchema } from 'src/validation/auth'
+import { AxiosError } from 'axios'
+import { useRouter } from 'next/router'
+import { useForm } from 'react-hook-form'
 
+import { Button } from 'src/components/shared/Button'
 import { PageTitle } from 'src/components/shared/PageTittle'
 import { RhfInputForm } from 'src/components/shared/RhfInputForm'
-import { Button } from 'src/components/shared/Button'
-
+import { updatePassword } from 'src/lib/api/auth'
 import { debugLog } from 'src/lib/debug/debugLog'
+import { passwordChangeSchema } from 'src/validation/auth'
 
 import type { UpdatePasswordType } from 'src/types/auth'
 

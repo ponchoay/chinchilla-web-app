@@ -1,31 +1,26 @@
+import { faCirclePlus } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { differenceInYears, differenceInMonths } from 'date-fns'
+import { utcToZonedTime } from 'date-fns-tz'
+import { useRouter } from 'next/router'
 import React from 'react'
 import { useEffect, useRef, useCallback, useState, useContext } from 'react'
-import { useRouter } from 'next/router'
+import { useForm } from 'react-hook-form'
 import { mutate } from 'swr'
 
-import { useChinchillaProfile, updateChinchilla, deleteChinchilla } from 'src/lib/api/chinchilla'
-import { SelectedChinchillaIdContext } from 'src/contexts/chinchilla'
-
 import { DisplayChinchillaProfileItem } from 'src/components/pages/mychinchilla/chinchilla-profile/displayChinchillaProfileItem'
+import { Button } from 'src/components/shared/Button'
 import { DeleteConfirmationModal } from 'src/components/shared/DeleteConfirmationModal'
 import { DisplayMemo } from 'src/components/shared/DisplayMemo'
 import { PageTitle } from 'src/components/shared/PageTittle'
-import { RhfInputForm } from 'src/components/shared/RhfInputForm'
 import { RhfInputChinchillaSexRadioForm } from 'src/components/shared/RhfInputChinchillaSexRadioForm'
-import { Button } from 'src/components/shared/Button'
+import { RhfInputForm } from 'src/components/shared/RhfInputForm'
 import { RhfTextareaForm } from 'src/components/shared/RhfTextareaForm'
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCirclePlus } from '@fortawesome/free-solid-svg-icons'
-
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { chinchillaProfileSchema } from 'src/validation/chinchilla'
-
-import { differenceInYears, differenceInMonths } from 'date-fns'
-import { utcToZonedTime } from 'date-fns-tz'
-
+import { SelectedChinchillaIdContext } from 'src/contexts/chinchilla'
+import { useChinchillaProfile, updateChinchilla, deleteChinchilla } from 'src/lib/api/chinchilla'
 import { debugLog } from 'src/lib/debug/debugLog'
+import { chinchillaProfileSchema } from 'src/validation/chinchilla'
 
 import type { RhfUpdateChinchillaType } from 'src/types/chinchilla'
 

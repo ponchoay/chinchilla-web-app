@@ -1,4 +1,5 @@
 import Cookies from 'js-cookie'
+
 import { client } from 'src/lib/api/client'
 
 import type {

@@ -1,19 +1,17 @@
-import { useContext } from 'react'
-import { useRouter } from 'next/router'
-import { AxiosError } from 'axios'
-import { updateEmail } from 'src/lib/api/auth'
-import { AuthContext } from 'src/contexts/auth'
-
-import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { updateEmailSchema } from 'src/validation/auth'
+import { AxiosError } from 'axios'
+import { useRouter } from 'next/router'
+import { useContext } from 'react'
+import { useForm } from 'react-hook-form'
 
-import { PageTitle } from 'src/components/shared/PageTittle'
-import { RhfInputForm } from 'src/components/shared/RhfInputForm'
 import { Button } from 'src/components/shared/Button'
 import { LoadingDots } from 'src/components/shared/LoadingDots'
-
+import { PageTitle } from 'src/components/shared/PageTittle'
+import { RhfInputForm } from 'src/components/shared/RhfInputForm'
+import { AuthContext } from 'src/contexts/auth'
+import { updateEmail } from 'src/lib/api/auth'
 import { debugLog } from 'src/lib/debug/debugLog'
+import { updateEmailSchema } from 'src/validation/auth'
 
 import type { UpdateEmailType } from 'src/types/auth'
 

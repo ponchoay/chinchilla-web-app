@@ -1,16 +1,15 @@
-import { useContext } from 'react'
-import { useRouter } from 'next/router'
-import Link from 'next/link'
+import { faKey, faAngleRight, faEnvelope, faTrashCan } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Cookies from 'js-cookie'
-import { signOut } from 'src/lib/api/auth'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { useContext } from 'react'
+
+import { Button } from 'src/components/shared/Button'
+import { PageTitle } from 'src/components/shared/PageTittle'
 import { AuthContext } from 'src/contexts/auth'
 import { SelectedChinchillaIdContext } from 'src/contexts/chinchilla'
-
-import { PageTitle } from 'src/components/shared/PageTittle'
-import { Button } from 'src/components/shared/Button'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faKey, faAngleRight, faEnvelope, faTrashCan } from '@fortawesome/free-solid-svg-icons'
-
+import { signOut } from 'src/lib/api/auth'
 import { debugLog } from 'src/lib/debug/debugLog'
 
 export const MyPagePage = () => {

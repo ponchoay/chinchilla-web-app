@@ -1,8 +1,7 @@
+import { faAsterisk } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Dispatch, SetStateAction } from 'react'
 import { NumericFormat } from 'react-number-format'
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAsterisk } from '@fortawesome/free-solid-svg-icons'
 
 type Props = {
   label: string

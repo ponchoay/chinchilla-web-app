@@ -1,4 +1,5 @@
 import Link from 'next/link'
+
 import { Button } from 'src/components/shared/Button'
 
 export const NoChinchillaFound = () => {
