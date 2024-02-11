@@ -6,7 +6,7 @@ on:
       - 'feature/**'
 
 jobs:
-  format:
+  test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -31,3 +31,8 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: Apply Prettier Changes
+
+      - name: Run ESLint
+        run: |
+          cd frontend
+          npm run lint
