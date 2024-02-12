@@ -121,7 +121,10 @@ export const ChinchillaRegistrationPage = () => {
           <button type="button" onClick={handleClickChangeImage} className="w-36 sm:w-48">
             <img
               src={previewImage ? previewImage : '/images/default.svg'}
+              width="192"
+              height="192"
               alt="プロフィール画像"
+              decoding="async"
               className="aspect-square h-auto w-full rounded-3xl border border-solid border-dark-blue bg-ligth-white"
             />
             <FontAwesomeIcon

@@ -39,6 +39,7 @@ export const Carousel = () => {
                 width="336"
                 height="224"
                 alt={item.alt}
+                decoding="async"
                 className={` w-full rounded-lg ${item.addStyle}`}
               />
             </div>
