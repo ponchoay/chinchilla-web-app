@@ -124,7 +124,7 @@ export const ChinchillaRegistrationPage = () => {
               width="192"
               height="192"
               alt="プロフィール画像"
-              decoding="async"
+              // decoding="async"
               className="aspect-square h-auto w-full rounded-3xl border border-solid border-dark-blue bg-ligth-white"
             />
             <FontAwesomeIcon
