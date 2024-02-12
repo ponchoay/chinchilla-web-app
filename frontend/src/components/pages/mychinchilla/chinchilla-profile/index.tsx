@@ -191,7 +191,10 @@ export const ChinchillaProfilePage = () => {
                     ? chinchillaProfile.chinchillaImage.url
                     : '/images/default.svg'
                 }
+                width="192"
+                height="192"
                 alt="プロフィール画像"
+                decoding="async"
                 className="aspect-square h-auto w-full rounded-3xl border border-solid border-ligth-white bg-ligth-white"
               />
             </div>
@@ -271,7 +274,10 @@ export const ChinchillaProfilePage = () => {
               <button type="button" onClick={handleClickChangeImage} className="w-36 sm:w-48">
                 <img
                   src={resultImage()}
+                  width="192"
+                  height="192"
                   alt="プロフィール画像"
+                  decoding="async"
                   className="aspect-square h-auto w-full rounded-3xl border border-solid border-dark-blue bg-ligth-white"
                 />
                 <FontAwesomeIcon

@@ -36,3 +36,8 @@ jobs:
         run: |
           cd frontend
           npm run lint
+
+      - name: Run Markuplint
+        run: |
+          cd frontend
+          npm run markuplint

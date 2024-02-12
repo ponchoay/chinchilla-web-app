@@ -38,6 +38,7 @@ export const MyChinchillaList = () => {
                   width="200"
                   height="200"
                   alt="プロフィール画像"
+                  decoding="async"
                   className="mb-3 h-[200px] w-[200px] rounded-3xl border border-solid border-ligth-white bg-ligth-white"
                 />
                 <p className="w-[200px] text-center text-base text-dark-black">

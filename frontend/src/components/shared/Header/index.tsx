@@ -92,12 +92,19 @@ export const Header = () => {
       <div className="mx-auto flex h-full max-w-screen-md items-center justify-between px-3">
         <Link href="/">
           <div className="flex">
-            <img src="/images/chinchilla-logo.png" width="45" height="52" alt="サイトのロゴ" />
+            <img
+              src="/images/chinchilla-logo.png"
+              width="45"
+              height="52"
+              alt="サイトのロゴ"
+              decoding="async"
+            />
             <img
               src="/images/chillalog.svg"
               width="100"
               height="48"
               alt="サービス名"
+              decoding="async"
               className={`my-2 ml-2 ${isSignedIn === true && 'hidden sm:block'}`}
             />
           </div>

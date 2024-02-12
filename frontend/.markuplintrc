@@ -23,7 +23,14 @@
     "required-h1": true,
     "attr-value-quotes": false,
     "placeholder-label-option": true,
-    "invalid-attr": true,
+    "invalid-attr": {
+      "options": {
+        "allowAttrs": [
+          "jsx",
+          "global"
+        ]
+      }
+    },
     "use-list": false,
     "case-sensitive-tag-name": false,
     "require-accessible-name": true,

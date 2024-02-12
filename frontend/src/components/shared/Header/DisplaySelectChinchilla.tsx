@@ -31,6 +31,7 @@ export const DisplaySelectChinchilla = (props: Props) => {
               width="40"
               height="40"
               alt="プロフィール画像"
+              decoding="async"
               className="mr-1 h-10 w-10 rounded-[50%] border border-solid border-ligth-white bg-ligth-white"
             />
           )}
