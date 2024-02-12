@@ -7,5 +7,7 @@ export const CiTest = () => {
     setIsRevealPassword((prevState) => !prevState)
   }
 
+  console.log('hoge')
+
   return { isRevealPassword, setIsRevealPassword, togglePassword }
 }
