@@ -54,6 +54,8 @@ https://www.chillalog.com
 
 インフラ: Vercel / AWS (Route 53 / ACM / ALB / VPC / ECR / ECS Fargate / RDS for MySQL / S3 / SSM)
 
+CI / CD: GitHub Actions / Vercel
+
 環境構築: Docker / Docker Compose
 
 ## 主要機能一覧
@@ -81,6 +83,11 @@ https://www.chillalog.com
 - Next.jsのMiddlewareを用いた一元的なアクセスコントロール
 - Dockerによる開発環境のコンテナ化
 - 独自ドメイン + SSL化
+- GitHub Actions + Vercelを利用したCI/CDパイプラインの構築
+  - フロントエンド
+    - CI: ESLint / Markuplint / Prettier
+    - CD: Vercel
+  - バックエンド(実装中)
 
 クロスブラウザテスト
 - PC
