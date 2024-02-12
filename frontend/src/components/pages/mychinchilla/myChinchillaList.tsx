@@ -1,7 +1,8 @@
-import { useContext } from 'react'
 import Link from 'next/link'
-import { useMyChinchillas } from 'src/lib/api/chinchilla'
+import { useContext } from 'react'
+
 import { SelectedChinchillaIdContext } from 'src/contexts/chinchilla'
+import { useMyChinchillas } from 'src/lib/api/chinchilla'
 
 import type { MyChinchillaType } from 'src/types/chinchilla'
 

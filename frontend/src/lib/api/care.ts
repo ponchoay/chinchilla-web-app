@@ -1,6 +1,7 @@
+import { utcToZonedTime } from 'date-fns-tz'
 import Cookies from 'js-cookie'
 import useSWR from 'swr'
-import { utcToZonedTime } from 'date-fns-tz'
+
 import { client } from 'src/lib/api/client'
 
 import type {

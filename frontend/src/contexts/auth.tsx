@@ -1,9 +1,10 @@
 import { useState, useEffect, createContext, ReactNode } from 'react'
+
 import { getCurrentUser } from 'src/lib/api/auth'
 import { debugLog } from 'src/lib/debug/debugLog'
+import { defaultAuthContextValue } from 'src/types/auth'
 
 import type { AuthContextType } from 'src/types/auth'
-import { defaultAuthContextValue } from 'src/types/auth'
 
 type Props = { children: ReactNode }
 

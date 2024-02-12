@@ -1,9 +1,8 @@
+import { faAsterisk, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useController, FieldValues, UseControllerProps } from 'react-hook-form'
 
 import { useTogglePassword } from 'src/hooks/useTogglePassword'
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAsterisk, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 
 import type { RhfInputFormType } from 'src/types/rhf'
 

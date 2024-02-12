@@ -1,6 +1,6 @@
 // axios-case-converterは、snake_case / camelCaseを変換するため利用
-import applyCaseMiddleware from 'axios-case-converter'
 import axios from 'axios'
+import applyCaseMiddleware from 'axios-case-converter'
 
 // ヘッダーはケバブケースのままで良いので、適用を外す
 const options = {

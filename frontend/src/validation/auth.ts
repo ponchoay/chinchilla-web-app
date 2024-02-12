@@ -37,7 +37,7 @@ export const passwordChangeSchema = z
       .min(6, 'パスワードは6文字以上で入力してください')
       .refine((value) => !/\s/.test(value), 'スペースは使用できません')
       .refine((value) => !/[^\u0020-\u007E]+/.test(value), '全角文字は使用できません'),
-      password: z
+    password: z
       .string()
       .min(6, 'パスワードは6文字以上で入力してください')
       .refine((value) => !/\s/.test(value), 'スペースは使用できません')

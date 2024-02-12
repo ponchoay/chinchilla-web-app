@@ -1,20 +1,18 @@
-import { useContext, useRef, useCallback, useState } from 'react'
-import { useRouter } from 'next/router'
-import { createChinchilla } from 'src/lib/api/chinchilla'
-import { SelectedChinchillaIdContext } from 'src/contexts/chinchilla'
-
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { chinchillaRegistrationSchema } from 'src/validation/chinchilla'
-
-import { PageTitle } from 'src/components/shared/PageTittle'
-import { RhfInputForm } from 'src/components/shared/RhfInputForm'
-import { RhfInputChinchillaSexRadioForm } from 'src/components/shared/RhfInputChinchillaSexRadioForm'
-import { Button } from 'src/components/shared/Button'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCirclePlus } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useRouter } from 'next/router'
+import { useContext, useRef, useCallback, useState } from 'react'
+import { useForm } from 'react-hook-form'
 
+import { Button } from 'src/components/shared/Button'
+import { PageTitle } from 'src/components/shared/PageTittle'
+import { RhfInputChinchillaSexRadioForm } from 'src/components/shared/RhfInputChinchillaSexRadioForm'
+import { RhfInputForm } from 'src/components/shared/RhfInputForm'
+import { SelectedChinchillaIdContext } from 'src/contexts/chinchilla'
+import { createChinchilla } from 'src/lib/api/chinchilla'
 import { debugLog } from 'src/lib/debug/debugLog'
+import { chinchillaRegistrationSchema } from 'src/validation/chinchilla'
 
 import type { RhfCreateChinchillaType } from 'src/types/chinchilla'
 

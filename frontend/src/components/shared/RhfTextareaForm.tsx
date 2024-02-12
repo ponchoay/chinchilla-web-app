@@ -1,7 +1,6 @@
-import { useController, FieldValues, UseControllerProps } from 'react-hook-form'
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFilePen } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useController, FieldValues, UseControllerProps } from 'react-hook-form'
 
 import type { RhfTextareaFormType } from 'src/types/rhf'
 

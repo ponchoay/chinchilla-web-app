@@ -1,7 +1,8 @@
-import { useContext } from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCalendarDays, faHouse, faChartLine } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Link from 'next/link'
+import { useContext } from 'react'
+
 import { AuthContext } from 'src/contexts/auth'
 
 export const Footer = () => {

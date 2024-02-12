@@ -1,14 +1,12 @@
-import { useState, useContext } from 'react'
-import { useRouter } from 'next/router'
 import Cookies from 'js-cookie'
-import { deleteUser } from 'src/lib/api/auth'
-import { AuthContext } from 'src/contexts/auth'
-
-import { PageTitle } from 'src/components/shared/PageTittle'
-import { DeleteConfirmationModal } from 'src/components/shared/DeleteConfirmationModal'
+import { useRouter } from 'next/router'
+import { useState, useContext } from 'react'
 
 import { Button } from 'src/components/shared/Button'
-
+import { DeleteConfirmationModal } from 'src/components/shared/DeleteConfirmationModal'
+import { PageTitle } from 'src/components/shared/PageTittle'
+import { AuthContext } from 'src/contexts/auth'
+import { deleteUser } from 'src/lib/api/auth'
 import { debugLog } from 'src/lib/debug/debugLog'
 
 export const DeactivatePage = () => {

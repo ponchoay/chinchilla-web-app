@@ -1,6 +1,10 @@
 {
   // 共通
   "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": [
+    "source.addMissingImports",
+    "source.fixAll.eslint",
+  ],
   // frontend
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"

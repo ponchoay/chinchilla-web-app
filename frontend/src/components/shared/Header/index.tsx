@@ -1,16 +1,14 @@
-import { useContext, useState, useEffect } from 'react'
-import Link from 'next/link'
+import { faCircleUser } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { AxiosResponse } from 'axios'
-import { AuthContext } from 'src/contexts/auth'
-import { SelectedChinchillaIdContext } from 'src/contexts/chinchilla'
-import { getMyChinchillas } from 'src/lib/api/chinchilla'
+import Link from 'next/link'
+import { useContext, useState, useEffect } from 'react'
 
 import { DisplaySelectChinchilla } from 'src/components/shared/Header/DisplaySelectChinchilla'
 import { SelectChinchillaModal } from 'src/components/shared/Header/selectChinchillaModal'
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircleUser } from '@fortawesome/free-solid-svg-icons'
-
+import { AuthContext } from 'src/contexts/auth'
+import { SelectedChinchillaIdContext } from 'src/contexts/chinchilla'
+import { getMyChinchillas } from 'src/lib/api/chinchilla'
 import { debugLog } from 'src/lib/debug/debugLog'
 
 import type { MyChinchillaType } from 'src/types/chinchilla'

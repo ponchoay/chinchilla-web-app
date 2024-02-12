@@ -1,7 +1,8 @@
 import { createContext, useState, ReactNode } from 'react'
 
-import type { ChinchillaContextType } from 'src/types/chinchilla'
 import { defaultChinchillaContextValue } from 'src/types/chinchilla'
+
+import type { ChinchillaContextType } from 'src/types/chinchilla'
 
 type Props = { children: ReactNode }
 

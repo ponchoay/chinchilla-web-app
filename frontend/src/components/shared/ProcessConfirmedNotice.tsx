@@ -1,8 +1,8 @@
-import Link from 'next/link'
-import { Button } from 'src/components/shared/Button'
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Link from 'next/link'
+
+import { Button } from 'src/components/shared/Button'
 
 type Props = { process: string }
 

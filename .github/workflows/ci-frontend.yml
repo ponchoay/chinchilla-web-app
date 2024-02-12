@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - 'feature/**'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: |
+          cd frontend
+          npm install
+
+      - name: Run Prettier
+        run: |
+          cd frontend
+          npm run format
+
+      - name: Auto commit
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: Apply Prettier Changes
+
+      - name: Run ESLint
+        run: |
+          cd frontend
+          npm run lint
